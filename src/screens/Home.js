@@ -176,7 +176,7 @@ export default function Home() {
                             fontSize: 14,
                         }}
                     >
-                        9 West 46th Street, Russian Federation
+                        Los teques - centro comercial la cascada
                     </Text>
                 </View>
                 <View>
@@ -392,7 +392,7 @@ export default function Home() {
                             textTransform: "capitalize",
                         }}
                     >
-                        Popular Restaurants
+                        Tiendas más populares
                     </Text>
                 </View>
                 <FlatList
@@ -414,7 +414,7 @@ export default function Home() {
         return (
             <View style={{ paddingHorizontal: 30 }}>
                 <Heading
-                    title="Near By You"
+                    title="Cerca de ti"
                     containerStyle={{ paddingHorizontal: 0, marginBottom: 21 }}
                 />
 
