@@ -2,14 +2,13 @@ import {
     View,
     Text,
     SafeAreaView,
-    ScrollView,
     TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { Header, InputField, Button, Mail, Lock, Check } from "../components";
+import {  InputField, Button, Mail, Lock } from "../components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../constants";
 
 export default function SignIn() {
@@ -18,7 +17,6 @@ export default function SignIn() {
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-            <Header title="Sign In" onPress={() => navigation.goBack()} />
             <KeyboardAwareScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{
@@ -26,41 +24,23 @@ export default function SignIn() {
                     paddingHorizontal: 30,
                     alignItems: "center",
                     paddingTop: SIZES.paddingTop_02,
+                    marginTop: 80
                 }}
             >
-                <Text
-                    style={{
-                        fontSize: 22,
-                        marginBottom: 5,
-                        ...FONTS.Roboto_700Bold,
-                        color: COLORS.black2,
-                        textTransform: "capitalize",
-                        textAlign: "center",
-                        lineHeight: 22 * 1.2,
-                    }}
-                >
-                    Welcome Back Jhon!
-                </Text>
-                <Text
-                    style={{
-                        ...FONTS.Roboto_400Regular,
-                        fontSize: 16,
-                        color: COLORS.black,
-                        marginBottom: 37,
-                        color: COLORS.gray2,
-                        textAlign: "center",
-                    }}
-                >
-                    Sign in to continue
-                </Text>
+
+               <View style={{ justifyContent: 'center', marginBottom: 20}}>
+             
+                <Text style={{fontSize: 18}}>Inicio de sesión</Text>
+               </View>
+              
                 <InputField
                     contaynerStyle={{ marginBottom: 15 }}
-                    placeholder="johndoe@mail.com"
+                    placeholder="Correo"
                     leftIcon={<Mail />}
                 />
                 <InputField
                     leftIcon={<Lock />}
-                    placeholder="*********************"
+                    placeholder="Contraseña"
                     contaynerStyle={{ marginBottom: 37 }}
                     secureTextEntry={true}
                 />
@@ -69,12 +49,12 @@ export default function SignIn() {
                         width: "100%",
                         flexDirection: "row",
                         alignItems: "center",
-                        justifyContent: "space-between",
+                        justifyContent: "center",
                         paddingLeft: 20,
                         marginBottom: 18,
                     }}
                 >
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={{ flexDirection: "row", alignItems: "center" }}
                         onPress={() => setRemember(!remember)}
                     >
@@ -101,7 +81,7 @@ export default function SignIn() {
                         >
                             Remember me
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity
                         onPress={() => navigation.navigate("ForgotPassword")}
                     >
@@ -113,12 +93,12 @@ export default function SignIn() {
                                 paddingRight: 20,
                             }}
                         >
-                            Forgot password ?
+                            ¿Olvidó su contraseña?
                         </Text>
                     </TouchableOpacity>
                 </View>
                 <Button
-                    title="Sign in"
+                    title="Iniciar Sesión"
                     containerStyle={{ backgroundColor: COLORS.black2 }}
                     onPress={() => navigation.navigate("MainLayout")}
                 />
@@ -137,7 +117,7 @@ export default function SignIn() {
                             color: COLORS.black,
                         }}
                     >
-                        Already have not an account?
+                        ¿Aún no tiene cuenta?
                     </Text>
                     <TouchableOpacity
                         onPress={() => navigation.navigate("SignUp")}
@@ -146,11 +126,11 @@ export default function SignIn() {
                             style={{
                                 ...FONTS.Roboto_500Medium,
                                 fontSize: 16,
-                                color: COLORS.black2,
+                                color: COLORS.orange,
                             }}
                         >
                             {" "}
-                            Sing up!
+                            ¡Registrate!
                         </Text>
                     </TouchableOpacity>
                 </View>
