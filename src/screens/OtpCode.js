@@ -217,7 +217,7 @@ export default function OtpCode() {
                 </Text>
                 <Button
                     title="Verify Now"
-                    containerStyle={{ backgroundColor: COLORS.green }}
+                    containerStyle={{ backgroundColor: COLORS.black2 }}
                     onPress={() => navigation.navigate("AccountCreated")}
                 />
             </KeyboardAwareScrollView>

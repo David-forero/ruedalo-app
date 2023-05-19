@@ -133,7 +133,7 @@ export default function PaymentMethodOne() {
                             style={{
                                 ...FONTS.Roboto_700Bold,
                                 fontSize: 16,
-                                color: COLORS.green,
+                                color: COLORS.black2,
                                 marginBottom: 9,
                             }}
                         >

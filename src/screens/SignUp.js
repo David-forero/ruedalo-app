@@ -73,7 +73,7 @@ export default function SignUp() {
                                 height: 16,
                                 borderRadius: 3,
                                 borderWidth: 1,
-                                borderColor: COLORS.green,
+                                borderColor: COLORS.black2,
                                 marginRight: 8,
                                 justifyContent: "center",
                                 alignItems: "center",
@@ -100,7 +100,7 @@ export default function SignUp() {
                 <Button
                     title="Sign Up"
                     containerStyle={{
-                        backgroundColor: COLORS.green,
+                        backgroundColor: COLORS.black2,
                         marginBottom: 28,
                     }}
                     onPress={() => navigation.navigate("Selectlocation")}
@@ -129,7 +129,7 @@ export default function SignUp() {
                             style={{
                                 ...FONTS.Roboto_700Bold,
                                 fontSize: 16,
-                                color: COLORS.green,
+                                color: COLORS.black2,
                             }}
                         >
                             {" "}

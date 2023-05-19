@@ -111,7 +111,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                                 textAlign: "center",
                                 ...FONTS.Roboto_500Medium,
                                 fontSize: 12,
-                                color: COLORS.green,
+                                color: COLORS.black2,
                                 textTransform: "capitalize",
                             }}
                         >

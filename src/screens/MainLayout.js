@@ -49,7 +49,7 @@ export default function MainLayout() {
                                     width: "100%",
                                     tintColor:
                                         selectedTab == item.screen
-                                            ? COLORS.green
+                                            ? COLORS.black2
                                             : COLORS.gray2,
                                     marginBottom: 10,
                                 }}
@@ -62,7 +62,7 @@ export default function MainLayout() {
                                     lineHeight: 14 * 1,
                                     color:
                                         selectedTab == item.screen
-                                            ? COLORS.green
+                                            ? COLORS.black2
                                             : COLORS.gray2,
                                 }}
                             >

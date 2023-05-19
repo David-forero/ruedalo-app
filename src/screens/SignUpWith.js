@@ -24,7 +24,7 @@ export default function SignUp() {
                     style={{
                         ...FONTS.Roboto_700Bold,
                         fontSize: 22,
-                        color: COLORS.green,
+                        color: COLORS.black2,
                         textTransform: "capitalize",
                         marginBottom: 5,
                     }}

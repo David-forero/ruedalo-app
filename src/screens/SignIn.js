@@ -33,7 +33,7 @@ export default function SignIn() {
                         fontSize: 22,
                         marginBottom: 5,
                         ...FONTS.Roboto_700Bold,
-                        color: COLORS.green,
+                        color: COLORS.black2,
                         textTransform: "capitalize",
                         textAlign: "center",
                         lineHeight: 22 * 1.2,
@@ -84,7 +84,7 @@ export default function SignIn() {
                                 height: 16,
                                 borderRadius: 3,
                                 borderWidth: 1,
-                                borderColor: COLORS.green,
+                                borderColor: COLORS.black2,
                                 marginRight: 8,
                                 justifyContent: "center",
                                 alignItems: "center",
@@ -119,7 +119,7 @@ export default function SignIn() {
                 </View>
                 <Button
                     title="Sign in"
-                    containerStyle={{ backgroundColor: COLORS.green }}
+                    containerStyle={{ backgroundColor: COLORS.black2 }}
                     onPress={() => navigation.navigate("MainLayout")}
                 />
                 <View
@@ -146,7 +146,7 @@ export default function SignIn() {
                             style={{
                                 ...FONTS.Roboto_500Medium,
                                 fontSize: 16,
-                                color: COLORS.green,
+                                color: COLORS.black2,
                             }}
                         >
                             {" "}

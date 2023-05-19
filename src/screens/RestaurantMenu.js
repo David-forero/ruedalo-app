@@ -44,7 +44,7 @@ export default function RestaurantMenu() {
                                     height: 70,
                                     backgroundColor:
                                         selectCategory == index + 1
-                                            ? COLORS.green
+                                            ? COLORS.black2
                                             : COLORS.lightGreen,
                                     borderRadius: 35,
                                     justifyContent: "center",
@@ -75,7 +75,7 @@ export default function RestaurantMenu() {
                                     textTransform: "capitalize",
                                     color:
                                         selectCategory == item.id
-                                            ? COLORS.green
+                                            ? COLORS.black2
                                             : COLORS.gray2,
                                 }}
                             >

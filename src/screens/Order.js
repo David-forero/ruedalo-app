@@ -211,7 +211,7 @@ export default function Order() {
                                         style={{
                                             width: 24,
                                             height: 24,
-                                            backgroundColor: COLORS.green,
+                                            backgroundColor: COLORS.black2,
                                             borderRadius: 15,
                                             justifyContent: "center",
                                             alignItems: "center",

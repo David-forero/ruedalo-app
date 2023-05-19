@@ -48,7 +48,7 @@ export default function Selectlocation() {
                 />
                 <Button
                     title="No, I do it later"
-                    containerStyle={{ backgroundColor: COLORS.yellow }}
+                    containerStyle={{ backgroundColor: COLORS.orange }}
                     onPress={() => navigation.navigate("VerifyYourPhoneNumber")}
                 />
             </ScrollView>

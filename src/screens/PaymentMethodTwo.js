@@ -118,7 +118,7 @@ export default function PaymentMethodTwo() {
                                             borderWidth: 1,
                                             borderRadius: 7,
                                             marginRight: 15,
-                                            borderColor: COLORS.green,
+                                            borderColor: COLORS.black2,
                                             justifyContent: "center",
                                             alignItems: "center",
                                         }}
@@ -129,7 +129,7 @@ export default function PaymentMethodTwo() {
                                                     width: 9,
                                                     height: 9,
                                                     backgroundColor:
-                                                        COLORS.green,
+                                                        COLORS.black2,
                                                     borderRadius: 5,
                                                 }}
                                             />

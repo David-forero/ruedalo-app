@@ -25,7 +25,7 @@ export default function AccountCreated() {
                     style={{
                         ...FONTS.Roboto_700Bold,
                         fontSize: 22,
-                        color: COLORS.green,
+                        color: COLORS.black2,
                         textTransform: "capitalize",
                         textAlign: "center",
                         marginTop: 35,
@@ -50,7 +50,7 @@ export default function AccountCreated() {
                 </Text>
                 <Button
                     title="Take me to sign in"
-                    containerStyle={{ backgroundColor: COLORS.green }}
+                    containerStyle={{ backgroundColor: COLORS.black2 }}
                     onPress={() => navigation.navigate("SignIn")}
                 />
             </ScrollView>

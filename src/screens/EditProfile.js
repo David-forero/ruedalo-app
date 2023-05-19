@@ -85,7 +85,7 @@ export default function EditProfile() {
                 <Button
                     title="Update Now"
                     containerStyle={{
-                        backgroundColor: COLORS.green,
+                        backgroundColor: COLORS.black2,
                         marginBottom: 20,
                     }}
                     onPress={() => navigation.goBack()}
@@ -98,7 +98,7 @@ export default function EditProfile() {
                             ...FONTS.Roboto_400Regular,
                             fontSize: 16,
                             textAlign: "center",
-                            color: COLORS.green,
+                            color: COLORS.black2,
                         }}
                     >
                         Change Password

@@ -1,23 +1,23 @@
 const onboarding = [
     {
         id: "1",
-        title: "Welcome to Bitcoin",
+        title: "Busca tus repuestos más rápido",
         description:
-            "Reference site about Lorem Ipsum, giving information origins as well as a random",
+            "Podrás conseguir repuestos más facil sin necesidad de salir de casa",
         image: require("../assets/images/onboarding/01.png"),
     },
     {
         id: "2",
-        title: "Quick Food Delivery",
+        title: "Servicios para tu vehículo",
         description:
-            "Reference site about Lorem Ipsum, giving information origins as well as a random",
+            "Con nuestra app podrás conseguir servicios cercanos para tu vehículo",
         image: require("../assets/images/onboarding/02.png"),
     },
     {
         id: "3",
-        title: "Enjoy Your Meal",
+        title: "Reparaciones rápidas y eficientes en tu hogar",
         description:
-            "Reference site about Lorem Ipsum, giving information origins as well as a random",
+            "Nuestro equipo de profesionales realizará las reparaciones necesarias en la comodidad de tu hogar",
         image: require("../assets/images/onboarding/03.png"),
     },
 ];

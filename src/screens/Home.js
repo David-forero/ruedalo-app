@@ -117,7 +117,7 @@ export default function Home() {
                             height: 70,
                             backgroundColor:
                                 selectCategory == item.id
-                                    ? COLORS.green
+                                    ? COLORS.black2
                                     : COLORS.lightGreen,
                             borderRadius: 35,
                             justifyContent: "center",
@@ -148,7 +148,7 @@ export default function Home() {
                             textTransform: "capitalize",
                             color:
                                 selectCategory == item.id
-                                    ? COLORS.green
+                                    ? COLORS.black2
                                     : COLORS.gray2,
                         }}
                     >
@@ -506,7 +506,7 @@ export default function Home() {
                                             style={{
                                                 width: 4,
                                                 height: 4,
-                                                backgroundColor: COLORS.green,
+                                                backgroundColor: COLORS.black2,
                                                 borderRadius: 2,
                                                 marginHorizontal: 4,
                                             }}

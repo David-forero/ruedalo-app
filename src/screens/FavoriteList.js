@@ -182,7 +182,7 @@ export default function FavoriteList() {
                                                     width: 20,
                                                     height: 20,
                                                     backgroundColor:
-                                                        COLORS.green,
+                                                        COLORS.black2,
                                                     borderRadius: 10,
                                                     justifyContent: "center",
                                                     alignItems: "center",
@@ -278,7 +278,7 @@ export default function FavoriteList() {
                             style={{
                                 width: 130,
                                 height: 40,
-                                backgroundColor: COLORS.green,
+                                backgroundColor: COLORS.black2,
                                 borderRadius: 10,
                                 justifyContent: "center",
                                 alignItems: "center",

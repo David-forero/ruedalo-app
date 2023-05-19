@@ -23,7 +23,7 @@ function renderContent() {
                 style={{
                     ...FONTS.Roboto_700Bold,
                     fontSize: 20,
-                    color: COLORS.green,
+                    color: COLORS.black2,
                     textTransform: "capitalize",
                     marginBottom: 5,
                 }}
@@ -41,7 +41,7 @@ function renderContent() {
                 Looks like you haven't made your order yet.
             </Text>
             <Button
-                containerStyle={{ backgroundColor: COLORS.green }}
+                containerStyle={{ backgroundColor: COLORS.black2 }}
                 title="Shop now"
             />
         </ScrollView>

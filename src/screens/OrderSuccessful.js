@@ -24,7 +24,7 @@ export default function OrderSuccessful() {
                         ...FONTS.Roboto_700Bold,
                         fontSize: 22,
                         textTransform: "capitalize",
-                        color: COLORS.green,
+                        color: COLORS.black2,
                         marginBottom: 10,
                     }}
                 >
@@ -48,7 +48,7 @@ export default function OrderSuccessful() {
                 <Button
                     title="Continue Shopping"
                     containerStyle={{ backgroundColor: COLORS.lightGreen }}
-                    textStyle={{ color: COLORS.green }}
+                    textStyle={{ color: COLORS.black2 }}
                 />
             </ScrollView>
         </SafeAreaView>

@@ -88,7 +88,7 @@ export default function OnBoarding() {
                                     borderTopRightRadius: 30,
                                     borderTopLeftRadius: 30,
                                     overflow: "hidden",
-                                    backgroundColor: COLORS.green,
+                                    backgroundColor: COLORS.black2,
                                     paddingTop: SIZES.height / 20,
                                     paddingBottom: SIZES.height / 30,
                                     paddingHorizontal: 40,
@@ -123,7 +123,7 @@ export default function OnBoarding() {
                                     title="Get Started"
                                     containerStyle={{
                                         marginBottom: SIZES.height / 26,
-                                        backgroundColor: COLORS.yellow,
+                                        backgroundColor: COLORS.orange,
                                     }}
                                     onPress={() =>
                                         navigation.navigate("SignIn")

@@ -48,7 +48,7 @@ export default function OrderHistoryCategory({ item, type }) {
                         style={{
                             width: 8,
                             height: 8,
-                            backgroundColor: COLORS.yellow,
+                            backgroundColor: COLORS.orange,
                             borderRadius: 5,
                         }}
                     />
@@ -126,7 +126,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                 style={{
                                     width: 8,
                                     height: 8,
-                                    backgroundColor: COLORS.green,
+                                    backgroundColor: COLORS.black2,
                                     borderRadius: 4,
                                     marginRight: 5,
                                 }}
@@ -136,7 +136,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                     style={{
                                         ...FONTS.Roboto_400Regular,
                                         fontSize: 13,
-                                        color: COLORS.green,
+                                        color: COLORS.black2,
                                     }}
                                 >
                                     Upcoming
@@ -146,7 +146,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                     style={{
                                         ...FONTS.Roboto_400Regular,
                                         fontSize: 13,
-                                        color: COLORS.green,
+                                        color: COLORS.black2,
                                     }}
                                 >
                                     Completed
@@ -158,7 +158,7 @@ export default function OrderHistoryCategory({ item, type }) {
                     {type == "completed" && (
                         <TouchableOpacity
                             style={{
-                                backgroundColor: COLORS.green,
+                                backgroundColor: COLORS.black2,
                                 borderRadius: 12,
                             }}
                         >

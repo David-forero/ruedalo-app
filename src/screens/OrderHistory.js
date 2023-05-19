@@ -31,7 +31,7 @@ export default function OrderHistory() {
                         width: "48%",
                         backgroundColor:
                             category == "upcoming"
-                                ? COLORS.green
+                                ? COLORS.black2
                                 : COLORS.lightGreen,
                         justifyContent: "center",
                         alignItems: "center",
@@ -46,7 +46,7 @@ export default function OrderHistory() {
                             color:
                                 category == "upcoming"
                                     ? COLORS.white
-                                    : COLORS.green,
+                                    : COLORS.black2,
                         }}
                     >
                         Upcoming
@@ -58,7 +58,7 @@ export default function OrderHistory() {
                         width: "48%",
                         backgroundColor:
                             category == "history"
-                                ? COLORS.yellow
+                                ? COLORS.orange
                                 : COLORS.lightYellow,
                         justifyContent: "center",
                         alignItems: "center",
@@ -73,7 +73,7 @@ export default function OrderHistory() {
                             color:
                                 category == "history"
                                     ? COLORS.white
-                                    : COLORS.yellow,
+                                    : COLORS.orange,
                         }}
                     >
                         History
