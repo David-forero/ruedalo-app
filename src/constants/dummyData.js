@@ -112,7 +112,7 @@ const dummyData = [
     },
     {
         id: "2",
-        name: "Toyota La MAcarena",
+        name: "Toyota La Macarena",
         tags: [
             {
                 id: 1,

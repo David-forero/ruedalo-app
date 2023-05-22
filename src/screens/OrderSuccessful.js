@@ -47,7 +47,7 @@ export default function OrderSuccessful() {
                 />
                 <Button
                     title="Continue Shopping"
-                    containerStyle={{ backgroundColor: COLORS.lightGreen }}
+                    containerStyle={{ backgroundColor: COLORS.lightOrange }}
                     textStyle={{ color: COLORS.black2 }}
                 />
             </ScrollView>

@@ -30,7 +30,7 @@ import { COLORS, SAFEAREAVIEW, FONTS, SIZES } from "../constants";
 const dishes = [
     {
         id: "1",
-        name: "Caramel cake with beries",
+        name: "SAAAAS",
         compound: "Sells food, either fresh, specie, chili",
         presentationImage: require("../assets/images/dishes/dish-01-01.png"),
         popularDeal: true,
@@ -58,7 +58,7 @@ const dishes = [
         description:
             "Qui ex aute ipsum duis. Incididunt adipisicing voluptate laborum",
         weight: 350,
-        qty: 1,
+        qty: 2,
     },
     {
         id: "3",

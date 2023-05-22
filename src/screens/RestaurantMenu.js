@@ -6,6 +6,7 @@ import {
     ScrollView,
     FlatList,
     Image,
+    StyleSheet
 } from "react-native";
 import React, { useState } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
@@ -24,147 +25,82 @@ export default function RestaurantMenu() {
     const route = useRoute();
     const navigation = useNavigation();
     const { restaurant, dishes } = route.params;
+    console.log(restaurant.image, '🔥');
 
-    function renderCategories() {
-        return (
-            <View style={{ marginBottom: 40, marginTop: 30 }}>
-                <FlatList
-                    data={category}
-                    contentContainerStyle={{ paddingLeft: 30 }}
-                    showsHorizontalScrollIndicator={false}
-                    horizontal={true}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item, index }) => (
-                        <TouchableOpacity
-                            onPress={() => setSelectCategory(index + 1)}
-                        >
-                            <View
-                                style={{
-                                    width: 70,
-                                    height: 70,
-                                    backgroundColor:
-                                        selectCategory == index + 1
-                                            ? COLORS.black2
-                                            : COLORS.lightGreen,
-                                    borderRadius: 35,
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    marginHorizontal: 7,
-                                    marginLeft: index === 0 ? 0 : 7,
-                                    marginBottom: 11,
-                                }}
-                            >
-                                <Image
-                                    source={item.image}
-                                    style={{
-                                        height: 35,
-                                        width: "100%",
-                                        tintColor:
-                                            selectCategory == item.id
-                                                ? COLORS.white
-                                                : COLORS.gray2,
-                                    }}
-                                    resizeMode="contain"
-                                />
-                            </View>
-                            <Text
-                                style={{
-                                    textAlign: "center",
-                                    ...FONTS.Roboto_500Medium,
-                                    fontSize: 14,
-                                    textTransform: "capitalize",
-                                    color:
-                                        selectCategory == item.id
-                                            ? COLORS.black2
-                                            : COLORS.gray2,
-                                }}
-                            >
-                                {item.name}
-                            </Text>
-                        </TouchableOpacity>
-                    )}
-                />
-            </View>
-        );
-    }
 
-    function renderPopularDeal() {
-        return (
-            <View>
-                <Heading title="Popular Deal" />
-                <FlatList
-                    contentContainerStyle={{
-                        paddingLeft: 30,
-                        paddingBottom: 30,
-                        paddingTop: 21,
-                    }}
-                    data={dishes}
-                    keyExtractor={(item) => item.id}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item, index }) =>
-                        item.popularDeal === true && (
-                            <ItemComponentOne
-                                item={item}
-                                onPress={() =>
-                                    navigation.navigate("FoodDetails", {
-                                        dish: item,
-                                        dishes: dishes,
-                                    })
-                                }
-                            />
-                        )
-                    }
-                />
-            </View>
-        );
-    }
-
-    function renderBestMeal() {
-        return (
-            <View>
-                <Heading title="Best Meal" />
-                <FlatList
-                    contentContainerStyle={{
-                        paddingLeft: 30,
-                        paddingVertical: 21,
-                    }}
-                    data={dishes}
-                    keyExtractor={(item) => item.id}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    renderItem={({ item, index }) =>
-                        item.bestMeal === true && (
-                            <ItemComponentTwo
-                                item={item}
-                                onPress={() =>
-                                    navigation.navigate("FoodDetails", {
-                                        dish: item,
-                                        dishes: dishes,
-                                    })
-                                }
-                            />
-                        )
-                    }
-                />
-            </View>
-        );
-    }
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <Header
-                title="Restaurant menu"
+                title="Catálogo de producos"
                 onPress={() => navigation.goBack()}
             />
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ flexGrow: 1 }}
-            >
-                {renderCategories()}
-                {renderPopularDeal()}
-                {renderBestMeal()}
-            </ScrollView>
+            <Image source={restaurant.image} style={styles.image} className="rounded-b-lg" />
+
+            <View style={styles.container}>
+                <View className="flex-row justify-between items-center mb-2">
+                    <Text className="text-gray-700 font-bold text-lg" >{restaurant.name}</Text>
+                    <View className="bg-green-300 p-2 rounded-full">
+                        <Text className="text-green-600 text-[12px] font-semibold">
+                        Abierto
+                        </Text>
+                    </View>
+                </View>
+
+                <View>
+                    <Text className="text-gray-500 text-sm">
+                        {restaurant.description}
+                    </Text>
+                </View>
+                {/* <Text style={styles.subtitle}>
+                    ${restaurant.deliveryFee.toFixed(1)} &#8226; {restaurant.minDeliveryTime}-
+                    {restaurant.maxDeliveryTime} minutes
+                </Text> */}
+
+                {/* <Text style={styles.menuTile}>Menu</Text> */}
+            </View>
         </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        margin: 10,
+    },
+    button: {
+        backgroundColor: "black",
+        marginTop: "auto",
+        padding: 20,
+        alignItems: "center",
+        margin: 10,
+    },
+    buttonText: {
+        color: "white",
+        fontWeight: "600",
+        fontSize: 18,
+    },
+    image: {
+        width: "100%",
+        height: 200
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: "600",
+        marginVertical: 5,
+    },
+    subtitle: {
+        color: "#525252",
+        fontSize: 15,
+    },
+    iconContainer: {
+        position: "absolute",
+        top: 40,
+        left: 10,
+    },
+    menuTitle: {
+        marginTop: 20,
+        marginVertical: 10,
+        fontSize: 16,
+        letterSpacing: 0.7
+    }
+});

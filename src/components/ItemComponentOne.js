@@ -101,7 +101,7 @@ export default function ItemComponentOne({ item, onPress }) {
                     style={{
                         width: 128,
                         height: 32,
-                        backgroundColor: COLORS.lightGreen,
+                        backgroundColor: COLORS.lightOrange,
                         borderRadius: 5,
                         justifyContent: "center",
                         alignItems: "center",

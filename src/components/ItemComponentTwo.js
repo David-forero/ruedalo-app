@@ -92,7 +92,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                         style={{
                             height: 32,
                             width: "100%",
-                            backgroundColor: COLORS.lightGreen,
+                            backgroundColor: COLORS.lightOrange,
                             justifyContent: "center",
                             alignItems: "center",
                             textTransform: "capitalize",

@@ -32,7 +32,7 @@ export default function OrderHistory() {
                         backgroundColor:
                             category == "upcoming"
                                 ? COLORS.black2
-                                : COLORS.lightGreen,
+                                : COLORS.lightOrange,
                         justifyContent: "center",
                         alignItems: "center",
                         borderRadius: 10,

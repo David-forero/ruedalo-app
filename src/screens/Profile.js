@@ -104,13 +104,13 @@ export default function Profile() {
                     title="Orders History"
                     subtitle="Review your order history"
                     onPress={() => navigation.navigate("OrderHistory")}
-                    iconBgColor={COLORS.lightGreen}
+                    iconBgColor={COLORS.lightOrange}
                 />
                 <ProfileCategory
                     icon={require("../assets/icons/payment.png")}
                     title="Payment Method"
                     subtitle="Select Payment Method"
-                    iconBgColor={COLORS.lightGreen}
+                    iconBgColor={COLORS.lightOrange}
                     onPress={() => navigation.navigate("PaymentMethodTwo")}
                 />
                 <ProfileCategory

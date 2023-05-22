@@ -27,6 +27,7 @@ import {
     HeartTwo,
     Heading,
 } from "../components";
+import SliderBanner from "../common/components/SliderBanner";
 
 export default function Home() {
     const navigation = useNavigation();
@@ -36,17 +37,29 @@ export default function Home() {
         return (
             <View
                 style={{
-                    flexDirection: "row",
-                    alignItems: "center",
                     marginTop: 10,
-                    marginBottom: 38,
-                    paddingHorizontal: 30,
+                    paddingLeft: 20
                 }}
             >
+
+                <View
+                   className="ml-3 flex-row mt-3 mb-4"
+                >
+                    <Pin />
+                    <Text
+                        style={{
+                            marginLeft: 12,
+                            ...FONTS.Roboto_400Regular,
+                            fontSize: 14,
+                        }}
+                    >
+                        Los teques - centro comercial la cascada
+                    </Text>
+                </View>
+
                 <View
                     style={{
-                        height: 50,
-                        backgroundColor: COLORS.lightGreen,
+                        height: 40,
                         borderRadius: 10,
                         flex: 1,
                         marginRight: 22,
@@ -54,10 +67,11 @@ export default function Home() {
                         flexDirection: "row",
                         paddingLeft: 14,
                     }}
+                    className="bg-gray-100"
                 >
                     {/* <Search /> */}
                     <TextInput
-                        placeholder="Search"
+                        placeholder="Buscar..."
                         style={{ flex: 1, paddingLeft: 7 }}
                     />
                     <TouchableOpacity
@@ -70,12 +84,12 @@ export default function Home() {
                         <Filter />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     style={{
                         width: 50,
                         height: 50,
                         borderRadius: 25,
-                        backgroundColor: COLORS.lightGreen,
+                        backgroundColor: COLORS.lightOrange,
                         justifyContent: "center",
                         alignItems: "center",
                     }}
@@ -102,7 +116,7 @@ export default function Home() {
                             4
                         </Text>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
         );
     }
@@ -111,31 +125,31 @@ export default function Home() {
         function categories(item, index) {
             return (
                 <TouchableOpacity onPress={() => setSelectCategory(item.id)}>
-                    <View
+                   <View style={{marginLeft: index === 0 ? 0 : 20}} >
+                   <View
+                   className="bg-gray-100"
                         style={{
-                            width: 70,
-                            height: 70,
-                            backgroundColor:
-                                selectCategory == item.id
-                                    ? COLORS.black2
-                                    : COLORS.lightGreen,
+                            width: 48,
+                            height: 48,
+                                // selectCategory == item.id
+                                //     ? COLORS.black2
+                                //     : COLORS.lightOrange,
                             borderRadius: 35,
                             justifyContent: "center",
                             alignItems: "center",
                             marginHorizontal: 7,
-                            marginLeft: index === 0 ? 0 : 7,
                             marginBottom: 11,
                         }}
                     >
                         <Image
                             source={item.image}
                             style={{
-                                height: 35,
+                                height: 28,
                                 width: "100%",
-                                tintColor:
-                                    selectCategory == item.id
-                                        ? COLORS.white
-                                        : COLORS.gray2,
+                                // tintColor:
+                                //     selectCategory == item.id
+                                //         ? COLORS.white
+                                //         : COLORS.gray2,
                             }}
                             resizeMode="contain"
                         />
@@ -154,31 +168,14 @@ export default function Home() {
                     >
                         {item.name}
                     </Text>
+                   </View>
                 </TouchableOpacity>
             );
         }
 
         return (
             <View style={{ marginBottom: 40 }}>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        marginBottom: 24,
-                        paddingHorizontal: 30,
-                    }}
-                >
-                    <Pin />
-                    <Text
-                        style={{
-                            marginLeft: 12,
-                            ...FONTS.Roboto_400Regular,
-                            fontSize: 14,
-                        }}
-                    >
-                        Los teques - centro comercial la cascada
-                    </Text>
-                </View>
+
                 <View>
                     <FlatList
                         data={category}
@@ -565,6 +562,9 @@ export default function Home() {
                 contentContainerStyle={{ paddingBottom: 10 }}
             >
                 {renderHeader()}
+
+                <SliderBanner/>
+
                 {renderCategories()}
                 {renderPopularRestaurants()}
                 {renderNearByYou()}

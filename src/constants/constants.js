@@ -48,33 +48,33 @@ const tabs = [
 const category = [
     {
         id: "1",
-        name: "cake",
-        image: require("../assets/icons/cake.png"),
+        name: "Cauchos",
+        image: require("../assets/icons/categories/llanta.png"),
     },
     {
         id: "2",
-        name: "food",
-        image: require("../assets/icons/food.png"),
+        name: "Motor",
+        image: require("../assets/icons/categories/motor.png"),
     },
     {
         id: "3",
-        name: "drinks",
-        image: require("../assets/icons/drinks.png"),
+        name: "Frenos",
+        image: require("../assets/icons/categories/disco-frenos.png"),
     },
     {
         id: "4",
-        name: "snacks",
-        image: require("../assets/icons/snacks.png"),
+        name: "Aceites",
+        image: require("../assets/icons/categories/aceite-de-motor.png"),
     },
     {
         id: "5",
-        name: "cake",
-        image: require("../assets/icons/cake.png"),
+        name: "Carroceria",
+        image: require("../assets/icons/categories/cerradura-de-la-puerta.png"),
     },
     {
         id: "6",
-        name: "food",
-        image: require("../assets/icons/food.png"),
+        name: "Kits",
+        image: require("../assets/icons/categories/caja-de-herramientas.png"),
     },
 ];
 
