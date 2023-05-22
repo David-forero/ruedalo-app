@@ -49,7 +49,7 @@ const SliderBanner = ({data, autoPlay = true, isVertical = false }) => {
     >
       <Carousel
         {...baseOptions}
-        className="h-[170px]"
+        className="h-[155px]"
         loop
         // pagingEnabled={true}
         snapEnabled={snapEnabled}

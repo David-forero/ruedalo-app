@@ -53,7 +53,8 @@ export default function Home() {
                             fontSize: 14,
                         }}
                     >
-                        Los teques - centro comercial la cascada
+{/* story.user.length > 11 ? story.user.slice(0, 10).toLowerCase() + '...' : story.user.toLowerCase() */}
+                        Los teques - centro comercial la casc...
                     </Text>
                 </View>
 
