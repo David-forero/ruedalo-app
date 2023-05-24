@@ -1,5 +1,6 @@
 /* SVG */
 import Home from "./svg/Home";
+import Google from './svg/Google';
 import Triangle from "./svg/Triangle";
 import CircleOne from "./svg/CircleOne";
 import CircleTwo from "./svg/CircleTwo";
@@ -125,4 +126,5 @@ export {
     HeartTwo,
     QuestionOpen,
     QuestionClose,
+    Google
 };

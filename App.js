@@ -4,6 +4,12 @@ import { useFonts } from "expo-font";
 
 import AppNavigation from "./src/navigation/AppNavigation";
 
+//Context 🔎
+import AuthProvider from "./src/context/AuthContext";
+// import BasketProvider from "./context/BasketContext";
+// import OrderProvider from "./context/OrderContext";
+// import FurnitureProvider from "./context/FurnitureContext";
+
 export default function App() {
     let [fontsLoaded] = useFonts({
         Roboto_400Regular: require("./src/assets/fonts/Roboto-Regular.ttf"),
@@ -14,6 +20,10 @@ export default function App() {
     if (!fontsLoaded) {
         return <AppLoading />;
     } else {
-        return <AppNavigation />;
+        return (
+            <AuthProvider>
+                <AppNavigation />
+            </AuthProvider>
+        );
     }
 }

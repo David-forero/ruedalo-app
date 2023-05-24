@@ -25,7 +25,12 @@
       "package": "com.daele.repuestosya"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "YOUR_WEB_CLIENT_ID"
+        }
+      }
     },
     "extra": {
       "eas": {
