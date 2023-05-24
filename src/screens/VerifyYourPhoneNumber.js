@@ -21,7 +21,7 @@ export default function VerifyYourPhoneNumber() {
                 }}
                 showsVerticalScrollIndicator={false}
             >
-                <Text style={{ ...FONTS.H2, marginBottom: 10 }}>Verify</Text>
+                <Text style={{ ...FONTS.H2, marginBottom: 10 }}>Verificar</Text>
                 <Text
                     style={{
                         ...FONTS.H4,
@@ -29,7 +29,7 @@ export default function VerifyYourPhoneNumber() {
                         marginBottom: 27,
                     }}
                 >
-                    We have sent you an SMS with a code to number +17 0123456789
+                    Nosotros te enviaremos un SMS con un codigo a tu número de teléfono
                 </Text>
                 <PhoneInput
                     style={{
@@ -45,7 +45,7 @@ export default function VerifyYourPhoneNumber() {
                     initialCountry={"us"}
                 />
                 <Button
-                    title="Confirm"
+                    title="Confirmar"
                     onPress={() => navigation.navigate("OtpCode")}
                 />
             </KeyboardAwareScrollView>
@@ -55,7 +55,7 @@ export default function VerifyYourPhoneNumber() {
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <Header
-                title="Verify Your Phone Number"
+                title="Verifica tu número de teléfono"
                 onPress={() => navigation.goBack()}
             />
             {renderContent()}

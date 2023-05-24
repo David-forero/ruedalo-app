@@ -1,12 +1,31 @@
 import { View, Text, ScrollView, SafeAreaView, Image } from "react-native";
-import React from "react";
+import React, {useEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
+import * as Location from 'expo-location';
 
 import { Header, Button } from "../components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../constants";
 
 export default function Selectlocation() {
     const navigation = useNavigation();
+
+    const getLocationPermission = async () => {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+            console.log('Permiso de ubicación denegado');
+            return;
+        }
+        // Permiso de ubicación concedido
+        try {
+            const location = await Location.getCurrentPositionAsync({});
+            const { latitude, longitude } = location.coords;
+            console.log('Ubicación actual:', latitude, longitude);
+            navigation.navigate("VerifyYourPhoneNumber")
+          } catch (error) {
+            console.log('Error al obtener la ubicación:', error);
+          }
+    };
+
 
     function renderContent() {
         return (
@@ -39,17 +58,14 @@ export default function Selectlocation() {
                         fontSize: 16,
                     }}
                 >
-                    Set your location to start exploring restaurants around you
+                    Activa tu modo localización para que puedas ver las tiendas mas cercanas
                 </Text>
+
                 <Button
-                    title="Enable Location"
-                    containerStyle={{ marginBottom: 15 }}
-                    onPress={() => navigation.navigate("VerifyYourPhoneNumber")}
-                />
-                <Button
-                    title="No, I do it later"
+                    title="Dar permiso"
                     containerStyle={{ backgroundColor: COLORS.orange }}
-                    onPress={() => navigation.navigate("VerifyYourPhoneNumber")}
+                    onPress={getLocationPermission}
+                    // onPress={() => navigation.navigate("VerifyYourPhoneNumber")}
                 />
             </ScrollView>
         );

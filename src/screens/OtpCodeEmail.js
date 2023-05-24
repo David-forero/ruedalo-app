@@ -51,7 +51,7 @@ export default function OtpCode() {
                 <Text
                     style={{ color: COLORS.carrot, ...FONTS.Roboto_400Regular }}
                 >
-                    (+58) 412 801 9009
+                    david.forero1813@gmail.com
                 </Text>
                 <View
                     style={{

@@ -37,14 +37,13 @@ export default function ForgotPassword() {
                         lineHeight: 16 * 1.5,
                     }}
                 >
-                    Please enter your email address. You will receive a link to
-                    create a new password via email.
+                    Por favor escriba su correo. Recibirá un enlace para crear la nueva contraseña.
                 </Text>
                 <InputField
-                    placeholder="Email Address"
+                    placeholder="Correo"
                     contaynerStyle={{ marginBottom: 30 }}
                 />
-                <Button title="Send" onPress={() => setShowModal(true)} />
+                <Button title="Enviar" onPress={() => setShowModal(true)} />
             </KeyboardAwareScrollView>
         );
     }
@@ -85,7 +84,7 @@ export default function ForgotPassword() {
                                 fontSize: 20,
                             }}
                         >
-                            Password Reset Email Sent
+                           Se ha enviado la clave a tu correo
                         </Text>
                     </View>
                     <View
@@ -100,8 +99,7 @@ export default function ForgotPassword() {
                                 fontSize: 14,
                             }}
                         >
-                            An email has been sent to you Follow direction in
-                            the email to reset password
+                          Se le ha enviado un correo electrónico Siga las instrucciones en el correo electrónico para restablecer la contraseña
                         </Text>
                         <TouchableOpacity
                             style={{
@@ -138,7 +136,7 @@ export default function ForgotPassword() {
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <Header
-                title="Forgot Password"
+                title="Resetear Contraseña"
                 onPress={() => navigation.goBack()}
             />
             {renderContent()}

@@ -1,14 +1,15 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
-
+import { Picker } from '@react-native-picker/picker';
 import { Header, InputField, Button, Check, Camera } from "../components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../constants";
 
 export default function SignUp() {
     const navigation = useNavigation();
     const [remember, setRemember] = useState(false);
+    const [selectedLanguage, setSelectedLanguage] = useState();
 
     function renderContent() {
         return (
@@ -21,7 +22,7 @@ export default function SignUp() {
                     paddingVertical: SIZES.paddingVertical,
                 }}
             >
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     style={{
                         width: 99,
                         height: 99,
@@ -33,25 +34,59 @@ export default function SignUp() {
                     }}
                 >
                     <Camera />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <InputField
-                    placeholder="Full Name"
+                    placeholder="Nombre y Apellido"
+                    contaynerStyle={{ marginBottom: 13 }}
+                />
+
+              
+
+                <Picker
+                    style={{
+                        width: "100%",
+                        height: 50,
+                        backgroundColor: COLORS.lightGray,
+                        borderRadius: 20,
+                        alignItems: "center",
+                        flexDirection: "row",
+                        paddingHorizontal: 20,
+                        marginBottom: 13
+                    }}
+                    mode="dropdown"
+                    selectedValue={selectedLanguage}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setSelectedLanguage(itemValue)
+                    }>
+                    <Picker.Item style={{color: COLORS.gray2, marginLeft: 10}} label="Venezuela" value="ve" />
+                    <Picker.Item style={{color: COLORS.gray2, marginLeft: 10}} label="Colombia" value="co" />
+                    <Picker.Item style={{color: COLORS.gray2, marginLeft: 10}} label="Ecuador" value="ec" />
+                    <Picker.Item style={{color: COLORS.gray2, marginLeft: 10}} label="Perú" value="pe" />
+                    <Picker.Item style={{color: COLORS.gray2, marginLeft: 10}} label="Chile" value="ch" />
+                </Picker>
+
+             
+                <InputField
+                    placeholder="Estado"
+                    contaynerStyle={{ marginBottom: 13 }}
+                />
+
+                <InputField
+                    placeholder="Ciudad"
+                    contaynerStyle={{ marginBottom: 13 }}
+                />
+
+                <InputField
+                    placeholder="Correo"
+                    contaynerStyle={{ marginBottom: 13 }}
+                />
+
+                <InputField
+                    placeholder="Contraseña"
                     contaynerStyle={{ marginBottom: 13 }}
                 />
                 <InputField
-                    placeholder="Phone Number"
-                    contaynerStyle={{ marginBottom: 13 }}
-                />
-                <InputField
-                    placeholder="Email"
-                    contaynerStyle={{ marginBottom: 13 }}
-                />
-                <InputField
-                    placeholder="Password"
-                    contaynerStyle={{ marginBottom: 13 }}
-                />
-                <InputField
-                    placeholder="Confirm Password"
+                    placeholder="Confirmar Contraseña"
                     contaynerStyle={{ marginBottom: 37 }}
                 />
                 <View
@@ -59,7 +94,7 @@ export default function SignUp() {
                         width: "100%",
                     }}
                 >
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={{
                             flexDirection: "row",
                             marginBottom: 18,
@@ -94,11 +129,11 @@ export default function SignUp() {
                                 You agree to our Terms of Service
                             </Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
 
                 <Button
-                    title="Sign Up"
+                    title="Crear Cuenta"
                     containerStyle={{
                         backgroundColor: COLORS.black2,
                         marginBottom: 28,
@@ -120,7 +155,7 @@ export default function SignUp() {
                             color: COLORS.black,
                         }}
                     >
-                        Already have an account?
+                        ¿Ya tienes cuenta?
                     </Text>
                     <TouchableOpacity
                         onPress={() => navigation.navigate("SignIn")}
@@ -129,11 +164,11 @@ export default function SignUp() {
                             style={{
                                 ...FONTS.Roboto_700Bold,
                                 fontSize: 16,
-                                color: COLORS.black2,
+                                color: COLORS.orange,
                             }}
                         >
                             {" "}
-                            Sign in!
+                            ¡Entra aquí!
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -143,7 +178,7 @@ export default function SignUp() {
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-            <Header title="Sign Un" onPress={() => navigation.goBack()} />
+            <Header title="Registro" onPress={() => navigation.goBack()} />
             {renderContent()}
         </SafeAreaView>
     );

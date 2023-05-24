@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import {  InputField, Button, Mail, Lock } from "../components";
+import { InputField, Button, Mail, Lock, Google } from "../components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../constants";
 
 export default function SignIn() {
@@ -28,11 +28,11 @@ export default function SignIn() {
                 }}
             >
 
-               <View style={{ justifyContent: 'center', marginBottom: 20}}>
-             
-                <Text style={{fontSize: 18}}>Inicio de sesión</Text>
-               </View>
-              
+                <View style={{ justifyContent: 'center', marginBottom: 20 }}>
+
+                    <Text style={{ fontSize: 18 }}>Inicio de sesión</Text>
+                </View>
+
                 <InputField
                     contaynerStyle={{ marginBottom: 15 }}
                     placeholder="Correo"
@@ -54,34 +54,7 @@ export default function SignIn() {
                         marginBottom: 18,
                     }}
                 >
-                    {/* <TouchableOpacity
-                        style={{ flexDirection: "row", alignItems: "center" }}
-                        onPress={() => setRemember(!remember)}
-                    >
-                        <View
-                            style={{
-                                width: 16,
-                                height: 16,
-                                borderRadius: 3,
-                                borderWidth: 1,
-                                borderColor: COLORS.black2,
-                                marginRight: 8,
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}
-                        >
-                            {remember && <Check />}
-                        </View>
-                        <Text
-                            style={{
-                                ...FONTS.Roboto_400Regular,
-                                fontSize: 16,
-                                color: COLORS.black,
-                            }}
-                        >
-                            Remember me
-                        </Text>
-                    </TouchableOpacity> */}
+                  
                     <TouchableOpacity
                         onPress={() => navigation.navigate("ForgotPassword")}
                     >
@@ -102,6 +75,29 @@ export default function SignIn() {
                     containerStyle={{ backgroundColor: COLORS.black2 }}
                     onPress={() => navigation.navigate("MainLayout")}
                 />
+
+                <TouchableOpacity
+                    className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
+                // onPress={onPress}
+                >
+                    <Google width={25} height={25} />
+                    <Text
+                        style={{
+                            textAlign: "center",
+                            color: 'white',
+                            fontSize: 16,
+                            color: COLORS.white,
+                            textTransform: "capitalize",
+                        }}
+                    >
+                        Iniciar con Google
+                    </Text>
+
+                    <View className="w-4 h-4">
+
+                    </View>
+                </TouchableOpacity>
+
                 <View
                     style={{
                         flexDirection: "row",
