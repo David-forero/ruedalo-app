@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import * as Location from 'expo-location';
 
 import { Header, Button } from "../components";
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../constants";
+import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 
 export default function Selectlocation() {
     const navigation = useNavigation();

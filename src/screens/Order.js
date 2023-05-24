@@ -25,7 +25,7 @@ import {
     InputField,
     BasketTwo,
 } from "../components";
-import { COLORS, SAFEAREAVIEW, FONTS, SIZES } from "../constants";
+import { COLORS, SAFEAREAVIEW, FONTS, SIZES } from "../common/constants";
 
 const dishes = [
     {

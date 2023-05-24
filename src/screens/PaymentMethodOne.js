@@ -17,7 +17,7 @@ import {
     CheckThree,
     Button,
 } from "../components";
-import { COLORS, FONTS, SAFEAREAVIEW } from "../constants";
+import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 
 const methods = [
     {

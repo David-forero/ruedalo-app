@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import { Header, OrderHistoryCategory } from "../components";
-import { COLORS, FONTS, SAFEAREAVIEW, history, SIZES } from "../constants";
+import { COLORS, FONTS, SAFEAREAVIEW, history, SIZES } from "../common/constants";
 
 export default function OrderHistory() {
     const [category, setCategory] = useState("upcoming");

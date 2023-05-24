@@ -17,7 +17,7 @@ import {
     ItemComponentOne,
     ItemComponentTwo,
 } from "../components";
-import { SAFEAREAVIEW, category, FONTS, COLORS } from "../constants";
+import { SAFEAREAVIEW, category, FONTS, COLORS } from "../common/constants";
 
 export default function RestaurantMenu() {
     const [selectCategory, setSelectCategory] = useState(1);

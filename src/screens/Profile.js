@@ -20,7 +20,7 @@ import {
     Languages,
     Logout,
 } from "../components";
-import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../constants";
+import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 
 export default function Profile() {
     const navigation = useNavigation();

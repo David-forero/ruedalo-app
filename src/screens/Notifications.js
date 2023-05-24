@@ -10,7 +10,7 @@ import {
     Promo,
     Accept,
 } from "../components";
-import { SAFEAREAVIEW } from "../constants";
+import { SAFEAREAVIEW } from "../common/constants";
 
 export default function Notifications() {
     const navigation = useNavigation();

@@ -10,7 +10,7 @@ import Accordion from "react-native-collapsible/Accordion";
 import { useNavigation } from "@react-navigation/native";
 
 import { Header, QuestionOpen, QuestionClose } from "../components";
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../constants";
+import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 
 const CONTENT = [
     {

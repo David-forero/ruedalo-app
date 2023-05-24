@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import { Header, Card, ArrowThree } from "../components";
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../constants";
+import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 
 const cards = [
     {

@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Shadow } from "react-native-shadow-2";
 import { Rating, AirbnbRating } from "react-native-ratings";
 
-import { COLORS, FONTS, SAFEAREAVIEW, category, dummyData } from "../constants";
+import { COLORS, FONTS, SAFEAREAVIEW, category, dummyData } from "../common/constants";
 import {
     Basket,
     Search,

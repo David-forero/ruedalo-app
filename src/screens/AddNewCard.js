@@ -3,7 +3,7 @@ import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 
-import { SAFEAREAVIEW, SIZES } from "../constants";
+import { SAFEAREAVIEW, SIZES } from "../common/constants";
 import { InputField, Button, Header } from "../components";
 
 export default function AddNewCard() {

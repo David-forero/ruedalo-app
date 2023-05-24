@@ -3,7 +3,7 @@ import React from "react";
 import DashedLine from "react-native-dashed-line";
 
 import ArrowTwo from "../components/svg/ArrowTwo";
-import { COLORS, FONTS } from "../constants";
+import { COLORS, FONTS } from "../common/constants";
 
 export default function ProfileCategory({
     icon,

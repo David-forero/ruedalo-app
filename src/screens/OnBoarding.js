@@ -2,7 +2,7 @@ import { View, Text, FlatList, Image, StyleSheet } from "react-native";
 import React, { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { SIZES, COLORS, FONTS, SAFEAREAVIEW, onboarding } from "../constants";
+import { SIZES, COLORS, FONTS, SAFEAREAVIEW, onboarding } from "../common/constants";
 import {
     Button,
     Triangle,

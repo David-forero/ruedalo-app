@@ -4,7 +4,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useNavigation } from "@react-navigation/native";
 
 import { Header, InputField, Button } from "../components";
-import { FONTS, SAFEAREAVIEW, SIZES } from "../constants";
+import { FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 
 export default function NewPassword() {
     const navigation = useNavigation();

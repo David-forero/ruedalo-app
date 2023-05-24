@@ -20,7 +20,7 @@ import {
     ItemComponentOne,
     Heading,
 } from "../components";
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../constants";
+import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 
 export default function FoodDetails() {
     const navigation = useNavigation();

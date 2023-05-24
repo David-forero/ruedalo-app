@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { tabs, COLORS, FONTS, dishes } from "../constants";
+import { tabs, COLORS, FONTS, dishes } from "../common/constants";
 
 import HomeOne from "./Home";
 import CartIsEmpty from "../screens/CartIsEmpty";

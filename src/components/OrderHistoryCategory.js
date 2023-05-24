@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { COLORS, FONTS } from "../constants";
+import { COLORS, FONTS } from "../common/constants";
 
 export default function OrderHistoryCategory({ item, type }) {
     return (

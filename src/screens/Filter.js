@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import { Header, CheckTwo, Button } from "../components";
-import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../constants";
+import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 
 const sortBy = [
     { id: "1", sort: "Price low to high" },

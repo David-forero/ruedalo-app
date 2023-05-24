@@ -11,7 +11,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useNavigation } from "@react-navigation/native";
 
 import { Header, Button } from "../components";
-import { SAFEAREAVIEW, SIZES, COLORS, FONTS } from "../constants";
+import { SAFEAREAVIEW, SIZES, COLORS, FONTS } from "../common/constants";
 
 export default function OtpCode() {
     const navigation = useNavigation();

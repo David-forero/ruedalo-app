@@ -2,7 +2,7 @@ import { View, Text, ScrollView } from "react-native";
 import React from "react";
 
 import { Empty, Button } from "../components";
-import { COLORS, FONTS } from "../constants";
+import { COLORS, FONTS } from "../common/constants";
 
 function renderContent() {
     return (

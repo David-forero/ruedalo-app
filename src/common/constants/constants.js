@@ -4,21 +4,21 @@ const onboarding = [
         title: "Busca tus repuestos más rápido",
         description:
             "Podrás conseguir repuestos más facil sin necesidad de salir de casa",
-        image: require("../assets/images/onboarding/01.png"),
+        image: require("../../assets/images/onboarding/01.png"),
     },
     {
         id: "2",
         title: "Servicios para tu vehículo",
         description:
             "Con nuestra app podrás conseguir servicios cercanos para tu vehículo",
-        image: require("../assets/images/onboarding/02.png"),
+        image: require("../../assets/images/onboarding/02.png"),
     },
     {
         id: "3",
         title: "Reparaciones rápidas y eficientes en tu hogar",
         description:
             "Nuestro equipo de profesionales realizará las reparaciones necesarias en la comodidad de tu hogar",
-        image: require("../assets/images/onboarding/03.png"),
+        image: require("../../assets/images/onboarding/03.png"),
     },
 ];
 
@@ -26,22 +26,22 @@ const tabs = [
     {
         id: "1",
         screen: "Home",
-        icon: require("../assets/icons/home.png"),
+        icon: require("../../assets/icons/home.png"),
     },
     {
         id: "2",
         screen: "Order",
-        icon: require("../assets/icons/bag.png"),
+        icon: require("../../assets/icons/bag.png"),
     },
     {
         id: "3",
         screen: "Favorite",
-        icon: require("../assets/icons/heart.png"),
+        icon: require("../../assets/icons/heart.png"),
     },
     {
         id: "4",
         screen: "Profile",
-        icon: require("../assets/icons/user.png"),
+        icon: require("../../assets/icons/user.png"),
     },
 ];
 
@@ -49,32 +49,32 @@ const category = [
     {
         id: "1",
         name: "Cauchos",
-        image: require("../assets/icons/categories/llanta.png"),
+        image: require("../../assets/icons/categories/llanta.png"),
     },
     {
         id: "2",
         name: "Motor",
-        image: require("../assets/icons/categories/motor.png"),
+        image: require("../../assets/icons/categories/motor.png"),
     },
     {
         id: "3",
         name: "Frenos",
-        image: require("../assets/icons/categories/disco-frenos.png"),
+        image: require("../../assets/icons/categories/disco-frenos.png"),
     },
     {
         id: "4",
         name: "Aceites",
-        image: require("../assets/icons/categories/aceite-de-motor.png"),
+        image: require("../../assets/icons/categories/aceite-de-motor.png"),
     },
     {
         id: "5",
         name: "Carroceria",
-        image: require("../assets/icons/categories/cerradura-de-la-puerta.png"),
+        image: require("../../assets/icons/categories/cerradura-de-la-puerta.png"),
     },
     {
         id: "6",
         name: "Kits",
-        image: require("../assets/icons/categories/caja-de-herramientas.png"),
+        image: require("../../assets/icons/categories/caja-de-herramientas.png"),
     },
 ];
 
@@ -82,7 +82,7 @@ const history = [
     {
         id: "1",
         name: "Filada Family bar",
-        image: require("../assets/images/restaurant.png"),
+        image: require("../../assets/images/restaurant.png"),
         date: "24 Jun, 12:30",
         quantity: "3",
         price: "15.30",
@@ -93,7 +93,7 @@ const history = [
     {
         id: "2",
         name: "National rest",
-        image: require("../assets/images/restaurant.png"),
+        image: require("../../assets/images/restaurant.png"),
         date: "24 Jun, 12:30",
         quantity: "3",
         price: "29.30",
@@ -104,7 +104,7 @@ const history = [
     {
         id: "3",
         name: "Rolls & rolls",
-        image: require("../assets/images/restaurant.png"),
+        image: require("../../assets/images/restaurant.png"),
         date: "24 Jun, 12:30",
         quantity: "3",
         price: "45.30",
@@ -115,7 +115,7 @@ const history = [
     {
         id: "4",
         name: "Chiken taste",
-        image: require("../assets/images/restaurant.png"),
+        image: require("../../assets/images/restaurant.png"),
         date: "24 Jun, 12:30",
         quantity: "3",
         price: "18.30",
@@ -126,7 +126,7 @@ const history = [
     {
         id: "5",
         name: "Croissant cafe",
-        image: require("../assets/images/restaurant.png"),
+        image: require("../../assets/images/restaurant.png"),
         date: "24 Jun, 12:30",
         quantity: "3",
         price: "22.30",
@@ -142,7 +142,7 @@ const favorite = [
         name: "Sea Food With Cury",
         description:
             "Add the remaining ingredients and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
-        image: require("../assets/images/favorite/favorite-01.png"),
+        image: require("../../assets/images/favorite/favorite-01.png"),
         rating: 4.9,
         recommended: true,
         ingredients: "Sells food, either fresh, specie, chili",
@@ -153,7 +153,7 @@ const favorite = [
         name: "Sea Food With Cury",
         description:
             "Add the remaining ingredients and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
-        image: require("../assets/images/favorite/favorite-02.png"),
+        image: require("../../assets/images/favorite/favorite-02.png"),
         rating: 4.9,
         recommended: true,
         ingredients: "Sells food, either fresh, specie, chili",
@@ -164,7 +164,7 @@ const favorite = [
         name: "Sea Food With Cury",
         description:
             "Add the remaining ingredients and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
-        image: require("../assets/images/favorite/favorite-03.png"),
+        image: require("../../assets/images/favorite/favorite-03.png"),
         rating: 4.9,
         recommended: true,
         ingredients: "Sells food, either fresh, specie, chili",
@@ -175,28 +175,28 @@ const favorite = [
 const promocodes = [
     {
         id: "1",
-        image: require("../assets/images/promocodes/promocode-01.png"),
+        image: require("../../assets/images/promocodes/promocode-01.png"),
         name: "Mcdonalds",
         discount: "50% off",
         validDate: "Valid until June 30, 2021",
     },
     {
         id: "2",
-        image: require("../assets/images/promocodes/promocode-02.png"),
+        image: require("../../assets/images/promocodes/promocode-02.png"),
         name: "Burger King",
         discount: "30% off",
         validDate: "Valid until June 30, 2021",
     },
     {
         id: "3",
-        image: require("../assets/images/promocodes/promocode-03.png"),
+        image: require("../../assets/images/promocodes/promocode-03.png"),
         name: "Domino’s Pizza",
         discount: "50% off",
         validDate: "Valid until June 30, 2021",
     },
     {
         id: "4",
-        image: require("../assets/images/promocodes/promocode-04.png"),
+        image: require("../../assets/images/promocodes/promocode-04.png"),
         name: "KFC",
         discount: "25% off",
         validDate: "Valid until June 30, 2019",

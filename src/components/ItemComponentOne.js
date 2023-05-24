@@ -3,7 +3,7 @@ import React from "react";
 import { showMessage } from "react-native-flash-message";
 import { Shadow } from "react-native-shadow-2";
 
-import { COLORS, FONTS } from "../constants";
+import { COLORS, FONTS } from "../common/constants";
 import Heart from "../components/svg/Heart";
 import Add from "../components/svg/Add";
 

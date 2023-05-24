@@ -13,7 +13,7 @@ import { showMessage } from "react-native-flash-message";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { Header, Copy, Box, Button } from "../components";
-import { SAFEAREAVIEW, promocodes, COLORS, FONTS, SIZES } from "../constants";
+import { SAFEAREAVIEW, promocodes, COLORS, FONTS, SIZES } from "../common/constants";
 
 export default function MyPromocodes() {
     const navigation = useNavigation();

@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { EditProfileCategory, Header, Button } from "../components";
-import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../constants";
+import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 
 export default function EditProfile() {
     const navigation = useNavigation();
