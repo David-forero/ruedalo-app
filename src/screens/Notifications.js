@@ -9,7 +9,7 @@ import {
     Wallet,
     Promo,
     Accept,
-} from "../components";
+} from "../common/components";
 import { SAFEAREAVIEW } from "../common/constants";
 
 export default function Notifications() {

@@ -3,7 +3,7 @@ import React from "react";
 
 import Arrow from "./svg/Arrow";
 
-import { COLORS, FONTS } from "../common/constants";
+import { COLORS, FONTS } from "../constants";
 
 export default function Header({ title, onPress, titleStyle }) {
     return (

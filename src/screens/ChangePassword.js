@@ -3,7 +3,7 @@ import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 
-import { Header, InputField, Button } from "../components";
+import { Header, InputField, Button } from "../common/components";
 import { SAFEAREAVIEW, SIZES } from "../common/constants";
 
 export default function ChangePassword() {

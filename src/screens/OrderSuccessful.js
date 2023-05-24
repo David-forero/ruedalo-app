@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, SafeAreaView } from "react-native";
 import React from "react";
 
-import { SuccessTwo, Button } from "../components";
+import { SuccessTwo, Button } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 
 export default function OrderSuccessful() {

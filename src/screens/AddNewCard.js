@@ -4,7 +4,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useNavigation } from "@react-navigation/native";
 
 import { SAFEAREAVIEW, SIZES } from "../common/constants";
-import { InputField, Button, Header } from "../components";
+import { InputField, Button, Header } from "../common/components";
 
 export default function AddNewCard() {
     const navigation = useNavigation();

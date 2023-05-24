@@ -19,7 +19,7 @@ import {
     Terms,
     Languages,
     Logout,
-} from "../components";
+} from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 
 export default function Profile() {

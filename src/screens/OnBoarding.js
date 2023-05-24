@@ -10,7 +10,7 @@ import {
     CircleTwo,
     CircleElement,
     CircleElementTwo,
-} from "../components";
+} from "../common/components";
 
 export default function OnBoarding() {
     const navigation = useNavigation();

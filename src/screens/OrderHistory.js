@@ -8,7 +8,7 @@ import {
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { Header, OrderHistoryCategory } from "../components";
+import { Header, OrderHistoryCategory } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, history, SIZES } from "../common/constants";
 
 export default function OrderHistory() {

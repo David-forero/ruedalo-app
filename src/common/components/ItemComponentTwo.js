@@ -3,9 +3,9 @@ import React from "react";
 import { Shadow } from "react-native-shadow-2";
 import { showMessage } from "react-native-flash-message";
 
-import { FONTS, COLORS } from "../common/constants";
+import { FONTS, COLORS } from "../constants";
 
-import Heart from "../components/svg/Heart";
+import Heart from "./svg/Heart";
 
 export default function ItemComponentTwo({ item, onPress }) {
     return (

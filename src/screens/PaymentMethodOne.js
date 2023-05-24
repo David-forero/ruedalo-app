@@ -16,7 +16,7 @@ import {
     CheckTwo,
     CheckThree,
     Button,
-} from "../components";
+} from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 
 const methods = [

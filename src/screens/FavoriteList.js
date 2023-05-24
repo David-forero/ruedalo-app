@@ -12,7 +12,7 @@ import { Rating } from "react-native-ratings";
 import Modal from "react-native-modal";
 import { Shadow } from "react-native-shadow-2";
 
-import { Header, Heart, Minus, Plus } from "../components";
+import { Header, Heart, Minus, Plus } from "../common/components";
 import { SAFEAREAVIEW, favorite, COLORS, SIZES, FONTS } from "../common/constants";
 
 export default function FavoriteList() {

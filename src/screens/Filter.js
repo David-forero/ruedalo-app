@@ -8,7 +8,7 @@ import {
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { Header, CheckTwo, Button } from "../components";
+import { Header, CheckTwo, Button } from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 
 const sortBy = [

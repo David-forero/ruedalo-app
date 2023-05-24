@@ -16,7 +16,7 @@ import {
     Heading,
     ItemComponentOne,
     ItemComponentTwo,
-} from "../components";
+} from "../common/components";
 import { SAFEAREAVIEW, category, FONTS, COLORS } from "../common/constants";
 
 export default function RestaurantMenu() {

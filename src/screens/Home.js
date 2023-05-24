@@ -26,8 +26,8 @@ import {
     Filter,
     HeartTwo,
     Heading,
-} from "../components";
-import SliderBanner from "../common/components/SliderBanner";
+    SliderBanner
+} from "../common/components";
 
 export default function Home() {
     const navigation = useNavigation();

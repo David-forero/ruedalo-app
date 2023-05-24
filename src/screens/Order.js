@@ -24,7 +24,7 @@ import {
     Plus,
     InputField,
     BasketTwo,
-} from "../components";
+} from "../common/components";
 import { COLORS, SAFEAREAVIEW, FONTS, SIZES } from "../common/constants";
 
 const dishes = [

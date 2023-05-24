@@ -19,7 +19,7 @@ import {
     Add,
     ItemComponentOne,
     Heading,
-} from "../components";
+} from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 
 export default function FoodDetails() {

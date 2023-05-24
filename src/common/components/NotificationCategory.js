@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { COLORS, FONTS } from "../common/constants";
+import { COLORS, FONTS } from "../constants";
 
 export default function NotificationCategory({ icon, title, subtitle }) {
     return (

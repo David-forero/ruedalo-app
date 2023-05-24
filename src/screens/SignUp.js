@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from '@react-native-picker/picker';
-import { Header, InputField, Button, Check, Camera } from "../components";
+import { Header, InputField, Button, Check, Camera } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 
 export default function SignUp() {

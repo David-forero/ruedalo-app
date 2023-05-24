@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 
-import { FONTS, COLORS } from "../common/constants";
+import { FONTS, COLORS } from "../constants";
 
 export default function Heading({
     title,

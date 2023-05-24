@@ -3,7 +3,7 @@ import React, {useEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from 'expo-location';
 
-import { Header, Button } from "../components";
+import { Header, Button } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 
 export default function Selectlocation() {

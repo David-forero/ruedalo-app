@@ -1,7 +1,7 @@
 import { View, Text, TextInput } from "react-native";
 import React from "react";
 
-import { COLORS } from "../common/constants";
+import { COLORS } from "../constants";
 
 export default function InputField({
     contaynerStyle,

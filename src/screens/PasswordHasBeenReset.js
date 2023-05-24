@@ -2,7 +2,7 @@ import { View, Text, ScrollView, SafeAreaView } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { Key, Button } from "../components";
+import { Key, Button } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 
 export default function PasswordHasBeenReset() {
