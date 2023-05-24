@@ -97,7 +97,7 @@ export default function OnBoarding() {
                                 <Text
                                     style={{
                                         textAlign: "center",
-                                        fontSize: 30,
+                                        fontSize: 24,
                                         color: COLORS.white,
                                         marginBottom: SIZES.height / 50,
                                         textTransform: "capitalize",
@@ -110,7 +110,7 @@ export default function OnBoarding() {
                                     style={{
                                         marginBottom: 45,
                                         textAlign: "center",
-                                        fontSize: 16,
+                                        fontSize: 14,
                                         color: COLORS.white,
                                         paddingHorizontal: 10,
                                         marginBottom: SIZES.height / 20,
@@ -120,7 +120,7 @@ export default function OnBoarding() {
                                     {item.description}
                                 </Text>
                                 <Button
-                                    title="Get Started"
+                                    title="¡Empecemos!"
                                     containerStyle={{
                                         marginBottom: SIZES.height / 26,
                                         backgroundColor: COLORS.orange,
