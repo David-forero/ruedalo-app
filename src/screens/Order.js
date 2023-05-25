@@ -128,34 +128,7 @@ export default function Order() {
                             >
                                 {data.item.name}
                             </Text>
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    marginBottom: 5,
-                                }}
-                            >
-                                <Rating
-                                    type="star"
-                                    count={5}
-                                    defaultRating={14}
-                                    imageSize={12}
-                                    showRating={false}
-                                    isDisabled={false}
-                                    readonly={true}
-                                    startingValue={data.item.rating}
-                                />
-                                <Text
-                                    style={{
-                                        marginLeft: 5.5,
-                                        ...FONTS.Roboto_500Medium,
-                                        fontSize: 12,
-                                        color: COLORS.black,
-                                    }}
-                                >
-                                    {data.item.rating}
-                                </Text>
-                            </View>
+                            
                             <Text
                                 style={{
                                     ...FONTS.Roboto_400Regular,
@@ -228,7 +201,7 @@ export default function Order() {
                                         color: COLORS.carrot,
                                     }}
                                 >
-                                    Price: ${data.item.price}
+                                    Precio: ${data.item.price}
                                 </Text>
                             </View>
                         </View>
@@ -324,7 +297,7 @@ export default function Order() {
                 </View>
 
                 <Button
-                    title="Process to Checkout"
+                    title="Proceder al pago"
                     onPress={() => navigation.navigate("PaymentMethodOne")}
                     containerStyle={{ marginBottom: 20 }}
                 />

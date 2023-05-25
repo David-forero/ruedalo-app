@@ -12,8 +12,8 @@ import { useNavigation } from "@react-navigation/native";
 import { showMessage } from "react-native-flash-message";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { Header, Copy, Box, Button } from "../common/components";
-import { SAFEAREAVIEW, promocodes, COLORS, FONTS, SIZES } from "../common/constants";
+import { Header, Copy, Box, Button } from "../../common/components";
+import { SAFEAREAVIEW, promocodes, COLORS, FONTS, SIZES } from "../../common/constants";
 
 export default function MyPromocodes() {
     const navigation = useNavigation();

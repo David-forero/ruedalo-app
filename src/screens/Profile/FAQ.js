@@ -9,8 +9,8 @@ import React, { useState } from "react";
 import Accordion from "react-native-collapsible/Accordion";
 import { useNavigation } from "@react-navigation/native";
 
-import { Header, QuestionOpen, QuestionClose } from "../common/components";
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
+import { Header, QuestionOpen, QuestionClose } from "../../common/components";
+import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../../common/constants";
 
 const CONTENT = [
     {

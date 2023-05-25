@@ -64,6 +64,8 @@ import Heading from "./Heading";
 import ItemComponentOne from "./ItemComponentOne";
 import ItemComponentTwo from "./ItemComponentTwo";
 import SliderBanner from './SliderBanner';
+import CategoryFilter from './CategoryFilter';
+import CardCatalog from './CardCatalog';
 
 export {
     Button,
@@ -128,5 +130,7 @@ export {
     QuestionOpen,
     QuestionClose,
     SliderBanner,
-    Google
+    Google,
+    CategoryFilter,
+    CardCatalog
 };

@@ -9,8 +9,8 @@ import {
     Wallet,
     Promo,
     Accept,
-} from "../common/components";
-import { SAFEAREAVIEW } from "../common/constants";
+} from "../../common/components";
+import { SAFEAREAVIEW } from "../../common/constants";
 
 export default function Notifications() {
     const navigation = useNavigation();
