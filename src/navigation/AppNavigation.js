@@ -41,6 +41,7 @@ import {
     AddNewCard,
     ChangePassword,
     OtpCodeEmail,
+    AutoServices,
 } from "../screens";
 
 const Stack = createStackNavigator();
@@ -81,6 +82,7 @@ export default function Navigation() {
                 <Stack.Screen name="BestMeal" component={BestMeal} />
                 <Stack.Screen name="NewPassword" component={NewPassword} />
                 <Stack.Screen name="AddNewCard" component={AddNewCard} />
+                <Stack.Screen name="AutoServices" component={AutoServices} />
                 <Stack.Screen
                     name="ChangePassword"
                     component={ChangePassword}

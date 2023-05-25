@@ -32,7 +32,7 @@ export default function AccountCreated() {
                         marginBottom: 10,
                     }}
                 >
-                    Account Created!
+                    ¡Cuenta creada!
                 </Text>
                 <Text
                     style={{
@@ -45,11 +45,10 @@ export default function AccountCreated() {
                         lineHeight: 16 * 1.5,
                     }}
                 >
-                    Your account had beed created successfully. Please sign in
-                    to use your account and enjoy.
+                    Tu cuenta ha sido creada sastifactoriamente. Por favor inicia sesión y disfruta.
                 </Text>
                 <Button
-                    title="Take me to sign in"
+                    title="Iniciar sesión"
                     containerStyle={{ backgroundColor: COLORS.black2 }}
                     onPress={() => navigation.navigate("SignIn")}
                 />

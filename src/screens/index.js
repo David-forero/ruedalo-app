@@ -35,6 +35,7 @@ import ConfirmationCode from "./Form/ConfirmationCode";
 import AddNewCard from "./AddNewCard";
 import ChangePassword from "./ChangePassword";
 import OtpCodeEmail from "./Form/OtpCodeEmail";
+import AutoServices from "./AutoServices";
 
 export {
     OnBoarding,
@@ -73,5 +74,6 @@ export {
     ConfirmationCode,
     AddNewCard,
     ChangePassword,
-    OtpCodeEmail
+    OtpCodeEmail,
+    AutoServices
 };
