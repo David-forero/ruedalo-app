@@ -49,7 +49,7 @@ export default function MainLayout() {
                                     width: "100%",
                                     tintColor:
                                         selectedTab == item.screen
-                                            ? COLORS.black2
+                                            ? COLORS.orange
                                             : COLORS.gray2,
                                     marginBottom: 10,
                                 }}
@@ -62,11 +62,11 @@ export default function MainLayout() {
                                     lineHeight: 14 * 1,
                                     color:
                                         selectedTab == item.screen
-                                            ? COLORS.black2
+                                            ? COLORS.orange
                                             : COLORS.gray2,
                                 }}
                             >
-                                {item.screen}
+                                {item.title}
                             </Text>
                         </TouchableOpacity>
                     );

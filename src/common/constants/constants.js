@@ -26,22 +26,26 @@ const tabs = [
     {
         id: "1",
         screen: "Home",
-        icon: require("../../assets/icons/home.png"),
+        icon: require("../../assets/icons/store.png"),
+        title: 'Tiendas'
     },
     {
         id: "2",
         screen: "Order",
-        icon: require("../../assets/icons/bag.png"),
+        icon: require("../../assets/icons/car-services.png"),
+        title: 'Servicios'
     },
     {
         id: "3",
         screen: "Favorite",
-        icon: require("../../assets/icons/heart.png"),
+        icon: require("../../assets/icons/car-status.png"),
+        title: 'Mis Vehículos'
     },
     {
         id: "4",
         screen: "Profile",
         icon: require("../../assets/icons/user.png"),
+        title: 'Perfil'
     },
 ];
 
