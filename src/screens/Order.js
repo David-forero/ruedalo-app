@@ -344,7 +344,7 @@ export default function Order() {
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-            <Header title="Order Details" onPress={() => navigation.goBack()} />
+            <Header title="Cesta" onPress={() => navigation.goBack()} />
             <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
                 {renderSwipeListView()}
             </KeyboardAvoidingView>

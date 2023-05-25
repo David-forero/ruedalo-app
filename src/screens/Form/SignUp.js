@@ -3,8 +3,8 @@ import React, { useRef, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from '@react-native-picker/picker';
-import { Header, InputField, Button, Check, Camera } from "../common/components";
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
+import { Header, InputField, Button, Check, Camera } from "../../common/components";
+import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../../common/constants";
 
 export default function SignUp() {
     const navigation = useNavigation();
@@ -22,27 +22,13 @@ export default function SignUp() {
                     paddingVertical: SIZES.paddingVertical,
                 }}
             >
-                {/* <TouchableOpacity
-                    style={{
-                        width: 99,
-                        height: 99,
-                        backgroundColor: COLORS.gray1,
-                        borderRadius: 50,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginBottom: 40,
-                    }}
-                >
-                    <Camera />
-                </TouchableOpacity> */}
+                
                 <InputField
                     placeholder="Nombre y Apellido"
                     contaynerStyle={{ marginBottom: 13 }}
                 />
 
-              
-
-                <Picker
+                {/* <Picker
                     style={{
                         width: "100%",
                         height: 50,
@@ -63,18 +49,8 @@ export default function SignUp() {
                     <Picker.Item style={{color: COLORS.gray2, marginLeft: 10}} label="Ecuador" value="ec" />
                     <Picker.Item style={{color: COLORS.gray2, marginLeft: 10}} label="Perú" value="pe" />
                     <Picker.Item style={{color: COLORS.gray2, marginLeft: 10}} label="Chile" value="ch" />
-                </Picker>
+                </Picker> */}
 
-             
-                <InputField
-                    placeholder="Estado"
-                    contaynerStyle={{ marginBottom: 13 }}
-                />
-
-                <InputField
-                    placeholder="Ciudad"
-                    contaynerStyle={{ marginBottom: 13 }}
-                />
 
                 <InputField
                     placeholder="Correo"
@@ -138,7 +114,7 @@ export default function SignUp() {
                         backgroundColor: COLORS.black2,
                         marginBottom: 28,
                     }}
-                    onPress={() => navigation.navigate("Selectlocation")}
+                    onPress={() => navigation.navigate("OtpCodeEmail")}
                 />
                 <View
                     style={{
@@ -179,7 +155,9 @@ export default function SignUp() {
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <Header title="Registro" onPress={() => navigation.goBack()} />
+            <View className="mt-10">
             {renderContent()}
+            </View>
         </SafeAreaView>
     );
 }

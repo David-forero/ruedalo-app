@@ -1,13 +1,13 @@
 import OnBoarding from "./OnBoarding";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import SignIn from "./Form/SignIn";
+import SignUp from "./Form/SignUp";
 import LogIn from "./LogIn";
 import MainLayout from "./MainLayout";
-import ForgotPassword from "./ForgotPassword";
-import OtpCode from "./OtpCode";
+import ForgotPassword from "./Form/ForgotPassword";
+import OtpCode from "./Form/OtpCode";
 import AccountCreated from "./AccountCreated";
 import Selectlocation from "./Selectlocation";
-import SignUpWith from "./SignUpWith";
+import SignUpWith from "./Form/SignUpWith";
 import Home from "./Home";
 import Profile from "./Profile";
 import MyList from "./MyList";
@@ -24,16 +24,17 @@ import MyPromocodes from "./Profile/MyPromocodes";
 import Category from "./Category";
 import CartIsEmpty from "./CartIsEmpty";
 import OrderSuccessful from "./OrderSuccessful";
-import Filter from "./Filter";
+import Filter from "./Form/Filter";
 import BestMeal from "./BestMeal";
 import PaymentMethodOne from "./PaymentMethodOne";
 import PaymentMethodTwo from "./PaymentMethodTwo";
 import PasswordHasBeenReset from "./PasswordHasBeenReset";
-import NewPassword from "./NewPassword";
+import NewPassword from "./Form/NewPassword";
 import VerifyYourPhoneNumber from "./VerifyYourPhoneNumber";
-import ConfirmationCode from "./ConfirmationCode";
+import ConfirmationCode from "./Form/ConfirmationCode";
 import AddNewCard from "./AddNewCard";
 import ChangePassword from "./ChangePassword";
+import OtpCodeEmail from "./Form/OtpCodeEmail";
 
 export {
     OnBoarding,
@@ -72,4 +73,5 @@ export {
     ConfirmationCode,
     AddNewCard,
     ChangePassword,
+    OtpCodeEmail
 };

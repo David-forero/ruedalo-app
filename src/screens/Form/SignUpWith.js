@@ -3,8 +3,8 @@ import React from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 
-import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
-import { Header, InputField } from "../common/components";
+import { COLORS, FONTS, SAFEAREAVIEW } from "../../common/constants";
+import { Header, InputField } from "../../common/components";
 
 export default function SignUp() {
     const navigation = useNavigation();

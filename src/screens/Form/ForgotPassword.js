@@ -10,8 +10,8 @@ import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Modal from "react-native-modal";
 
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
-import { Header, InputField, Button } from "../common/components";
+import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../../common/constants";
+import { Header, InputField, Button } from "../../common/components";
 
 export default function ForgotPassword() {
     const navigation = useNavigation();

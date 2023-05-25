@@ -8,8 +8,8 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { InputField, Button, Mail, Lock, Google } from "../common/components";
-import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
+import { InputField, Button, Mail, Lock, Google } from "../../common/components";
+import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../../common/constants";
 
 export default function SignIn() {
     const navigation = useNavigation();

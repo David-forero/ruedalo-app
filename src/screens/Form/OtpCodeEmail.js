@@ -10,8 +10,8 @@ import React, { useState, useRef } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 
-import { Header, Button } from "../common/components";
-import { SAFEAREAVIEW, SIZES, COLORS, FONTS } from "../common/constants";
+import { Header, Button } from "../../common/components";
+import { SAFEAREAVIEW, SIZES, COLORS, FONTS } from "../../common/constants";
 
 export default function OtpCode() {
     const navigation = useNavigation();
@@ -51,7 +51,7 @@ export default function OtpCode() {
                 <Text
                     style={{ color: COLORS.carrot, ...FONTS.Roboto_400Regular }}
                 >
-                    (+58) 412 801 9009
+                    david.forero1813@gmail.com
                 </Text>
                 <View
                     style={{
@@ -190,7 +190,7 @@ export default function OtpCode() {
                             color: COLORS.black,
                         }}
                     >
-                        No recibí ningún codigo
+                        No recibí ningún código
                     </Text>
                     <TouchableOpacity>
                         <Text
@@ -213,7 +213,7 @@ export default function OtpCode() {
                         marginBottom: 20,
                     }}
                 >
-                    Se vence en 1:20
+                    Se vence en 10:00min
                 </Text>
                 <Button
                     title="Verificar Ahora"
@@ -227,7 +227,7 @@ export default function OtpCode() {
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <Header
-                title="Verificación del teléfono"
+                title="Verificación del correo"
                 onPress={() => navigation.goBack()}
             />
             {renderContent()}

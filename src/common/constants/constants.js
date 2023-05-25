@@ -31,7 +31,7 @@ const tabs = [
     },
     {
         id: "2",
-        screen: "Order",
+        screen: "Home",
         icon: require("../../assets/icons/car-services.png"),
         title: 'Servicios'
     },

@@ -10,8 +10,8 @@ import React, { useState, useRef } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
 
-import { Header, Button } from "../common/components";
-import { SAFEAREAVIEW, SIZES, COLORS, FONTS } from "../common/constants";
+import { Header, Button } from "../../common/components";
+import { SAFEAREAVIEW, SIZES, COLORS, FONTS } from "../../common/constants";
 
 export default function OtpCode() {
     const navigation = useNavigation();
@@ -51,7 +51,7 @@ export default function OtpCode() {
                 <Text
                     style={{ color: COLORS.carrot, ...FONTS.Roboto_400Regular }}
                 >
-                    david.forero1813@gmail.com
+                    (+58) 412 801 9009
                 </Text>
                 <View
                     style={{

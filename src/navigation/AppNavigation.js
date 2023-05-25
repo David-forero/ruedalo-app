@@ -40,6 +40,7 @@ import {
     ConfirmationCode,
     AddNewCard,
     ChangePassword,
+    OtpCodeEmail,
 } from "../screens";
 
 const Stack = createStackNavigator();
@@ -62,6 +63,7 @@ export default function Navigation() {
                 <Stack.Screen name="SignIn" component={SignIn} />
                 <Stack.Screen name="SignUp" component={SignUp} />
                 <Stack.Screen name="SignUpWith" component={SignUpWith} />
+                <Stack.Screen name="OtpCodeEmail" component={OtpCodeEmail} />
                 <Stack.Screen name="MyList" component={MyList} />
                 <Stack.Screen name="Order" component={Order} />
                 <Stack.Screen name="Profile" component={Profile} />
