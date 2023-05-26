@@ -51,6 +51,7 @@ import BasketTwo from "./svg/BasketTwo";
 import HeartTwo from "./svg/HeartTwo";
 import QuestionOpen from "./svg/QuestionOpen";
 import QuestionClose from "./svg/QuestionClose";
+import Remove from "./svg/Remove";
 
 /* COMPONENTS */
 import Button from "./Button";
@@ -132,5 +133,6 @@ export {
     SliderBanner,
     Google,
     CategoryFilter,
-    CardCatalog
+    CardCatalog,
+    Remove
 };

@@ -12,7 +12,7 @@ import { Rating } from "react-native-ratings";
 import Modal from "react-native-modal";
 import { Shadow } from "react-native-shadow-2";
 
-import { Header, Heart, Minus, Plus } from "../common/components";
+import { Header, Minus, Plus, Remove } from "../common/components";
 import { SAFEAREAVIEW, favorite, COLORS, SIZES, FONTS } from "../common/constants";
 
 export default function FavoriteList() {
@@ -37,7 +37,7 @@ export default function FavoriteList() {
                             distance={COLORS.shadowDistance}
                             key={index}
                             viewStyle={{
-                                marginBottom: 15,
+                                marginBottom: 30,
                                 width: "100%",
                             }}
                         >
@@ -91,117 +91,67 @@ export default function FavoriteList() {
                                                 paddingVertical: 2,
                                             }}
                                         >
-                                            <Heart
+                                            <Remove
+                                                width={30}
+                                                height={30}
                                                 strokeColor="red"
                                                 fillColor="red"
                                             />
                                         </TouchableOpacity>
                                     </View>
 
-                                    <View
-                                        style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            marginBottom: 4,
-                                        }}
-                                    >
-                                        <Rating
-                                            type="star"
-                                            count={5}
-                                            defaultRating={14}
-                                            imageSize={12}
-                                            showRating={false}
-                                            isDisabled={false}
-                                            readonly={true}
-                                            startingValue={item.rating}
-                                        />
+                                    <View className="flex-row space-x-3" >
                                         <Text
-                                            style={{
-                                                ...FONTS.Roboto_500Medium,
-                                                fontSize: 12,
-                                                color: COLORS.black,
-                                                marginLeft: 5.5,
-                                                lineHeight: 12 * 1.2,
-                                            }}
+                                            className="font-bold text-gray-700"
                                         >
-                                            {item.rating}
+                                            Cambio de aceite:
+                                        </Text>
+
+                                        <Text
+                                            className="text-red-950 font-bold"
+                                        >
+                                            98%
                                         </Text>
                                     </View>
-                                    <Text
-                                        style={{
-                                            color: COLORS.gray2,
-                                            marginBottom: 6,
-                                            width: "80%",
-                                        }}
-                                        numberOfLines={1}
-                                    >
-                                        {item.ingredients}
-                                    </Text>
-                                    <View
-                                        style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            justifyContent: "space-between",
-                                        }}
-                                    >
-                                        <View
-                                            style={{
-                                                flexDirection: "row",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <TouchableOpacity
-                                                style={{
-                                                    width: 20,
-                                                    height: 20,
-                                                    backgroundColor:
-                                                        COLORS.lightGreen_02,
-                                                    borderRadius: 10,
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                }}
-                                                onPress={() =>
-                                                    console.log("minus")
-                                                }
-                                            >
-                                                <Minus />
-                                            </TouchableOpacity>
-                                            <Text
-                                                style={{
-                                                    marginHorizontal: 6,
-                                                    ...FONTS.Roboto_500Medium,
-                                                    fontSize: 12,
-                                                    lineHeight: 12 * 1.2,
-                                                    color: COLORS.gray2,
-                                                }}
-                                            >
-                                                1
-                                            </Text>
-                                            <TouchableOpacity
-                                                style={{
-                                                    width: 20,
-                                                    height: 20,
-                                                    backgroundColor:
-                                                        COLORS.black2,
-                                                    borderRadius: 10,
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                }}
-                                                onPress={() =>
-                                                    console.log("plus")
-                                                }
-                                            >
-                                                <Plus />
-                                            </TouchableOpacity>
-                                        </View>
+
+                                    <View className="flex-row space-x-3" >
                                         <Text
-                                            style={{
-                                                ...FONTS.Roboto_700Bold,
-                                                fontSize: 14,
-                                                color: COLORS.carrot,
-                                            }}
+                                            className="font-bold text-gray-700"
                                         >
-                                            Price: ${item.price}
+                                            Cambio de neumáticos:
+                                        </Text>
+
+                                        <Text
+                                            className="text-green-900 font-bold"
+                                        >
+                                            40%
+                                        </Text>
+                                    </View>
+                                    <View className="flex-row space-x-3" >
+                                        <Text
+                                            className="font-bold text-gray-700"
+                                        >
+                                            Cambio de batería:
+                                        </Text>
+
+                                        <Text
+                                            className="text-yellow-600 font-bold"
+                                        >
+                                            70%
+                                        </Text>
+                                    </View>
+
+                                    <View className="flex-row space-x-3" >
+                                        <Text
+                                            className="font-bold text-gray-700"
+                                        >
+                                            Cambio de batería:
+                                        </Text>
+
+                                        <Text
+                                            className="text-green-900 font-bold"
+                                        >
+                                            30%
                                         </Text>
                                     </View>
                                 </View>
@@ -242,7 +192,7 @@ export default function FavoriteList() {
                             marginBottom: 35,
                         }}
                     >
-                        Are you sure you want to sign out ?
+                        ¿Estás seguro de eliminar este vehículo?
                     </Text>
                     <View
                         style={{
@@ -271,7 +221,7 @@ export default function FavoriteList() {
                                     color: COLORS.red,
                                 }}
                             >
-                                Cancel
+                                No
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -295,7 +245,7 @@ export default function FavoriteList() {
                                     fontSize: 16,
                                 }}
                             >
-                                Sure
+                                Seguro
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -306,7 +256,7 @@ export default function FavoriteList() {
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-            <Header title="Favorite List" onPress={() => navigation.goBack()} />
+            <Header title="Mis Vehículos" onPress={() => navigation.goBack()} />
             {renderFavoriteList()}
             {<UnfavoriteModal />}
         </SafeAreaView>

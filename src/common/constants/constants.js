@@ -149,10 +149,10 @@ const history = [
 const favorite = [
     {
         id: "1",
-        name: "Sea Food With Cury",
+        name: "Toyota Tundra 2015",
         description:
             "Add the remaining ingredients and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
-        image: require("../../assets/images/favorite/favorite-01.png"),
+        image: require("../../assets/icons/mycar.png"),
         rating: 4.9,
         recommended: true,
         ingredients: "Sells food, either fresh, specie, chili",
@@ -160,21 +160,10 @@ const favorite = [
     },
     {
         id: "2",
-        name: "Sea Food With Cury",
+        name: "Spark 2008",
         description:
             "Add the remaining ingredients and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
-        image: require("../../assets/images/favorite/favorite-02.png"),
-        rating: 4.9,
-        recommended: true,
-        ingredients: "Sells food, either fresh, specie, chili",
-        price: "20.00",
-    },
-    {
-        id: "3",
-        name: "Sea Food With Cury",
-        description:
-            "Add the remaining ingredients and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
-        image: require("../../assets/images/favorite/favorite-03.png"),
+        image: require("../../assets/icons/mycar.png"),
         rating: 4.9,
         recommended: true,
         ingredients: "Sells food, either fresh, specie, chili",

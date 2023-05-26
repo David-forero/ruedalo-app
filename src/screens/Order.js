@@ -214,7 +214,7 @@ export default function Order() {
     function renderFooterComponent() {
         return (
             <View>
-                <View style={{ marginTop: 15 }}>
+                {/* <View style={{ marginTop: 15 }}>
                     <DashedLine
                         dashLength={10}
                         dashThickness={1}
@@ -250,7 +250,31 @@ export default function Order() {
                         dashColor={COLORS.gray2}
                         dashStyle={{ borderRadius: 5 }}
                     />
+                </View> */}
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "flex-end",
+                        marginBottom: 5,
+                        marginTop: 30,
+                    }}
+                >
+                    <Text style={{ ...FONTS.Roboto_700Bold, fontSize: 14 }}>
+                        SubTotal:
+                    </Text>
+                    <Text
+                        style={{
+                            ...FONTS.Roboto_700Bold,
+                            fontSize: 14,
+                            color: COLORS.carrot,
+                        }}
+                    >
+                        {" "}
+                        $87.90
+                    </Text>
                 </View>
+
                 <View
                     style={{
                         flexDirection: "row",
@@ -260,7 +284,7 @@ export default function Order() {
                     }}
                 >
                     <Text style={{ ...FONTS.Roboto_700Bold, fontSize: 14 }}>
-                        Discount:
+                        Delivery:
                     </Text>
                     <Text
                         style={{
@@ -270,9 +294,11 @@ export default function Order() {
                         }}
                     >
                         {" "}
-                        $200.00
+                        $10.00
                     </Text>
                 </View>
+
+
                 <View
                     style={{
                         flexDirection: "row",
@@ -282,7 +308,7 @@ export default function Order() {
                     }}
                 >
                     <Text style={{ ...FONTS.Roboto_700Bold, fontSize: 14 }}>
-                        Sub Total ( 5 item ):
+                        Total a pagar:
                     </Text>
                     <Text
                         style={{
@@ -292,7 +318,7 @@ export default function Order() {
                         }}
                     >
                         {" "}
-                        $200.00
+                        $97.90
                     </Text>
                 </View>
 
