@@ -4,16 +4,47 @@ import {
     SafeAreaView,
     TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { InputField, Button, Mail, Lock, Google } from "../../common/components";
+import { InputField, Button, Mail, Lock, Google as GoogleIcon } from "../../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../../common/constants";
+import { useAuthContext } from "../../context/AuthContext";
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+WebBrowser.maybeCompleteAuthSession();
 
 export default function SignIn() {
     const navigation = useNavigation();
     const [remember, setRemember] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
+
+    async function fetchUserInfo() {
+        let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        const useInfo = await response.json();
+        console.log('🗃️', useInfo);
+        setUser(useInfo);
+    }
+
+    useEffect(() => {
+        console.log('response:', response);
+        if (response?.type === "success") {
+            console.log('Todo okay 👍️');
+            setAccessToken(response.authentication.accessToken);
+            accessToken && fetchUserInfo();
+            navigation.navigate('MainLayout')
+        }
+    }, [response, accessToken])
+
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        webClientId: '469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com',
+        expoClientId: '469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com',
+        androidClientId: '469688688692-jbm36cdotrfies2i9fp9p8d7i3ua2ne9.apps.googleusercontent.com',
+        iosClientId: '469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com',
+    });
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
@@ -54,7 +85,7 @@ export default function SignIn() {
                         marginBottom: 18,
                     }}
                 >
-                  
+
                     <TouchableOpacity
                         onPress={() => navigation.navigate("ForgotPassword")}
                     >
@@ -78,9 +109,9 @@ export default function SignIn() {
 
                 <TouchableOpacity
                     className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
-                // onPress={onPress}
+                    onPress={() => promptAsync()}
                 >
-                    <Google width={25} height={25} />
+                    <GoogleIcon width={25} height={25} />
                     <Text
                         style={{
                             textAlign: "center",

@@ -36,12 +36,6 @@ const tabs = [
         title: 'Servicios'
     },
     {
-        id: "5",
-        screen: "Order",
-        icon: require("../../assets/icons/bag.png"),
-        title: 'Cesta'
-    },
-    {
         id: "3",
         screen: "Favorite",
         icon: require("../../assets/icons/car-status.png"),

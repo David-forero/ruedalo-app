@@ -30,7 +30,7 @@ import PaymentMethodOne from "./PaymentMethodOne";
 import PaymentMethodTwo from "./PaymentMethodTwo";
 import PasswordHasBeenReset from "./PasswordHasBeenReset";
 import NewPassword from "./Form/NewPassword";
-import VerifyYourPhoneNumber from "./VerifyYourPhoneNumber";
+import VerifyYourPhoneNumber from "./Form/VerifyYourPhoneNumber";
 import ConfirmationCode from "./Form/ConfirmationCode";
 import AddNewCard from "./AddNewCard";
 import ChangePassword from "./ChangePassword";

@@ -12,9 +12,9 @@ import {
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Shadow } from "react-native-shadow-2";
-import { Rating, AirbnbRating } from "react-native-ratings";
+import { Rating } from "react-native-ratings";
 
-import { COLORS, FONTS, SAFEAREAVIEW, category, dummyData } from "../common/constants";
+import { COLORS, FONTS, SAFEAREAVIEW, category, dummyData} from "../common/constants";
 import {
     Basket,
     Search,
@@ -28,6 +28,23 @@ import {
     Heading,
     SliderBanner
 } from "../common/components";
+
+const banners = [
+    {
+        image: require('../assets/images/banners/banner1.jpg')
+    },
+    {
+        image: require('../assets/images/banners/banner3.jpg')
+    },
+
+    {
+        image: require('../assets/images/banners/banner2.jpg')
+    },
+
+    {
+        image: require('../assets/images/banners/banner4.jpg')
+    },
+];
 
 export default function Home() {
     const navigation = useNavigation();
@@ -85,39 +102,7 @@ export default function Home() {
                         <Filter />
                     </TouchableOpacity>
                 </View>
-                {/* <TouchableOpacity
-                    style={{
-                        width: 50,
-                        height: 50,
-                        borderRadius: 25,
-                        backgroundColor: COLORS.lightOrange,
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <Basket />
-                    <View
-                        style={{
-                            position: "absolute",
-                            backgroundColor: "red",
-                            borderRadius: 25,
-                            right: 7,
-                            top: 7,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                paddingHorizontal: 6,
-                                paddingVertical: 3,
-                                ...FONTS.Roboto_700Bold,
-                                fontSize: 10,
-                                color: COLORS.white,
-                            }}
-                        >
-                            4
-                        </Text>
-                    </View>
-                </TouchableOpacity> */}
+                
             </View>
         );
     }
@@ -564,7 +549,7 @@ export default function Home() {
             >
                 {renderHeader()}
 
-                <SliderBanner/>
+                <SliderBanner data={banners} />
 
                 {renderCategories()}
                 {renderPopularRestaurants()}

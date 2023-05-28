@@ -205,7 +205,7 @@ export default function PaymentMethodOne() {
                     </View>
                 </View>
                 <Button
-                    title="Process Payment"
+                    title="Proceder al pago"
                     onPress={() => navigation.navigate("OrderSuccessful")}
                 />
             </ScrollView>

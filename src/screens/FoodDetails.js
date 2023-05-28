@@ -25,126 +25,98 @@ import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 export default function FoodDetails() {
     const navigation = useNavigation();
     const route = useRoute();
-    const { dish, dishes } = route.params;
+    const { dish, dishes, image, name, price, description } = route.params;
 
     function renderDetails() {
         return (
             <View
                 style={{
                     marginHorizontal: 30,
-                    marginTop: 30,
-                    marginBottom: 20,
+                    // marginBottom: 20,
                 }}
+                className="flex-col justify-around h-screen"
             >
-                <Image
-                    source={dish.image}
-                    style={{
-                        height: 206,
-                        width: "100%",
-                        borderRadius: 14,
-                        marginBottom: 21,
-                    }}
-                />
-                <Text
-                    style={{
-                        marginBottom: 8,
-                        ...FONTS.Roboto_500Medium,
-                        fontSize: 18,
-                        textTransform: "capitalize",
-                        color: COLORS.black,
-                    }}
-                >
-                    {dish.name}
-                </Text>
-                <Text
-                    style={{
-                        marginBottom: 12,
-                        ...FONTS.Roboto_400Regular,
-                        fontSize: 14,
-                        color: COLORS.gray2,
-                        lineHeight: 14 * 1.4,
-                        marginBottom: 10,
-                    }}
-                >
-                    {dish.description}
-                </Text>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginBottom: 25,
-                    }}
-                >
+                <View>
+                    <Image
+                        source={image}
+                        style={{
+                            height: 206,
+                            width: "100%",
+                            borderRadius: 14,
+                            marginBottom: 21,
+                        }}
+                        resizeMode="stretch"
+                    />
                     <Text
                         style={{
-                            ...FONTS.Roboto_700Bold,
-                            fontSize: 20,
-                            color: COLORS.carrot,
+                            marginBottom: 8,
+                            ...FONTS.Roboto_500Medium,
+                            fontSize: 18,
+                            textTransform: "capitalize",
+                            color: COLORS.black,
                         }}
                     >
-                        ${dish.price}
+                        {name}
+                    </Text>
+                    <Text
+                        style={{
+                            marginBottom: 12,
+                            ...FONTS.Roboto_400Regular,
+                            fontSize: 14,
+                            color: COLORS.gray2,
+                            lineHeight: 14 * 1.4,
+                            marginBottom: 10,
+                        }}
+                    >
+                        {/* {description} */}
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus iure facilis quibusdam? Cupiditate hic quisquam recusandae aliquam. Officiis, quod soluta expedita corporis iste perspiciatis at, aliquid voluptas nemo enim quos, quidem eveniet velit laborum sint neque impedit maiores adipisci! Quibusdam dolorum nemo deleniti. Temporibus vero eius laboriosam optio repudiandae eos libero ratione amet dolore! Distinctio natus eum laborum ut explicabo ratione excepturi error, reiciendis atque officiis ab nesciunt, corrupti placeat?
                     </Text>
                     <View
-                        style={{ flexDirection: "row", alignItems: "center" }}
+                        style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            marginBottom: 25,
+                        }}
                     >
                         <Text
-                            style={{ ...FONTS.Roboto_500Medium, fontSize: 16 }}
-                        >
-                            {dish.rating}
-                        </Text>
-                        <View style={{ marginHorizontal: 6 }}>
-                            <Star />
-                        </View>
-                        <Text
                             style={{
-                                ...FONTS.Roboto_500Medium,
-                                fontSize: 16,
-                                color: COLORS.gray2,
+                                ...FONTS.Roboto_700Bold,
+                                fontSize: 20,
+                                color: COLORS.carrot,
                             }}
                         >
-                            120 Review
+                            ${price}
                         </Text>
+                        <View
+                            style={{ flexDirection: "row", alignItems: "center" }}
+                        >
+                            <Text
+                                style={{ ...FONTS.Roboto_500Medium, fontSize: 16 }}
+                            >
+                                20
+                            </Text>
+                            <View style={{ marginHorizontal: 6 }}>
+                                <Star />
+                            </View>
+                            <Text
+                                style={{
+                                    ...FONTS.Roboto_500Medium,
+                                    fontSize: 16,
+                                    color: COLORS.gray2,
+                                }}
+                            >
+                                120 Review
+                            </Text>
+                        </View>
                     </View>
                 </View>
                 <Button
-                    title="Add to Cart"
-                    containerStyle={{ marginBottom: 33 }}
+                    title="Comprar"
+                    containerStyle={{ marginBottom: 83 }}
                     onPress={() => {
-                        showMessage({
-                            message: "Success",
-                            description: `${dish.name} was added.`,
-                            type: "success",
-                        });
-                    }}
-                />
-            </View>
-        );
-    }
-
-    function renderRecommended() {
-        return (
-            <View>
-                <Heading
-                    title="Recommended"
-                    fontStyle={{ ...FONTS.Roboto_500Medium, fontSize: 18 }}
-                />
-                <FlatList
-                    data={dishes}
-                    horizontal={true}
-                    contentContainerStyle={{
-                        paddingLeft: 30,
-                        paddingBottom: 30,
-                        paddingVertical: 21,
-                    }}
-                    showsHorizontalScrollIndicator={false}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item, index }) => {
-                        return (
-                            item.recommended === true && (
-                                <ItemComponentOne item={item} />
-                            )
-                        );
+                        
+                        navigation.navigate('PaymentMethodOne')
                     }}
                 />
             </View>
@@ -153,14 +125,8 @@ export default function FoodDetails() {
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-            <Header title="Food Details" onPress={() => navigation.goBack()} />
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ flexGrow: 1 }}
-            >
-                {renderDetails()}
-                {renderRecommended()}
-            </ScrollView>
+            <Header title="Detalles del producto" onPress={() => navigation.goBack()} />
+            {renderDetails()}
         </SafeAreaView>
     );
 }

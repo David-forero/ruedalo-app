@@ -2,6 +2,7 @@
   "expo": {
     "name": "repuestos-ya",
     "slug": "repuestos-ya",
+    "scheme": "myapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,11 +12,10 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.daele.repuestosya"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,7 +28,7 @@
       "favicon": "./assets/favicon.png",
       "config": {
         "googleSignIn": {
-          "reservedClientId": "YOUR_WEB_CLIENT_ID"
+          "reservedClientId": "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com"
         }
       }
     },

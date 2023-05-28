@@ -3,10 +3,13 @@ import { Shadow } from 'react-native-shadow-2'
 import Minus from './svg/Minus'
 import Plus from './svg/Plus'
 import { COLORS, FONTS } from '../constants'
+import { useNavigation } from '@react-navigation/native'
 
 const CardCatalog = ({name, price, image, description}) => {
+    const navigation = useNavigation();
+
     return (
-        <View style={{ paddingBottom: 15 }}>
+        <TouchableOpacity onPress={() => navigation.navigate("FoodDetails", {name, price, image, description})} style={{ paddingBottom: 15 }}>
             <Shadow
                 startColor={COLORS.shadowStartColor}
                 finalColor={COLORS.shadowFinalColor}
@@ -67,56 +70,12 @@ const CardCatalog = ({name, price, image, description}) => {
                         <View />
                         <View
                             style={{
-                                flexDirection: "row",
+                                flexDirection: "row-reverse",
                                 alignItems: "center",
                                 justifyContent: "space-between",
                             }}
                         >
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <TouchableOpacity
-                                    style={{
-                                        width: 24,
-                                        height: 24,
-                                        backgroundColor:
-                                            COLORS.lightGreen_02,
-                                        borderRadius: 15,
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                    onPress={() => console.log("minus")}
-                                >
-                                    <Minus />
-                                </TouchableOpacity>
-                                <Text
-                                    style={{
-                                        marginHorizontal: 6,
-                                        ...FONTS.Roboto_500Medium,
-                                        fontSize: 12,
-                                        lineHeight: 12 * 1.2,
-                                        color: COLORS.gray2,
-                                    }}
-                                >
-                                    1
-                                </Text>
-                                <TouchableOpacity
-                                    style={{
-                                        width: 24,
-                                        height: 24,
-                                        backgroundColor: COLORS.black2,
-                                        borderRadius: 15,
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                    }}
-                                    onPress={() => console.log("plus")}
-                                >
-                                    <Plus />
-                                </TouchableOpacity>
-                            </View>
+                            
                             <Text
                                 style={{
                                     ...FONTS.Roboto_700Bold,
@@ -130,7 +89,7 @@ const CardCatalog = ({name, price, image, description}) => {
                     </View>
                 </View>
             </Shadow>
-        </View>
+        </TouchableOpacity>
     )
 }
 

@@ -11,22 +11,7 @@ import Carousel from "react-native-reanimated-carousel";
 const window =  Dimensions.get("window");
 
 const PAGE_WIDTH = window.width;
-const colors = [
-  {
-    image: require('../../assets/images/banners/banner1.jpg')
-  },
-  {
-    image:  require('../../assets/images/banners/banner3.jpg')
-  },
 
-  {
-    image:  require('../../assets/images/banners/banner2.jpg')
-  },
-
-  {
-    image:  require('../../assets/images/banners/banner4.jpg')
-  },
-];
 
 const SliderBanner = ({data, autoPlay = true, isVertical = false }) => {
   const [snapEnabled, setSnapEnabled] = React.useState(true);
@@ -63,7 +48,7 @@ const SliderBanner = ({data, autoPlay = true, isVertical = false }) => {
           parallaxScrollingScale: 0.9,
           parallaxScrollingOffset: 50,
         }}
-        data={colors}
+        data={data}
         renderItem={({ item }) => (
           <Image  
             source={item.image}

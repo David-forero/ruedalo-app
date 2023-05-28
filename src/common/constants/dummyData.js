@@ -1,7 +1,7 @@
 const dishes = [
     {
         id: "1",
-        name: "Caramel cake with beries",
+        name: "Kit de Rolineras Traseras",
         compound: "Kit de Rolineras Traseras",
         presentationImage: require("../../assets/images/items/01.png"),
         popularDeal: true,

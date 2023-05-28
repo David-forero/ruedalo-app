@@ -259,6 +259,23 @@ export default function FavoriteList() {
             <Header title="Mis Vehículos" onPress={() => navigation.goBack()} />
             {renderFavoriteList()}
             {<UnfavoriteModal />}
+            <TouchableOpacity
+                style={{
+                    borderWidth: 1,
+                    borderColor: 'rgba(0,0,0,0.2)',
+                    backgroundColor: COLORS.orange,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 60,
+                    height: 60,
+                    position: 'absolute',
+                    bottom: 20,
+                    right: 20,
+                    borderRadius: 100,
+                }}
+            >
+               <Text className="text-white text-3xl font-semibold">+</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     );
 }
