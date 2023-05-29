@@ -148,20 +148,20 @@ const favorite = [
             "Add the remaining ingredients and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
         image: require("../../assets/icons/mycar.png"),
         rating: 4.9,
-        recommended: true,
-        ingredients: "Sells food, either fresh, specie, chili",
-        price: "20.00",
+        caja: 'Automatico',
+        typeAceite: "Mineral",
+        combustible: "Gasolina",
     },
     {
         id: "2",
         name: "Spark 2008",
         description:
-            "Add the remaining ingredients and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
+            "Add the remaining typeAceite and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
         image: require("../../assets/icons/mycar.png"),
         rating: 4.9,
-        recommended: true,
-        ingredients: "Sells food, either fresh, specie, chili",
-        price: "20.00",
+        caja: 'Sincrónico',
+        typeAceite: "Sintetico",
+        combustible: "Gas",
     },
 ];
 

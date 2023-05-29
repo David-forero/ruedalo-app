@@ -111,13 +111,13 @@ export default function MyCars() {
                                         <Text
                                             className="font-bold text-gray-700"
                                         >
-                                            Cambio de aceite:
+                                            Tipo de ceite:
                                         </Text>
 
                                         <Text
                                             className="text-red-950 font-bold"
                                         >
-                                            98%
+                                            {item.typeAceite}
                                         </Text>
                                     </View>
 
@@ -125,42 +125,30 @@ export default function MyCars() {
                                         <Text
                                             className="font-bold text-gray-700"
                                         >
-                                            Cambio de neumáticos:
+                                            Combustible:
                                         </Text>
 
                                         <Text
                                             className="text-green-900 font-bold"
                                         >
-                                            40%
+                                            {item.combustible}
                                         </Text>
                                     </View>
                                     <View className="flex-row space-x-3" >
                                         <Text
                                             className="font-bold text-gray-700"
                                         >
-                                            Cambio de batería:
+                                            Caja:
                                         </Text>
 
                                         <Text
-                                            className="text-yellow-600 font-bold"
+                                            className="text-yellow-600 "
                                         >
-                                            70%
+                                            {item.caja}
                                         </Text>
                                     </View>
 
-                                    <View className="flex-row space-x-3" >
-                                        <Text
-                                            className="font-bold text-gray-700"
-                                        >
-                                            Cambio de batería:
-                                        </Text>
-
-                                        <Text
-                                            className="text-green-900 font-bold"
-                                        >
-                                            30%
-                                        </Text>
-                                    </View>
+                                  
                                 </View>
                             </TouchableOpacity>
                         </Shadow>
