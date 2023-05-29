@@ -15,9 +15,11 @@ import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 WebBrowser.maybeCompleteAuthSession();
 
+
 export default function SignIn() {
     const navigation = useNavigation();
     // const [remember, setRemember] = useState(false);
+    const {signWithGoogleFn} = useAuthContext();
   const [accessToken, setAccessToken] = useState(null);
 
     async function fetchUserInfo() {
@@ -25,9 +27,20 @@ export default function SignIn() {
             headers: { Authorization: `Bearer ${accessToken}` }
         });
         const useInfo = await response.json();
-        console.log('🗃️', useInfo);
+        signWithGoogleFn(useInfo)
         // setUser(useInfo);
     }
+
+    useEffect(() => {
+      async function init() {
+        const value = await AsyncStorage.getItem('user')
+        if (value) {
+            navigation.navigate('MainLayout')
+        }
+      }
+      init();
+    }, [])
+    
 
     const [request, response, promptAsync] = Google.useAuthRequest({
         webClientId: '469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com',
@@ -38,12 +51,13 @@ export default function SignIn() {
     });
 
     useEffect(() => {
+        
         if (response?.type === "success") {
             setAccessToken(response.authentication.accessToken);
             accessToken && fetchUserInfo();
             navigation.navigate('MainLayout')
         }
-    }, [response, accessToken, request])
+    }, [response, accessToken])
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>

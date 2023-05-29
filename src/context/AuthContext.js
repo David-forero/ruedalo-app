@@ -1,6 +1,6 @@
 import { useContext, createContext, useState, useCallback, useEffect } from "react";
 import { post } from "../common/functions/http";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //Web==
 //Secret: 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
 //ID:469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com
@@ -38,7 +38,10 @@ const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  
+  const signWithGoogleFn = async (data) => {
+    setUser(data)
+    await AsyncStorage.setItem('user', value)
+  }
 
   return (
     <AuthContext.Provider
@@ -47,6 +50,7 @@ const AuthProvider = ({ children }) => {
         auth,
         signInFn,
         signUpFn,
+        signWithGoogleFn,
       }}
     >
       {children}

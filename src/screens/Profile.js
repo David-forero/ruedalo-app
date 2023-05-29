@@ -6,7 +6,7 @@ import {
     ScrollView,
     Image,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
 
@@ -21,9 +21,16 @@ import {
     Logout,
 } from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function Profile() {
     const navigation = useNavigation();
+    const { user } = useAuthContext();
+
+    useEffect(() => {
+        console.log('🔥 user:', user);
+    }, [])
+
 
     const [showModal, setShowModal] = useState(false);
 
@@ -45,7 +52,7 @@ export default function Profile() {
                         textTransform: "capitalize",
                     }}
                 >
-                    Profile
+                    Perfil
                 </Text>
             </View>
         );
@@ -64,17 +71,33 @@ export default function Profile() {
                 <TouchableOpacity
                     onPress={() => navigation.navigate("EditProfile")}
                 >
-                    <Image
-                        source={require("../assets/images/user.png")}
-                        style={{
-                            width: 80,
-                            height: 80,
-                            borderRadius: 40,
-                            alignSelf: "center",
-                            marginTop: 30,
-                            marginBottom: 10,
-                        }}
-                    />
+                    {
+                        user?.picture ? (
+                            <Image
+                                source={{ uri: user.picture }}
+                                style={{
+                                    width: 80,
+                                    height: 80,
+                                    borderRadius: 40,
+                                    alignSelf: "center",
+                                    marginTop: 30,
+                                    marginBottom: 10,
+                                }}
+                            />
+                        ) : (
+                            <Image
+                                source={require('../assets/images/user.png')}
+                                style={{
+                                    width: 80,
+                                    height: 80,
+                                    borderRadius: 40,
+                                    alignSelf: "center",
+                                    marginTop: 30,
+                                    marginBottom: 10,
+                                }}
+                            />
+                        )
+                    }
                     <Text
                         style={{
                             textAlign: "center",
@@ -84,7 +107,7 @@ export default function Profile() {
                             marginBottom: 3,
                         }}
                     >
-                        Jhon Smith
+                        {user?.name}
                     </Text>
                     <Text
                         style={{
@@ -95,48 +118,48 @@ export default function Profile() {
                             marginBottom: 20,
                         }}
                     >
-                        +880123 456 789
+                        Confirma tu número de teléfono
                     </Text>
                 </TouchableOpacity>
 
                 <ProfileCategory
                     icon={require("../assets/icons/order.png")}
-                    title="Orders History"
-                    subtitle="Review your order history"
+                    title="Historial de ordenes"
+                    subtitle="checa tu historial de ordenes"
                     onPress={() => navigation.navigate("OrderHistory")}
                     iconBgColor={COLORS.lightOrange}
                 />
                 <ProfileCategory
                     icon={require("../assets/icons/payment.png")}
-                    title="Payment Method"
-                    subtitle="Select Payment Method"
+                    title="Métodos de pagos"
+                    subtitle="Selecciona tu metodo de pago por defecto"
                     iconBgColor={COLORS.lightOrange}
                     onPress={() => navigation.navigate("PaymentMethodTwo")}
                 />
                 <ProfileCategory
                     icon={require("../assets/icons/notification.png")}
-                    title="Notifications"
-                    subtitle="Your Notifications"
+                    title="Notificaciones"
+                    subtitle="Tus Notificaciones"
                     iconBgColor={COLORS.lightRed}
                     onPress={() => navigation.navigate("Notifications")}
                 />
                 <ProfileCategory
                     icon={require("../assets/icons/faq.png")}
                     title="FAQ"
-                    subtitle="frequently questions"
+                    subtitle="Preguntas frecuentes"
                     onPress={() => navigation.navigate("FAQ")}
                     iconBgColor={COLORS.lightLilac}
                 />
-                <ProfileCategory
+                {/* <ProfileCategory
                     icon={require("../assets/icons/coupon.png")}
                     title="My Promocodes"
                     subtitle="Your Promocodes"
                     onPress={() => navigation.navigate("MyPromocodes")}
                     iconBgColor={COLORS.lightLilac}
-                />
+                /> */}
                 <ProfileCategory
                     icon={require("../assets/icons/exit.png")}
-                    title="Logout"
+                    title="Cerrar sesión"
                     iconBgColor={COLORS.lightPink}
                     onPress={() => setShowModal(true)}
                 />
@@ -173,7 +196,7 @@ export default function Profile() {
                             marginBottom: 26,
                         }}
                     >
-                        Are you sure you want to Logout ?
+                        Estás seguro de cerrar seisión?
                     </Text>
                     <View
                         style={{
@@ -202,7 +225,7 @@ export default function Profile() {
                                     color: COLORS.red,
                                 }}
                             >
-                                Cancel
+                                Cancelar
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
@@ -227,7 +250,7 @@ export default function Profile() {
                                     fontSize: 16,
                                 }}
                             >
-                                Sure
+                                Si
                             </Text>
                         </TouchableOpacity>
                     </View>
