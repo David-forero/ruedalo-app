@@ -37,7 +37,7 @@ const tabs = [
     },
     {
         id: "3",
-        screen: "Favorite",
+        screen: "MyCars",
         icon: require("../../assets/icons/car-status.png"),
         title: 'Vehículos'
     },

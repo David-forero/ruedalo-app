@@ -2,14 +2,11 @@ import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React, { useRef, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
-import { Picker } from '@react-native-picker/picker';
-import { Header, InputField, Button, Check, Camera } from "../../common/components";
+import { Header, InputField, Button } from "../../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../../common/constants";
 
 export default function SignUp() {
     const navigation = useNavigation();
-    const [remember, setRemember] = useState(false);
-    const [selectedLanguage, setSelectedLanguage] = useState();
 
     function renderContent() {
         return (

@@ -1,9 +1,6 @@
 import * as React from "react";
 import { View, Dimensions, Text, Image, ImageBackground } from "react-native";
-import Animated, {
-  Extrapolate,
-  interpolate,
-  useAnimatedStyle,
+import {
   useSharedValue,
 } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";

@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { tabs, COLORS, FONTS, dishes } from "../common/constants";
 
 import HomeOne from "./Home";
-import Favorite from "../screens/FavoriteList";
+import MyCars from "../screens/MyCars";
 import Profile from "../screens/Profile";
 import AutoServices from "./AutoServices";
 
@@ -17,7 +17,7 @@ export default function MainLayout() {
         <View style={{ flex: 1 }}>
             {selectedTab == "Home" && <HomeOne />}
             {selectedTab == "AutoServices" && <AutoServices />}
-            {selectedTab == "Favorite" && <Favorite />}
+            {selectedTab == "MyCars" && <MyCars />}
             {selectedTab == "Profile" && <Profile />}
 
             <View

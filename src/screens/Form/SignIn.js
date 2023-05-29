@@ -17,7 +17,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function SignIn() {
     const navigation = useNavigation();
-    const [remember, setRemember] = useState(false);
+    // const [remember, setRemember] = useState(false);
   const [accessToken, setAccessToken] = useState(null);
 
     async function fetchUserInfo() {
@@ -26,25 +26,24 @@ export default function SignIn() {
         });
         const useInfo = await response.json();
         console.log('🗃️', useInfo);
-        setUser(useInfo);
+        // setUser(useInfo);
     }
-
-    useEffect(() => {
-        console.log('response:', response);
-        if (response?.type === "success") {
-            console.log('Todo okay 👍️');
-            setAccessToken(response.authentication.accessToken);
-            accessToken && fetchUserInfo();
-            navigation.navigate('MainLayout')
-        }
-    }, [response, accessToken])
 
     const [request, response, promptAsync] = Google.useAuthRequest({
         webClientId: '469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com',
+        clientSecret: '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',
         expoClientId: '469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com',
         androidClientId: '469688688692-jbm36cdotrfies2i9fp9p8d7i3ua2ne9.apps.googleusercontent.com',
         iosClientId: '469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com',
     });
+
+    useEffect(() => {
+        if (response?.type === "success") {
+            setAccessToken(response.authentication.accessToken);
+            accessToken && fetchUserInfo();
+            navigation.navigate('MainLayout')
+        }
+    }, [response, accessToken, request])
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>

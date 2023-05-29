@@ -24,14 +24,14 @@ import {
     OrderHistory,
     AddPaymentMethod,
     EditProfile,
-    FavoriteList,
+    MyCars,
     FAQ,
     MyPromocodes,
     Category,
     CartIsEmpty,
     OrderSuccessful,
     Filter,
-    BestMeal,
+    AddCarForm,
     PaymentMethodOne,
     PaymentMethodTwo,
     PasswordHasBeenReset,
@@ -42,6 +42,7 @@ import {
     ChangePassword,
     OtpCodeEmail,
     AutoServices,
+    CreateCardSuccess
 } from "../screens";
 
 const Stack = createStackNavigator();
@@ -73,13 +74,13 @@ export default function Navigation() {
                 <Stack.Screen name="Notifications" component={Notifications} />
                 <Stack.Screen name="OrderHistory" component={OrderHistory} />
                 <Stack.Screen name="EditProfile" component={EditProfile} />
-                <Stack.Screen name="FavoriteList" component={FavoriteList} />
+                <Stack.Screen name="MyCars" component={MyCars} />
                 <Stack.Screen name="FAQ" component={FAQ} />
                 <Stack.Screen name="MyPromocodes" component={MyPromocodes} />
                 <Stack.Screen name="Category" component={Category} />
                 <Stack.Screen name="CartIsEmpty" component={CartIsEmpty} />
                 <Stack.Screen name="Filter" component={Filter} />
-                <Stack.Screen name="BestMeal" component={BestMeal} />
+                <Stack.Screen name="AddCarForm" component={AddCarForm} />
                 <Stack.Screen name="NewPassword" component={NewPassword} />
                 <Stack.Screen name="AddNewCard" component={AddNewCard} />
                 <Stack.Screen name="AutoServices" component={AutoServices} />
@@ -133,6 +134,10 @@ export default function Navigation() {
                 <Stack.Screen
                     name="ForgotPassword"
                     component={ForgotPassword}
+                />
+                <Stack.Screen
+                    name="CreateCardSuccess"
+                    component={CreateCardSuccess}
                 />
             </Stack.Navigator>
             <FlashMessage position="top" />

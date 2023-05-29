@@ -18,14 +18,14 @@ import Notifications from "./Profile/Notifications";
 import OrderHistory from "./OrderHistory";
 import AddPaymentMethod from "./AddPaymentMethod";
 import EditProfile from "./EditProfile";
-import FavoriteList from "./FavoriteList";
+import MyCars from "./MyCars";
+import AddCarForm from "./Cars/AddCarForm";
 import FAQ from "./Profile/FAQ";
 import MyPromocodes from "./Profile/MyPromocodes";
 import Category from "./Category";
 import CartIsEmpty from "./CartIsEmpty";
 import OrderSuccessful from "./OrderSuccessful";
 import Filter from "./Form/Filter";
-import BestMeal from "./BestMeal";
 import PaymentMethodOne from "./PaymentMethodOne";
 import PaymentMethodTwo from "./PaymentMethodTwo";
 import PasswordHasBeenReset from "./PasswordHasBeenReset";
@@ -36,6 +36,7 @@ import AddNewCard from "./AddNewCard";
 import ChangePassword from "./ChangePassword";
 import OtpCodeEmail from "./Form/OtpCodeEmail";
 import AutoServices from "./AutoServices";
+import CreateCardSuccess from "./CreateCardSuccess";
 
 export {
     OnBoarding,
@@ -58,14 +59,14 @@ export {
     OrderHistory,
     AddPaymentMethod,
     EditProfile,
-    FavoriteList,
+    MyCars,
     FAQ,
     MyPromocodes,
     Category,
     CartIsEmpty,
     OrderSuccessful,
     Filter,
-    BestMeal,
+    AddCarForm,
     PaymentMethodOne,
     PaymentMethodTwo,
     PasswordHasBeenReset,
@@ -75,5 +76,6 @@ export {
     AddNewCard,
     ChangePassword,
     OtpCodeEmail,
-    AutoServices
+    AutoServices,
+    CreateCardSuccess
 };

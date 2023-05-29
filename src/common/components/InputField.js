@@ -9,6 +9,7 @@ export default function InputField({
     leftIcon,
     rightIcon,
     secureTextEntry,
+    keyboardType = 'default'
 }) {
     return (
         <View
@@ -28,6 +29,7 @@ export default function InputField({
                 style={{ flex: 1 }}
                 placeholder={placeholder}
                 secureTextEntry={secureTextEntry}
+                keyboardType={keyboardType}
             />
         </View>
     );

@@ -12,14 +12,14 @@ import { Rating } from "react-native-ratings";
 import Modal from "react-native-modal";
 import { Shadow } from "react-native-shadow-2";
 
-import { Header, Minus, Plus, Remove } from "../common/components";
+import { Header, Remove } from "../common/components";
 import { SAFEAREAVIEW, favorite, COLORS, SIZES, FONTS } from "../common/constants";
 
-export default function FavoriteList() {
+export default function MyCars() {
     const navigation = useNavigation();
     const [showModal, setShowModal] = useState(false);
 
-    function renderFavoriteList() {
+    function renderMyCarsList() {
         return (
             <ScrollView
                 contentContainerStyle={{
@@ -29,6 +29,13 @@ export default function FavoriteList() {
                 }}
                 showsVerticalScrollIndicator={false}
             >
+                <View className="mb-5" >
+                    <Text className="text-gray-900 font-semibold text-2xl text-center">Añade tu vehículo aquí</Text>
+                    <Text className="text-gray-700 text-md mt-3 text-center">Esto te permitirá a que nosotros busquemos tiendas y servicios más cercanos para tu vehículo</Text>
+                </View>
+
+                <Text className="text-gray-900 font-semibold text-lg mb-3">Tus Vehículos</Text>
+
                 {favorite.map((item, index) => {
                     return (
                         <Shadow
@@ -163,7 +170,7 @@ export default function FavoriteList() {
         );
     }
 
-    function UnfavoriteModal() {
+    function DeleteModal() {
         return (
             <Modal
                 isVisible={showModal}
@@ -257,8 +264,8 @@ export default function FavoriteList() {
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <Header title="Mis Vehículos" onPress={() => navigation.goBack()} />
-            {renderFavoriteList()}
-            {<UnfavoriteModal />}
+            {renderMyCarsList()}
+            {<DeleteModal />}
             <TouchableOpacity
                 style={{
                     borderWidth: 1,
@@ -273,8 +280,9 @@ export default function FavoriteList() {
                     right: 20,
                     borderRadius: 100,
                 }}
+                onPress={() => navigation.navigate('AddCarForm')}
             >
-               <Text className="text-white text-3xl font-semibold">+</Text>
+               <Text className="text-white text-3xl ">+</Text>
             </TouchableOpacity>
         </SafeAreaView>
     );
