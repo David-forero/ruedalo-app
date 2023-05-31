@@ -56,13 +56,18 @@ const AuthProvider = ({ children }) => {
 
   const signUpFn = useCallback(async (formData, navigation, setLoading) => {
     const { data } = await post("/register_user", formData);
-    console.log('response server:', data);
     if (data.status === true) {
       setAuth(true)
       setUser(data.data);
-      return navigation.navigate('OtpCodeEmail')
+      return navigation.navigate('MainLayout')
+    } else {
+      showMessage({
+        message: "Error al iniciar sessión",
+        description: data.message,
+        type: "danger",
+      });
     }
-    alert(data.message);
+
     setLoading(false);
   }, []);
 

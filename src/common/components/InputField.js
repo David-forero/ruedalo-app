@@ -14,7 +14,8 @@ export default function InputField({
     onBlur,
     onChangeText,
     textContentType = 'none',
-    error = false
+    error = false,
+    touched
 }) {
     return (
         <View className="mb-3">
@@ -41,6 +42,7 @@ export default function InputField({
                     value={value}
                     textContentType={textContentType}
                     keyboardType={keyboardType}
+                    touched={touched}
                 />
             </View>
             {error && <Text className="px-3 text-red-700 my-1">*{error}</Text>}

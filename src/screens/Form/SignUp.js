@@ -38,7 +38,8 @@ export default function SignUp() {
                     signUpFn(values, navigation, setLoading)
                 }}
                 validationSchema={SignUpFormSchema}
-                validateOnMount
+                validateOnMoun={true}
+                validateOnBlur={{ name: true, lastname: true, email: true, password: true, confirmPassword: true }}
             >
                 {({
                     handleBlur,
@@ -47,6 +48,7 @@ export default function SignUp() {
                     values,
                     errors,
                     isValid,
+                    touched
                 }) => (
                     <KeyboardAwareScrollView
                         showsVerticalScrollIndicator={false}
@@ -63,7 +65,8 @@ export default function SignUp() {
                             onChangeText={handleChange("name")}
                             onBlur={handleBlur("name")}
                             value={values.name}
-                            error={errors.name}
+                            error={touched.name ? errors.name : false}
+                            touched={touched.name}
                         />
 
                         <InputField
@@ -71,7 +74,8 @@ export default function SignUp() {
                             onChangeText={handleChange("lastname")}
                             onBlur={handleBlur("lastname")}
                             value={values.lastname}
-                            error={errors.lastname}
+                            error={touched.lastname ? errors.lastname : false}
+                            touched={touched.lastname}
                         />
 
 
@@ -82,7 +86,8 @@ export default function SignUp() {
                             value={values.email}
                             keyboardType="email-address"
                             textContentType="emailAddress"
-                            error={errors.email}
+                            error={touched.email ? errors.email : false}
+                            touched={touched.email}
                         />
 
                         <InputField
@@ -92,7 +97,8 @@ export default function SignUp() {
                             value={values.password}
                             textContentType="password"
                             secureTextEntry={true}
-                            error={errors.password}
+                            error={touched.password ? errors.password : false}
+                            touched={touched.password}
 
                         />
                         <InputField
@@ -102,7 +108,8 @@ export default function SignUp() {
                             value={values.confirmPassword}
                             textContentType="password"
                             secureTextEntry={true}
-                            error={errors.confirmPassword}
+                            error={touched.confirmPassword ? errors.confirmPassword : false}
+                            touched={touched.confirmPassword}
                         />
                         <View
                             style={{
@@ -113,6 +120,8 @@ export default function SignUp() {
                         </View>
 
                         <Button
+                            valid={isValid}
+                            loading={loading}
                             title="Crear Cuenta"
                             containerStyle={{
                                 backgroundColor: COLORS.black2,
