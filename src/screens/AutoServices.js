@@ -570,7 +570,7 @@ const AutoServices = () => {
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 10 }}
+                contentContainerStyle={{ paddingBottom: 80 }}
             >
                 {renderHeader()}
 

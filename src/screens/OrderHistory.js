@@ -49,7 +49,7 @@ export default function OrderHistory() {
                                     : COLORS.black2,
                         }}
                     >
-                        Upcoming
+                        En camino
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -76,7 +76,7 @@ export default function OrderHistory() {
                                     : COLORS.orange,
                         }}
                     >
-                        History
+                        Historial
                     </Text>
                 </TouchableOpacity>
             </View>
