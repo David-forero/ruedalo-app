@@ -1,6 +1,8 @@
 import { View, Text, FlatList, Image, StyleSheet } from "react-native";
 import React, { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import { SIZES, COLORS, FONTS, SAFEAREAVIEW, onboarding } from "../common/constants";
 import {
@@ -125,8 +127,14 @@ export default function OnBoarding() {
                                         marginBottom: SIZES.height / 26,
                                         backgroundColor: COLORS.orange,
                                     }}
-                                    onPress={() =>
-                                        navigation.navigate("SignIn")
+                                    onPress={async () => {
+                                        try {
+                                            navigation.navigate("SignIn")
+                                            await AsyncStorage.setItem('onboarding', JSON.stringify(false))
+                                        } catch (e) {
+                                            console.log(e);
+                                        }
+                                    }
                                     }
                                 />
 

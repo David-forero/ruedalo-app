@@ -13,14 +13,22 @@ import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../../common/constants";
 import { useAuthContext } from "../../context/AuthContext";
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-WebBrowser.maybeCompleteAuthSession();
+import { Formik } from "formik";
+import * as Yup from "yup";
 
+WebBrowser.maybeCompleteAuthSession();
 
 export default function SignIn() {
     const navigation = useNavigation();
     // const [remember, setRemember] = useState(false);
-    const {signWithGoogleFn} = useAuthContext();
-  const [accessToken, setAccessToken] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const { signWithGoogleFn, signInFn } = useAuthContext();
+    const [accessToken, setAccessToken] = useState(null);
+
+    const SignInFormSchema = Yup.object().shape({
+        email: Yup.string().required("Campo requerido"),
+        password: Yup.string().required('Campo requerido'),
+    });
 
     async function fetchUserInfo() {
         let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
@@ -31,16 +39,16 @@ export default function SignIn() {
         // setUser(useInfo);
     }
 
-    useEffect(() => {
-      async function init() {
-        const value = await AsyncStorage.getItem('user')
-        if (value) {
-            navigation.navigate('MainLayout')
-        }
-      }
-      init();
-    }, [])
-    
+    // useEffect(() => {
+    //   async function init() {
+    //     const value = await AsyncStorage.getItem('user')
+    //     if (value) {
+    //         navigation.navigate('MainLayout')
+    //     }
+    //   }
+    //   init();
+    // }, [])
+
 
     const [request, response, promptAsync] = Google.useAuthRequest({
         webClientId: '469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com',
@@ -51,7 +59,7 @@ export default function SignIn() {
     });
 
     useEffect(() => {
-        
+
         if (response?.type === "success") {
             setAccessToken(response.authentication.accessToken);
             accessToken && fetchUserInfo();
@@ -72,57 +80,86 @@ export default function SignIn() {
                 }}
             >
 
-                <View style={{ justifyContent: 'center', marginBottom: 20 }}>
-
-                    <Text style={{ fontSize: 18 }}>Inicio de sesión</Text>
-                </View>
-
-                <InputField
-                    contaynerStyle={{ marginBottom: 15 }}
-                    placeholder="Correo"
-                    leftIcon={<Mail />}
-                />
-                <InputField
-                    leftIcon={<Lock />}
-                    placeholder="Contraseña"
-                    contaynerStyle={{ marginBottom: 37 }}
-                    secureTextEntry={true}
-                />
-                <View
-                    style={{
-                        width: "100%",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        paddingLeft: 20,
-                        marginBottom: 18,
+                <Formik
+                    initialValues={{email: "", password: "" }}
+                    onSubmit={(values) => {
+                        setLoading(true)
+                        signInFn(values, navigation, setLoading)
                     }}
+                    validationSchema={SignInFormSchema}
+                    validateOnMount
                 >
 
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate("ForgotPassword")}
-                    >
-                        <Text
-                            style={{
-                                ...FONTS.Roboto_400Regular,
-                                fontSize: 16,
-                                color: COLORS.carrot,
-                                paddingRight: 20,
-                            }}
-                        >
-                            ¿Olvidó su contraseña?
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                <Button
-                    title="Iniciar Sesión"
-                    containerStyle={{ backgroundColor: COLORS.black2 }}
-                    onPress={() => navigation.navigate("MainLayout")}
-                />
+                    {({ handleBlur,
+                        handleChange,
+                        handleSubmit,
+                        values,
+                        errors,
+                        isValid, }) => (
+                        <>
+                            <View style={{ justifyContent: 'center', marginBottom: 20 }}>
+                                <Text style={{ fontSize: 18 }}>Inicio de sesión</Text>
+                            </View>
+
+                            <InputField
+                                contaynerStyle={{ marginBottom: 15 }}
+                                placeholder="Correo"
+                                leftIcon={<Mail />}
+                                onChangeText={handleChange("email")}
+                                onBlur={handleBlur("email")}
+                                value={values.email}
+                            />
+                            <InputField
+                                leftIcon={<Lock />}
+                                placeholder="Contraseña"
+                                contaynerStyle={{ marginBottom: 37 }}
+                                secureTextEntry={true}
+                                onChangeText={handleChange("password")}
+                                onBlur={handleBlur("password")}
+                                value={values.password}
+                            />
+                            <View
+                                style={{
+                                    width: "100%",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    paddingLeft: 20,
+                                    marginBottom: 18,
+                                }}
+                            >
+
+                                <TouchableOpacity
+                                    onPress={() => navigation.navigate("ForgotPassword")}
+                                >
+                                    <Text
+                                        style={{
+                                            ...FONTS.Roboto_400Regular,
+                                            fontSize: 16,
+                                            color: COLORS.carrot,
+                                            paddingRight: 20,
+                                        }}
+                                    >
+                                        ¿Olvidó su contraseña?
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <Button
+                                loading={loading}
+                                valid={isValid}
+                                title="Iniciar Sesión"
+                                containerStyle={{ backgroundColor: COLORS.black2 }}
+                                onPress={handleSubmit}
+                            />
+                        </>
+                    )}
+
+                </Formik>
 
                 <TouchableOpacity
                     className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
                     onPress={() => promptAsync()}
+                    disabled={!request || loading}
                 >
                     <GoogleIcon width={25} height={25} />
                     <Text

@@ -9,28 +9,41 @@ export default function InputField({
     leftIcon,
     rightIcon,
     secureTextEntry,
-    keyboardType = 'default'
+    keyboardType = 'default',
+    value = '',
+    onBlur,
+    onChangeText,
+    textContentType = 'none',
+    error = false
 }) {
     return (
-        <View
-            style={{
-                width: "100%",
-                height: 50,
-                backgroundColor: COLORS.lightGray,
-                borderRadius: 10,
-                alignItems: "center",
-                flexDirection: "row",
-                paddingHorizontal: 20,
-                ...contaynerStyle,
-            }}
-        >
-            {leftIcon && <View style={{ paddingRight: 14 }}>{leftIcon}</View>}
-            <TextInput
-                style={{ flex: 1 }}
-                placeholder={placeholder}
-                secureTextEntry={secureTextEntry}
-                keyboardType={keyboardType}
-            />
+        <View className="mb-3">
+            <View
+                className={`${error ? 'bg-red-100' : 'bg-gray-100'}`}
+                style={{
+                    width: "100%",
+                    height: 50,
+                    borderRadius: 10,
+                    alignItems: "center",
+                    flexDirection: "row",
+                    paddingHorizontal: 20,
+                    ...contaynerStyle,
+                }}
+            >
+                {leftIcon && <View style={{ paddingRight: 14 }}>{leftIcon}</View>}
+                <TextInput
+                    style={{ flex: 1 }}
+                    placeholder={placeholder}
+                    secureTextEntry={secureTextEntry}
+                    onChangeText={onChangeText}
+                    onKeyPress={onBlur}
+                    onBlur={onBlur}
+                    value={value}
+                    textContentType={textContentType}
+                    keyboardType={keyboardType}
+                />
+            </View>
+            {error && <Text className="px-3 text-red-700 my-1">*{error}</Text>}
         </View>
     );
 }

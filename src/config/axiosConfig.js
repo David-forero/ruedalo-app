@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const getToken = () => {
     // const token = JSON.parse(localStorage.getItem('user') || '');
@@ -6,7 +7,7 @@ const getToken = () => {
 }
 
 const Axios = axios.create({
-    baseURL: 'aaaaa',
+    baseURL: 'https://repuestosya.cobrex.com.ve/api',
     // timeout: 5000,
     headers: {
         // Authorization: getToken() 

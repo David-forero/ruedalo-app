@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import React from "react";
 import { COLORS, FONTS } from "../constants";
 
@@ -8,9 +8,12 @@ export default function Button({
     textColor,
     onPress,
     textStyle,
+    loading = false,
+    valid = true
 }) {
     return (
         <TouchableOpacity
+            className={`${valid ? 'opacity-100' : 'opacity-80'}`}
             style={{
                 width: "100%",
                 height: 50,
@@ -22,20 +25,23 @@ export default function Button({
                 zIndex: 1,
             }}
             onPress={onPress}
+            disabled={loading || !valid}
         >
-            <Text
-                style={{
-                    textAlign: "center",
-                    color: textColor,
-                    fontSize: 16,
-                    color: COLORS.white,
-                    textTransform: "capitalize",
-                    ...FONTS.Roboto_500Medium,
-                    ...textStyle,
-                }}
-            >
-                {title}
-            </Text>
+            {
+                loading ? (<ActivityIndicator size="small" color="#fff" />) : (<Text
+                    style={{
+                        textAlign: "center",
+                        color: textColor,
+                        fontSize: 16,
+                        color: COLORS.white,
+                        textTransform: "capitalize",
+                        ...FONTS.Roboto_500Medium,
+                        ...textStyle,
+                    }}
+                >
+                    {title}
+                </Text>)
+            }
         </TouchableOpacity>
     );
 }
