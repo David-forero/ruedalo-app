@@ -25,7 +25,7 @@ import { useAuthContext } from "../context/AuthContext";
 
 export default function Profile() {
     const navigation = useNavigation();
-    const { user } = useAuthContext();
+    const { user, logOutFn } = useAuthContext();
 
     useEffect(() => {
         console.log('🔥 user:', user);
@@ -196,7 +196,7 @@ export default function Profile() {
                             marginBottom: 26,
                         }}
                     >
-                        Estás seguro de cerrar seisión?
+                        ¿Estás seguro de cerrar sesión?
                     </Text>
                     <View
                         style={{
@@ -240,7 +240,7 @@ export default function Profile() {
                             }}
                             onPress={() => {
                                 setShowModal(false);
-                                navigation.navigate("SignIn");
+                                logOutFn(navigation)
                             }}
                         >
                             <Text

@@ -36,6 +36,8 @@ export default function SignIn() {
         });
         const useInfo = await response.json();
         signWithGoogleFn(useInfo)
+        navigation.navigate('MainLayout')
+
         // setUser(useInfo);
     }
 
@@ -63,7 +65,6 @@ export default function SignIn() {
         if (response?.type === "success") {
             setAccessToken(response.authentication.accessToken);
             accessToken && fetchUserInfo();
-            navigation.navigate('MainLayout')
         }
     }, [response, accessToken])
 

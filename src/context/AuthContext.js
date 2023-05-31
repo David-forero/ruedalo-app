@@ -24,7 +24,6 @@ const AuthProvider = ({ children }) => {
     userValue = JSON.parse(userValue);
     onboarding = JSON.parse(onboarding);
     setEnableBoarding(onboarding)
-    console.log('userValue', userValue);
     if (userValue) {
       setUser(userValue);
     }
@@ -44,7 +43,6 @@ const AuthProvider = ({ children }) => {
       await AsyncStorage.setItem('user', dataString)
       return navigation.navigate('MainLayout')
     } else {
-
       showMessage({
         message: "Error al iniciar sessión",
         description: data.message,
@@ -56,25 +54,35 @@ const AuthProvider = ({ children }) => {
 
   const signUpFn = useCallback(async (formData, navigation, setLoading) => {
     const { data } = await post("/register_user", formData);
+    setLoading(false);
+    console.log('🔥 status', data.status);
+
     if (data.status === true) {
       setAuth(true)
       setUser(data.data);
+      let dataString = JSON.stringify(data.data);
+      await AsyncStorage.setItem('user', dataString)
       return navigation.navigate('MainLayout')
     } else {
       showMessage({
-        message: "Error al iniciar sessión",
+        message: "Error al registrar",
         description: data.message,
         type: "danger",
       });
     }
-
-    setLoading(false);
   }, []);
+
+  const logOutFn = useCallback(async (navigation) => {
+    console.log('cerrando...')
+    await post("/login", '');
+    await AsyncStorage.removeItem('user');
+    setUser(null);
+    navigation.navigate("SignIn");
+  },[]);
 
   const signWithGoogleFn = async (data) => {
     setUser(data)
     let dataString = JSON.stringify(data);
-    console.log(dataString);
     await AsyncStorage.setItem('user', dataString)
   }
 
@@ -87,7 +95,8 @@ const AuthProvider = ({ children }) => {
         signInFn,
         signUpFn,
         signWithGoogleFn,
-        loadingApp
+        loadingApp,
+        logOutFn
       }}
     >
       {children}
