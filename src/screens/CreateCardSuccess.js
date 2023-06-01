@@ -45,7 +45,7 @@ export default function CreateCardSuccess() {
                 </Text>
                
                 <Button
-                    title="Ver lista de vehículos"
+                    title="Ver tiendas cercanas"
                     onPress={() => navigation.navigate('MainLayout')}
                     containerStyle={{ backgroundColor: COLORS.orange }}
                     textStyle={{ color: COLORS.white }}
