@@ -3,10 +3,7 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { tabs, COLORS, FONTS, dishes } from "../common/constants";
-
 import HomeOne from "./Home";
-import MyCars from "../screens/MyCars";
 import OrderHistory from './OrderHistory'
 import Profile from "../screens/Profile";
 import AutoServices from "./AutoServices";
@@ -14,7 +11,6 @@ import { CurvedBottomBar } from "react-native-utils-navigation-bar";
 
 export default function MainLayout() {
     const navigation = useNavigation();
-    const [selectedTab, setSelectedTab] = useState("Home");
 
     const [type, setType] = useState('down');
 
