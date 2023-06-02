@@ -28,6 +28,7 @@ import {
     Heading,
     SliderBanner
 } from "../common/components";
+import { Ionicons } from '@expo/vector-icons';
 
 const banners = [
     {
@@ -93,13 +94,14 @@ export default function Home() {
                         style={{ flex: 1, paddingLeft: 7 }}
                     />
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("Filter")}
+                        onPress={() => navigation.navigate("ListProducts")}
                         style={{
                             paddingHorizontal: 14,
-                            paddingVertical: 15,
+                            // paddingVertical: 15,
                         }}
                     >
-                        <Filter />
+                        {/* <Filter /> */}
+                        <Ionicons name="search-outline" size={16} color="#2d2d2d" />
                     </TouchableOpacity>
                 </View>
                 

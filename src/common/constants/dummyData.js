@@ -57,7 +57,7 @@ const dishes = [
         recommended: true,
         price: 27.95,
         rating: 4.2,
-        presentationImage: require("../../assets/images/items/04.png"),
+        image: require("../../assets/images/items/04.png"),
         description:
             "Qui ex aute ipsum duis. Incididunt adipisicing voluptate laborum",
         weight: 350,
