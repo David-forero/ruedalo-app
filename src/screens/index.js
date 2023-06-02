@@ -37,6 +37,7 @@ import ChangePassword from "./ChangePassword";
 import OtpCodeEmail from "./Form/OtpCodeEmail";
 import AutoServices from "./AutoServices";
 import CreateCardSuccess from "./CreateCardSuccess";
+import ListProducts from "./ListProducts";
 
 export {
     OnBoarding,
@@ -77,5 +78,6 @@ export {
     ChangePassword,
     OtpCodeEmail,
     AutoServices,
-    CreateCardSuccess
+    CreateCardSuccess,
+    ListProducts
 };

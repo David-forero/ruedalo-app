@@ -22,12 +22,12 @@ import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 const methods = [
     {
         id: "1",
-        method: "Cash on delivery",
+        method: "Efectivo",
         icon: <Cash />,
     },
     {
         id: "2",
-        method: "Bank transfer",
+        method: "Transferencia",
         icon: <Bank />,
     },
 ];
@@ -39,7 +39,7 @@ export default function PaymentMethodOne() {
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <Header
-                title="Payment Method"
+                title="Métodos de pago"
                 onPress={() => navigation.goBack()}
             />
 
@@ -127,7 +127,7 @@ export default function PaymentMethodOne() {
                                 color: COLORS.black,
                             }}
                         >
-                            Net price
+                            Precio neto
                         </Text>
                         <Text
                             style={{
@@ -156,7 +156,7 @@ export default function PaymentMethodOne() {
                                 textTransform: "capitalize",
                             }}
                         >
-                            Shipping fee
+                            Delivery
                         </Text>
                         <Text
                             style={{
@@ -165,7 +165,7 @@ export default function PaymentMethodOne() {
                                 color: COLORS.gray2,
                             }}
                         >
-                            00
+                            $15
                         </Text>
                     </View>
                     <DashedLine
@@ -190,7 +190,7 @@ export default function PaymentMethodOne() {
                                 color: COLORS.black,
                             }}
                         >
-                            Total price
+                            Precio total
                         </Text>
                         <Text
                             style={{
@@ -200,7 +200,7 @@ export default function PaymentMethodOne() {
                                 color: COLORS.carrot,
                             }}
                         >
-                            $150
+                            $165
                         </Text>
                     </View>
                 </View>

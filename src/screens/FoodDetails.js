@@ -21,10 +21,13 @@ import {
     Heading,
 } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
+import { Picker } from "@react-native-picker/picker";
 
 export default function FoodDetails() {
     const navigation = useNavigation();
     const route = useRoute();
+    const [marca, setMarca] = useState(null)
+
     const { dish, dishes, image, name, price, description } = route.params;
 
     function renderDetails() {
@@ -88,34 +91,39 @@ export default function FoodDetails() {
                         >
                             ${price}
                         </Text>
-                        <View
-                            style={{ flexDirection: "row", alignItems: "center" }}
-                        >
-                            <Text
-                                style={{ ...FONTS.Roboto_500Medium, fontSize: 16 }}
-                            >
-                                20
-                            </Text>
-                            <View style={{ marginHorizontal: 6 }}>
-                                <Star />
-                            </View>
-                            <Text
-                                style={{
-                                    ...FONTS.Roboto_500Medium,
-                                    fontSize: 16,
-                                    color: COLORS.gray2,
-                                }}
-                            >
-                                120 Review
-                            </Text>
-                        </View>
+
                     </View>
                 </View>
+
+                <View>
+                    <Text className='font-bold text-md mb-3 text-left text-gray-700 mt-5'>Cantidad</Text>
+
+                    <Picker
+                        style={{
+                            width: '100%',
+                            height: 10,
+                            backgroundColor: COLORS.lightGray,
+                            borderRadius: 10,
+                            alignItems: "center",
+                            flexDirection: "row",
+                            marginBottom: 30
+                        }}
+                        mode="dropdown"
+                        selectedValue={marca}
+                        onValueChange={(itemValue, itemIndex) =>
+                            setMarca(itemValue)
+                        }
+                    >
+                        <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="1" value="1" />
+                        <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="2" value="2" />
+                        <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="3" value="3" />
+                    </Picker>
+                </View>
+
                 <Button
                     title="Comprar"
-                    containerStyle={{ marginBottom: 83 }}
+                    containerStyle={{ marginBottom: 20, marginTop: 60 }}
                     onPress={() => {
-                        
                         navigation.navigate('PaymentMethodOne')
                     }}
                 />
@@ -126,7 +134,11 @@ export default function FoodDetails() {
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <Header title="Detalles del producto" onPress={() => navigation.goBack()} />
-            {renderDetails()}
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
+                {renderDetails()}
+            </ScrollView>
         </SafeAreaView>
     );
 }

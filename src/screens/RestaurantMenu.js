@@ -18,7 +18,6 @@ import {
 } from "../common/components";
 import { COLORS, FONTS, SIZES, SAFEAREAVIEW, category } from "../common/constants";
 import { useState } from "react";
-import { SwipeListView } from "react-native-swipe-list-view";
 import { Rating } from "react-native-ratings";
 
 export default function RestaurantMenu() {
@@ -105,21 +104,6 @@ export default function RestaurantMenu() {
                 {/* END CATEGORY */}
 
                 {/* START CATALOG */}
-                {/* <SwipeListView
-                    data={restaurant.dishes}
-                    renderItem={({item}) => <CardCatalog key={item.id} image={item.image} name={item.name} price={item.price} description={item.description} />}
-                    // renderHiddenItem={(data, rowMap) => renderHiddenItem(data)}
-                    showsVerticalScrollIndicator={false}
-                    rightOpenValue={-85}
-                    contentContainerStyle={{
-                        paddingHorizontal: 30,
-                        paddingVertical: SIZES.paddingTop_01,
-                    }}
-                    closeOnRowPress={true}
-                    closeOnRowOpen={true}
-                    closeOnRowBeginSwipe={true}
-                    disableRightSwipe={true}
-                /> */}
 
                 <View
                     style={{

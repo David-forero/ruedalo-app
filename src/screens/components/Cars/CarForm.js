@@ -33,7 +33,8 @@ const CarForm = () => {
                 selectedValue={marca}
                 onValueChange={(itemValue, itemIndex) =>
                     setMarca(itemValue)
-                }>
+                }
+            >
                 <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Ford" value="ve" />
                 <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Renault" value="co" />
                 <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Opel" value="ec" />
