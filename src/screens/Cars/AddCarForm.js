@@ -7,11 +7,7 @@ import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../../common/constants";
 import Modal from "react-native-modal";
 
 import Wizard from "react-native-wizard"
-import OilForm from "../components/Cars/OilForm";
-import CarForm from "../components/Cars/CarForm";
-import FuelForm from "../components/Cars/FuelForm";
-import BoxForm from "../components/Cars/BoxForm";
-import InfoAboutCar from "../components/Cars/InfoAboutCar";
+import {BoxForm, FuelForm, CarForm, InfoAboutCar, OilForm} from "../components/Cars";
 
 export default function AddCarForm() {
   const wizard = useRef(null)
