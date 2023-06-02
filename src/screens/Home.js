@@ -250,7 +250,7 @@ export default function Home() {
                                     ({item.numberOfRatings})
                                 </Text>
                             </View>
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                                 style={{
                                     right: 10,
                                     position: "absolute",
@@ -258,7 +258,7 @@ export default function Home() {
                                 }}
                             >
                                 <HeartTwo />
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                         </ImageBackground>
                         <View style={{ padding: 12, flex: 1 }}>
                             <Text
