@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "repuestos-ya",
-    "slug": "repuestos-ya",
+    "slug": "mis-repuestos",
     "scheme": "myapp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,7 +12,9 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.daele.repuestosya"
@@ -34,8 +36,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "fbfd8a2c-b684-4ff8-9bc5-8dfdd84a5250"
+        "projectId": "37f1c7bd-7fc9-4b2d-9b6c-ab9e9a2f753a"
       }
-    }
+    },
+    "owner": "misrepuestos"
   }
 }

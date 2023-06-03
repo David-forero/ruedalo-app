@@ -14,8 +14,6 @@ export default function SignUp() {
     const [loading, setLoading] = useState(false);
 
     const SignUpFormSchema = Yup.object().shape({
-        name: Yup.string().required('Campo requerido'),
-        lastname: Yup.string().required('Campo requerido'),
         email: Yup.string().email('Correo inválido').required("Campo requerido"),
         password: Yup.string().min(
             6,
@@ -30,7 +28,7 @@ export default function SignUp() {
     function renderContent() {
         return (
             <Formik
-                initialValues={{ name: '', lastname: '', email: "", password: "", confirmPassword: "" }}
+                initialValues={{email: "", password: "", confirmPassword: "" }}
                 onSubmit={(values) => {
                     setLoading(true)
                     delete values.confirmPassword
@@ -39,7 +37,7 @@ export default function SignUp() {
                 }}
                 validationSchema={SignUpFormSchema}
                 validateOnMoun={true}
-                validateOnBlur={{ name: true, lastname: true, email: true, password: true, confirmPassword: true }}
+                validateOnBlur={{ email: true, password: true, confirmPassword: true }}
             >
                 {({
                     handleBlur,
@@ -61,25 +59,6 @@ export default function SignUp() {
                     >
 
                         <InputField
-                            placeholder="Nombre"
-                            onChangeText={handleChange("name")}
-                            onBlur={handleBlur("name")}
-                            value={values.name}
-                            error={touched.name ? errors.name : false}
-                            touched={touched.name}
-                        />
-
-                        <InputField
-                            placeholder="Apellido"
-                            onChangeText={handleChange("lastname")}
-                            onBlur={handleBlur("lastname")}
-                            value={values.lastname}
-                            error={touched.lastname ? errors.lastname : false}
-                            touched={touched.lastname}
-                        />
-
-
-                        <InputField
                             placeholder="Correo"
                             onChangeText={handleChange("email")}
                             onBlur={handleBlur("email")}
@@ -88,6 +67,7 @@ export default function SignUp() {
                             textContentType="emailAddress"
                             error={touched.email ? errors.email : false}
                             touched={touched.email}
+                            contaynerStyle={{marginBottom: 20}}
                         />
 
                         <InputField
@@ -99,7 +79,7 @@ export default function SignUp() {
                             secureTextEntry={true}
                             error={touched.password ? errors.password : false}
                             touched={touched.password}
-
+                            contaynerStyle={{marginBottom: 20}}
                         />
                         <InputField
                             placeholder="Confirmar Contraseña"
@@ -110,6 +90,7 @@ export default function SignUp() {
                             secureTextEntry={true}
                             error={touched.confirmPassword ? errors.confirmPassword : false}
                             touched={touched.confirmPassword}
+                            contaynerStyle={{marginBottom: 20}}
                         />
                         <View
                             style={{
