@@ -2,7 +2,7 @@ import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React, { useRef, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
-import { Header, InputField, Button, InputPassword } from "../../common/components";
+import { Header, InputField, Button, InputPassword, Check } from "../../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../../common/constants";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -10,27 +10,27 @@ import { useAuthContext } from "../../context/AuthContext";
 
 export default function SignUp() {
     const navigation = useNavigation();
-    const {signUpFn} = useAuthContext();
+    const { signUpFn } = useAuthContext();
     const [loading, setLoading] = useState(false);
     const [showPasswords, setShowPasswords] = useState(false);
-
+    const [remember, setRemember] = useState(false);
 
     const SignUpFormSchema = Yup.object().shape({
         email: Yup.string().email('Correo inválido').required("Campo requerido"),
         password: Yup.string().min(
             6,
             "Tu contraseña debe ser más de 6 caracteres."
-        )   .matches(/^(?=.*[A-Z])(?=.*\W).+$/, 'Debe contener al menos un carácter especial y una letra en mayúscula').required('Campo requerido'),
+        ).matches(/^(?=.*[A-Z])(?=.*\W).+$/, 'Debe contener al menos un carácter especial y una letra en mayúscula').required('Campo requerido'),
         confirmPassword: Yup.string()
             .oneOf([Yup.ref('password'), null], 'Las contraseñas no coinciden')
             .required('Confirmación de contraseña requerida')
     });
-    
+
 
     function renderContent() {
         return (
             <Formik
-                initialValues={{email: "", password: "", confirmPassword: "" }}
+                initialValues={{ email: "", password: "", confirmPassword: "" }}
                 onSubmit={(values) => {
                     setLoading(true)
                     delete values.confirmPassword
@@ -69,7 +69,7 @@ export default function SignUp() {
                             textContentType="emailAddress"
                             error={touched.email ? errors.email : false}
                             touched={touched.email}
-                            contaynerStyle={{marginBottom: 20}}
+                            contaynerStyle={{ marginBottom: 20 }}
                         />
 
                         <InputPassword
@@ -79,7 +79,7 @@ export default function SignUp() {
                             value={values.password}
                             error={touched.password ? errors.password : false}
                             touched={touched.password}
-                            contaynerStyle={{marginBottom: 20}}
+                            contaynerStyle={{ marginBottom: 20 }}
                             icon={true}
                             showPasswords={showPasswords}
                             setShowPasswords={setShowPasswords}
@@ -91,27 +91,64 @@ export default function SignUp() {
                             value={values.confirmPassword}
                             error={touched.confirmPassword ? errors.confirmPassword : false}
                             touched={touched.confirmPassword}
-                            contaynerStyle={{marginBottom: 20}}
+                            contaynerStyle={{ marginBottom: 10 }}
                             icon={true}
                             setShowPasswords={setShowPasswords}
                             showPasswords={showPasswords}
                         />
+
                         <View
                             style={{
                                 width: "100%",
                             }}
                         >
-                           
+                            <TouchableOpacity
+                                style={{
+                                    flexDirection: "row",
+                                    marginBottom: 30,
+                                    alignItems: "center",
+                                    marginLeft: 20
+                                }}
+                                onPress={() => setRemember(!remember)}
+                            >
+                                <View
+                                    style={{
+                                        width: 16,
+                                        height: 16,
+                                        borderRadius: 3,
+                                        borderWidth: 1,
+                                        borderColor: COLORS.green,
+                                        marginRight: 8,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    {remember && <Check />}
+                                </View>
+                                <View style={{ flex: 1 }}>
+                                    <Text
+                                        style={{
+                                            ...FONTS.Roboto_400Regular,
+                                            fontSize: 16,
+                                            marginLeft: 3,
+                                            color: COLORS.gray2,
+                                            lineHeight: 16 * 1.3,
+                                        }}
+                                    >
+                                        Acepto terminos y condiciones
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
 
                         <Button
-                            valid={isValid}
+                            valid={isValid && remember}
                             loading={loading}
                             title="Crear Cuenta"
                             containerStyle={{
                                 backgroundColor: COLORS.black2,
                                 marginBottom: 28,
-                            }}              
+                            }}
                             onPress={handleSubmit}
                         />
                         <View

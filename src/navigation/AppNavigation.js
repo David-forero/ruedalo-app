@@ -7,8 +7,6 @@ import FlashMessage from "react-native-flash-message";
 import AuthProvider from "../context/AuthContext";
 import ProtectViews from "./ProtectViews";
 
-const Stack = createStackNavigator();
-
 export default function Navigation() {
     return (
         <NavigationContainer>
