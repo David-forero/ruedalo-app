@@ -159,7 +159,7 @@ export default function SignIn() {
 
                 <TouchableOpacity
                     className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
-                    onPress={() => promptAsync()}
+                    onPress={() => promptAsync({useProxy: true})}
                     disabled={!request || loading}
                 >
                     <GoogleIcon width={25} height={25} />
