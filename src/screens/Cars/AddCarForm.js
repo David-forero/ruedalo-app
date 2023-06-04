@@ -144,7 +144,7 @@ export default function AddCarForm() {
 
 
   return (
-    <ScrollView contentContainerStyle={{ flexDirection: "column", justifyContent: "space-between", paddingVertical: 40, height: '100%' }}>
+    <ScrollView contentContainerStyle={{ flexDirection: "column", justifyContent: "space-around", paddingVertical: 40, height: '100%' }}>
       {<ConfimModal />}
 
       <Wizard

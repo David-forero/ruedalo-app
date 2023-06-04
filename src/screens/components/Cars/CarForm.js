@@ -1,19 +1,21 @@
-import { View, Text, SafeAreaView, TouchableOpacity, ScrollView } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Text, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import React, { useRef, useState } from "react";
-import { InputField, Button } from "../../../common/components";
-import { COLORS, SIZES } from "../../../common/constants";
+import React, {  useState } from "react";
+import { COLORS  } from "../../../common/constants";
 
 const CarForm = () => {
     const [marca, setMarca] = useState(null)
     const [selectModel, setSelectModel] = useState(null);
     const [yearCar, setYearCar] = useState(null);
 
+    const [bateria, setBateria] = useState(new Date());
+    const [showBateria, setShowBateria] = useState(false);
+
     return (
-        <View
+        <ScrollView
             style={{
                 paddingHorizontal: 30,
+                height: '80%'
             }}
         >
 
@@ -90,19 +92,8 @@ const CarForm = () => {
                 <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="2011" value="pe" />
                 <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="2012" value="ch" />
             </Picker>
-
-
-            {/* <Button
-                title="Agregar Vehiculo"
-                containerStyle={{
-                    backgroundColor: COLORS.black2,
-                    marginBottom: 38,
-                    marginTop: 20
-                }}
-                onPress={() => setShowModal(!false)}
-            /> */}
-
-        </View>
+           
+        </ScrollView>
 
     )
 }
