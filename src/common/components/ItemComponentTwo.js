@@ -22,14 +22,14 @@ export default function ItemComponentTwo({ item, onPress }) {
                 onPress={onPress}
             >
                 <ImageBackground
-                    source={item.presentationImage}
+                    source={item.image}
                     style={{
                         height: 144,
                         width: "100%",
                     }}
                     imageStyle={{ borderRadius: 10 }}
                 >
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={{
                             padding: 16,
                             alignSelf: "flex-start",
@@ -39,7 +39,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                             fillColor={COLORS.red}
                             strokeColor={COLORS.red}
                         />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </ImageBackground>
                 <View
                     style={{
@@ -84,40 +84,11 @@ export default function ItemComponentTwo({ item, onPress }) {
                             marginBottom: 15,
                             color: COLORS.gray2,
                         }}
-                        numberOfLines={1}
+                        numberOfLines={2}
                     >
                         {item.compound}
                     </Text>
-                    <TouchableOpacity
-                        style={{
-                            height: 32,
-                            width: "100%",
-                            backgroundColor: COLORS.lightOrange,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            textTransform: "capitalize",
-                            borderRadius: 5,
-                        }}
-                        onPress={() => {
-                            showMessage({
-                                message: "Success",
-                                description: `${item.name} was added.`,
-                                type: "success",
-                            });
-                        }}
-                    >
-                        <Text
-                            style={{
-                                textAlign: "center",
-                                ...FONTS.Roboto_500Medium,
-                                fontSize: 12,
-                                color: COLORS.black2,
-                                textTransform: "capitalize",
-                            }}
-                        >
-                            Add to Cart
-                        </Text>
-                    </TouchableOpacity>
+                  
                 </View>
             </TouchableOpacity>
         </Shadow>

@@ -28,7 +28,7 @@ export default function FoodDetails() {
     const route = useRoute();
     const [marca, setMarca] = useState(null)
 
-    const { dish, dishes, image, name, price, description } = route.params;
+    const {  image, name, price } = route.params;
 
     function renderDetails() {
         return (

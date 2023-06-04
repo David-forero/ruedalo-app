@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Shadow } from "react-native-shadow-2";
 import { Rating } from "react-native-ratings";
 
-import { COLORS, FONTS, SAFEAREAVIEW, category, dummyData} from "../common/constants";
+import { COLORS, FONTS, SAFEAREAVIEW, category, dummyData } from "../common/constants";
 import {
     Basket,
     Search,
@@ -26,7 +26,8 @@ import {
     Filter,
     HeartTwo,
     Heading,
-    SliderBanner
+    SliderBanner,
+    ItemComponentTwo
 } from "../common/components";
 import { Ionicons } from '@expo/vector-icons';
 
@@ -61,7 +62,7 @@ export default function Home() {
             >
 
                 <View
-                   className="ml-3 flex-row mt-3 mb-4"
+                    className="ml-3 flex-row mt-3 mb-4"
                 >
                     <Pin />
                     <Text
@@ -71,7 +72,7 @@ export default function Home() {
                             fontSize: 14,
                         }}
                     >
-{/* story.user.length > 11 ? story.user.slice(0, 10).toLowerCase() + '...' : story.user.toLowerCase() */}
+                        {/* story.user.length > 11 ? story.user.slice(0, 10).toLowerCase() + '...' : story.user.toLowerCase() */}
                         Los teques - centro comercial la casc...
                     </Text>
                 </View>
@@ -104,7 +105,7 @@ export default function Home() {
                         <Ionicons name="search-outline" size={16} color="#2d2d2d" />
                     </TouchableOpacity>
                 </View>
-                
+
             </View>
         );
     }
@@ -113,50 +114,50 @@ export default function Home() {
         function categories(item, index) {
             return (
                 <TouchableOpacity onPress={() => setSelectCategory(item.id)}>
-                   <View style={{marginLeft: index === 0 ? 0 : 20}} >
-                   <View
-                   className="bg-gray-100"
-                        style={{
-                            width: 48,
-                            height: 48,
+                    <View style={{ marginLeft: index === 0 ? 0 : 20 }} >
+                        <View
+                            className="bg-gray-100"
+                            style={{
+                                width: 48,
+                                height: 48,
                                 // selectCategory == item.id
                                 //     ? COLORS.black2
                                 //     : COLORS.lightOrange,
-                            borderRadius: 35,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginHorizontal: 7,
-                            marginBottom: 11,
-                        }}
-                    >
-                        <Image
-                            source={item.image}
-                            style={{
-                                height: 28,
-                                width: "100%",
-                                // tintColor:
-                                //     selectCategory == item.id
-                                //         ? COLORS.white
-                                //         : COLORS.gray2,
+                                borderRadius: 35,
+                                justifyContent: "center",
+                                alignItems: "center",
+                                marginHorizontal: 7,
+                                marginBottom: 11,
                             }}
-                            resizeMode="contain"
-                        />
+                        >
+                            <Image
+                                source={item.image}
+                                style={{
+                                    height: 28,
+                                    width: "100%",
+                                    // tintColor:
+                                    //     selectCategory == item.id
+                                    //         ? COLORS.white
+                                    //         : COLORS.gray2,
+                                }}
+                                resizeMode="contain"
+                            />
+                        </View>
+                        <Text
+                            style={{
+                                textAlign: "center",
+                                ...FONTS.Roboto_500Medium,
+                                fontSize: 14,
+                                textTransform: "capitalize",
+                                color:
+                                    selectCategory == item.id
+                                        ? COLORS.black2
+                                        : COLORS.gray2,
+                            }}
+                        >
+                            {item.name}
+                        </Text>
                     </View>
-                    <Text
-                        style={{
-                            textAlign: "center",
-                            ...FONTS.Roboto_500Medium,
-                            fontSize: 14,
-                            textTransform: "capitalize",
-                            color:
-                                selectCategory == item.id
-                                    ? COLORS.black2
-                                    : COLORS.gray2,
-                        }}
-                    >
-                        {item.name}
-                    </Text>
-                   </View>
                 </TouchableOpacity>
             );
         }
@@ -181,363 +182,178 @@ export default function Home() {
     }
 
     function renderPopularRestaurants() {
-        function renderFood(item, index) {
-            return (
-                <Shadow
-                    startColor={COLORS.shadowStartColor}
-                    finalColor={COLORS.shadowFinalColor}
-                    distance={COLORS.shadowDistance}
-                    viewStyle={{ marginRight: 15 }}
-                >
-                    <TouchableOpacity
-                        style={{
-                            width: 266,
-                            height: 232,
-                            backgroundColor: COLORS.white,
-                            borderRadius: 15,
-                        }}
-                        onPress={() =>
-                            navigation.navigate("RestaurantMenu", {
-                                restaurant: item,
-                                dishes: item.dishes,
-                                restaurantName: item.name,
-                            })
-                        }
-                    >
-                        <ImageBackground
-                            source={item.image}
-                            style={{
-                                height: 136,
-                                width: "100%",
-                                flexDirection: "row",
-                            }}
-                            imageStyle={{
-                                borderRadius: 15,
-                            }}
-                        >
-                            <View
-                                style={{
-                                    backgroundColor: COLORS.white,
-                                    paddingHorizontal: 8,
-                                    alignSelf: "flex-start",
-                                    alignItems: "center",
-                                    flexDirection: "row",
-                                    borderRadius: 15,
-                                    top: 10,
-                                    left: 10,
-                                    height: 24,
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        marginRight: 4,
-                                        ...FONTS.Roboto_400Regular,
-                                        fontSize: 12,
-                                        color: COLORS.black,
-                                    }}
-                                >
-                                    {item.rating}
-                                </Text>
-                                <View>
-                                    <Star />
-                                </View>
-                                <Text
-                                    style={{
-                                        marginLeft: 4,
-                                        ...FONTS.Roboto_400Regular,
-                                        fontSize: 12,
-                                        color: COLORS.gray2,
-                                    }}
-                                >
-                                    ({item.numberOfRatings})
-                                </Text>
-                            </View>
-                            {/* <TouchableOpacity
-                                style={{
-                                    right: 10,
-                                    position: "absolute",
-                                    top: 10,
-                                }}
-                            >
-                                <HeartTwo />
-                            </TouchableOpacity> */}
-                        </ImageBackground>
-                        <View style={{ padding: 12, flex: 1 }}>
-                            <Text
-                                style={{
-                                    ...FONTS.Roboto_400Regular,
-                                    fontSize: 16,
-                                    textTransform: "capitalize",
-                                    color: COLORS.black,
-                                    marginBottom: 8,
-                                    lineHeight: 16 * 1,
-                                }}
-                            >
-                                {item.name}
-                            </Text>
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                }}
-                            >
-                                {item.freeDelivery && (
-                                    <View
-                                        style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <DeliveryMan />
-                                        <Text
-                                            style={{
-                                                marginLeft: 6,
-                                                ...FONTS.Roboto_400Regular,
-                                                fontSize: 12,
-                                                marginRight: 8,
-                                                textTransform: "capitalize",
-                                                color: COLORS.gray2,
-                                            }}
-                                        >
-                                            Free delivery
-                                        </Text>
-                                    </View>
-                                )}
-                                {item.timeOfDelivery && (
-                                    <View
-                                        style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <Clock />
-                                        <Text
-                                            style={{
-                                                marginLeft: 6,
-                                                ...FONTS.Roboto_400Regular,
-                                                fontSize: 12,
-                                                marginRight: 7,
-                                                textTransform: "capitalize",
-                                                color: COLORS.gray2,
-                                            }}
-                                        >
-                                            10-30 mins
-                                        </Text>
-                                    </View>
-                                )}
-                            </View>
-                            <View style={{ flex: 1 }} />
-                            <View style={{ flexDirection: "row" }}>
-                                {item.tags.map((item, index) => {
-                                    return (
-                                        <View
-                                            key={index}
-                                            style={{
-                                                backgroundColor:
-                                                    item.backgroundColor,
-                                                marginRight: 8,
-                                                paddingHorizontal: 10,
-                                                paddingVertical: 2,
-                                                borderRadius: 5,
-                                                borderRadius: 5,
-                                            }}
-                                        >
-                                            <Text
-                                                style={{
-                                                    color: item.color,
-                                                    opacity: 1,
-                                                }}
-                                            >
-                                                {item.tag}
-                                            </Text>
-                                        </View>
-                                    );
-                                })}
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-                </Shadow>
-            );
-        }
-
         return (
             <View>
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        paddingHorizontal: 30,
-                    }}
-                >
-                    <Text
-                        style={{
-                            ...FONTS.Roboto_700Bold,
-                            fontSize: 20,
-                            textTransform: "capitalize",
-                        }}
-                    >
-                        Tiendas más populares
-                    </Text>
-                </View>
+                <Heading title="Lo más vendido" />
                 <FlatList
-                    data={dummyData}
-                    horizontal={true}
-                    renderItem={({ item, index }) => renderFood(item, index)}
-                    showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{
                         paddingLeft: 30,
-                        paddingTop: 17,
-                        paddingBottom: 40,
+                        paddingVertical: 21,
                     }}
+                    data={dummyData[0].dishes}
+                    keyExtractor={(item) => item.id}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({ item, index }) => (
+                        <ItemComponentTwo
+                            item={item}
+                            onPress={() =>
+                                navigation.navigate("FoodDetails", {
+                                    image: item.image,
+                                    name: item.name,
+                                    price: item.price,
+                                    description: item.description
+                                })
+                            }
+                        />
+                    )}
                 />
             </View>
-        );
+        )
     }
 
     function renderNearByYou() {
         return (
             <View style={{ paddingHorizontal: 30 }}>
                 <Heading
-                    title="Cerca de ti"
+                    title="Para tu vehículo"
                     containerStyle={{ paddingHorizontal: 0, marginBottom: 21 }}
                 />
 
-                {dummyData.map(
+                {dummyData[0].dishes.map(
                     (item, index) =>
-                        item.near == true && (
-                            <TouchableOpacity
-                                key={index}
+                        <TouchableOpacity
+                            key={index}
+                            style={{
+                                height: 100,
+                                width: "100%",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                marginBottom: 15,
+                            }}
+                            onPress={() =>
+                                navigation.navigate("FoodDetails", {
+                                    image: item.image,
+                                    name: item.name,
+                                    price: item.price,
+                                    description: item.description
+                                })
+                            }
+                        >
+                            <Image
+                                source={item.image}
                                 style={{
                                     height: 100,
-                                    width: "100%",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    marginBottom: 15,
+                                    width: 100,
+                                    borderRadius: 10,
+                                    marginRight: 20,
                                 }}
-                                onPress={() =>
-                                    navigation.navigate("RestaurantMenu", {
-                                        restaurant: item,
-                                        dishes: item.dishes,
-                                        restaurantName: item.name,
-                                    })
-                                }
-                            >
-                                <Image
-                                    source={item.image}
+                            />
+                            <View style={{ flex: 1 }}>
+                                <Text
                                     style={{
-                                        height: 100,
-                                        width: 100,
-                                        borderRadius: 10,
-                                        marginRight: 20,
+                                        ...FONTS.Roboto_500Medium,
+                                        fontSize: 16,
+                                        marginBottom: 10,
+                                        lineHeight: 16 * 1,
+                                        textTransform: "capitalize",
                                     }}
-                                />
-                                <View style={{ flex: 1 }}>
+                                    numberOfLines={1}
+                                >
+                                    {item.name}
+                                </Text>
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        marginBottom: 7,
+                                    }}
+                                >
+                                    <PinTwo />
                                     <Text
                                         style={{
-                                            ...FONTS.Roboto_500Medium,
-                                            fontSize: 16,
-                                            marginBottom: 10,
-                                            lineHeight: 16 * 1,
-                                            textTransform: "capitalize",
+                                            marginLeft: 5,
+                                            ...FONTS.Roboto_400Regular,
+                                            fontSize: 12,
+                                            color: COLORS.gray2,
+                                            lineHeight: 12 * 1.2,
+                                            width: "85%",
                                         }}
                                         numberOfLines={1}
+                                        ellipsizeMode="tail"
                                     >
-                                        {item.name}
+                                        {item.address}
+                                    </Text>
+                                </View>
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        marginBottom: 8,
+                                    }}
+                                >
+                                    <Clock />
+                                    <Text
+                                        style={{
+                                            marginLeft: 5,
+                                            ...FONTS.Roboto_400Regular,
+                                            fontSize: 12,
+                                            color: COLORS.gray2,
+                                            lineHeight: 12 * 1.2,
+                                        }}
+                                    >
+                                        {item.timeOfDelivery}
                                     </Text>
                                     <View
                                         style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            marginBottom: 7,
+                                            width: 4,
+                                            height: 4,
+                                            backgroundColor: COLORS.black2,
+                                            borderRadius: 2,
+                                            marginHorizontal: 4,
                                         }}
-                                    >
-                                        <PinTwo />
-                                        <Text
-                                            style={{
-                                                marginLeft: 5,
-                                                ...FONTS.Roboto_400Regular,
-                                                fontSize: 12,
-                                                color: COLORS.gray2,
-                                                lineHeight: 12 * 1.2,
-                                                width: "85%",
-                                            }}
-                                            numberOfLines={1}
-                                            ellipsizeMode="tail"
-                                        >
-                                            {item.address}
-                                        </Text>
-                                    </View>
-                                    <View
+                                    />
+                                    <Text
                                         style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            marginBottom: 8,
+                                            ...FONTS.Roboto_400Regular,
+                                            fontSize: 12,
+                                            color: COLORS.gray2,
+                                            lineHeight: 12 * 1.2,
                                         }}
                                     >
-                                        <Clock />
-                                        <Text
-                                            style={{
-                                                marginLeft: 5,
-                                                ...FONTS.Roboto_400Regular,
-                                                fontSize: 12,
-                                                color: COLORS.gray2,
-                                                lineHeight: 12 * 1.2,
-                                            }}
-                                        >
-                                            {item.timeOfDelivery}
-                                        </Text>
-                                        <View
-                                            style={{
-                                                width: 4,
-                                                height: 4,
-                                                backgroundColor: COLORS.black2,
-                                                borderRadius: 2,
-                                                marginHorizontal: 4,
-                                            }}
-                                        />
-                                        <Text
-                                            style={{
-                                                ...FONTS.Roboto_400Regular,
-                                                fontSize: 12,
-                                                color: COLORS.gray2,
-                                                lineHeight: 12 * 1.2,
-                                            }}
-                                        >
-                                            {item.distance}
-                                        </Text>
-                                    </View>
-                                    <View
-                                        style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <Rating
-                                            type="star"
-                                            count={5}
-                                            defaultRating={14}
-                                            imageSize={12}
-                                            showRating={false}
-                                            isDisabled={false}
-                                            readonly={true}
-                                            startingValue={item.rating}
-                                        />
-                                        <Text
-                                            style={{
-                                                ...FONTS.Roboto_400Regular,
-                                                fontSize: 12,
-                                                color: COLORS.gray2,
-                                                marginLeft: 10,
-                                                lineHeight: 12 * 1.2,
-                                            }}
-                                        >
-                                            ({item.numberOfRatings})
-                                        </Text>
-                                    </View>
+                                        {item.distance}
+                                    </Text>
                                 </View>
-                            </TouchableOpacity>
-                        )
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <Rating
+                                        type="star"
+                                        count={5}
+                                        defaultRating={14}
+                                        imageSize={12}
+                                        showRating={false}
+                                        isDisabled={false}
+                                        readonly={true}
+                                        startingValue={item.rating}
+                                    />
+                                    <Text
+                                        style={{
+                                            ...FONTS.Roboto_400Regular,
+                                            fontSize: 12,
+                                            color: COLORS.gray2,
+                                            marginLeft: 10,
+                                            lineHeight: 12 * 1.2,
+                                        }}
+                                    >
+                                        ({item.numberOfRatings})
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
                 )}
             </View>
         );

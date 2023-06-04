@@ -117,11 +117,7 @@ export default function RestaurantMenu() {
                 </View>
                 {/* END CATALOG */}
 
-
-                {/* Button Basket */}
-                {/* <TouchableOpacity className="bg-slate-500 w-14 h-14 absolute bottom-11 items-center rounded-full right-3 justify-center" >
-                        <Text>BASKET</Text>
-                </TouchableOpacity> */}
+                
 
 
 

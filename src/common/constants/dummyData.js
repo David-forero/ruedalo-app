@@ -14,6 +14,10 @@ const dishes = [
             "Add the remaining ingredients and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
         weight: "350",
         qty: 1,
+        address: "2464 Royal Ln. Mesa, New Jersey 45463",
+        rating: "4.0",
+        timeOfDelivery: "30-45 Min",
+        distance: "0.2 km",
     },
     {
         id: "2",
@@ -30,6 +34,10 @@ const dishes = [
             "Sells food, either fresh, specie, chili",
         weight: 350,
         qty: 1,
+        address: "2464 Royal Ln. Mesa, New Jersey 45463",
+        rating: "3.5",
+        timeOfDelivery: "20-35 Min",
+        distance: "0.3 km",
     },
     {
         id: "3",
@@ -46,6 +54,11 @@ const dishes = [
             "Qui ex aute ipsum duis. Incididunt adipisicing voluptate laborum",
         weight: "350",
         qty: 1,
+        presentationImage: require("../../assets/images/dishes/dish-03-01.png"),
+        address: "2464 Royal Ln. Mesa, New Jersey 45463",
+        rating: "3.0",
+        timeOfDelivery: "25-40 Min",
+        distance: "0.4 km",
     },
     {
         id: "4",
@@ -62,6 +75,10 @@ const dishes = [
             "Qui ex aute ipsum duis. Incididunt adipisicing voluptate laborum",
         weight: 350,
         qty: 1,
+        address: "2464 Royal Ln. Mesa, New Jersey 45463",
+        rating: "2.5",
+        timeOfDelivery: "40-50 Min",
+        distance: "0.5 km",
     },
 ];
 
