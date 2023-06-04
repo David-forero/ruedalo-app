@@ -67,6 +67,7 @@ import ItemComponentTwo from "./ItemComponentTwo";
 import SliderBanner from './SliderBanner';
 import CategoryFilter from './CategoryFilter';
 import CardCatalog from './CardCatalog';
+import InputPassword from './InputPassword';
 
 export {
     Button,
@@ -134,5 +135,6 @@ export {
     Google,
     CategoryFilter,
     CardCatalog,
-    Remove
+    Remove,
+    InputPassword
 };

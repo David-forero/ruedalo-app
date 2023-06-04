@@ -55,14 +55,13 @@ const AuthProvider = ({ children }) => {
   const signUpFn = useCallback(async (formData, navigation, setLoading) => {
     const { data } = await post("/register_user", formData);
     setLoading(false);
-    console.log('🔥 status', data.status);
 
     if (data.status === true) {
       setAuth(true)
       setUser(data.data);
       let dataString = JSON.stringify(data.data);
       await AsyncStorage.setItem('user', dataString)
-      return navigation.navigate('MainLayout')
+      return navigation.navigate('OtpCodeEmail')
     } else {
       showMessage({
         message: "Error al registrar",

@@ -2,7 +2,7 @@ import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React, { useRef, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
-import { Header, InputField, Button } from "../../common/components";
+import { Header, InputField, Button, InputPassword } from "../../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../../common/constants";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -12,6 +12,8 @@ export default function SignUp() {
     const navigation = useNavigation();
     const {signUpFn} = useAuthContext();
     const [loading, setLoading] = useState(false);
+    const [showPasswords, setShowPasswords] = useState(false);
+
 
     const SignUpFormSchema = Yup.object().shape({
         email: Yup.string().email('Correo inválido').required("Campo requerido"),
@@ -70,27 +72,29 @@ export default function SignUp() {
                             contaynerStyle={{marginBottom: 20}}
                         />
 
-                        <InputField
+                        <InputPassword
                             placeholder="Contraseña"
                             onChangeText={handleChange("password")}
                             onBlur={handleBlur("password")}
                             value={values.password}
-                            textContentType="password"
-                            secureTextEntry={true}
                             error={touched.password ? errors.password : false}
                             touched={touched.password}
                             contaynerStyle={{marginBottom: 20}}
+                            icon={true}
+                            showPasswords={showPasswords}
+                            setShowPasswords={setShowPasswords}
                         />
-                        <InputField
+                        <InputPassword
                             placeholder="Confirmar Contraseña"
                             onChangeText={handleChange("confirmPassword")}
                             onBlur={handleBlur("confirmPassword")}
                             value={values.confirmPassword}
-                            textContentType="password"
-                            secureTextEntry={true}
                             error={touched.confirmPassword ? errors.confirmPassword : false}
                             touched={touched.confirmPassword}
                             contaynerStyle={{marginBottom: 20}}
+                            icon={true}
+                            setShowPasswords={setShowPasswords}
+                            showPasswords={showPasswords}
                         />
                         <View
                             style={{
