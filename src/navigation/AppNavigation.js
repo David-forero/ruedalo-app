@@ -13,8 +13,8 @@ export default function Navigation() {
     return (
         <NavigationContainer>
             <AuthProvider>
-                    <StatusBar translucent backgroundColor={COLORS.orange} barStyle={"light-content"} />
-                  <ProtectViews/>
+                <StatusBar translucent backgroundColor={COLORS.orange} barStyle={"light-content"} />
+                <ProtectViews />
             </AuthProvider>
             <FlashMessage position="top" />
         </NavigationContainer>

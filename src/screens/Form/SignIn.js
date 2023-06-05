@@ -41,17 +41,6 @@ export default function SignIn() {
         // setUser(useInfo);
     }
 
-    // useEffect(() => {
-    //   async function init() {
-    //     const value = await AsyncStorage.getItem('user')
-    //     if (value) {
-    //         navigation.navigate('MainLayout')
-    //     }
-    //   }
-    //   init();
-    // }, [])
-
-
     const [request, response, promptAsync] = Google.useAuthRequest({
         webClientId: '469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com',
         clientSecret: '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',

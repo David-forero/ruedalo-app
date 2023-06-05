@@ -5,16 +5,23 @@ import {
     TouchableOpacity,
     StyleSheet,
     TextInput,
+    StatusBar,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
-
+import { showMessage } from "react-native-flash-message";
 import { Header, Button } from "../../common/components";
 import { SAFEAREAVIEW, SIZES, COLORS, FONTS } from "../../common/constants";
+import { useAuthContext } from "../../context/AuthContext";
+import useCountdownTimer from "../../common/hooks/useCountdownTimer";
+import * as SecureStore from 'expo-secure-store';
 
 export default function OtpCode() {
     const navigation = useNavigation();
+    const { sendVerifyEmailFn, user, confirmVerifyEmailFn, logOutFn } = useAuthContext();
+    const [loading, setLoading] = useState(false);
+    const { timer, resetTimer, formatTime } = useCountdownTimer(10 * 60); // 10 minutes in seconds
 
     const [otp, setOtp] = useState({ 1: "", 2: "", 3: "", 4: "", 5: "" });
 
@@ -23,6 +30,12 @@ export default function OtpCode() {
     const thirdInput = useRef();
     const fourthInput = useRef();
     const fiveInput = useRef();
+
+    useEffect(() => {
+        sendVerifyEmailFn(user?.token);
+        console.log(user?.token);
+    }, [user?.token])
+
 
     function renderContent() {
         return (
@@ -34,6 +47,8 @@ export default function OtpCode() {
                     alignItems: "center",
                 }}
             >
+                <StatusBar translucent={false} backgroundColor={'#fff'} barStyle={"dark-content"} />
+
                 <View style={{ height: SIZES.height / 18 }} />
                 <Text style={{ ...FONTS.H2, marginBottom: 12 }}>
                     Verificación de OTP
@@ -51,7 +66,7 @@ export default function OtpCode() {
                 <Text
                     style={{ color: COLORS.carrot, ...FONTS.Roboto_400Regular }}
                 >
-                    david.forero1813@gmail.com
+                    {user?.email}
                 </Text>
                 <View
                     style={{
@@ -192,7 +207,16 @@ export default function OtpCode() {
                     >
                         No recibí ningún código
                     </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            sendVerifyEmailFn(user?.token)
+                            resetTimer()
+                            showMessage({
+                                message: 'Código enviado al correo',
+                                type: "success",
+                              });
+                        }}
+                    >
                         <Text
                             style={{
                                 ...FONTS.Roboto_700Bold,
@@ -213,12 +237,18 @@ export default function OtpCode() {
                         marginBottom: 20,
                     }}
                 >
-                    Se vence en 10:00min
+                    Se vence en {formatTime()} minutos
                 </Text>
+
                 <Button
+                    valid={otp[5]}
+                    loading={loading}
                     title="Verificar Ahora"
                     containerStyle={{ backgroundColor: COLORS.black2 }}
-                    onPress={() => navigation.navigate("AccountCreated")}
+                    onPress={() => {
+                        setLoading(true)
+                        confirmVerifyEmailFn(otp, navigation, setLoading, user?.token)
+                    }}
                 />
             </KeyboardAwareScrollView>
         );
@@ -228,9 +258,10 @@ export default function OtpCode() {
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <Header
                 title="Verificación del correo"
-                onPress={() => navigation.goBack()}
+                onPress={() => logOutFn()}
             />
             {renderContent()}
+          
         </SafeAreaView>
     );
 }

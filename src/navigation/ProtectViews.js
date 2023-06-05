@@ -53,7 +53,7 @@ const Stack = createStackNavigator();
 
 const ProtectViews = () => {
     const [loading, setLoading] = useState(true);
-    const { user, loadingApp, enableBoarding } = useAuthContext();
+    const { user, loadingApp, enableBoarding, auth } = useAuthContext();
     let [fontsLoaded] = useFonts({
         Roboto_400Regular: require("../assets/fonts/Roboto-Regular.ttf"),
         Roboto_500Medium: require("../assets/fonts/Roboto-Medium.ttf"),
@@ -63,8 +63,6 @@ const ProtectViews = () => {
     useEffect(() => {
         loadingApp(setLoading);
     }, [])
-
-
 
     if (loading || !fontsLoaded) {
         return <AppLoading />
@@ -82,9 +80,9 @@ const ProtectViews = () => {
                 initialRouteName={`${enableBoarding ? 'OnBoarding' : 'SignIn'}`}
             >
                 {
-                    user ? (
+                    auth && user ? (
                         <>
-                            <Stack.Screen name="MainLayout" component={MainLayout} />
+                            <Stack.Screen name={user?.status !== 'pending' ? 'MainLayout' : 'OtpCodeEmail'} component={user?.status !== 'pending' ? MainLayout : OtpCodeEmail} />
                             <Stack.Screen
                                 name="RestaurantMenu"
                                 component={RestaurantMenu}
@@ -114,12 +112,11 @@ const ProtectViews = () => {
                             <Stack.Screen name="SignIn" component={SignIn} />
                             <Stack.Screen name="SignUp" component={SignUp} />
                             <Stack.Screen name="SignUpWith" component={SignUpWith} />
-                            <Stack.Screen name="OtpCodeEmail" component={OtpCodeEmail} />
                         </>
                     )
                 }
 
-
+                {/* <Stack.Screen name="OtpCodeEmail" component={OtpCodeEmail} /> */}
                 <Stack.Screen
                     name="ChangePassword"
                     component={ChangePassword}
@@ -171,7 +168,7 @@ const ProtectViews = () => {
                     name="CreateCardSuccess"
                     component={CreateCardSuccess}
                 />
-                 <Stack.Screen
+                <Stack.Screen
                     name="ListProducts"
                     component={ListProducts}
                 />

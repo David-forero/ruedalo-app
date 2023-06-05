@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, StatusBar } from "react-native";
 import React, { useRef, useState } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from "@react-navigation/native";
@@ -33,8 +33,6 @@ export default function SignUp() {
                 initialValues={{ email: "", password: "", confirmPassword: "" }}
                 onSubmit={(values) => {
                     setLoading(true)
-                    delete values.confirmPassword
-                    console.log(values);
                     signUpFn(values, navigation, setLoading)
                 }}
                 validationSchema={SignUpFormSchema}
@@ -129,13 +127,14 @@ export default function SignUp() {
                                     <Text
                                         style={{
                                             ...FONTS.Roboto_400Regular,
-                                            fontSize: 16,
+                                            fontSize: 12,
                                             marginLeft: 3,
                                             color: COLORS.gray2,
                                             lineHeight: 16 * 1.3,
+                                            flexDirection: 'row'
                                         }}
                                     >
-                                        Acepto terminos y condiciones
+                                        Acepto los <Text className="font-bold ">Terminos y Condiciones</Text> del servicio y las <Text className="font-bold"> Políticas de Privadidad</Text> por MiRepuesto
                                     </Text>
                                 </View>
                             </TouchableOpacity>
@@ -192,6 +191,8 @@ export default function SignUp() {
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
+            <StatusBar translucent={false} backgroundColor={'#fff'} barStyle={"dark-content"} />
+
             <Header title="Registro" onPress={() => navigation.goBack()} />
             <View className="mt-10">
                 {renderContent()}

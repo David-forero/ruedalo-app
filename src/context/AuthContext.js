@@ -2,6 +2,7 @@ import { useContext, createContext, useState, useCallback, useEffect } from "rea
 import { post } from "../common/functions/http";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { showMessage } from "react-native-flash-message";
+import * as SecureStore from 'expo-secure-store';
 
 //Web==
 //Secret: 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
@@ -28,21 +29,51 @@ const AuthProvider = ({ children }) => {
       setUser(userValue);
     }
     setLoading(false)
-  }, [])
+  }, []);
 
+  const sendVerifyEmailFn = useCallback(async (myToken) => {
+    const { data } = await post("/verify-email", {}, myToken);
+    console.log(data);
+  }, []);
 
-
-  const signInFn = useCallback(async (formData, navigation, setLoading) => {
-    const { data } = await post("/login", formData);
+  const confirmVerifyEmailFn = useCallback(async (otp, navigation, setLoading, myToken) => {
+    //Transformacion del otp
+    let keys = Object.keys(otp).sort()
+    let otpString = '';
+    for (const key of keys) {
+      otpString += otp[key];
+    }
+    otp = otpString
+    //Se verifica el token ✅
+    const { data } = await post("/verify-email", { otp }, myToken);
     setLoading(false);
+    if (!data.status) {
+      return showMessage({
+        message: "Error al confirmar correo",
+        description: data.message,
+        type: "danger",
+      });
+    }
+    navigation.navigate('AccountCreated')
 
-    if (data.status === true) {
+    //En caso de que funcione, obtengo los datos del usuario y actualizo el status ✍️
+    let userValue = await AsyncStorage.getItem('user');
+    userValue = JSON.parse(userValue);
+    userValue.status = 'confirmed';
+    setUser(userValue);
+    await AsyncStorage.setItem('user', JSON.stringify(userValue));
+
+  }, []);
+
+  const signInFn = async (formData, navigation, setLoading) => {
+    try {
+      const { data } = await post("/login", formData);
       setUser(data.data);
-      setAuth(true)
       let dataString = JSON.stringify(data.data);
       await AsyncStorage.setItem('user', dataString)
-      return navigation.navigate('MainLayout')
-    } else {
+      setAuth(true);
+      setLoading(false);
+    } catch (error) {
       showMessage({
         message: "Error al iniciar sessión",
         description: data.message,
@@ -50,34 +81,47 @@ const AuthProvider = ({ children }) => {
       });
     }
 
-  }, []);
+  }
 
   const signUpFn = useCallback(async (formData, navigation, setLoading) => {
-    const { data } = await post("/register_user", formData);
-    setLoading(false);
+    try {
+      delete formData.confirmPassword
+      const { data } = await post("/register_user", formData);
+      setLoading(false);
 
-    if (data.status === true) {
-      setAuth(true)
-      setUser(data.data);
-      let dataString = JSON.stringify(data.data);
-      await AsyncStorage.setItem('user', dataString)
-      return navigation.navigate('OtpCodeEmail')
-    } else {
+      if (data.status === true) {
+        data.data.status = 'pending'
+        setAuth(true)
+        console.log(data.data);
+        await setUser(data.data);
+        let dataString = JSON.stringify(data.data);
+        await AsyncStorage.setItem('user', dataString)
+        return navigation.navigate('OtpCodeEmail')
+      } else {
+        showMessage({
+          message: "Error al registrar",
+          description: data.message,
+          type: "danger",
+        });
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
       showMessage({
         message: "Error al registrar",
-        description: data.message,
+        description: 'Algo salió mal, intenta mas tarde',
         type: "danger",
       });
     }
   }, []);
 
   const logOutFn = useCallback(async (navigation) => {
-    console.log('cerrando...')
-    await post("/login", '');
-    await AsyncStorage.removeItem('user');
+    // await post("/login", {}, token);
+    setAuth(false);
     setUser(null);
+    await AsyncStorage.removeItem('user');
     navigation.navigate("SignIn");
-  },[]);
+  }, []);
 
   const signWithGoogleFn = async (data) => {
     setUser(data)
@@ -95,7 +139,9 @@ const AuthProvider = ({ children }) => {
         signUpFn,
         signWithGoogleFn,
         loadingApp,
-        logOutFn
+        logOutFn,
+        sendVerifyEmailFn,
+        confirmVerifyEmailFn
       }}
     >
       {children}
