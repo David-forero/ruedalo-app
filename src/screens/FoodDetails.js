@@ -20,6 +20,7 @@ import {
 } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES, dummyData } from "../common/constants";
 import { Picker } from "@react-native-picker/picker";
+import { Rating } from "react-native-ratings";
 
 export default function FoodDetails() {
     const navigation = useNavigation();
@@ -92,7 +93,7 @@ export default function FoodDetails() {
 
                     <Text className='font-bold text-md mb-1 text-left text-gray-700 mt-5'>Vendido por</Text>
 
-                    <TouchableOpacity onPress={() => navigation.navigate("RestaurantMenu", {restaurant: dummyData[0]})} className=" flex-row space-x-3 mt-2">
+                    <TouchableOpacity onPress={() => navigation.navigate("RestaurantMenu", { restaurant: dummyData[0] })} className=" flex-row space-x-3 mt-2">
                         <Image
                             source={dummyData[0].image}
                             className="h-10 w-10 rounded-full"
@@ -101,6 +102,34 @@ export default function FoodDetails() {
 
                         <View>
                             <Text>{dummyData[0].name}</Text>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Rating
+                                    type="star"
+                                    count={5}
+                                    defaultRating={14}
+                                    imageSize={12}
+                                    showRating={false}
+                                    isDisabled={false}
+                                    readonly={true}
+                                    startingValue={dummyData[0].rating}
+                                />
+                                <Text
+                                    style={{
+                                        ...FONTS.Roboto_400Regular,
+                                        fontSize: 12,
+                                        color: COLORS.gray2,
+                                        marginLeft: 10,
+                                        lineHeight: 12 * 1.2,
+                                    }}
+                                >
+                                    ({dummyData[0].numberOfRatings})
+                                </Text>
+                            </View>
                         </View>
                     </TouchableOpacity>
                 </View>

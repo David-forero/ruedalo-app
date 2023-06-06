@@ -109,7 +109,7 @@ export default function OrderHistory() {
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-            <Header title="Listado de Ordenes" onPress={() => navigation.goBack()} />
+            <Header title="Compras realizadas" onPress={() => navigation.goBack()} />
             <ScrollView
                 contentContainerStyle={{
                     paddingHorizontal: 30,
