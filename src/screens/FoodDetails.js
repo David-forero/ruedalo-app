@@ -15,12 +15,10 @@ import {
     Header,
     Star,
     Button,
-    Heart,
-    Add,
     ItemComponentOne,
     Heading,
 } from "../common/components";
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
+import { COLORS, FONTS, SAFEAREAVIEW, SIZES, dummyData } from "../common/constants";
 import { Picker } from "@react-native-picker/picker";
 
 export default function FoodDetails() {
@@ -28,7 +26,7 @@ export default function FoodDetails() {
     const route = useRoute();
     const [marca, setMarca] = useState(null)
 
-    const {  image, name, price } = route.params;
+    const { image, name, price } = route.params;
 
     function renderDetails() {
         return (
@@ -37,7 +35,6 @@ export default function FoodDetails() {
                     marginHorizontal: 30,
                     // marginBottom: 20,
                 }}
-                className="flex-col justify-around h-screen"
             >
                 <View>
                     <Image
@@ -48,6 +45,7 @@ export default function FoodDetails() {
                             borderRadius: 14,
                             marginBottom: 21,
                         }}
+                        className="shadow-lg"
                         resizeMode="stretch"
                     />
                     <Text
@@ -79,7 +77,6 @@ export default function FoodDetails() {
                             flexDirection: "row",
                             alignItems: "center",
                             justifyContent: "space-between",
-                            marginBottom: 25,
                         }}
                     >
                         <Text
@@ -91,12 +88,25 @@ export default function FoodDetails() {
                         >
                             ${price}
                         </Text>
-
                     </View>
+
+                    <Text className='font-bold text-md mb-1 text-left text-gray-700 mt-5'>Vendido por</Text>
+
+                    <TouchableOpacity onPress={() => navigation.navigate("RestaurantMenu", {restaurant: dummyData[0]})} className=" flex-row space-x-3 mt-2">
+                        <Image
+                            source={dummyData[0].image}
+                            className="h-10 w-10 rounded-full"
+                            resizeMode="stretch"
+                        />
+
+                        <View>
+                            <Text>{dummyData[0].name}</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
 
-                <View>
-                    <Text className='font-bold text-md mb-3 text-left text-gray-700 mt-5'>Cantidad</Text>
+                <View className="mt-10">
+                    <Text className='font-bold text-md mb-3 text-left text-gray-700'>Cantidad</Text>
 
                     <Picker
                         style={{

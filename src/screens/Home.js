@@ -184,7 +184,7 @@ export default function Home() {
     function renderPopularRestaurants() {
         return (
             <View>
-                <Heading title="Lo más vendido" />
+                <Heading title="Para tu vehículo" />
                 <FlatList
                     contentContainerStyle={{
                         paddingLeft: 30,
@@ -216,7 +216,7 @@ export default function Home() {
         return (
             <View style={{ paddingHorizontal: 30 }}>
                 <Heading
-                    title="Para tu vehículo"
+                    title="Lo mas vendido"
                     containerStyle={{ paddingHorizontal: 0, marginBottom: 21 }}
                 />
 

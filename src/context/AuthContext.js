@@ -25,8 +25,9 @@ const AuthProvider = ({ children }) => {
     userValue = JSON.parse(userValue);
     onboarding = JSON.parse(onboarding);
     setEnableBoarding(onboarding)
+    setUser(userValue);
     if (userValue) {
-      setUser(userValue);
+      setAuth(true);
     }
     setLoading(false)
   }, []);

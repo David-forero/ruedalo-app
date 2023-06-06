@@ -85,8 +85,8 @@ const category = [
 const history = [
     {
         id: "1",
-        name: "Filada Family bar",
-        image: require("../../assets/images/restaurant.png"),
+        name: "Kit de rolineras",
+        image: require("../../assets/images/items/01.png"),
         date: "24 Jun, 12:30",
         quantity: "3",
         price: "15.30",
@@ -96,8 +96,8 @@ const history = [
     },
     {
         id: "2",
-        name: "National rest",
-        image: require("../../assets/images/restaurant.png"),
+        name: "Filtro de grasolina",
+        image: require("../../assets/images/items/04.png"),
         date: "24 Jun, 12:30",
         quantity: "3",
         price: "29.30",
@@ -107,8 +107,8 @@ const history = [
     },
     {
         id: "3",
-        name: "Rolls & rolls",
-        image: require("../../assets/images/restaurant.png"),
+        name: "Radiador",
+        image: require("../../assets/images/items/02.png"),
         date: "24 Jun, 12:30",
         quantity: "3",
         price: "45.30",
@@ -118,8 +118,8 @@ const history = [
     },
     {
         id: "4",
-        name: "Chiken taste",
-        image: require("../../assets/images/restaurant.png"),
+        name: "Kits de frenos",
+        image: require("../../assets/images/items/03.png"),
         date: "24 Jun, 12:30",
         quantity: "3",
         price: "18.30",
@@ -129,8 +129,8 @@ const history = [
     },
     {
         id: "5",
-        name: "Croissant cafe",
-        image: require("../../assets/images/restaurant.png"),
+        name: "Kit de rolineras",
+        image: require("../../assets/images/items/01.png"),
         date: "24 Jun, 12:30",
         quantity: "3",
         price: "22.30",

@@ -48,18 +48,11 @@ export default function OrderHistoryCategory({ item, type }) {
                         style={{
                             width: 8,
                             height: 8,
-                            backgroundColor: COLORS.orange,
                             borderRadius: 5,
                         }}
+                        className="bg-orange-500 mr-2"
                     />
-                    <Text
-                        style={{
-                            marginHorizontal: 5,
-                            ...FONTS.Roboto_400Regular,
-                            fontSize: 13,
-                            color: COLORS.gray2,
-                        }}
-                    >{`${item.quantity} Items  x`}</Text>
+                    
                     <Text
                         style={{
                             ...FONTS.Roboto_700Bold,
@@ -112,7 +105,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                     color: COLORS.carrot,
                                 }}
                             >
-                                Cancelled
+                                Esperando pago
                             </Text>
                         </View>
                     ) : (
@@ -139,7 +132,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                         color: COLORS.black2,
                                     }}
                                 >
-                                    Upcoming
+                                    En proceso
                                 </Text>
                             ) : (
                                 <Text
@@ -149,7 +142,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                         color: COLORS.black2,
                                     }}
                                 >
-                                    Completed
+                                    Completado
                                 </Text>
                             )}
                         </View>
@@ -188,7 +181,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                     color: COLORS.white,
                                 }}
                             >
-                                Cancel
+                                Cancelar
                             </Text>
                         </TouchableOpacity>
                     )}

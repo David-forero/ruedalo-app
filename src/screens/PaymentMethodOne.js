@@ -18,6 +18,7 @@ import {
     Button,
 } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const methods = [
     {
@@ -32,8 +33,22 @@ const methods = [
     },
 ];
 
+const entrega = [
+    {
+        id: "3",
+        method: "Pick up",
+        icon: <FontAwesome5 name="hand-holding" size={20} color={COLORS.orange} />,
+    },
+    {
+        id: "4",
+        method: "Delivery",
+        icon: <FontAwesome5 name="motorcycle" size={20} color={COLORS.orange} />,
+    },
+];
+
 export default function PaymentMethodOne() {
     const [selectedMethod, setSelectedMethod] = useState("1");
+    const [selectedMethod2, setSelectedMethod2] = useState("1");
     const navigation = useNavigation();
 
     return (
@@ -51,6 +66,7 @@ export default function PaymentMethodOne() {
                 }}
                 showsVerticalScrollIndicator={false}
             >
+                <Text clasName="mb-3 font-bold text-lg" >Método de pago</Text>
                 <View style={{ marginBottom: 9 }}>
                     {methods.map((item, index) => {
                         return (
@@ -84,6 +100,58 @@ export default function PaymentMethodOne() {
                                 </Text>
 
                                 {selectedMethod == item.id ? (
+                                    <CheckThree />
+                                ) : (
+                                    <View
+                                        style={{
+                                            width: 16.5,
+                                            height: 16.5,
+                                            backgroundColor: "#F0F1F5",
+                                            borderRadius: 10,
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                        }}
+                                    ></View>
+                                )}
+                            </TouchableOpacity>
+                        );
+                    })}
+                </View>
+
+                <Text clasName="mb-3 font-bold text-lg">Método de entrega</Text>
+                <View style={{ marginBottom: 9 }}>
+                    {entrega.map((item, index) => {
+                        return (
+                            <TouchableOpacity
+                                key={index}
+                                style={{
+                                    width: "100%",
+                                    height: 50,
+                                    borderColor: COLORS.lightGray,
+                                    borderWidth: 1,
+                                    marginBottom: 12,
+                                    borderRadius: 10,
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    paddingHorizontal: 13,
+                                }}
+                                onPress={() => setSelectedMethod2(item.id)}
+                            >
+                                {item.icon}
+                                <Text
+                                    style={{
+                                        marginLeft: 10,
+                                        ...FONTS.Roboto_400Regular,
+                                        fontSize: 16,
+                                        textTransform: "capitalize",
+                                        color: COLORS.black,
+                                        flex: 1,
+                                    }}
+                                >
+                                    {item.method}
+                                </Text>
+
+                                {selectedMethod2 == item.id ? (
                                     <CheckThree />
                                 ) : (
                                     <View

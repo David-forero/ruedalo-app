@@ -49,7 +49,7 @@ export default function OrderHistory() {
                                     : COLORS.black2,
                         }}
                     >
-                        En camino
+                        En proceso
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -109,7 +109,7 @@ export default function OrderHistory() {
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-            <Header title="Order History" onPress={() => navigation.goBack()} />
+            <Header title="Listado de Ordenes" onPress={() => navigation.goBack()} />
             <ScrollView
                 contentContainerStyle={{
                     paddingHorizontal: 30,
