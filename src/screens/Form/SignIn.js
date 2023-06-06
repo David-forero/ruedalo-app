@@ -41,7 +41,7 @@ export default function SignIn() {
         // setUser(useInfo);
     }
 
-    const [request, response, promptAsync] = Google.useAuthRequest({
+    const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
         webClientId: '469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com',
         clientSecret: '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',
         expoClientId: '469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com',
@@ -50,7 +50,6 @@ export default function SignIn() {
     });
 
     useEffect(() => {
-
         if (response?.type === "success") {
             setAccessToken(response.authentication.accessToken);
             accessToken && fetchUserInfo();

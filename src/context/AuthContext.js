@@ -124,7 +124,8 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const signWithGoogleFn = async (data) => {
-    setUser(data)
+    setUser(data);
+    setAuth(true);
     let dataString = JSON.stringify(data);
     await AsyncStorage.setItem('user', dataString)
   }
