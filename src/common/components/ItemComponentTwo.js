@@ -1,11 +1,7 @@
 import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
 import React from "react";
 import { Shadow } from "react-native-shadow-2";
-import { showMessage } from "react-native-flash-message";
-
 import { FONTS, COLORS } from "../constants";
-
-import Heart from "./svg/Heart";
 
 export default function ItemComponentTwo({ item, onPress }) {
     return (
@@ -22,7 +18,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                 onPress={onPress}
             >
                 <ImageBackground
-                    source={item.image}
+                    source={{uri: 'https://repuestosya.cobrex.com.ve/api/product/' + item.image[0]}}
                     style={{
                         height: 144,
                         width: "100%",
@@ -66,7 +62,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                             }}
                             numberOfLines={1}
                         >
-                            {item.name}
+                            {item.title}
                         </Text>
 
                         <Text
@@ -86,7 +82,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                         }}
                         numberOfLines={2}
                     >
-                        {item.compound}
+                        {item.description}
                     </Text>
                   
                 </View>

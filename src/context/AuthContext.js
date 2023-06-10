@@ -18,6 +18,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
   const [enableBoarding, setEnableBoarding] = useState(true);
+  const [coordenates, setCoordenates] = useState(null);
 
   const loadingApp = useCallback(async (setLoading) => {
     let userValue = await AsyncStorage.getItem('user');
@@ -34,7 +35,6 @@ const AuthProvider = ({ children }) => {
 
   const sendVerifyEmailFn = useCallback(async (myToken) => {
     const { data } = await post("/verify-email", {}, myToken);
-    console.log(data);
   }, []);
 
   const confirmVerifyEmailFn = useCallback(async (otp, navigation, setLoading, myToken) => {
@@ -93,7 +93,6 @@ const AuthProvider = ({ children }) => {
       if (data.status === true) {
         data.data.status = 'pending'
         setAuth(true)
-        console.log(data.data);
         await setUser(data.data);
         let dataString = JSON.stringify(data.data);
         await AsyncStorage.setItem('user', dataString)
@@ -137,13 +136,16 @@ const AuthProvider = ({ children }) => {
         user,
         auth,
         enableBoarding,
+        coordenates,
+        setCoordenates,
+        //Functions
         signInFn,
         signUpFn,
         signWithGoogleFn,
         loadingApp,
         logOutFn,
         sendVerifyEmailFn,
-        confirmVerifyEmailFn
+        confirmVerifyEmailFn,
       }}
     >
       {children}

@@ -8,11 +8,18 @@ import OrderHistory from './OrderHistory'
 import Profile from "../screens/Profile";
 import AutoServices from "./AutoServices";
 import { CurvedBottomBar } from "react-native-utils-navigation-bar";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function MainLayout() {
     const navigation = useNavigation();
+    const {coordenates} = useAuthContext();
 
-    const [type, setType] = useState('down');
+    useEffect(() => {
+      if (!coordenates) {
+        navigation.navigate('Selectlocation')
+      }
+    }, [])
+    
 
     const onClickButton = () => {
         navigation.navigate('MyCars')
@@ -46,8 +53,8 @@ export default function MainLayout() {
         
         <View style={{ flex: 1 }}>
             <CurvedBottomBar.Navigator
-                style={[type === 'down' && { opacity: 40 }]}
-                type={type}
+                style={{ opacity: 40 }}
+                type={'down'}
                 height={60}
                 circleWidth={55}
                 bgColor="#2d2d2d"
@@ -55,7 +62,7 @@ export default function MainLayout() {
                 initialRouteName="title1"
                 renderCircle={() => (
                     <TouchableOpacity
-                        style={[type === 'down' ? styles.btnCircle : styles.btnCircleUp]} onPress={onClickButton}
+                        style={styles.btnCircle} onPress={onClickButton}
                     >
                         <Ionicons name="ios-car-outline" size={30} color={'white'} />
                     </TouchableOpacity>
