@@ -18,18 +18,11 @@ import {
   FONTS,
   SAFEAREAVIEW,
   category,
-  dummyData,
 } from "../common/constants";
 import {
-  Basket,
-  Search,
   Pin,
-  Star,
-  DeliveryMan,
   Clock,
   PinTwo,
-  Filter,
-  HeartTwo,
   Heading,
   SliderBanner,
   ItemComponentTwo,
