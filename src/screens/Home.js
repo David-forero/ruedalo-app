@@ -63,6 +63,7 @@ export default function Home() {
       console.log(data);
       setForMyCar(data.data);
       setMostSells(data.data);
+      console.log(user?.token);
     }
     init();
   }, [coordenates]);
@@ -86,6 +87,7 @@ export default function Home() {
           >
             {/* story.user.length > 11 ? story.user.slice(0, 10).toLowerCase() + '...' : story.user.toLowerCase() */}
             Los teques - centro comercial la casc...
+            {user?.token}
           </Text>
         </View>
 

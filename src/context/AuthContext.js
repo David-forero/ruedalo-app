@@ -34,7 +34,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const sendVerifyEmailFn = useCallback(async (myToken) => {
-    const { data } = await post("/verify-email", {}, myToken);
+    await post("/verify-email", {}, myToken);
   }, []);
 
   const confirmVerifyEmailFn = useCallback(async (otp, navigation, setLoading, myToken) => {
@@ -123,8 +123,9 @@ const AuthProvider = ({ children }) => {
     navigation.navigate("SignIn");
   }, []);
 
-  const signWithGoogleFn = async (data) => {
-    setUser(data);
+  const signWithGoogleFn = async (googleData) => {
+    const { data } = await post("/login-google", {email: googleData.email})
+    setUser(data.data);
     setAuth(true);
     let dataString = JSON.stringify(data);
     await AsyncStorage.setItem('user', dataString)
