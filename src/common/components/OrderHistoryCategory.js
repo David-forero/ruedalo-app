@@ -166,25 +166,6 @@ export default function OrderHistoryCategory({ item, type }) {
                             </Text>
                         </TouchableOpacity>
                     )}
-
-                    {type == "upcoming" && (
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: COLORS.red,
-                                borderRadius: 12,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    paddingHorizontal: 16,
-                                    paddingVertical: 4,
-                                    color: COLORS.white,
-                                }}
-                            >
-                                Cancelar
-                            </Text>
-                        </TouchableOpacity>
-                    )}
                 </View>
             </View>
         </View>

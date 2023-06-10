@@ -29,9 +29,10 @@ const StoreProvider = ({ children }) => {
     return post("/list_product", myParams, token);
   };
 
-  const getProductFn = useCallback((id) => {
-    const { data } = post("/get_product", id, token);
+  const getProductFn = useCallback( async (id, token, setLoading) => {
+    const {data} = await post("/get_product", {id}, token);
     setProduct(data.data);
+    setLoading(false);
   }, []);
 
   const checkoutProcessFn = useCallback(() => {

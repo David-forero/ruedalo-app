@@ -207,7 +207,7 @@ export default function Home() {
                 item={item}
                 onPress={() =>
                   navigation.navigate("FoodDetails", {
-                    id,
+                    id: item.id,
                   })
                 }
               />

@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
-import { showMessage } from "react-native-flash-message";
 
 import {
     Header,
@@ -18,16 +17,34 @@ import {
     ItemComponentOne,
     Heading,
 } from "../common/components";
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES, dummyData } from "../common/constants";
+import { COLORS, FONTS, SAFEAREAVIEW, dummyData } from "../common/constants";
 import { Picker } from "@react-native-picker/picker";
 import { Rating } from "react-native-ratings";
+import { useEffect } from "react";
+import { useStoreContext } from "../context/StoreContext";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function FoodDetails() {
     const navigation = useNavigation();
+    const {product, getProductFn} = useStoreContext();
+    const {user} = useAuthContext();
+    const [loading, setLoading] = useState(true);
     const route = useRoute();
-    const [marca, setMarca] = useState(null)
+    const [selectAcount, setSelectAcount] = useState(null);
+    const { id } = route.params;
 
-    const { image, name, price } = route.params;
+    const [amount, setAmount] = useState(null);
+    
+    useEffect(() => {
+        setLoading(false);
+        getProductFn(id, user?.token, setLoading)
+        
+    }, [])
+
+    useEffect(() => {
+        setAmount(product?.price)
+    }, [product?.price])
+    
 
     function renderDetails() {
         return (
@@ -39,7 +56,7 @@ export default function FoodDetails() {
             >
                 <View>
                     <Image
-                        source={image}
+                        source={{uri: 'https://repuestosya.cobrex.com.ve/api/product/' + product?.image[0]}}
                         style={{
                             height: 206,
                             width: "100%",
@@ -58,7 +75,7 @@ export default function FoodDetails() {
                             color: COLORS.black,
                         }}
                     >
-                        {name}
+                        {product?.title || 'Cargando...'}
                     </Text>
                     <Text
                         style={{
@@ -71,7 +88,7 @@ export default function FoodDetails() {
                         }}
                     >
                         {/* {description} */}
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus iure facilis quibusdam? Cupiditate hic quisquam recusandae aliquam. Officiis, quod soluta expedita corporis iste perspiciatis at, aliquid voluptas nemo enim quos, quidem eveniet velit laborum sint neque impedit maiores adipisci! Quibusdam dolorum nemo deleniti. Temporibus vero eius laboriosam optio repudiandae eos libero ratione amet dolore! Distinctio natus eum laborum ut explicabo ratione excepturi error, reiciendis atque officiis ab nesciunt, corrupti placeat?
+                       {product?.description}
                     </Text>
                     <View
                         style={{
@@ -87,7 +104,7 @@ export default function FoodDetails() {
                                 color: COLORS.carrot,
                             }}
                         >
-                            ${price}
+                            ${product?.price}
                         </Text>
                     </View>
 
@@ -95,13 +112,13 @@ export default function FoodDetails() {
 
                     <TouchableOpacity onPress={() => navigation.navigate("RestaurantMenu", { restaurant: dummyData[0] })} className=" flex-row space-x-3 mt-2">
                         <Image
-                            source={dummyData[0].image}
+                            source={{ uri: 'https://repuestosya.cobrex.com.ve/api/avatar/' + product?.commerce.avatar[0]}}
                             className="h-10 w-10 rounded-full"
                             resizeMode="stretch"
                         />
 
                         <View>
-                            <Text>{dummyData[0].name}</Text>
+                            <Text>{product?.commerce.registered_name}</Text>
                             <View
                                 style={{
                                     flexDirection: "row",
@@ -116,7 +133,7 @@ export default function FoodDetails() {
                                     showRating={false}
                                     isDisabled={false}
                                     readonly={true}
-                                    startingValue={dummyData[0].rating}
+                                    startingValue={product?.commerce.rating}
                                 />
                                 <Text
                                     style={{
@@ -127,7 +144,7 @@ export default function FoodDetails() {
                                         lineHeight: 12 * 1.2,
                                     }}
                                 >
-                                    ({dummyData[0].numberOfRatings})
+                                    ({product?.commerce.rating})
                                 </Text>
                             </View>
                         </View>
@@ -148,11 +165,13 @@ export default function FoodDetails() {
                             marginBottom: 30
                         }}
                         mode="dropdown"
-                        selectedValue={marca}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setMarca(itemValue)
-                        }
+                        selectedValue={selectAcount}
+                        onValueChange={(itemValue, itemIndex) => {
+                            setAmount(Number(itemValue) * Number(product?.price));
+                            setSelectAcount(itemValue)
+                        }}
                     >
+
                         <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="1" value="1" />
                         <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="2" value="2" />
                         <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="3" value="3" />
@@ -160,10 +179,10 @@ export default function FoodDetails() {
                 </View>
 
                 <Button
-                    title="Comprar"
+                    title={loading ? 'Cargando...' : `Comprar por $${amount}` }
                     containerStyle={{ marginBottom: 20, marginTop: 60 }}
                     onPress={() => {
-                        navigation.navigate('PaymentMethodOne')
+                        navigation.navigate('PaymentMethodOne', {amount, product})
                     }}
                 />
             </View>
