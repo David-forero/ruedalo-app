@@ -44,8 +44,9 @@ export default function OrderSuccessful() {
                     Conversa con tu vendedor para mas detalles de tu orden
                 </Text>
                 <Button
-                    title="Charlar con el vendedor"
+                    title="Detalles de la compra"
                     containerStyle={{ marginBottom: 15 }}
+                    onPress={() => navigation.navigate('OrderHistory')}
                 />
                 <Button
                     title="Continuar comprando"

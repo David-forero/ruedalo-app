@@ -12,10 +12,7 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 
 import {
     Header,
-    Star,
     Button,
-    ItemComponentOne,
-    Heading,
 } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, dummyData } from "../common/constants";
 import { Picker } from "@react-native-picker/picker";
@@ -182,7 +179,7 @@ export default function FoodDetails() {
                     title={loading ? 'Cargando...' : `Comprar por $${amount}` }
                     containerStyle={{ marginBottom: 20, marginTop: 60 }}
                     onPress={() => {
-                        navigation.navigate('PaymentMethodOne', {amount, product})
+                        navigation.navigate('PaymentMethodOne', {amount, product, unit: selectAcount})
                     }}
                 />
             </View>

@@ -35,9 +35,10 @@ const StoreProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const checkoutProcessFn = useCallback(() => {
-    const { data } = post("/list_product", params, token);
-    console.log(data);
+  const checkoutProcessFn = useCallback(async (params, token) => {
+    const res = await post("/create_order", params, token);
+    console.log(res);
+    return res
   }, []);
 
   return (

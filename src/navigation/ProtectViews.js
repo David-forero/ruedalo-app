@@ -39,12 +39,12 @@ import {
     OtpCodeEmail,
     AutoServices,
     CreateCardSuccess,
-    ListProducts
+    ListProducts,
+    CreateOrderLoading
 } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuthContext } from '../context/AuthContext';
 import AppLoading from "expo-app-loading";
-import { Text } from 'react-native';
 import { useFonts } from 'expo-font';
 
 
@@ -120,6 +120,10 @@ const ProtectViews = () => {
                 <Stack.Screen
                     name="ChangePassword"
                     component={ChangePassword}
+                />
+                <Stack.Screen
+                    name="CreateOrderLoading"
+                    component={CreateOrderLoading}
                 />
                 <Stack.Screen
                     name="ConfirmationCode"

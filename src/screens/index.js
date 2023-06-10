@@ -38,6 +38,7 @@ import OtpCodeEmail from "./Form/OtpCodeEmail";
 import AutoServices from "./AutoServices";
 import CreateCardSuccess from "./CreateCardSuccess";
 import ListProducts from "./ListProducts";
+import CreateOrderLoading from "./LoadingScreens/CreateOrderLoading";
 
 export {
     OnBoarding,
@@ -79,5 +80,6 @@ export {
     OtpCodeEmail,
     AutoServices,
     CreateCardSuccess,
-    ListProducts
+    ListProducts,
+    CreateOrderLoading
 };

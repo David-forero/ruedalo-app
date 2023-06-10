@@ -21,45 +21,19 @@ import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useEffect } from "react";
 
-const methods = [
-  {
-    id: "1",
-    method: "Efectivo",
-    icon: <Cash />,
-  },
-  {
-    id: "2",
-    method: "Transferencia",
-    icon: <Bank />,
-  },
-];
-
-const entrega = [
-  {
-    id: "3",
-    method: "Pick up",
-    icon: <FontAwesome5 name="hand-holding" size={20} color={COLORS.orange} />,
-  },
-  {
-    id: "4",
-    method: "Delivery",
-    icon: <FontAwesome5 name="motorcycle" size={20} color={COLORS.orange} />,
-  },
-];
-
 export default function PaymentMethodOne() {
-  const [selectedMethod, setSelectedMethod] = useState("1");
-  const [selectedMethod2, setSelectedMethod2] = useState("1");
+  const [selectedMethod, setSelectedMethod] = useState(null);
+  const [selectedMethod2, setSelectedMethod2] = useState(null);
   const navigation = useNavigation();
   const route = useRoute();
-  const { amount, product } = route.params;
+  const { amount, product, unit } = route.params;
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    if (selectedMethod2 === "4") {
-        setTotal(amount + Number(product?.commerce?.shippings[0]?.price))
+    if (product?.commerce.shippings.find(item => item.id === selectedMethod2)) {
+        setTotal(Number(amount) + Number(product?.commerce?.shippings[0]?.price))
     }else{
-        setTotal(amount);
+        setTotal(Number(amount));
     }
     
   }, [amount, product, selectedMethod2]);
@@ -78,8 +52,8 @@ export default function PaymentMethodOne() {
         showsVerticalScrollIndicator={false}
       >
         <Text clasName="mb-3 font-bold text-lg">Método de pago</Text>
-        <View style={{ marginBottom: 9 }}>
-          {methods.map((item, index) => {
+        <View style={{ marginBottom: 9, marginTop: 5 }}>
+          {product?.commerce.paycommerces?.map((item, index) => {
             return (
               <TouchableOpacity
                 key={index}
@@ -96,7 +70,7 @@ export default function PaymentMethodOne() {
                 }}
                 onPress={() => setSelectedMethod(item.id)}
               >
-                {item.icon}
+                {/* {item.icon} */}
                 <Text
                   style={{
                     marginLeft: 10,
@@ -107,7 +81,7 @@ export default function PaymentMethodOne() {
                     flex: 1,
                   }}
                 >
-                  {item.method}
+                  {item.paymethod.name}
                 </Text>
 
                 {selectedMethod == item.id ? (
@@ -129,9 +103,9 @@ export default function PaymentMethodOne() {
           })}
         </View>
 
-        <Text clasName="mb-3 font-bold text-lg">Método de entrega</Text>
-        <View style={{ marginBottom: 9 }}>
-          {entrega.map((item, index) => {
+        <Text clasName="mb-5 font-bold text-lg">Método de entrega</Text>
+        <View style={{ marginBottom: 9, marginTop:5 }}>
+          {product?.commerce.shippings?.map((item, index) => {
             return (
               <TouchableOpacity
                 key={index}
@@ -148,7 +122,7 @@ export default function PaymentMethodOne() {
                 }}
                 onPress={() => setSelectedMethod2(item.id)}
               >
-                {item.icon}
+                {/* {item.icon} */}
                 <Text
                   style={{
                     marginLeft: 10,
@@ -159,7 +133,7 @@ export default function PaymentMethodOne() {
                     flex: 1,
                   }}
                 >
-                  {item.method}
+                  {item.type}
                 </Text>
 
                 {selectedMethod2 == item.id ? (
@@ -180,6 +154,8 @@ export default function PaymentMethodOne() {
             );
           })}
         </View>
+
+
         <View
           style={{
             width: "100%",
@@ -216,11 +192,11 @@ export default function PaymentMethodOne() {
                 marginBottom: 9,
               }}
             >
-              ${amount}
+              ${Number(amount).toFixed(2)}
             </Text>
           </View>
 
-          {selectedMethod2 === "4" && (
+          {product?.commerce.shippings.find(item => item.id === selectedMethod2) && (
             <View
               style={{
                 flexDirection: "row",
@@ -284,13 +260,14 @@ export default function PaymentMethodOne() {
                 color: COLORS.carrot,
               }}
             >
-              ${total}
+              ${total.toFixed(2)}
             </Text>
           </View>
         </View>
         <Button
           title="Proceder al pago"
-          onPress={() => navigation.navigate("OrderSuccessful")}
+          valid={selectedMethod && selectedMethod2}
+          onPress={() => navigation.navigate("CreateOrderLoading", {amount, product, unit, id_shipping: selectedMethod2, id_paycommerce: selectedMethod})}
         />
       </ScrollView>
     </SafeAreaView>
