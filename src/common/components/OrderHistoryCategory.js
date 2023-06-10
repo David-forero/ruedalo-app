@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { COLORS, FONTS } from "../constants";
+import Dayjs from "dayjs";
 
 export default function OrderHistoryCategory({ item, type }) {
     return (
@@ -18,7 +19,7 @@ export default function OrderHistoryCategory({ item, type }) {
             }}
         >
             <Image
-                source={item.image}
+                source={{ uri: 'https://repuestosya.cobrex.com.ve/api/product/' +  item.product.image[0]}}
                 style={{
                     width: 65,
                     height: 65,
@@ -42,7 +43,7 @@ export default function OrderHistoryCategory({ item, type }) {
                             flex: 1,
                         }}
                     >
-                        {item.date}
+                        {Dayjs(item?.date).format('DD/MM/YYYY')}
                     </Text>
                     <View
                         style={{
@@ -60,7 +61,7 @@ export default function OrderHistoryCategory({ item, type }) {
                             color: COLORS.carrot,
                         }}
                     >
-                        ${item.price}
+                        Total: ${item.total}
                     </Text>
                 </View>
 
@@ -72,7 +73,7 @@ export default function OrderHistoryCategory({ item, type }) {
                         color: COLORS.black,
                     }}
                 >
-                    {item.name}
+                    {item.product.title}
                 </Text>
                 <View
                     style={{
@@ -132,7 +133,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                         color: COLORS.black2,
                                     }}
                                 >
-                                    En proceso
+                                    Esperando pago
                                 </Text>
                             ) : (
                                 <Text

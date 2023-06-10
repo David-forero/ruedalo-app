@@ -13,8 +13,13 @@ import {
   
     const [orders, setOrders] = useState(null);
   
-    const getOrders = useCallback((id) => {
-      const {data} = post("/list_order", id, token);
+    const getOrders = useCallback(async (token, setLoading) => {
+      const {data} = await post("/list_order", {
+        limit:10,
+        offset: 0
+      }, token);
+      setLoading(false);
+      console.log(data);
       setOrders(data.data)
     },[])
   

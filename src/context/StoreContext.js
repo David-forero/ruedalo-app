@@ -37,7 +37,6 @@ const StoreProvider = ({ children }) => {
 
   const checkoutProcessFn = useCallback(async (params, token) => {
     const res = await post("/create_order", params, token);
-    console.log(res);
     return res
   }, []);
 
