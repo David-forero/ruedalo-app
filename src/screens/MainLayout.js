@@ -27,6 +27,7 @@ export default function MainLayout() {
 
     const _renderIcon = (routeName, selectTab) => {
         let icon = '';
+        console.log(selectTab);
 
         switch (routeName) {
         case 'title1':
