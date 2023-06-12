@@ -13,12 +13,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Rating } from "react-native-ratings";
 
-import {
-  COLORS,
-  FONTS,
-  SAFEAREAVIEW,
-  category,
-} from "../common/constants";
+import { COLORS, FONTS, SAFEAREAVIEW, category } from "../common/constants";
 import {
   Pin,
   Clock,
@@ -26,6 +21,8 @@ import {
   Heading,
   SliderBanner,
   ItemComponentTwo,
+  LoadingListOne,
+  LoadingListTwo,
 } from "../common/components";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuthContext } from "../context/AuthContext";
@@ -189,8 +186,19 @@ export default function Home() {
     return (
       <View>
         <Heading title="Para tu vehículo" />
+
         {loading ? (
-          <Text>Loading...</Text>
+          <FlatList
+            contentContainerStyle={{
+              paddingLeft: 30,
+              paddingVertical: 21,
+            }}
+            data={[1, 2, 3, 4]}
+            keyExtractor={(item) => item}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            renderItem={() => <LoadingListOne />}
+          />
         ) : (
           <FlatList
             contentContainerStyle={{
@@ -225,7 +233,18 @@ export default function Home() {
           containerStyle={{ paddingHorizontal: 0, marginBottom: 21 }}
         />
 
-        {mostSells?.rows.map((item, index) => (
+        {
+          loading ? (
+          <>
+            {
+              [1, 2, 3].map(item => (
+                <LoadingListTwo key={item} />
+              ))
+            }
+          </>
+          ) : (
+            <>
+            {mostSells?.rows.map((item, index) => (
           <TouchableOpacity
             key={index}
             style={{
@@ -242,7 +261,11 @@ export default function Home() {
             }
           >
             <Image
-              source={{ uri: 'https://repuestosya.cobrex.com.ve/api/product/' + item.image[0] }}
+              source={{
+                uri:
+                  "https://repuestosya.cobrex.com.ve/api/product/" +
+                  item.image[0],
+              }}
               style={{
                 height: 100,
                 width: 100,
@@ -301,7 +324,7 @@ export default function Home() {
                     fontSize: 12,
                     color: COLORS.gray2,
                     lineHeight: 12 * 1.2,
-                    marginLeft: 4
+                    marginLeft: 4,
                   }}
                 >
                   {item?.commerce?.addresses[0]?.distance.toFixed(2)}km
@@ -338,6 +361,9 @@ export default function Home() {
             </View>
           </TouchableOpacity>
         ))}
+            </>
+          )
+        }
       </View>
     );
   }
@@ -351,16 +377,6 @@ export default function Home() {
         {renderHeader()}
 
         <SliderBanner data={banners} />
-
-        <SkeletonPlaceholder borderRadius={4}>
-      <SkeletonPlaceholder.Item flexDirection="row" alignItems="center">
-        <SkeletonPlaceholder.Item width={60} height={60} borderRadius={50} />
-        <SkeletonPlaceholder.Item marginLeft={20}>
-          <SkeletonPlaceholder.Item width={120} height={20} />
-          <SkeletonPlaceholder.Item marginTop={6} width={80} height={20} />
-        </SkeletonPlaceholder.Item>
-      </SkeletonPlaceholder.Item>
-    </SkeletonPlaceholder>
 
         {renderCategories()}
         {renderPopularRestaurants()}

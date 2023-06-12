@@ -68,6 +68,8 @@ import SliderBanner from './SliderBanner';
 import CategoryFilter from './CategoryFilter';
 import CardCatalog from './CardCatalog';
 import InputPassword from './InputPassword';
+import LoadingListOne from './loadings/LoadingListOne';
+import LoadingListTwo from './loadings/LoadingListTwo';
 
 export {
     Button,
@@ -136,5 +138,8 @@ export {
     CategoryFilter,
     CardCatalog,
     Remove,
-    InputPassword
+    InputPassword,
+    //LOADINGS ⏳️
+    LoadingListOne,
+    LoadingListTwo
 };
