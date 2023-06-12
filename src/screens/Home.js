@@ -27,6 +27,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
+import useLocation from "../common/hooks/useLocation";
 
 const banners = [
   {
@@ -50,8 +51,10 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
   const { coordenates, user } = useAuthContext();
-  const { getListProductsFn, forMyCar, setForMyCar, mostSells, setMostSells } =
-    useStoreContext();
+  const { getListProductsFn, forMyCar, setForMyCar, mostSells, setMostSells } = useStoreContext();
+
+  //My hooks
+  const {error, place, location} = useLocation()
 
   useEffect(() => {
     async function init() {
@@ -79,9 +82,9 @@ export default function Home() {
               ...FONTS.Roboto_400Regular,
               fontSize: 14,
             }}
+            numberOfLines={1}
           >
-            {/* story.user.length > 11 ? story.user.slice(0, 10).toLowerCase() + '...' : story.user.toLowerCase() */}
-            Los teques - centro comercial la casc...
+           {place ? `${place[0]?.name} ${place[0]?.subregion} ${place[0]?.postalCode} ` : 'Crear una dirección acá'}
           </Text>
         </View>
 
@@ -187,7 +190,7 @@ export default function Home() {
       <View>
         <Heading title="Para tu vehículo" />
 
-        {loading ? (
+        {loading || !forMyCar ? (
           <FlatList
             contentContainerStyle={{
               paddingLeft: 30,
@@ -234,7 +237,7 @@ export default function Home() {
         />
 
         {
-          loading ? (
+          loading || !forMyCar ? (
           <>
             {
               [1, 2, 3].map(item => (
