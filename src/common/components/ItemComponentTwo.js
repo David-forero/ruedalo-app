@@ -18,7 +18,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                 onPress={onPress}
             >
                 <ImageBackground
-                    source={{uri: 'https://repuestosya.cobrex.com.ve/api/product/' + item.image[0]}}
+                    source={{uri: 'https://repuestosya.cobrex.com.ve/api/product/' + item?.image[0]}}
                     style={{
                         height: 144,
                         width: "100%",

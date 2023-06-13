@@ -1,14 +1,20 @@
-import { SafeAreaView, Animated, BackHandler, ActivityIndicator } from "react-native";
+import {
+  SafeAreaView,
+  Animated,
+  BackHandler,
+  ActivityIndicator,
+} from "react-native";
 import Lottie from "lottie-react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useRef } from "react";
 import { COLORS } from "../../common/constants";
 import { useAuthContext } from "../../context/AuthContext";
 import { useStoreContext } from "../../context/StoreContext";
+import { showMessage } from "react-native-flash-message";
 
 const CreateOrderLoading = () => {
-  const {user} = useAuthContext();
-  const {checkoutProcessFn} = useStoreContext();
+  const { user } = useAuthContext();
+  const { checkoutProcessFn } = useStoreContext();
 
   const scaleValue = useRef(new Animated.Value(1)).current;
   const navigation = useNavigation();
@@ -16,16 +22,34 @@ const CreateOrderLoading = () => {
   const { amount, product, unit, id_paycommerce, id_shipping } = route.params;
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-      return true; // Evita el comportamiento predeterminado de retroceso
-    });
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        return true; // Evita el comportamiento predeterminado de retroceso
+      }
+    );
 
     async function init() {
-      const res = await checkoutProcessFn({id_product: product?.id, id_commerce: product?.commerce.id, unit, id_paycommerce, id_shipping}, user?.token)
+      const res = await checkoutProcessFn(
+        {
+          id_product: product?.id,
+          id_commerce: product?.commerce.id,
+          unit: Number(unit),
+          id_paycommerce,
+          id_shipping,
+        },
+        user?.token
+      );
       if (res.status === 200 || res.status === 201) {
-        navigation.navigate("OrderSuccessful")
-      }else{
-        navigation.goBack()
+        navigation.navigate("OrderSuccessful");
+      } else {
+        console.log(res);
+        showMessage({
+          message: "Error al hacer la compra",
+          message: res.message,
+          type: "danger",
+        });
+        navigation.goBack();
       }
     }
     init();

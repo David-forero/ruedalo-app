@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -93,9 +94,14 @@ export default function OrderHistory() {
   function renderUpcoming() {
     return orders.rows.map((item, index) => {
       return (
-        <TouchableOpacity key={index}>
-          <OrderHistoryCategory item={item} type={"upcoming"} />
-        </TouchableOpacity>
+        item.status !== "completed" && (
+          <TouchableOpacity
+            key={index}
+            onPress={() => navigation.navigate("Order", { id: item.id })}
+          >
+            <OrderHistoryCategory item={item} type={"upcoming"} />
+          </TouchableOpacity>
+        )
       );
     });
   }
@@ -103,8 +109,11 @@ export default function OrderHistory() {
   function renderHistory() {
     return orders.rows.map((item, index) => {
       return (
-        item.completed === true && (
-          <TouchableOpacity key={index}>
+        item.status === "completed" && (
+          <TouchableOpacity
+            key={index}
+            onPress={() => navigation.navigate("Order", { id: item.id })}
+          >
             <OrderHistoryCategory item={item} type={"completed"} />
           </TouchableOpacity>
         )
@@ -121,6 +130,12 @@ export default function OrderHistory() {
           flexGrow: 1,
         }}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={() => {
+            setLoading(true);
+            getOrders(user?.token, setLoading);
+          }} />
+        }
       >
         {loading ? (
           <Text>Cargando...</Text>
