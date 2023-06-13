@@ -107,9 +107,9 @@ export default function Profile() {
                             marginBottom: 3,
                         }}
                     >
-                        {user?.name}
+                        {user?.name} {user?.lastname}
                     </Text>
-                    <Text
+                   {!user.name &&  <Text
                         style={{
                             textAlign: "center",
                             ...FONTS.Roboto_400Regular,
@@ -118,8 +118,8 @@ export default function Profile() {
                             marginBottom: 20,
                         }}
                     >
-                        Confirma tu número de teléfono
-                    </Text>
+                        Confirma tu Cuenta acá
+                    </Text>} 
                 </TouchableOpacity>
 
                 <ProfileCategory

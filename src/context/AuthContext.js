@@ -135,6 +135,7 @@ const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         auth,
         enableBoarding,
         coordenates,

@@ -80,11 +80,31 @@ const delet = async (url, data) => {
     }
 }
 
+const upload = async (url, data, token) => {
+    try {
+        return await Axios.post(url, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data"
+            }
+        });
+
+    } catch (error) {
+       return {
+        data: {
+            status: error.response.data.status, message: error.response.data.message, data: false
+        }
+        }
+        // return {data: {status: 500, message: ERROR_UNKNOWN, data: false}}
+    }
+}
+
 
 export {
     get,
     post,
     put,
     patch,
-    delet
+    delet,
+    upload
 }

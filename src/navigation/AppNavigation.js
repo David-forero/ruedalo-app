@@ -9,21 +9,24 @@ import { StatusBar } from "react-native";
 import { COLORS } from "../common/constants";
 import StoreProvider from "../context/StoreContext";
 import OrdersProvider from "../context/OrdersContext";
+import UserProvider from "../context/UserContexr";
 
 export default function Navigation() {
   return (
     <NavigationContainer>
       <AuthProvider>
-        <StoreProvider>
-          <OrdersProvider>
-            <StatusBar
-              translucent
-              backgroundColor={COLORS.orange}
-              barStyle={"light-content"}
-            />
-            <ProtectViews />
-          </OrdersProvider>
-        </StoreProvider>
+        <UserProvider>
+          <StoreProvider>
+            <OrdersProvider>
+              <StatusBar
+                translucent
+                backgroundColor={COLORS.orange}
+                barStyle={"light-content"}
+              />
+              <ProtectViews />
+            </OrdersProvider>
+          </StoreProvider>
+        </UserProvider>
       </AuthProvider>
       <FlashMessage position="top" />
     </NavigationContainer>
