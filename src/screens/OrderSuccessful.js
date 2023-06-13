@@ -3,10 +3,12 @@ import React from "react";
 
 import { SuccessTwo, Button } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 export default function OrderSuccessful() {
     const navigation = useNavigation();
+    const route = useRoute();
+    const { data } = route.params;
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
             <ScrollView
@@ -46,7 +48,7 @@ export default function OrderSuccessful() {
                 <Button
                     title="Detalles de la compra"
                     containerStyle={{ marginBottom: 15 }}
-                    onPress={() => navigation.navigate('OrderHistory')}
+                    onPress={() => navigation.navigate('Order', {id: data.data.data.id})}
                 />
                 <Button
                     title="Continuar comprando"

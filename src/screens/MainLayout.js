@@ -83,6 +83,7 @@ export default function MainLayout() {
                     position="left"
                     component={() => <HomeOne />}
                 />
+                
                 <CurvedBottomBar.Screen
                     name="title2"
                     component={() => <AutoServices />}

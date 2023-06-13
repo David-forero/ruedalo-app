@@ -41,7 +41,8 @@ const CreateOrderLoading = () => {
         user?.token
       );
       if (res.status === 200 || res.status === 201) {
-        navigation.navigate("OrderSuccessful");
+        
+        navigation.navigate("OrderSuccessful", {data: res});
       } else {
         console.log(res);
         showMessage({

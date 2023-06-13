@@ -9,6 +9,17 @@ import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 export default function Selectlocation() {
   const navigation = useNavigation();
 
+  useEffect(() => {
+   async function init() {
+    const location = await Location.getCurrentPositionAsync({});
+    if (location) {
+      navigation.navigate("MainLayout");
+    }
+   }
+   init();
+  }, [])
+  
+
   const getLocationPermission = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {

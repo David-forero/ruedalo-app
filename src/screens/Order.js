@@ -26,10 +26,8 @@ export default function Order() {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const route = useRoute();
-  const [selectAcount, setSelectAcount] = useState(null);
   const { id } = route.params;
 
-  const [amount, setAmount] = useState(null);
 
   useEffect(() => {
     setLoading(true);

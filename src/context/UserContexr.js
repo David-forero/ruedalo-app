@@ -26,7 +26,7 @@ const UserProvider = ({ children }) => {
     setUser(data.data);
     console.log(data, 'actualizar datos');
     if (data.status === 200 || data.status === true) {
-      navigation.navigate("Profile");
+      navigation.navigate("MainLayour");
     }
     setLoading(false);
 

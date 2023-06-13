@@ -109,7 +109,7 @@ export default function Profile() {
                     >
                         {user?.name} {user?.lastname}
                     </Text>
-                   {!user.name &&  <Text
+                   {!user?.name &&  <Text
                         style={{
                             textAlign: "center",
                             ...FONTS.Roboto_400Regular,
