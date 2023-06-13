@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as ImagePicker from "expo-image-picker";
@@ -30,6 +30,11 @@ export default function EditProfile() {
   const [loading, setLoading] = useState(false)
   const {user, setUser} = useAuthContext();
   const { updateUserFn } = useUserContext();
+
+  useEffect(() => {
+    setImage(null);
+  }, [])
+  
 
   // Función para seleccionar una imagen del dispositivo
   const pickImage = async () => {
