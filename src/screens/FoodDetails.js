@@ -25,7 +25,7 @@ export default function FoodDetails() {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const route = useRoute();
-  const [selectAcount, setSelectAcount] = useState(null);
+  const [selectAcount, setSelectAcount] = useState(1);
   const { id } = route.params;
 
   const [amount, setAmount] = useState(null);
