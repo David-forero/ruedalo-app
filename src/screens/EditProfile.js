@@ -51,7 +51,6 @@ export default function EditProfile() {
         type: "image/jpeg", // Asegúrate de usar el tipo de imagen correcto
         name: "profileImage.jpg", // Nombre del archivo de imagen
       };
-      console.log(img);
       setImage(img);
     }
   };
@@ -77,7 +76,7 @@ export default function EditProfile() {
           onSubmit={async (values) => {
             setLoading(true);
             if (image) {
-              values.image = image.url
+              values.image = image.uri
             }
             updateUserFn(values, user?.token, setLoading, setUser, navigation);
           }}

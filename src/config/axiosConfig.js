@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Axios = axios.create({
-    baseURL: 'https://repuestosya.cobrex.com.ve/api',
+    baseURL: 'https://ruedalo.app/api',
     // timeout: 5000,
     // headers: {
     //     Authorization: `Bearer ${getToken()}` 
