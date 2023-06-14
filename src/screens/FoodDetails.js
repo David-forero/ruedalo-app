@@ -62,9 +62,7 @@ export default function FoodDetails() {
           ) : (
             <Image
               source={{
-                uri:
-                  "https://repuestosya.cobrex.com.ve/api/product/" +
-                  product?.image[0],
+                uri: "https://ruedalo.app/api/product/" + product?.image[0],
               }}
               style={{
                 height: 206,
@@ -136,7 +134,7 @@ export default function FoodDetails() {
           </View>
 
           {loading ? (
-            <Placeholder Animation={Fade} style={{marginTop: 10}}>
+            <Placeholder Animation={Fade} style={{ marginTop: 10 }}>
               <PlaceholderLine width={30} />
             </Placeholder>
           ) : (
@@ -183,7 +181,7 @@ export default function FoodDetails() {
               <Image
                 source={{
                   uri:
-                    "https://repuestosya.cobrex.com.ve/api/avatar/" +
+                    "https://ruedalo.app/api/avatar/" +
                     product?.commerce.avatar[0],
                 }}
                 className="h-10 w-10 rounded-full"
@@ -225,53 +223,53 @@ export default function FoodDetails() {
           )}
         </View>
 
-      {loading ? (
-        <View className="mt-10">
- <Placeholder Animation={Fade}>
-                    <PlaceholderLine width={40} />
-                  </Placeholder>
-        </View>
-      ) : (
-        <View className="mt-10">
-        <Text className="font-bold text-md mb-3 text-left text-gray-700">
-          Cantidad
-        </Text>
+        {loading ? (
+          <View className="mt-10">
+            <Placeholder Animation={Fade}>
+              <PlaceholderLine width={40} />
+            </Placeholder>
+          </View>
+        ) : (
+          <View className="mt-10">
+            <Text className="font-bold text-md mb-3 text-left text-gray-700">
+              Cantidad
+            </Text>
 
-        <Picker
-          style={{
-            width: "100%",
-            height: 10,
-            backgroundColor: COLORS.lightGray,
-            borderRadius: 10,
-            alignItems: "center",
-            flexDirection: "row",
-            marginBottom: 30,
-          }}
-          mode="dropdown"
-          selectedValue={selectAcount}
-          onValueChange={(itemValue, itemIndex) => {
-            setAmount(Number(itemValue) * Number(product?.price));
-            setSelectAcount(itemValue);
-          }}
-        >
-          <Picker.Item
-            style={{ color: COLORS.gray2, marginLeft: 10 }}
-            label="1"
-            value="1"
-          />
-          <Picker.Item
-            style={{ color: COLORS.gray2, marginLeft: 10 }}
-            label="2"
-            value="2"
-          />
-          <Picker.Item
-            style={{ color: COLORS.gray2, marginLeft: 10 }}
-            label="3"
-            value="3"
-          />
-        </Picker>
-      </View>
-      )}
+            <Picker
+              style={{
+                width: "100%",
+                height: 10,
+                backgroundColor: COLORS.lightGray,
+                borderRadius: 10,
+                alignItems: "center",
+                flexDirection: "row",
+                marginBottom: 30,
+              }}
+              mode="dropdown"
+              selectedValue={selectAcount}
+              onValueChange={(itemValue, itemIndex) => {
+                setAmount(Number(itemValue) * Number(product?.price));
+                setSelectAcount(itemValue);
+              }}
+            >
+              <Picker.Item
+                style={{ color: COLORS.gray2, marginLeft: 10 }}
+                label="1"
+                value="1"
+              />
+              <Picker.Item
+                style={{ color: COLORS.gray2, marginLeft: 10 }}
+                label="2"
+                value="2"
+              />
+              <Picker.Item
+                style={{ color: COLORS.gray2, marginLeft: 10 }}
+                label="3"
+                value="3"
+              />
+            </Picker>
+          </View>
+        )}
 
         <Button
           title={loading ? "Cargando..." : `Comprar por $${amount}`}

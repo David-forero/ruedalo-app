@@ -39,6 +39,16 @@
         "projectId": "37f1c7bd-7fc9-4b2d-9b6c-ab9e9a2f753a"
       }
     },
-    "owner": "misrepuestos"
+    "owner": "misrepuestos",
+    "plugins": [
+     [
+      "expo-build-properties",
+      {
+        "android": {
+          "flipper": true
+        }
+      }
+     ]
+    ]
   }
 }

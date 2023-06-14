@@ -266,7 +266,7 @@ export default function Home() {
             <Image
               source={{
                 uri:
-                  "https://repuestosya.cobrex.com.ve/api/product/" +
+                  "https://ruedalo.app/api/product/" +
                   item.image[0],
               }}
               style={{
