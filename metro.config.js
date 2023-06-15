@@ -1,10 +1,4 @@
 // Learn more https://docs.expo.io/guides/customizing-metro
+const { getDefaultConfig } = require('expo/metro-config');
 
-module.exports = {
-    resolver: {
-      extraNodeModules: {
-        'react-native-debugger': require.resolve('react-native-debugger-open'),
-      },
-    },
-  };
-
+module.exports = getDefaultConfig(__dirname);
