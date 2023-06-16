@@ -62,7 +62,7 @@ export default function FoodDetails() {
           ) : (
             <Image
               source={{
-                uri: "https://ruedalo.app/api/product/" + product?.image[0],
+                uri: "https://backend.ruedalo.app/api/product/" + product?.image[0],
               }}
               style={{
                 height: 206,
@@ -181,7 +181,7 @@ export default function FoodDetails() {
               <Image
                 source={{
                   uri:
-                    "https://ruedalo.app/api/avatar/" +
+                    "https://backend.ruedalo.app/api/avatar/" +
                     product?.commerce.avatar[0],
                 }}
                 className="h-10 w-10 rounded-full"

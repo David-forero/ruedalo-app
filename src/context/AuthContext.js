@@ -18,7 +18,6 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
   const [enableBoarding, setEnableBoarding] = useState(true);
-  const [coordenates, setCoordenates] = useState(null);
 
   const loadingApp = useCallback(async (setLoading) => {
     let userValue = await AsyncStorage.getItem('user');
@@ -138,8 +137,6 @@ const AuthProvider = ({ children }) => {
         setUser,
         auth,
         enableBoarding,
-        coordenates,
-        setCoordenates,
         //Functions
         signInFn,
         signUpFn,

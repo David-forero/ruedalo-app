@@ -10,7 +10,19 @@ import { post, upload } from "../common/functions/http";
 const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
-  const [user2, setUser] = useState(null)
+  const [user2, setUser] = useState(null);
+  const [coordenates, setCoordenates] = useState(null);
+
+  useEffect(() => {
+    async function init() {
+      let coordenatesByUser = await AsyncStorage.getItem('coordenates');
+      setCoordenates(JSON.parse(coordenatesByUser));
+      console.log(JSON.parse(coordenatesByUser));
+    }
+
+    init();
+  }, [])
+  
 
   const updateUserFn = useCallback( async (form, token, setLoading, setUser, navigation) => {
 
@@ -24,7 +36,6 @@ const UserProvider = ({ children }) => {
 
     const {data} = await upload('/update_user', formData, token)
     setUser(data.data);
-    console.log(data, 'actualizar datos');
     if (data.status === 200 || data.status === true) {
       navigation.navigate("MainLayout");
     }
@@ -40,6 +51,10 @@ const UserProvider = ({ children }) => {
     
   return (
     <UserContext.Provider value={{
+      //Variables
+      coordenates,
+      setCoordenates,
+      //Functions
       updateUserFn,
       getUserFn
     }}>

@@ -28,6 +28,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
 import useLocation from "../common/hooks/useLocation";
+import { useUserContext } from "../context/UserContext";
+import { RefreshControl } from "react-native-gesture-handler";
 
 const banners = [
   {
@@ -50,7 +52,8 @@ export default function Home() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
-  const { coordenates, user } = useAuthContext();
+  const { user } = useAuthContext();
+  const { coordenates } = useUserContext();
   const { getListProductsFn, forMyCar, setForMyCar, mostSells, setMostSells } = useStoreContext();
 
   //My hooks
@@ -59,12 +62,16 @@ export default function Home() {
   useEffect(() => {
     async function init() {
       setLoading(true);
-      const { data } = await getListProductsFn({}, user?.token, setLoading);
+      const { data } = await getListProductsFn({
+        latitude: location.latitude,
+        longitude: location.longitude
+      }, user?.token, setLoading);
+      console.log('list porducts -> ', data);
       setForMyCar(data.data);
       setMostSells(data.data);
     }
     init();
-  }, [coordenates]);
+  }, [location]);
 
   function renderHeader() {
     return (
@@ -208,7 +215,7 @@ export default function Home() {
               paddingLeft: 30,
               paddingVertical: 21,
             }}
-            data={forMyCar?.rows}
+            data={forMyCar?.list_product}
             keyExtractor={(item) => item.id}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -247,7 +254,7 @@ export default function Home() {
           </>
           ) : (
             <>
-            {mostSells?.rows.map((item, index) => (
+            {mostSells?.list_product.map((item, index) => (
           <TouchableOpacity
             key={index}
             style={{
@@ -266,7 +273,7 @@ export default function Home() {
             <Image
               source={{
                 uri:
-                  "https://ruedalo.app/api/product/" +
+                  "https://backend.ruedalo.app/api/product/" +
                   item.image[0],
               }}
               style={{
@@ -347,7 +354,7 @@ export default function Home() {
                   showRating={false}
                   isDisabled={false}
                   readonly={true}
-                  startingValue={item.commerce.rating}
+                  startingValue={item?.commerce?.rating}
                 />
                 <Text
                   style={{
@@ -358,7 +365,7 @@ export default function Home() {
                     lineHeight: 12 * 1.2,
                   }}
                 >
-                  ({item.commerce.rating})
+                  ({item?.commerce?.rating})
                 </Text>
               </View>
             </View>
@@ -376,6 +383,20 @@ export default function Home() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }}
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={async () => {
+            setLoading(true);
+            getOrders(user?.token, setLoading);
+            const { data } = await getListProductsFn({
+              latitude: location.latitude,
+              longitude: location.longitude
+            }, user?.token, setLoading);
+            console.log('list porducts 2j-> ', data);
+            setForMyCar(data.data);
+            setMostSells(data.data);
+
+          }} />
+        }
       >
         {renderHeader()}
 

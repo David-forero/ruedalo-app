@@ -19,7 +19,6 @@ const useLocation = () => {
         setLocation(location.coords);
 
         const place = await Location.reverseGeocodeAsync({ latitude: location.coords.latitude, longitude: location.coords.longitude });
-        console.log('Información del lugar:', place);
         setPlace(place);
       } catch (error) {
         setError('Error al obtener la ubicación');

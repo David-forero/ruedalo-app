@@ -5,15 +5,18 @@ import * as Location from "expo-location";
 
 import { Header, Button } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
+import { useUserContext } from "../context/UserContext";
 
 export default function Selectlocation() {
   const navigation = useNavigation();
+  const {setCoordenates} = useUserContext()
 
   useEffect(() => {
    async function init() {
     const location = await Location.getCurrentPositionAsync({});
     if (location) {
-      navigation.navigate("MainLayout");
+      setCoordenates(location.coords);
+      navigation.navigate('MainLayout');
     }
    }
    init();
@@ -30,7 +33,6 @@ export default function Selectlocation() {
     try {
       const location = await Location.getCurrentPositionAsync({});
       const { latitude, longitude } = location.coords;
-      console.log("Ubicación actual:", latitude, longitude);
       navigation.navigate("MainLayout");
     } catch (error) {
       console.log("Error al obtener la ubicación:", error);

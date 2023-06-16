@@ -18,7 +18,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                 onPress={onPress}
             >
                 <ImageBackground
-                    source={{uri: 'https://ruedalo.app/api/product/' + item?.image[0]}}
+                    source={{uri: 'https://backend.ruedalo.app/api/product/' + item?.image[0]}}
                     style={{
                         height: 144,
                         width: "100%",

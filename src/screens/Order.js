@@ -65,7 +65,7 @@ export default function Order() {
             <Image
               source={{
                 uri:
-                  "https://ruedalo.app/api/product/" +
+                  "https://backend.ruedalo.app/api/product/" +
                   order?.product.image[0],
               }}
               style={{
@@ -185,7 +185,7 @@ export default function Order() {
               <Image
                 source={{
                   uri:
-                    "https://ruedalo.app/api/avatar/" +
+                    "https://backend.ruedalo.app/api/avatar/" +
                     order?.commerce.avatar[0],
                 }}
                 className="h-10 w-10 rounded-full"

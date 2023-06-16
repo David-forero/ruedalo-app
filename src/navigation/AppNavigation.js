@@ -9,7 +9,7 @@ import { StatusBar } from "react-native";
 import { COLORS } from "../common/constants";
 import StoreProvider from "../context/StoreContext";
 import OrdersProvider from "../context/OrdersContext";
-import UserProvider from "../context/UserContexr";
+import UserProvider from "../context/UserContext";
 
 export default function Navigation() {
   return (

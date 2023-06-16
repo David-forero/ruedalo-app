@@ -22,7 +22,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useAuthContext } from "../context/AuthContext";
 import { useState } from "react";
-import { useUserContext } from "../context/UserContexr";
+import { useUserContext } from "../context/UserContext";
 
 export default function EditProfile() {
   const navigation = useNavigation();

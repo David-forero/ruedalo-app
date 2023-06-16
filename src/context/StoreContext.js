@@ -23,8 +23,9 @@ const StoreProvider = ({ children }) => {
       limit: params.limit || 10,
       latitude: params.latitude || 28.626137,
       longitude: params.longitude || 28.626137,
-      // distance: 5,
+      // distance: 15,
     };
+    console.log('myParams:', myParams);
     setLoading(false);
     return post("/list_product", myParams, token);
   };
