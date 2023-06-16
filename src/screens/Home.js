@@ -7,7 +7,6 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -28,7 +27,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
 import useLocation from "../common/hooks/useLocation";
-import { useUserContext } from "../context/UserContext";
 import { RefreshControl } from "react-native-gesture-handler";
 
 const banners = [
@@ -53,20 +51,24 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
   const { user } = useAuthContext();
-  const { coordenates } = useUserContext();
-  const { getListProductsFn, forMyCar, setForMyCar, mostSells, setMostSells } = useStoreContext();
+  const { getListProductsFn, forMyCar, setForMyCar, mostSells, setMostSells } =
+    useStoreContext();
 
   //My hooks
-  const {error, place, location} = useLocation()
+  const { error, place, location } = useLocation();
 
   useEffect(() => {
     async function init() {
       setLoading(true);
-      const { data } = await getListProductsFn({
-        latitude: location.latitude,
-        longitude: location.longitude
-      }, user?.token, setLoading);
-      console.log('list porducts -> ', data);
+      const { data } = await getListProductsFn(
+        {
+          latitude: location?.latitude,
+          longitude: location?.longitude,
+        },
+        user?.token,
+        setLoading
+      );
+      console.log("list porducts -> ", data);
       setForMyCar(data.data);
       setMostSells(data.data);
     }
@@ -91,7 +93,9 @@ export default function Home() {
             }}
             numberOfLines={1}
           >
-           {place ? `${place[0]?.name} ${place[0]?.subregion} ${place[0]?.postalCode} ` : 'Crear una dirección acá'}
+            {place
+              ? `${place[0]?.name} ${place[0]?.subregion} ${place[0]?.postalCode} `
+              : "Crear una dirección acá"}
           </Text>
         </View>
 
@@ -243,137 +247,133 @@ export default function Home() {
           containerStyle={{ paddingHorizontal: 0, marginBottom: 21 }}
         />
 
-        {
-          loading || !forMyCar ? (
+        {loading || !forMyCar ? (
           <>
-            {
-              [1, 2, 3].map(item => (
-                <LoadingListTwo key={item} />
-              ))
-            }
+            {[1, 2, 3].map((item) => (
+              <LoadingListTwo key={item} />
+            ))}
           </>
-          ) : (
-            <>
+        ) : (
+          <>
             {mostSells?.list_product.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={{
-              height: 100,
-              width: "100%",
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 15,
-            }}
-            onPress={() =>
-              navigation.navigate("FoodDetails", {
-                id: item.id,
-              })
-            }
-          >
-            <Image
-              source={{
-                uri:
-                  "https://backend.ruedalo.app/api/product/" +
-                  item.image[0],
-              }}
-              style={{
-                height: 100,
-                width: 100,
-                borderRadius: 10,
-                marginRight: 20,
-              }}
-            />
-            <View style={{ flex: 1 }}>
-              <Text
+              <TouchableOpacity
+                key={index}
                 style={{
-                  ...FONTS.Roboto_500Medium,
-                  fontSize: 16,
-                  marginBottom: 10,
-                  lineHeight: 16 * 1,
-                  textTransform: "capitalize",
-                }}
-                numberOfLines={1}
-              >
-                {item.title}
-              </Text>
-              <View
-                style={{
+                  height: 100,
+                  width: "100%",
                   flexDirection: "row",
                   alignItems: "center",
-                  marginBottom: 7,
+                  marginBottom: 15,
                 }}
+                onPress={() =>
+                  navigation.navigate("FoodDetails", {
+                    id: item.id,
+                  })
+                }
               >
-                <PinTwo />
-                <Text
-                  style={{
-                    marginLeft: 5,
-                    ...FONTS.Roboto_400Regular,
-                    fontSize: 12,
-                    color: COLORS.gray2,
-                    lineHeight: 12 * 1.2,
-                    width: "85%",
+                <Image
+                  source={{
+                    uri:
+                      "https://backend.ruedalo.app/api/product/" +
+                      item.image[0],
                   }}
-                  numberOfLines={1}
-                  ellipsizeMode="tail"
-                >
-                  Torre construción, calle las brisas
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginBottom: 8,
-                }}
-              >
-                <Clock />
-
-                <Text
                   style={{
-                    ...FONTS.Roboto_400Regular,
-                    fontSize: 12,
-                    color: COLORS.gray2,
-                    lineHeight: 12 * 1.2,
-                    marginLeft: 4,
+                    height: 100,
+                    width: 100,
+                    borderRadius: 10,
+                    marginRight: 20,
                   }}
-                >
-                  {item?.commerce?.addresses[0]?.distance.toFixed(2)}km
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <Rating
-                  type="star"
-                  count={5}
-                  defaultRating={14}
-                  imageSize={12}
-                  showRating={false}
-                  isDisabled={false}
-                  readonly={true}
-                  startingValue={item?.commerce?.rating}
                 />
-                <Text
-                  style={{
-                    ...FONTS.Roboto_400Regular,
-                    fontSize: 12,
-                    color: COLORS.gray2,
-                    marginLeft: 10,
-                    lineHeight: 12 * 1.2,
-                  }}
-                >
-                  ({item?.commerce?.rating})
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        ))}
-            </>
-          )
-        }
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{
+                      ...FONTS.Roboto_500Medium,
+                      fontSize: 16,
+                      marginBottom: 10,
+                      lineHeight: 16 * 1,
+                      textTransform: "capitalize",
+                    }}
+                    numberOfLines={1}
+                  >
+                    {item.title}
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 7,
+                    }}
+                  >
+                    <PinTwo />
+                    <Text
+                      style={{
+                        marginLeft: 5,
+                        ...FONTS.Roboto_400Regular,
+                        fontSize: 12,
+                        color: COLORS.gray2,
+                        lineHeight: 12 * 1.2,
+                        width: "85%",
+                      }}
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                    >
+                      Torre construción, calle las brisas
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 8,
+                    }}
+                  >
+                    <Clock />
+
+                    <Text
+                      style={{
+                        ...FONTS.Roboto_400Regular,
+                        fontSize: 12,
+                        color: COLORS.gray2,
+                        lineHeight: 12 * 1.2,
+                        marginLeft: 4,
+                      }}
+                    >
+                      {Math.round(item?.distance)}km
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Rating
+                      type="star"
+                      count={5}
+                      defaultRating={14}
+                      imageSize={12}
+                      showRating={false}
+                      isDisabled={false}
+                      readonly={true}
+                      startingValue={item?.rating}
+                    />
+                    <Text
+                      style={{
+                        ...FONTS.Roboto_400Regular,
+                        fontSize: 12,
+                        color: COLORS.gray2,
+                        marginLeft: 10,
+                        lineHeight: 12 * 1.2,
+                      }}
+                    >
+                      ({Number(item?.rating)})
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </>
+        )}
       </View>
     );
   }
@@ -384,18 +384,24 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 80 }}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={async () => {
-            setLoading(true);
-            getOrders(user?.token, setLoading);
-            const { data } = await getListProductsFn({
-              latitude: location.latitude,
-              longitude: location.longitude
-            }, user?.token, setLoading);
-            console.log('list porducts 2j-> ', data);
-            setForMyCar(data.data);
-            setMostSells(data.data);
-
-          }} />
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={async () => {
+              setLoading(true);
+              getOrders(user?.token, setLoading);
+              const { data } = await getListProductsFn(
+                {
+                  latitude: location.latitude,
+                  longitude: location.longitude,
+                },
+                user?.token,
+                setLoading
+              );
+              console.log("list porducts 2j-> ", data);
+              setForMyCar(data.data);
+              setMostSells(data.data);
+            }}
+          />
         }
       >
         {renderHeader()}

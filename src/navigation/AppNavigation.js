@@ -10,6 +10,7 @@ import { COLORS } from "../common/constants";
 import StoreProvider from "../context/StoreContext";
 import OrdersProvider from "../context/OrdersContext";
 import UserProvider from "../context/UserContext";
+import ServicesProvider from "../context/ServicesContext";
 
 export default function Navigation() {
   return (
@@ -17,6 +18,7 @@ export default function Navigation() {
       <AuthProvider>
         <UserProvider>
           <StoreProvider>
+            <ServicesProvider>
             <OrdersProvider>
               <StatusBar
                 translucent
@@ -25,6 +27,7 @@ export default function Navigation() {
               />
               <ProtectViews />
             </OrdersProvider>
+            </ServicesProvider>
           </StoreProvider>
         </UserProvider>
       </AuthProvider>

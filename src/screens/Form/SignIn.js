@@ -131,11 +131,10 @@ export default function SignIn() {
                   <TextInput
                     style={{ flex: 1 }}
                     placeholder={"Contraseña"}
-                    secureTextEntry={true}
+                    secureTextEntry={!showPassword}
                     onChangeText={handleChange("password")}
                     value={values.password}
                     textContentType={showPassword ? "none" : "password"}
-                    keyboardType={"default"}
                   />
 
                   <TouchableOpacity
@@ -151,6 +150,7 @@ export default function SignIn() {
                   </TouchableOpacity>
                 </View>
               </View>
+
 
               {/* ======================= */}
               <View
