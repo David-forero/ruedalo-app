@@ -19,7 +19,7 @@ export default function MainLayout() {
 
   const _renderIcon = (routeName, selectTab) => {
     let icon = "";
-
+    console.log(selectTab, 'selected tab');
     switch (routeName) {
       case "title1":
         icon = "ios-home-outline";
@@ -50,17 +50,17 @@ export default function MainLayout() {
         style={{ opacity: 40 }}
         type={"DOWN"}
         height={60}
+        screenOptions={{headerShown: false}}
         circleWidth={55}
         bgColor="#2d2d2d"
         borderTopLeftRight={true}
         initialRouteName="title1"
-        
         renderCircle={({ navigate }) => (
           <TouchableOpacity style={styles.btnCircle} onPress={() => navigate('title5')}>
             <Ionicons name="ios-car-outline" size={30} color={"white"} />
           </TouchableOpacity>
         )}
-        tabBar={({ routeName, selectTab, navigate }) => {
+        tabBar={({ routeName, selectedTab, navigate }) => {
           return (
             <TouchableOpacity
               onPress={() => navigate(routeName)}
@@ -70,7 +70,7 @@ export default function MainLayout() {
                 justifyContent: "center",
               }}
             >
-              {_renderIcon(routeName, selectTab)}
+              {_renderIcon(routeName, selectedTab)}
             </TouchableOpacity>
           );
         }}

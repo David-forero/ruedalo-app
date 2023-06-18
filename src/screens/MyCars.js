@@ -264,7 +264,7 @@ export default function MyCars() {
                     width: 60,
                     height: 60,
                     position: 'absolute',
-                    bottom: 20,
+                    bottom: 90,
                     right: 20,
                     borderRadius: 100,
                 }}
