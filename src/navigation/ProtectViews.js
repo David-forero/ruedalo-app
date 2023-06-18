@@ -3,7 +3,6 @@ import {
     OnBoarding,
     SignIn,
     SignUp,
-    LogIn,
     MainLayout,
     ForgotPassword,
     OtpCode,
@@ -40,7 +39,8 @@ import {
     AutoServices,
     CreateCardSuccess,
     ListProducts,
-    CreateOrderLoading
+    CreateOrderLoading,
+    AddAddress
 } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuthContext } from '../context/AuthContext';
@@ -158,7 +158,7 @@ const ProtectViews = () => {
                     name="Selectlocation"
                     component={Selectlocation}
                 />
-                <Stack.Screen name="LogIn" component={LogIn} />
+                <Stack.Screen name="AddAddress" component={AddAddress} />
                 <Stack.Screen
                     name="AccountCreated"
                     component={AccountCreated}

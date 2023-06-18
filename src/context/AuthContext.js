@@ -18,19 +18,31 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
   const [enableBoarding, setEnableBoarding] = useState(true);
+  const [coordenatesPermitions, setCoordenatesPermitions] = useState(false);
 
-  const loadingApp = useCallback(async (setLoading) => {
+  const loadingApp = async (setLoading) => {
+    //Obteniendo datos almacenados
     let userValue = await AsyncStorage.getItem('user');
     let onboarding = await AsyncStorage.getItem('onboarding');
+    let coordenateEnable = await AsyncStorage.getItem('coordenatesPermitions');
+
+    //Transformando con json parse
+    console.log(coordenateEnable);
+    coordenateEnable = JSON.parse(coordenateEnable);
+    console.log("coordenateEnable ->", coordenateEnable);
     userValue = JSON.parse(userValue);
     onboarding = JSON.parse(onboarding);
+
+    //Seteando informacion
     setEnableBoarding(onboarding)
     setUser(userValue);
+    setCoordenatesPermitions(coordenateEnable);
+
     if (userValue) {
       setAuth(true);
     }
     setLoading(false)
-  }, []);
+  }
 
   const sendVerifyEmailFn = useCallback(async (myToken) => {
     await post("/verify-email", {}, myToken);
@@ -137,6 +149,8 @@ const AuthProvider = ({ children }) => {
         setUser,
         auth,
         enableBoarding,
+        coordenatesPermitions,
+        setCoordenatesPermitions,
         //Functions
         signInFn,
         signUpFn,

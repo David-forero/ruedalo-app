@@ -73,7 +73,7 @@ export default function Home() {
       setMostSells(data.data);
     }
     init();
-  }, [location]);
+  }, [location, user?.token]);
 
   function renderHeader() {
     return (
@@ -338,7 +338,7 @@ export default function Home() {
                         marginLeft: 4,
                       }}
                     >
-                      {Math.round(item?.distance)}km
+                      Unos {Math.round(item?.distance)}km de distancia
                     </Text>
                   </View>
                   <View
@@ -388,7 +388,6 @@ export default function Home() {
             refreshing={loading}
             onRefresh={async () => {
               setLoading(true);
-              getOrders(user?.token, setLoading);
               const { data } = await getListProductsFn(
                 {
                   latitude: location.latitude,

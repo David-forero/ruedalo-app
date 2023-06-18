@@ -5,23 +5,12 @@ import * as Location from "expo-location";
 
 import { Header, Button } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
-import { useUserContext } from "../context/UserContext";
+import { useAuthContext } from "../context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Selectlocation() {
   const navigation = useNavigation();
-  const {setCoordenates} = useUserContext()
-
-  useEffect(() => {
-   async function init() {
-    const location = await Location.getCurrentPositionAsync({});
-    if (location) {
-      setCoordenates(location.coords);
-      navigation.navigate('MainLayout');
-    }
-   }
-   init();
-  }, [])
-  
+  const {setCoordenatesPermitions} = useAuthContext()
 
   const getLocationPermission = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -32,7 +21,8 @@ export default function Selectlocation() {
     // Permiso de ubicación concedido
     try {
       const location = await Location.getCurrentPositionAsync({});
-      const { latitude, longitude } = location.coords;
+      await AsyncStorage.setItem('coordenatesPermitions', JSON.stringify(true))
+      setCoordenatesPermitions(true);
       navigation.navigate("MainLayout");
     } catch (error) {
       console.log("Error al obtener la ubicación:", error);

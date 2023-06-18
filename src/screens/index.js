@@ -1,7 +1,7 @@
 import OnBoarding from "./OnBoarding";
 import SignIn from "./Form/SignIn";
 import SignUp from "./Form/SignUp";
-import LogIn from "./LogIn";
+import AddAddress from "./AddAddress";
 import MainLayout from "./MainLayout";
 import ForgotPassword from "./Form/ForgotPassword";
 import OtpCode from "./Form/OtpCode";
@@ -47,7 +47,7 @@ export {
     ForgotPassword,
     OtpCode,
     SignUp,
-    LogIn,
+    AddAddress,
     AccountCreated,
     Selectlocation,
     SignUpWith,

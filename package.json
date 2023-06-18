@@ -74,6 +74,7 @@
     "react-native-utils-navigation-bar": "^2.0.4",
     "react-native-web": "~0.18.11",
     "react-native-wizard": "^2.1.1",
+    "react-phone-number-input": "^3.2.23",
     "rn-placeholder": "^3.0.3",
     "yup": "^1.2.0"
   },
