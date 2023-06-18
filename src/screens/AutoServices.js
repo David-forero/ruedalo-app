@@ -307,6 +307,7 @@ const AutoServices = () => {
             </ImageBackground>
             <View style={{ padding: 12, flex: 1 }}>
               <Text
+                numberOfLines={2}
                 style={{
                   ...FONTS.Roboto_400Regular,
                   fontSize: 16,
@@ -316,7 +317,7 @@ const AutoServices = () => {
                   lineHeight: 16 * 1,
                 }}
               >
-                {item.registered_name}
+                {item.description}
               </Text>
 
               <Text
@@ -325,9 +326,9 @@ const AutoServices = () => {
                   fontSize: 12,
                 //   marginBottom: 8,
                 }}
-                numberOfLines={2}
+                numberOfLines={1}
               >
-                {item.description}
+                {item.registered_name}
               </Text>
               <View
                 style={{
@@ -465,7 +466,7 @@ const AutoServices = () => {
                 }}
                 numberOfLines={1}
               >
-                {item.registered_name}
+                {item.description}
               </Text>
 
               <View

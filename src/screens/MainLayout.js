@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import { MyCars, AutoServices, Profile, OrderHistory, Home } from "./";
-import { CurvedBottomBar } from "react-native-utils-navigation-bar";
+import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import { useAuthContext } from "../context/AuthContext";
 
 export default function MainLayout() {
@@ -12,21 +12,10 @@ export default function MainLayout() {
   const { coordenatesPermitions } = useAuthContext();
 
   useEffect(() => {
-    console.log(coordenatesPermitions);
     if (!coordenatesPermitions) {
       navigation.navigate("Selectlocation");
     }
   }, []);
-
-  const onClickButton = () => {
-    // return (
-    //   <CurvedBottomBar.Screen
-    //     name="title5"
-    //     position="left"
-    //     component={() => <MyCars />}
-    //   />
-    // );
-  };
 
   const _renderIcon = (routeName, selectTab) => {
     let icon = "";
@@ -57,24 +46,24 @@ export default function MainLayout() {
 
   return (
     <View style={{ flex: 1 }}>
-      <CurvedBottomBar.Navigator
+      <CurvedBottomBarExpo.Navigator
         style={{ opacity: 40 }}
-        type={"down"}
+        type={"DOWN"}
         height={60}
         circleWidth={55}
         bgColor="#2d2d2d"
         borderTopLeftRight={true}
         initialRouteName="title1"
         
-        renderCircle={(info) => (
-          <TouchableOpacity style={styles.btnCircle} onPress={onClickButton}>
+        renderCircle={({ navigate }) => (
+          <TouchableOpacity style={styles.btnCircle} onPress={() => navigate('title5')}>
             <Ionicons name="ios-car-outline" size={30} color={"white"} />
           </TouchableOpacity>
         )}
-        tabBar={({ routeName, selectTab, navigation }) => {
+        tabBar={({ routeName, selectTab, navigate }) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation(routeName)}
+              onPress={() => navigate(routeName)}
               style={{
                 flex: 1,
                 alignItems: "center",
@@ -86,28 +75,35 @@ export default function MainLayout() {
           );
         }}
       >
-        <CurvedBottomBar.Screen
+        <CurvedBottomBarExpo.Screen
           name="title1"
-          position="left"
+          position="LEFT"
           component={() => <Home />}
         />
 
-        <CurvedBottomBar.Screen
+        <CurvedBottomBarExpo.Screen
           name="title2"
           component={() => <AutoServices />}
-          position="left"
+          position="LEFT"
         />
-        <CurvedBottomBar.Screen
+
+        <CurvedBottomBarExpo.Screen
+          name="title5"
+          component={() => <MyCars />}
+          position="CIRCLE"
+        />
+
+        <CurvedBottomBarExpo.Screen
           name="title3"
           component={() => <OrderHistory />}
-          position="right"
+          position="RIGHT"
         />
-        <CurvedBottomBar.Screen
+        <CurvedBottomBarExpo.Screen
           name="title4"
           component={() => <Profile />}
-          position="right"
+          position="RIGHT"
         />
-      </CurvedBottomBar.Navigator>
+      </CurvedBottomBarExpo.Navigator>
     </View>
   );
 }

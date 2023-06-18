@@ -12,6 +12,7 @@ const UserContext = createContext({});
 const UserProvider = ({ children }) => {
   const [user2, setUser] = useState(null);
   const [coordenates, setCoordenates] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     async function init() {

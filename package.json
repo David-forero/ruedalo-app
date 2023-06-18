@@ -50,6 +50,7 @@
     "react-dom": "^18.2.0",
     "react-native": "0.70.8",
     "react-native-collapsible": "^1.6.0",
+    "react-native-curved-bottom-bar": "^3.2.6",
     "react-native-dashed-line": "^1.1.0",
     "react-native-debugger-open": "^0.3.25",
     "react-native-drop-shadow": "^0.0.4",
