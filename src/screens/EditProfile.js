@@ -72,7 +72,7 @@ export default function EditProfile() {
         showsVerticalScrollIndicator={false}
       >
         <Formik
-          initialValues={{ name: "", lastname: "", phone: "" }}
+          initialValues={{ name: user?.name, lastname: user?.lastname, phone: user?.phone }}
           onSubmit={async (values) => {
             setLoading(true);
             if (image) {
