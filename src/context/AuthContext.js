@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
 
     //Seteando informacion
     setEnableBoarding(onboarding)
-    setUser(userValue.data);
+    setUser(userValue);
     setCoordenatesPermitions(coordenateEnable);
 
     if (userValue.data) {
@@ -139,7 +139,7 @@ const AuthProvider = ({ children }) => {
     const { data } = await post("/login-google", {email: googleData.email})
     setUser(data.data);
     setAuth(true);
-    let dataString = JSON.stringify(data);
+    let dataString = JSON.stringify(data?.data);
     await AsyncStorage.setItem('user', dataString)
   }
 
