@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
   const [coordenatesPermitions, setCoordenatesPermitions] = useState(false);
 
   const loadingApp = async (setLoading) => {
+    console.log('🔥 cargando app...');
     //Obteniendo datos almacenados
     let userValue = await AsyncStorage.getItem('user');
     let onboarding = await AsyncStorage.getItem('onboarding');
@@ -35,10 +36,10 @@ const AuthProvider = ({ children }) => {
 
     //Seteando informacion
     setEnableBoarding(onboarding)
-    setUser(userValue);
+    setUser(userValue.data);
     setCoordenatesPermitions(coordenateEnable);
 
-    if (userValue) {
+    if (userValue.data) {
       setAuth(true);
     }
     setLoading(false)
