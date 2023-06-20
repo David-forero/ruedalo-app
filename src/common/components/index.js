@@ -71,6 +71,7 @@ import CardCatalog from './CardCatalog';
 import InputPassword from './InputPassword';
 import LoadingListOne from './loadings/LoadingListOne';
 import LoadingListTwo from './loadings/LoadingListTwo';
+import LoadingFullScreen from './loadings/LoadingFullScreen';
 import InputPhone from './InputPhone';
 
 export {
@@ -145,5 +146,6 @@ export {
     InputPhone,
     //LOADINGS ⏳️
     LoadingListOne,
-    LoadingListTwo
+    LoadingListTwo,
+    LoadingFullScreen
 };

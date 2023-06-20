@@ -60,17 +60,21 @@ export default function Home() {
   useEffect(() => {
     async function init() {
       setLoading(true);
-      const { data } = await getListProductsFn(
-        {
-          latitude: location?.latitude,
-          longitude: location?.longitude,
-        },
-        user?.token,
-        setLoading
-      );
-      console.log("list porducts -> ", data);
-      setForMyCar(data.data);
-      setMostSells(data.data);
+      try {
+        const { data } = await getListProductsFn(
+          {
+            latitude: location?.latitude,
+            longitude: location?.longitude,
+          },
+          user?.token,
+          setLoading
+        );
+        console.log("list porducts -> ", data);
+        setForMyCar(data.data);
+        setMostSells(data.data);
+      } catch (error) {
+        console.error(error);
+      }
     }
     init();
   }, [location, user?.token]);
@@ -388,17 +392,21 @@ export default function Home() {
             refreshing={loading}
             onRefresh={async () => {
               setLoading(true);
-              const { data } = await getListProductsFn(
-                {
-                  latitude: location.latitude,
-                  longitude: location.longitude,
-                },
-                user?.token,
-                setLoading
-              );
-              console.log("list porducts 2j-> ", data);
-              setForMyCar(data.data);
-              setMostSells(data.data);
+              try {
+                const { data } = await getListProductsFn(
+                  {
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                  },
+                  user?.token,
+                  setLoading
+                );
+                console.log("list porducts 2j-> ", data);
+                setForMyCar(data.data);
+                setMostSells(data.data);
+              } catch (error) {
+                console.error(error);
+              }
             }}
           />
         }

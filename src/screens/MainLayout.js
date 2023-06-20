@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import { MyCars, AutoServices, Profile, OrderHistory, Home } from "./";
+import Home from './Home';
+import MyCars from './MyCars';
+import AutoServices from './AutoServices';
+import Profile from './Profile';
+import OrderHistory from './OrderHistory';
+
 import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -19,7 +24,6 @@ export default function MainLayout() {
 
   const _renderIcon = (routeName, selectTab) => {
     let icon = "";
-    console.log(selectTab, 'selected tab');
     switch (routeName) {
       case "title1":
         icon = "ios-home-outline";

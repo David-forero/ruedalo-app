@@ -25,7 +25,6 @@ const StoreProvider = ({ children }) => {
       longitude: params.longitude || 28.626137,
       // distance: 15,
     };
-    console.log('myParams:', myParams);
     setLoading(false);
     return post("/list_product", myParams, token);
   };

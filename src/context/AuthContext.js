@@ -1,8 +1,7 @@
-import { useContext, createContext, useState, useCallback, useEffect } from "react";
+import { useContext, createContext, useState, useCallback } from "react";
 import { post } from "../common/functions/http";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { showMessage } from "react-native-flash-message";
-import * as SecureStore from 'expo-secure-store';
 
 //Web==
 //Secret: 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
@@ -28,9 +27,7 @@ const AuthProvider = ({ children }) => {
     let coordenateEnable = await AsyncStorage.getItem('coordenatesPermitions');
 
     //Transformando con json parse
-    console.log(coordenateEnable);
     coordenateEnable = JSON.parse(coordenateEnable);
-    console.log("coordenateEnable ->", coordenateEnable);
     userValue = JSON.parse(userValue);
     onboarding = JSON.parse(onboarding);
 
@@ -39,6 +36,7 @@ const AuthProvider = ({ children }) => {
     setUser(userValue);
     setCoordenatesPermitions(coordenateEnable);
 
+    //Habilitar auth
     if (userValue.data) {
       setAuth(true);
     }

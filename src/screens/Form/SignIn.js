@@ -15,6 +15,7 @@ import {
   Mail,
   Lock,
   Google as GoogleIcon,
+  LoadingFullScreen,
 } from "../../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../../common/constants";
 import { useAuthContext } from "../../context/AuthContext";
@@ -23,6 +24,7 @@ import * as Google from "expo-auth-session/providers/google";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Ionicons } from "@expo/vector-icons";
+
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -33,6 +35,7 @@ export default function SignIn() {
   const { signWithGoogleFn, signInFn } = useAuthContext();
   const [accessToken, setAccessToken] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
 
   const SignInFormSchema = Yup.object().shape({
     email: Yup.string().required("Campo requerido"),
@@ -63,6 +66,7 @@ export default function SignIn() {
   });
 
   useEffect(() => {
+    setLoadingGoogle(false);
     if (response?.type === "success") {
       setAccessToken(response.authentication.accessToken);
       accessToken && fetchUserInfo();
@@ -71,6 +75,7 @@ export default function SignIn() {
 
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
+      <LoadingFullScreen isLoading={loadingGoogle} />
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -191,8 +196,11 @@ export default function SignIn() {
 
         <TouchableOpacity
           className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
-          onPress={() => promptAsync({ useProxy: true })}
-          disabled={!request || loading}
+          onPress={() => {
+            setLoadingGoogle(true);
+            promptAsync({ useProxy: true })
+          }}
+          disabled={loadingGoogle || loading}
         >
           <GoogleIcon width={25} height={25} />
           <Text
