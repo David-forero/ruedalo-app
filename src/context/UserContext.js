@@ -6,7 +6,6 @@ import {
   useEffect,
 } from "react";
 import { post, upload } from "../common/functions/http";
-
 const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
@@ -14,15 +13,6 @@ const UserProvider = ({ children }) => {
   const [coordenates, setCoordenates] = useState(null);
   const [token, setToken] = useState(null);
 
-  useEffect(() => {
-    async function init() {
-      let coordenatesByUser = await AsyncStorage.getItem('coordenates');
-      setCoordenates(JSON.parse(coordenatesByUser));
-      console.log(JSON.parse(coordenatesByUser));
-    }
-
-    init();
-  }, [])
   
 
   const updateUserFn = useCallback( async (form, token, setLoading, setUser, navigation) => {
