@@ -34,8 +34,13 @@ const UserProvider = ({ children }) => {
     if (form.image) {
       formData.append('files', form.image);
     }
+    console.log('lo que envio -> ',formData);
+    const {data} = await upload('/update_user', formData, token);
+    console.log('lo que recibo ->', data);
+    if (data.status === 400) {
+      return;
+    }
 
-    const {data} = await upload('/update_user', formData, token)
     setUser(data.data);
     if (data.status === 200 || data.status === true) {
       navigation.navigate("MainLayout");

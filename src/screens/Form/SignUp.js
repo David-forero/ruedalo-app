@@ -46,7 +46,7 @@ export default function SignUp() {
                     values,
                     errors,
                     isValid,
-                    touched
+                    touched, 
                 }) => (
                     <KeyboardAwareScrollView
                         showsVerticalScrollIndicator={false}

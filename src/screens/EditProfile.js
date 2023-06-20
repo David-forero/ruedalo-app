@@ -16,6 +16,7 @@ import {
   Header,
   Button,
   InputField,
+  InputPhone,
 } from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 import { Formik } from "formik";
@@ -72,11 +73,11 @@ export default function EditProfile() {
         showsVerticalScrollIndicator={false}
       >
         <Formik
-          initialValues={{ name: user?.name, lastname: user?.lastname, phone: user?.phone }}
+          initialValues={{ name: user?.name, lastname: user?.lastname, phone: "" }}
           onSubmit={async (values) => {
             setLoading(true);
             if (image) {
-              values.image = image.uri
+              values.image = image
             }
             updateUserFn(values, user?.token, setLoading, setUser, navigation);
           }}
@@ -91,6 +92,7 @@ export default function EditProfile() {
             errors,
             isValid,
             touched,
+            setFieldValue
           }) => (
             <>
               <InputField
@@ -112,15 +114,15 @@ export default function EditProfile() {
                 value={values.lastname}
               />
 
-              <InputField
+              <InputPhone
                 contaynerStyle={{ marginBottom: 15 }}
                 placeholder="Teléfono"
-                onChangeText={handleChange("phone")}
+                setFieldValue={setFieldValue}
                 error={touched.phone ? errors.phone : false}
                 touched={touched.phone}
-                keyboardType="numeric"
-                onBlur={handleBlur("phone")}
                 value={values.phone}
+                valueTwo={user?.phone}
+                mask={"+58 999 999 9999"}
               />
 
               <View style={{ width: "100%", marginBottom: 45 }}>

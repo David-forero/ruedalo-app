@@ -72,9 +72,9 @@ export default function Profile() {
                     onPress={() => navigation.navigate("EditProfile")}
                 >
                     {
-                        user?.picture ? (
+                        user?.avatar[0] ? (
                             <Image
-                                source={{ uri: user.picture }}
+                                source={{ uri: "https://backend.ruedalo.app/api/avatar/" + user.avatar[0] }}
                                 style={{
                                     width: 80,
                                     height: 80,

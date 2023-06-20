@@ -52,6 +52,7 @@ import HeartTwo from "./svg/HeartTwo";
 import QuestionOpen from "./svg/QuestionOpen";
 import QuestionClose from "./svg/QuestionClose";
 import Remove from "./svg/Remove";
+import VenezuelaFlag from './svg/VenezuelaFlag';
 
 /* COMPONENTS */
 import Button from "./Button";
@@ -70,6 +71,7 @@ import CardCatalog from './CardCatalog';
 import InputPassword from './InputPassword';
 import LoadingListOne from './loadings/LoadingListOne';
 import LoadingListTwo from './loadings/LoadingListTwo';
+import InputPhone from './InputPhone';
 
 export {
     Button,
@@ -111,6 +113,7 @@ export {
     Star,
     DeliveryMan,
     Clock,
+    VenezuelaFlag,
     PinTwo,
     Filter,
     CheckTwo,
@@ -139,6 +142,7 @@ export {
     CardCatalog,
     Remove,
     InputPassword,
+    InputPhone,
     //LOADINGS ⏳️
     LoadingListOne,
     LoadingListTwo
