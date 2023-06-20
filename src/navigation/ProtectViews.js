@@ -44,8 +44,8 @@ import {
 } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuthContext } from "../context/AuthContext";
-import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
+import * as SplashScreen from 'expo-splash-screen';
 
 const Stack = createStackNavigator();
 
@@ -59,11 +59,12 @@ const ProtectViews = () => {
   });
 
   useEffect(() => {
-    loadingApp(setLoading);
+    SplashScreen.preventAutoHideAsync()
+    loadingApp(setLoading, SplashScreen);
   }, []);
 
   if (loading || !fontsLoaded) {
-    return <AppLoading />;
+    SplashScreen.preventAutoHideAsync();
   } else {
     return (
       <Stack.Navigator

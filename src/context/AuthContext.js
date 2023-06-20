@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
   const [enableBoarding, setEnableBoarding] = useState(true);
   const [coordenatesPermitions, setCoordenatesPermitions] = useState(false);
 
-  const loadingApp = async (setLoading) => {
+  const loadingApp = async (setLoading, SplashScreen) => {
     console.log('🔥 cargando app...');
     //Obteniendo datos almacenados
     let userValue = await AsyncStorage.getItem('user');
@@ -37,10 +37,11 @@ const AuthProvider = ({ children }) => {
     setCoordenatesPermitions(coordenateEnable);
 
     //Habilitar auth
-    if (userValue.data) {
+    if (userValue) {
       setAuth(true);
     }
-    setLoading(false)
+    setLoading(false);
+    SplashScreen.hideAsync();
   }
 
   const sendVerifyEmailFn = useCallback(async (myToken) => {
