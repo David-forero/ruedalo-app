@@ -28,7 +28,6 @@ import {
   Clock,
   PinTwo,
   Filter,
-  HeartTwo,
   Heading,
   SliderBanner,
   LoadingListOne,
@@ -36,6 +35,7 @@ import {
 import { useServicesContext } from "../context/ServicesContext";
 import useLocation from "../common/hooks/useLocation";
 import { useAuthContext } from "../context/AuthContext";
+import { useStoreContext } from "../context/StoreContext";
 
 const banners = [
   {
@@ -52,12 +52,13 @@ const AutoServices = () => {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
+  const {myPlace} = useStoreContext();
 
   const { populars, setPopulars, mostSells, setMostSells, getListServicessFn } =
     useServicesContext();
 
   //My hooks
-  const { error, place, location } = useLocation();
+
 
   useEffect(() => {
     async function init() {
@@ -94,8 +95,8 @@ const AutoServices = () => {
               fontSize: 14,
             }}
           >
-             {place
-              ? `${place[0]?.name} ${place[0]?.subregion} ${place[0]?.postalCode} `
+             {myPlace
+              ? `${myPlace[0]?.name} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
               : "Crear una dirección acá"}
           </Text>
         </View>

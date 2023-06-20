@@ -6,15 +6,25 @@ import {
   useEffect,
 } from "react";
 import { post } from "../common/functions/http";
+import { useAuthContext } from "./AuthContext";
+import useLocation from "../common/hooks/useLocation";
 
 const StoreContext = createContext({});
 
 const StoreProvider = ({ children }) => {
+  const { coordenatesPermitions } = useAuthContext();
+
   //List products home
   const [forMyCar, setForMyCar] = useState(null);
   const [mostSells, setMostSells] = useState(null);
+  const [myPlace, setMyPlace] = useState(null);
 
   const [product, setProduct] = useState(null);
+  const { place } = useLocation(coordenatesPermitions);
+
+  useEffect(() => {
+    setMyPlace(place);
+  }, [place]);
 
   const getListProductsFn = async (params, token, setLoading) => {
     const myParams = {
@@ -29,15 +39,15 @@ const StoreProvider = ({ children }) => {
     return post("/list_product", myParams, token);
   };
 
-  const getProductFn = useCallback( async (id, token, setLoading) => {
-    const {data} = await post("/get_product", {id}, token);
+  const getProductFn = useCallback(async (id, token, setLoading) => {
+    const { data } = await post("/get_product", { id }, token);
     setProduct(data.data);
     setLoading(false);
   }, []);
 
   const checkoutProcessFn = useCallback(async (params, token) => {
     const res = await post("/create_order", params, token);
-    return res
+    return res;
   }, []);
 
   return (
@@ -49,6 +59,7 @@ const StoreProvider = ({ children }) => {
         setForMyCar,
         setMostSells,
         product,
+        myPlace,
         //Functions
         getListProductsFn,
         getProductFn,

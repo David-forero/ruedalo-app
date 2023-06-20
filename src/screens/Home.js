@@ -51,30 +51,26 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
   const { user } = useAuthContext();
-  const { getListProductsFn, forMyCar, setForMyCar, mostSells, setMostSells } =
+  const { getListProductsFn, forMyCar, myPlace, setForMyCar, mostSells, setMostSells } =
     useStoreContext();
 
   //My hooks
-  const { error, place, location } = useLocation();
+  
 
   useEffect(() => {
     async function init() {
       setLoading(true);
-      try {
-        const { data } = await getListProductsFn(
-          {
-            latitude: location?.latitude,
-            longitude: location?.longitude,
-          },
-          user?.token,
-          setLoading
-        );
-        console.log("list porducts -> ", data);
-        setForMyCar(data.data);
-        setMostSells(data.data);
-      } catch (error) {
-        console.error(error);
-      }
+      const { data } = await getListProductsFn(
+        {
+          latitude: location?.latitude,
+          longitude: location?.longitude,
+        },
+        user?.token,
+        setLoading
+      );
+      console.log("list porducts -> ", data);
+      setForMyCar(data.data);
+      setMostSells(data.data);
     }
     init();
   }, [location, user?.token]);
@@ -97,8 +93,8 @@ export default function Home() {
             }}
             numberOfLines={1}
           >
-            {place
-              ? `${place[0]?.name} ${place[0]?.subregion} ${place[0]?.postalCode} `
+            {myPlace
+              ? `${myPlace[0]?.name} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
               : "Crear una dirección acá"}
           </Text>
         </View>
@@ -392,21 +388,17 @@ export default function Home() {
             refreshing={loading}
             onRefresh={async () => {
               setLoading(true);
-              try {
-                const { data } = await getListProductsFn(
-                  {
-                    latitude: location.latitude,
-                    longitude: location.longitude,
-                  },
-                  user?.token,
-                  setLoading
-                );
-                console.log("list porducts 2j-> ", data);
-                setForMyCar(data.data);
-                setMostSells(data.data);
-              } catch (error) {
-                console.error(error);
-              }
+              const { data } = await getListProductsFn(
+                {
+                  latitude: location.latitude,
+                  longitude: location.longitude,
+                },
+                user?.token,
+                setLoading
+              );
+              console.log("list porducts 2j-> ", data);
+              setForMyCar(data.data);
+              setMostSells(data.data);
             }}
           />
         }
