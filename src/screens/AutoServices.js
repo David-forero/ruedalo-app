@@ -428,7 +428,7 @@ const AutoServices = () => {
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  Torre construción, calle las brisas
+                  {item.address}
                 </Text>
               </View>
               <View

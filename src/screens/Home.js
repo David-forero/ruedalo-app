@@ -329,7 +329,7 @@ export default function Home() {
                       numberOfLines={1}
                       ellipsizeMode="tail"
                     >
-                      Torre construción, calle las brisas
+                      {item.address}
                     </Text>
                   </View>
                   <View
