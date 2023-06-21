@@ -28,14 +28,13 @@ import { useUserContext } from "../context/UserContext";
 export default function EditProfile() {
   const navigation = useNavigation();
   const [image, setImage] = useState();
-  const [loading, setLoading] = useState(false)
-  const {user, setUser} = useAuthContext();
+  const [loading, setLoading] = useState(false);
+  const { user, setUser } = useAuthContext();
   const { updateUserFn } = useUserContext();
 
   useEffect(() => {
     setImage(null);
-  }, [])
-  
+  }, []);
 
   // Función para seleccionar una imagen del dispositivo
   const pickImage = async () => {
@@ -72,12 +71,25 @@ export default function EditProfile() {
         }}
         showsVerticalScrollIndicator={false}
       >
+        {user?.avatar ? (
+          <View className="flex flex-row items-center justify-center mb-10">
+            <Image
+              source={{ uri: "https://backend.ruedalo.app/api/avatar/" + user?.avatar[0] }}
+              className="rounded-full w-32 h-32 text-center"
+            />
+          </View>
+        ) : null}
+
         <Formik
-          initialValues={{ name: user?.name, lastname: user?.lastname, phone: "" }}
+          initialValues={{
+            name: user?.name,
+            lastname: user?.lastname,
+            phone: "",
+          }}
           onSubmit={async (values) => {
             setLoading(true);
             if (image) {
-              values.image = image
+              values.image = image;
             }
             updateUserFn(values, user?.token, setLoading, setUser, navigation);
           }}
@@ -92,7 +104,7 @@ export default function EditProfile() {
             errors,
             isValid,
             touched,
-            setFieldValue
+            setFieldValue,
           }) => (
             <>
               <InputField
@@ -150,18 +162,18 @@ export default function EditProfile() {
                     Subir una foto
                   </Text>
                 </TouchableOpacity>
-               
-                {
-                  image?.uri ? (
-                    <>
-                    <Text className="font-bold font-md my-3">Vista previa:</Text>
+
+                {image?.uri ? (
+                  <>
+                    <Text className="font-bold font-md my-3">
+                      Vista previa:
+                    </Text>
                     <Image
-                      source={{uri: image?.uri}}
+                      source={{ uri: image?.uri }}
                       className="rounded-md w-100 h-[300px]"
                     />
-                    </>
-                  ) : null
-                }
+                  </>
+                ) : null}
               </View>
               <Button
                 valid={isValid}
@@ -174,7 +186,6 @@ export default function EditProfile() {
                 onPress={handleSubmit}
               />
               <TouchableOpacity
-                
                 onPress={() => navigation.navigate("ChangePassword")}
               >
                 <Text
