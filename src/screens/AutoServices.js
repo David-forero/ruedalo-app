@@ -33,7 +33,6 @@ import {
   LoadingListOne,
 } from "../common/components";
 import { useServicesContext } from "../context/ServicesContext";
-import useLocation from "../common/hooks/useLocation";
 import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
 
@@ -52,7 +51,7 @@ const AutoServices = () => {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
-  const {myPlace} = useStoreContext();
+  const {myPlace, location} = useStoreContext();
 
   const { populars, setPopulars, mostSells, setMostSells, getListServicessFn } =
     useServicesContext();
