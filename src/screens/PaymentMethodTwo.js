@@ -3,184 +3,183 @@ import {
     Text,
     SafeAreaView,
     ScrollView,
-    Image,
     TouchableOpacity,
-} from "react-native";
-import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-
-import { Header, Card, ArrowThree } from "../common/components";
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
-
-const cards = [
-    {
-        id: "1",
-        card: require("../assets/images/cards/card-01.png"),
-    },
-    {
-        id: "2",
-        card: require("../assets/images/cards/card-02.png"),
-    },
-    {
-        id: "3",
-        card: require("../assets/images/cards/card-03.png"),
-    },
-];
-
-const methods = [
-    {
-        id: "1",
-        method: "Credit / Debit / ATM Card",
-    },
-    {
-        id: "2",
-        method: "Cash on  Payment",
-    },
-];
-
-export default function PaymentMethodTwo() {
-    const [selectedMethod, setSelectedMethod] = useState("1");
-    const naviagation = useNavigation();
-
-    function renderPaymentMethod() {
-        return (
-            <ScrollView style={{ flex: 1, paddingTop: SIZES.paddingTop_01 }}>
-                <ScrollView
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{
-                        paddingLeft: 30,
-                        paddingBottom: 22,
-                    }}
-                >
-                    {cards.map((item, index) => {
-                        return (
-                            <View key={index}>
-                                <Image
-                                    source={item.card}
-                                    style={{
-                                        width: 279,
-                                        height: 170,
-                                        marginRight: 10,
-                                    }}
-                                />
-                            </View>
-                        );
-                    })}
-                </ScrollView>
-                <View style={{ paddingHorizontal: 30 }}>
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            height: 50,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                ...FONTS.Roboto_500Medium,
-                                fontSize: 16,
-                                color: COLORS.black,
-                            }}
-                        >
-                            Visa **********250
-                        </Text>
-                        <TouchableOpacity>
-                            <Text
-                                style={{
-                                    ...FONTS.Roboto_500Medium,
-                                    fontSize: 14,
-                                    textTransform: "capitalize",
-                                    color: COLORS.red,
-                                }}
-                            >
-                                Change
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ marginBottom: 20 }}>
-                        {methods.map((item, index) => {
-                            return (
-                                <TouchableOpacity
-                                    key={index}
-                                    style={{
-                                        height: 50,
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                    }}
-                                    onPress={() => setSelectedMethod(item.id)}
-                                >
-                                    <View
-                                        style={{
-                                            width: 14,
-                                            height: 14,
-                                            borderWidth: 1,
-                                            borderRadius: 7,
-                                            marginRight: 15,
-                                            borderColor: COLORS.black2,
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        {item.id === selectedMethod && (
-                                            <View
-                                                style={{
-                                                    width: 9,
-                                                    height: 9,
-                                                    backgroundColor:
-                                                        COLORS.black2,
-                                                    borderRadius: 5,
-                                                }}
-                                            />
-                                        )}
-                                    </View>
-                                    <Text
-                                        style={{
-                                            ...FONTS.Roboto_500Medium,
-                                            fontSize: 16,
-                                            lineHeight: 16 * 1.2,
-                                        }}
-                                    >
-                                        {item.method}
-                                    </Text>
-                                </TouchableOpacity>
-                            );
-                        })}
-                    </View>
-
-                    <TouchableOpacity
-                        style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                        }}
-                        onPress={() => naviagation.navigate("AddNewCard")}
-                    >
-                        <Card />
-                        <Text
-                            style={{
-                                flex: 1,
-                                marginLeft: 9,
-                                ...FONTS.Roboto_500Medium,
-                                fontSize: 16,
-                            }}
-                        >
-                            Add a new card
-                        </Text>
-                        <ArrowThree />
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
-        );
-    }
-
+  } from "react-native";
+  import React, { useState } from "react";
+  import { useNavigation, useRoute } from "@react-navigation/native";
+  import DashedLine from "react-native-dashed-line";
+  
+  import {
+    Header,
+    CheckThree,
+    Button,
+  } from "../common/components";
+  import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
+  import { useEffect } from "react";
+  
+  export default function PaymentMethodOne() {
+    const [selectedMethod, setSelectedMethod] = useState(null);
+    const navigation = useNavigation();
+    const route = useRoute();
+    const { amount, product, unit } = route.params;
+    const [total, setTotal] = useState(0);
+  
+    useEffect(() => {
+        console.log(product);
+        setTotal(Number(amount));
+    }, [amount, product]);
+    
+  
     return (
-        <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-            <Header
-                title="Payment Method"
-                onPress={() => naviagation.goBack()}
+      <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
+        <Header title="Métodos de pago" onPress={() => navigation.goBack()} />
+  
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingHorizontal: 30,
+            paddingTop: 44,
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <Text clasName="mb-3 font-bold text-lg">Método de pago</Text>
+          <View style={{ marginBottom: 9, marginTop: 5 }}>
+            {product?.commerce?.paycommerces?.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={{
+                    width: "100%",
+                    height: 50,
+                    borderColor: COLORS.lightGray,
+                    borderWidth: 1,
+                    marginBottom: 12,
+                    borderRadius: 10,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingHorizontal: 13,
+                  }}
+                  onPress={() => setSelectedMethod(item.id)}
+                >
+                  {/* {item.icon} */}
+                  <Text
+                    style={{
+                      marginLeft: 10,
+                      ...FONTS.Roboto_400Regular,
+                      fontSize: 16,
+                      textTransform: "capitalize",
+                      color: COLORS.black,
+                      flex: 1,
+                    }}
+                  >
+                    {item.paymethod.name}
+                  </Text>
+  
+                  {selectedMethod == item.id ? (
+                    <CheckThree />
+                  ) : (
+                    <View
+                      style={{
+                        width: 16.5,
+                        height: 16.5,
+                        backgroundColor: "#F0F1F5",
+                        borderRadius: 10,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    ></View>
+                  )}
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+  
+  
+  
+          <View
+            style={{
+              width: "100%",
+              borderWidth: 1,
+              borderRadius: 10,
+              borderColor: COLORS.lightGray,
+              paddingVertical: 19,
+              paddingHorizontal: 20,
+              marginBottom: 30,
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  ...FONTS.Roboto_500Medium,
+                  fontSize: 14,
+                  textTransform: "capitalize",
+                  color: COLORS.black,
+                }}
+              >
+                Precio neto
+              </Text>
+              <Text
+                style={{
+                  ...FONTS.Roboto_700Bold,
+                  fontSize: 16,
+                  color: COLORS.black2,
+                  marginBottom: 9,
+                }}
+              >
+                ${Number(amount).toFixed(2)}
+              </Text>
+            </View>
+  
+            <DashedLine
+              dashLength={7}
+              dashThickness={1}
+              dashGap={5}
+              dashColor="#C8C8D3"
+              style={{ marginTop: 23,}}
             />
-            {renderPaymentMethod()}
-        </SafeAreaView>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginTop: 23,
+              }}
+            >
+              <Text
+                style={{
+                  ...FONTS.Roboto_500Medium,
+                  fontSize: 18,
+                  textTransform: "capitalize",
+                  color: COLORS.black,
+                }}
+              >
+                Precio total
+              </Text>
+              <Text
+                style={{
+                  ...FONTS.Roboto_700Bold,
+                  fontSize: 18,
+                  textTransform: "capitalize",
+                  color: COLORS.carrot,
+                }}
+              >
+                ${total.toFixed(2)}
+              </Text>
+            </View>
+          </View>
+          <Button
+            title="Proceder al pago"
+            valid={selectedMethod}
+            onPress={() => navigation.navigate("CreateOrderLoading", {amount, product, unit: 1, id_shipping: 0, id_paycommerce: selectedMethod, type: "service"})}
+          />
+        </ScrollView>
+      </SafeAreaView>
     );
-}
+  }
+  

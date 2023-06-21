@@ -7,7 +7,7 @@ import {
 } from "react";
 import { post } from "../common/functions/http";
 import { useAuthContext } from "./AuthContext";
-import useLocation from "../common/hooks/useLocation";
+import * as Location from "expo-location";
 
 const StoreContext = createContext({});
 
@@ -18,13 +18,27 @@ const StoreProvider = ({ children }) => {
   const [forMyCar, setForMyCar] = useState(null);
   const [mostSells, setMostSells] = useState(null);
   const [myPlace, setMyPlace] = useState(null);
-
+  const [location, setLocation] = useState(null);
+  const [loadingLocation, setLoadingLocation] = useState(false);
   const [product, setProduct] = useState(null);
-  const { place } = useLocation(coordenatesPermitions);
 
   useEffect(() => {
-    setMyPlace(place);
-  }, [place]);
+    async function init() {
+      setLoadingLocation(true);
+      if ((coordenatesPermitions && !location) || !myPlace) {
+        const location = await Location.getCurrentPositionAsync({});
+        setLocation(location.coords);
+
+        const place = await Location.reverseGeocodeAsync({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
+        setMyPlace(place);
+        setLoadingLocation(false);
+      }
+    }
+    init();
+  }, []);
 
   const getListProductsFn = async (params, token, setLoading) => {
     const myParams = {
@@ -60,6 +74,8 @@ const StoreProvider = ({ children }) => {
         setMostSells,
         product,
         myPlace,
+        location,
+        loadingLocation,
         //Functions
         getListProductsFn,
         getProductFn,

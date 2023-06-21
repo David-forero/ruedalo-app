@@ -9,7 +9,8 @@ export default function Button({
     onPress,
     textStyle,
     loading = false,
-    valid = true
+    valid = true,
+    icon
 }) {
     return (
         <TouchableOpacity
@@ -39,7 +40,7 @@ export default function Button({
                         ...textStyle,
                     }}
                 >
-                    {title}
+                    {icon ? <Text className="mr-3">{icon}</Text> : null}  {title}
                 </Text>)
             }
         </TouchableOpacity>

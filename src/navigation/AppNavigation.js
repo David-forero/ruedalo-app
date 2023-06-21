@@ -21,7 +21,7 @@ export default function Navigation() {
             <ServicesProvider>
             <OrdersProvider>
               <StatusBar
-                translucent
+                translucent={true}
                 backgroundColor={COLORS.orange}
                 barStyle={"light-content"}
               />

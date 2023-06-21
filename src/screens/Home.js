@@ -51,11 +51,18 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
   const { user } = useAuthContext();
-  const { getListProductsFn, forMyCar, myPlace, setForMyCar, mostSells, setMostSells } =
-    useStoreContext();
+  const {
+    getListProductsFn,
+    forMyCar,
+    myPlace,
+    setForMyCar,
+    mostSells,
+    setMostSells,
+    loadingLocation,
+    location,
+  } = useStoreContext();
 
   //My hooks
-  
 
   useEffect(() => {
     async function init() {
@@ -68,7 +75,6 @@ export default function Home() {
         user?.token,
         setLoading
       );
-      console.log("list porducts -> ", data);
       setForMyCar(data.data);
       setMostSells(data.data);
     }
@@ -93,9 +99,15 @@ export default function Home() {
             }}
             numberOfLines={1}
           >
-            {myPlace
-              ? `${myPlace[0]?.name} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
-              : "Crear una dirección acá"}
+            {loadingLocation ? (
+              "Cargando..."
+            ) : (
+              <>
+                {myPlace
+                  ? `${myPlace[0]?.name} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
+                  : "Crear una dirección acá"}
+              </>
+            )}
           </Text>
         </View>
 

@@ -74,7 +74,7 @@ export const SAFEAREAVIEW = {
     AndroidSafeArea: {
         flex: 1,
         backgroundColor: COLORS.white,
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        paddingTop: 30,
     },
     DefaultBackground: {
         flex: 1,

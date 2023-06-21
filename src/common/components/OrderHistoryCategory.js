@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { COLORS, FONTS } from "../constants";
 import Dayjs from "dayjs";
+import statusOrder from "../functions/statusOrder";
 
 export default function OrderHistoryCategory({ item, type }) {
     return (
@@ -18,15 +19,15 @@ export default function OrderHistoryCategory({ item, type }) {
                 marginBottom: 15,
             }}
         >
-            <Image
-                source={{ uri: 'https://backend.ruedalo.app/api/product/' +  item.product.image[0]}}
+            {/* <Image
+                source={{ uri: `https://backend.ruedalo.app/api/${item.product ? 'product' : 'avatar'}/${item.product ? item?.product?.image[0] : item?.service?.image[0]}`}}
                 style={{
                     width: 65,
                     height: 65,
                     borderRadius: 40,
                     marginRight: 12,
                 }}
-            />
+            /> */}
             <View style={{ flex: 1 }}>
                 <View
                     style={{
@@ -61,7 +62,7 @@ export default function OrderHistoryCategory({ item, type }) {
                             color: COLORS.carrot,
                         }}
                     >
-                        Total: ${item.total}
+                        Total: ${item?.total}
                     </Text>
                 </View>
 
@@ -73,7 +74,7 @@ export default function OrderHistoryCategory({ item, type }) {
                         color: COLORS.black,
                     }}
                 >
-                    {item.product.title}
+                    {item?.product?.title || item?.service?.description}
                 </Text>
                 <View
                     style={{
@@ -106,7 +107,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                     color: COLORS.carrot,
                                 }}
                             >
-                                Esperando pago
+                                {statusOrder(item?.status)}
                             </Text>
                         </View>
                     ) : (

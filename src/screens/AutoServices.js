@@ -128,39 +128,6 @@ const AutoServices = () => {
             <Filter />
           </TouchableOpacity>
         </View>
-        {/* <TouchableOpacity
-                    style={{
-                        width: 50,
-                        height: 50,
-                        borderRadius: 25,
-                        backgroundColor: COLORS.lightOrange,
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <Basket />
-                    <View
-                        style={{
-                            position: "absolute",
-                            backgroundColor: "red",
-                            borderRadius: 25,
-                            right: 7,
-                            top: 7,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                paddingHorizontal: 6,
-                                paddingVertical: 3,
-                                ...FONTS.Roboto_700Bold,
-                                fontSize: 10,
-                                color: COLORS.white,
-                            }}
-                        >
-                            4
-                        </Text>
-                    </View>
-                </TouchableOpacity> */}
       </View>
     );
   }
@@ -246,13 +213,11 @@ const AutoServices = () => {
               backgroundColor: COLORS.white,
               borderRadius: 15,
             }}
-            // onPress={() =>
-            //   navigation.navigate("RestaurantMenu", {
-            //     restaurant: item,
-            //     dishes: item.dishes,
-            //     restaurantName: item.name,
-            //   })
-            // }
+            onPress={() =>
+              navigation.navigate("ServicesDetails", {
+                id: item.id
+              })
+            }
           >
             <ImageBackground
               source={{
@@ -339,33 +304,6 @@ const AutoServices = () => {
               >
                 
               </View>
-            
-              {/* <View style={{ flexDirection: "row" }}>
-                {item.tags.map((item, index) => {
-                  return (
-                    <View
-                      key={index}
-                      style={{
-                        backgroundColor: item.backgroundColor,
-                        marginRight: 8,
-                        paddingHorizontal: 10,
-                        paddingVertical: 2,
-                        borderRadius: 5,
-                        borderRadius: 5,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          color: item.color,
-                          opacity: 1,
-                        }}
-                      >
-                        {item.tag}
-                      </Text>
-                    </View>
-                  );
-                })}
-              </View> */}
             </View>
           </TouchableOpacity>
         </Shadow>
@@ -439,11 +377,11 @@ const AutoServices = () => {
               alignItems: "center",
               marginBottom: 15,
             }}
-            // onPress={() =>
-            //   navigation.navigate("FoodDetails", {
-            //     id: item.id,
-            //   })
-            // }
+            onPress={() =>
+              navigation.navigate("ServicesDetails", {
+                id: item.id,
+              })
+            }
           >
             <Image
               source={{

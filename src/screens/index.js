@@ -39,6 +39,7 @@ import AutoServices from "./AutoServices";
 import CreateCardSuccess from "./CreateCardSuccess";
 import ListProducts from "./ListProducts";
 import CreateOrderLoading from "./LoadingScreens/CreateOrderLoading";
+import ServicesDetails from "./ServicesDetails";
 
 export {
     OnBoarding,
@@ -81,5 +82,6 @@ export {
     AutoServices,
     CreateCardSuccess,
     ListProducts,
-    CreateOrderLoading
+    CreateOrderLoading,
+    ServicesDetails
 };

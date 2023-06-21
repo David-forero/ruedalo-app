@@ -19,7 +19,7 @@ const CreateOrderLoading = () => {
   const scaleValue = useRef(new Animated.Value(1)).current;
   const navigation = useNavigation();
   const route = useRoute();
-  const { amount, product, unit, id_paycommerce, id_shipping } = route.params;
+  const { amount, product, unit, id_paycommerce, id_shipping, amount_cash, type } = route.params;
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -32,11 +32,13 @@ const CreateOrderLoading = () => {
     async function init() {
       const res = await checkoutProcessFn(
         {
-          id_product: product?.id,
+          id_servprod: product?.id,
           id_commerce: product?.commerce.id,
           unit: Number(unit),
           id_paycommerce,
           id_shipping,
+          amount_cash,
+          type
         },
         user?.token
       );

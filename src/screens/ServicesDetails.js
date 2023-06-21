@@ -9,37 +9,34 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
-import { FontAwesome } from '@expo/vector-icons';
+
 import { Header, Button } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, dummyData } from "../common/constants";
 import { Picker } from "@react-native-picker/picker";
 import { Rating } from "react-native-ratings";
 import { useEffect } from "react";
-import { useOrdersContext } from "../context/OrdersContext";
 import { useAuthContext } from "../context/AuthContext";
 import { Fade, Placeholder, PlaceholderLine } from "rn-placeholder";
-import * as Linking from "expo-linking";
-import statusOrder from "../common/functions/statusOrder";
+import { useServicesContext } from "../context/ServicesContext";
 
-export default function Order() {
+export default function ServicesDetails() {
   const navigation = useNavigation();
-  const { order, getOneOrder } = useOrdersContext();
+  const { service, getServiceFn } = useServicesContext();
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const route = useRoute();
   const { id } = route.params;
 
+  const [amount, setAmount] = useState(null);
+
   useEffect(() => {
     setLoading(true);
-    getOneOrder(id, user?.token, setLoading);
+    getServiceFn(id, user?.token, setLoading);
   }, []);
 
-  const openWhatsAppChat = (phoneNumber) => {
-    const url = `whatsapp://send?phone=${phoneNumber}`;
-    Linking.openURL(url).catch(() => {
-      console.log("No se pudo abrir WhatsApp");
-    });
-  };
+  useEffect(() => {
+    setAmount(service?.price);
+  }, [service?.price]);
 
   function renderDetails() {
     return (
@@ -50,7 +47,7 @@ export default function Order() {
         }}
       >
         <View>
-          {/* {loading ? (
+          {loading ? (
             <View
               style={{
                 height: 206,
@@ -64,9 +61,7 @@ export default function Order() {
           ) : (
             <Image
               source={{
-                uri:
-                  "https://backend.ruedalo.app/api/product/" +
-                  order?.product.image[0],
+                uri: "https://backend.ruedalo.app/api/avatar/" + service?.commerce.avatar[0],
               }}
               style={{
                 height: 206,
@@ -77,7 +72,7 @@ export default function Order() {
               className="shadow-lg"
               resizeMode="stretch"
             />
-          )} */}
+          )}
           {loading ? (
             <Placeholder Animation={Fade}>
               <PlaceholderLine width={80} />
@@ -92,7 +87,7 @@ export default function Order() {
                 color: COLORS.black,
               }}
             >
-              {order?.product?.title}
+              {service?.description}
             </Text>
           )}
 
@@ -116,7 +111,7 @@ export default function Order() {
               }}
             >
               {/* {description} */}
-              {order?.product?.description}
+              {service?.description}
             </Text>
           )}
           <View
@@ -133,7 +128,7 @@ export default function Order() {
                 color: COLORS.carrot,
               }}
             >
-              ${order?.product?.price || order?.amount}
+              ${service?.price}
             </Text>
           </View>
 
@@ -143,7 +138,7 @@ export default function Order() {
             </Placeholder>
           ) : (
             <Text className="font-bold text-md mb-1 text-left text-gray-700 mt-5">
-              Vendido por
+              Ofrecido por
             </Text>
           )}
 
@@ -186,14 +181,14 @@ export default function Order() {
                 source={{
                   uri:
                     "https://backend.ruedalo.app/api/avatar/" +
-                    order?.commerce.avatar[0],
+                    service?.commerce.avatar[0],
                 }}
                 className="h-10 w-10 rounded-full"
                 resizeMode="stretch"
               />
 
               <View>
-                <Text>{order?.commerce.registered_name}</Text>
+                <Text>{service?.commerce.registered_name}</Text>
                 <View
                   style={{
                     flexDirection: "row",
@@ -208,7 +203,7 @@ export default function Order() {
                     showRating={false}
                     isDisabled={false}
                     readonly={true}
-                    startingValue={order?.commerce.rating}
+                    startingValue={service?.commerce.rating}
                   />
                   <Text
                     style={{
@@ -219,7 +214,7 @@ export default function Order() {
                       lineHeight: 12 * 1.2,
                     }}
                   >
-                    ({order?.commerce.rating})
+                    ({service?.commerce.rating})
                   </Text>
                 </View>
               </View>
@@ -227,62 +222,15 @@ export default function Order() {
           )}
         </View>
 
-        {loading ? (
-          <Placeholder Animation={Fade} style={{ marginTop: 10 }}>
-            <PlaceholderLine width={30} />
-          </Placeholder>
-        ) : (
-          <Text className="font-bold text-md mb-3 text-left text-gray-700 mt-5">
-            Detalles del pedido
-          </Text>
-        )}
-
-        <View className="bg-gray-200 p-4 w-100 rounded-lg">
-          {
-            order?.unit ? (
-              <View className="mb-3 flex flex-row space-x-2">
-                <Text className="text-orange-600 font-bold">Cantidad:</Text>
-
-                <Text>{order?.unit}</Text>
-              </View>
-            ) : null
-          }
-
-          <View className="mb-3 flex flex-row space-x-2">
-            <Text className="text-orange-600 font-bold">Método de pago:</Text>
-
-            <Text>{order?.paycommerce?.paymethod.name}</Text>
-          </View>
-
-          {order?.shiping_amount && (
-            <View className="mb-3 flex flex-row space-x-2">
-              <Text className="text-orange-600 font-bold">
-                Costo del Delivery:
-              </Text>
-
-              <Text>${order?.shiping_amount}</Text>
-            </View>
-          )}
-
-          <View className="mb-3 flex flex-row space-x-2">
-            <Text className="text-orange-600 font-bold">Monto Total:</Text>
-
-            <Text>${order?.total}</Text>
-          </View>
-
-
-          <View className="mb-3 flex flex-row space-x-2">
-            <Text className="text-orange-600 font-bold">Estado de la compra:</Text>
-
-            <Text>{statusOrder(order?.status)}</Text>
-          </View>
-        </View>
-
         <Button
-          title={"Chatear con el vendedor"}
+          title={loading ? "Cargando..." : `Adquirir servicio por $${amount}`}
           containerStyle={{ marginBottom: 20, marginTop: 60 }}
-          onPress={() => openWhatsAppChat(order?.commerce.phone)}
-          icon={<FontAwesome name="whatsapp" size={20} color="white" />}
+          onPress={() => {
+            navigation.navigate("PaymentMethodTwo", {
+              amount: service?.price,
+              product: service,
+            });
+          }}
         />
       </View>
     );
@@ -291,7 +239,7 @@ export default function Order() {
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
       <Header
-        title="Detalles del producto"
+        title="Detalles del servicio"
         onPress={() => navigation.goBack()}
       />
       <ScrollView showsVerticalScrollIndicator={false}>

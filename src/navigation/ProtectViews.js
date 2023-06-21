@@ -41,11 +41,12 @@ import {
   ListProducts,
   CreateOrderLoading,
   AddAddress,
+  ServicesDetails,
 } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuthContext } from "../context/AuthContext";
 import { useFonts } from "expo-font";
-import * as SplashScreen from 'expo-splash-screen';
+import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createStackNavigator();
 
@@ -59,7 +60,7 @@ const ProtectViews = () => {
   });
 
   useEffect(() => {
-    SplashScreen.preventAutoHideAsync()
+    SplashScreen.preventAutoHideAsync();
     loadingApp(setLoading, SplashScreen);
   }, []);
 
@@ -103,6 +104,7 @@ const ProtectViews = () => {
             <Stack.Screen name="NewPassword" component={NewPassword} />
             <Stack.Screen name="AddNewCard" component={AddNewCard} />
             <Stack.Screen name="AutoServices" component={AutoServices} />
+            <Stack.Screen name="ServicesDetails" component={ServicesDetails} />
           </>
         ) : (
           <>
