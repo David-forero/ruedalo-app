@@ -40,6 +40,8 @@ import CreateCardSuccess from "./CreateCardSuccess";
 import ListProducts from "./ListProducts";
 import CreateOrderLoading from "./LoadingScreens/CreateOrderLoading";
 import ServicesDetails from "./ServicesDetails";
+import MyDocuments from "./Profile/MyDocuments";
+import MemberShip from "./Profile/MemberShip";
 
 export {
     OnBoarding,
@@ -83,5 +85,7 @@ export {
     CreateCardSuccess,
     ListProducts,
     CreateOrderLoading,
-    ServicesDetails
+    ServicesDetails,
+    MyDocuments,
+    MemberShip
 };

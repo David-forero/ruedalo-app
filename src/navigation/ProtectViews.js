@@ -42,6 +42,8 @@ import {
   CreateOrderLoading,
   AddAddress,
   ServicesDetails,
+  MyDocuments,
+  MemberShip,
 } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuthContext } from "../context/AuthContext";
@@ -105,6 +107,8 @@ const ProtectViews = () => {
             <Stack.Screen name="AddNewCard" component={AddNewCard} />
             <Stack.Screen name="AutoServices" component={AutoServices} />
             <Stack.Screen name="ServicesDetails" component={ServicesDetails} />
+            <Stack.Screen name="MyDocuments" component={MyDocuments} />
+            <Stack.Screen name="MemberShip" component={MemberShip} />
           </>
         ) : (
           <>
