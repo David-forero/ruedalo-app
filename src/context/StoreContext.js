@@ -8,11 +8,13 @@ import {
 import { post } from "../common/functions/http";
 import { useAuthContext } from "./AuthContext";
 import * as Location from "expo-location";
+import { useNavigation } from "@react-navigation/native";
 
 const StoreContext = createContext({});
 
 const StoreProvider = ({ children }) => {
   const { coordenatesPermitions } = useAuthContext();
+  const navigation = useNavigation();
 
   //List products home
   const [forMyCar, setForMyCar] = useState(null);
@@ -24,8 +26,11 @@ const StoreProvider = ({ children }) => {
 
   useEffect(() => {
     async function init() {
-      setLoadingLocation(true);
+      if (!coordenatesPermitions) {
+        navigation.navigate("Selectlocation")
+      }
       if ((coordenatesPermitions && !location) || !myPlace) {
+        setLoadingLocation(true);
         const location = await Location.getCurrentPositionAsync({});
         setLocation(location.coords);
 

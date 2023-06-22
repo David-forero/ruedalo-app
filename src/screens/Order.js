@@ -27,7 +27,7 @@ export default function Order() {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const route = useRoute();
-  const { id } = route.params;
+  const { id, goHome } = route.params;
 
   useEffect(() => {
     setLoading(true);
@@ -292,7 +292,10 @@ export default function Order() {
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
       <Header
         title="Detalles del producto"
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          if (goHome) return navigation.navigate("MainLayout");
+          navigation.goBack()
+        }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         {renderDetails()}

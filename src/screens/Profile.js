@@ -11,17 +11,11 @@ import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
 
 import {
-  Header,
   ProfileCategory,
-  Dollar,
-  Store,
-  Address,
-  Terms,
-  Languages,
-  Logout,
 } from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 import { useAuthContext } from "../context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Profile() {
   const navigation = useNavigation();
@@ -162,6 +156,13 @@ export default function Profile() {
           title="Cerrar sesión"
           iconBgColor={COLORS.lightPink}
           onPress={() => setShowModal(true)}
+        />
+
+        <ProfileCategory
+          icon={require("../assets/icons/exit.png")}
+          title="Limpiar Cache"
+          iconBgColor={COLORS.lightPink}
+          onPress={() => AsyncStorage.removeItem('coordenatesPermitions')}
         />
       </ScrollView>
     );

@@ -48,7 +48,7 @@ export default function OrderSuccessful() {
                 <Button
                     title="Detalles de la compra"
                     containerStyle={{ marginBottom: 15 }}
-                    onPress={() => navigation.navigate('Order', {id: data.data.data.id})}
+                    onPress={() => navigation.navigate('Order', {id: data.data.data.id, goHome: true})}
                 />
                 <Button
                     title="Continuar comprando"

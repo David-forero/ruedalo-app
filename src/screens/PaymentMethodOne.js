@@ -16,6 +16,7 @@ import {
   CheckTwo,
   CheckThree,
   Button,
+  InputField,
 } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -28,16 +29,17 @@ export default function PaymentMethodOne() {
   const route = useRoute();
   const { amount, product, unit } = route.params;
   const [total, setTotal] = useState(0);
+  const [isDelivery, setIsDelivery] = useState(false);
+  const [isAmount, setIsAmount] = useState(false);
+  const [cash, setCash] = useState(null);
 
   useEffect(() => {
-    if (product?.commerce.shippings.find(item => item.id === selectedMethod2)) {
-        setTotal(Number(amount) + Number(product?.commerce?.shippings[0]?.price))
-    }else{
-        setTotal(Number(amount));
+    if (isDelivery) {
+      setTotal(Number(amount) + Number(product?.commerce?.shippings[0]?.price));
+    } else {
+      setTotal(Number(amount));
     }
-    
-  }, [amount, product, selectedMethod2]);
-  
+  }, [amount, product, selectedMethod2, selectedMethod]);
 
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
@@ -55,56 +57,75 @@ export default function PaymentMethodOne() {
         <View style={{ marginBottom: 9, marginTop: 5 }}>
           {product?.commerce.paycommerces?.map((item, index) => {
             return (
-              <TouchableOpacity
-                key={index}
-                style={{
-                  width: "100%",
-                  height: 50,
-                  borderColor: COLORS.lightGray,
-                  borderWidth: 1,
-                  marginBottom: 12,
-                  borderRadius: 10,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingHorizontal: 13,
-                }}
-                onPress={() => setSelectedMethod(item.id)}
-              >
-                {/* {item.icon} */}
-                <Text
+              <View key={index}>
+                <TouchableOpacity
                   style={{
-                    marginLeft: 10,
-                    ...FONTS.Roboto_400Regular,
-                    fontSize: 16,
-                    textTransform: "capitalize",
-                    color: COLORS.black,
-                    flex: 1,
+                    width: "100%",
+                    height: 50,
+                    borderColor: COLORS.lightGray,
+                    borderWidth: 1,
+                    marginBottom: 12,
+                    borderRadius: 10,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingHorizontal: 13,
+                  }}
+                  onPress={() => {
+                    setSelectedMethod(item.id);
+                    if (item.paymethod.name === "Efectivo")
+                      return setIsAmount(true);
+                    setIsAmount(false);
+                    setCash(null);
                   }}
                 >
-                  {item.paymethod.name}
-                </Text>
-
-                {selectedMethod == item.id ? (
-                  <CheckThree />
-                ) : (
-                  <View
+                  {/* {item.icon} */}
+                  <Text
                     style={{
-                      width: 16.5,
-                      height: 16.5,
-                      backgroundColor: "#F0F1F5",
-                      borderRadius: 10,
-                      justifyContent: "center",
-                      alignItems: "center",
+                      marginLeft: 10,
+                      ...FONTS.Roboto_400Regular,
+                      fontSize: 16,
+                      textTransform: "capitalize",
+                      color: COLORS.black,
+                      flex: 1,
                     }}
-                  ></View>
-                )}
-              </TouchableOpacity>
+                  >
+                    {item.paymethod.name}
+                  </Text>
+
+                  {selectedMethod == item.id ? (
+                    <CheckThree />
+                  ) : (
+                    <View
+                      style={{
+                        width: 16.5,
+                        height: 16.5,
+                        backgroundColor: "#F0F1F5",
+                        borderRadius: 10,
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    ></View>
+                  )}
+                </TouchableOpacity>
+
+                {isAmount && item.paymethod.name === "Efectivo" ? (
+                  <View>
+                    <InputField 
+                      placeholder="¿Cuando efectivo pagarás?"
+                      value={cash}
+                      onChangeText={setCash}
+                      keyboardType="numeric"
+                    />
+                  </View>
+                ) : null}
+              </View>
             );
           })}
         </View>
 
+        {/* SECTION DELIVERY */}
         <Text clasName="mb-5 font-bold text-lg">Método de entrega</Text>
-        <View style={{ marginBottom: 9, marginTop:5 }}>
+        <View style={{ marginBottom: 9, marginTop: 5 }}>
           {product?.commerce.shippings?.map((item, index) => {
             return (
               <TouchableOpacity
@@ -120,7 +141,11 @@ export default function PaymentMethodOne() {
                   alignItems: "center",
                   paddingHorizontal: 13,
                 }}
-                onPress={() => setSelectedMethod2(item.id)}
+                onPress={() => {
+                  setSelectedMethod2(item.id);
+                  if (item.type === "delivery") return setIsDelivery(true);
+                  setIsDelivery(false);
+                }}
               >
                 {/* {item.icon} */}
                 <Text
@@ -154,7 +179,6 @@ export default function PaymentMethodOne() {
             );
           })}
         </View>
-
 
         <View
           style={{
@@ -196,13 +220,12 @@ export default function PaymentMethodOne() {
             </Text>
           </View>
 
-          {product?.commerce.shippings.find(item => item.id === selectedMethod2) && (
+          {isDelivery && (
             <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
-               
               }}
             >
               <Text
@@ -232,7 +255,7 @@ export default function PaymentMethodOne() {
             dashThickness={1}
             dashGap={5}
             dashColor="#C8C8D3"
-            style={{ marginTop: 23,}}
+            style={{ marginTop: 23 }}
           />
           <View
             style={{
@@ -267,8 +290,18 @@ export default function PaymentMethodOne() {
         <Button
           title="Proceder al pago"
           valid={selectedMethod && selectedMethod2}
-          onPress={() => navigation.navigate("CreateOrderLoading", {amount, product, unit, id_shipping: selectedMethod2, id_paycommerce: selectedMethod})}
+          onPress={() =>
+            navigation.navigate("CreateOrderLoading", {
+              amount,
+              product,
+              unit,
+              id_shipping: selectedMethod2,
+              id_paycommerce: selectedMethod,
+              amount_cash: cash
+            })
+          }
         />
+        <View className="mb-10" />
       </ScrollView>
     </SafeAreaView>
   );
