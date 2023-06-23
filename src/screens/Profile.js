@@ -10,9 +10,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
 
-import {
-  ProfileCategory,
-} from "../common/components";
+import { ProfileCategory } from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 import { useAuthContext } from "../context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -128,14 +126,14 @@ export default function Profile() {
                     subtitle="Selecciona tu metodo de pago por defecto"
                     iconBgColor={COLORS.lightLilac}
                     onPress={() => navigation.navigate("PaymentMethodTwo")}
-                />
-                <ProfileCategory
-                    icon={require("../assets/icons/notification.png")}
-                    title="Notificaciones"
-                    subtitle="Tus Notificaciones"
-                    iconBgColor={COLORS.lightLilac}
-                    onPress={() => navigation.navigate("Notifications")}
                 /> */}
+        <ProfileCategory
+          icon={require("../assets/icons/notification.png")}
+          title="Notificaciones"
+          subtitle="Tus Notificaciones"
+          iconBgColor={COLORS.lightLilac}
+          onPress={() => navigation.navigate("Notifications")}
+        />
         <ProfileCategory
           icon={require("../assets/icons/coupon.png")}
           title="Membresia"
@@ -158,12 +156,12 @@ export default function Profile() {
           onPress={() => setShowModal(true)}
         />
 
-        <ProfileCategory
+        {/* <ProfileCategory
           icon={require("../assets/icons/exit.png")}
           title="Limpiar Cache"
           iconBgColor={COLORS.lightPink}
-          onPress={() => AsyncStorage.removeItem('coordenatesPermitions')}
-        />
+          onPress={() => AsyncStorage.removeItem("coordenatesPermitions")}
+        /> */}
       </ScrollView>
     );
   }

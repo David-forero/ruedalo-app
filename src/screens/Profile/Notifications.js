@@ -17,7 +17,7 @@ export default function Notifications() {
 
     return (
         <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-            <Header title="Notifications" onPress={() => navigation.goBack()} />
+            <Header title="Notificaciones" onPress={() => navigation.goBack()} />
             <ScrollView
                 contentContainerStyle={{
                     paddingHorizontal: 30,
@@ -25,7 +25,7 @@ export default function Notifications() {
                     paddingTop: 37,
                 }}
             >
-                <NotificationCategory
+                {/* <NotificationCategory
                     title="Your Order Cancel"
                     subtitle="Order #107 has been cancelled"
                     icon={<Cancel />}
@@ -39,10 +39,10 @@ export default function Notifications() {
                     title="Promotion"
                     subtitle="Invite friends - Get 1 coupons"
                     icon={<Promo />}
-                />
+                /> */}
                 <NotificationCategory
-                    title="Your Order Accept"
-                    subtitle="Order #107 has been success..."
+                    title="Compra aprobada"
+                    subtitle="Haz comprado un kit de motor"
                     icon={<Accept />}
                 />
             </ScrollView>
