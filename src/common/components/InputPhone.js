@@ -1,6 +1,6 @@
 import { View, Text, TextInput, Image } from "react-native";
 import { MaskedTextInput } from "react-native-mask-text";
-import VenezuelaFlag from '../../assets/icons/venezuela-flag.png';
+import VenezuelaFlag from "../../assets/icons/venezuela-flag.png";
 import { useEffect } from "react";
 
 export default function InputPhone({
@@ -13,11 +13,9 @@ export default function InputPhone({
   valueTwo,
   // editable = true,
 }) {
-
   useEffect(() => {
-    setFieldValue('phone', valueTwo);
-  }, [valueTwo])
-  
+    setFieldValue("phone", valueTwo);
+  }, [valueTwo]);
 
   return (
     <View className="mb-3">
@@ -33,11 +31,15 @@ export default function InputPhone({
           ...contaynerStyle,
         }}
       >
-        <Image source={VenezuelaFlag} style={{ paddingRight: 14, width: 30, height: 20, marginRight: 10 }}/>
-     
+        <Image
+          source={VenezuelaFlag}
+          style={{ paddingRight: 14, width: 30, height: 20, marginRight: 10 }}
+        />
+
         <MaskedTextInput
+          style={{ flex: 1 }}
           onChangeText={(text, rawText) => {
-            setFieldValue('phone', rawText);
+            setFieldValue("phone", rawText);
           }}
           mask={mask}
           value={value}
