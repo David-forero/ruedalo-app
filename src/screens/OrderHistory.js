@@ -128,6 +128,7 @@ export default function OrderHistory() {
         contentContainerStyle={{
           paddingHorizontal: 30,
           flexGrow: 1,
+          paddingBottom: 80 
         }}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -138,7 +139,9 @@ export default function OrderHistory() {
         }
       >
         {loading ? (
-          <Text>Cargando...</Text>
+          <View className="flex-1 items-center justify-center">
+            <Text className="text-center">Cargando ordenes... espere un momento</Text>
+          </View>
         ) : (
           <>
             {orders ? (

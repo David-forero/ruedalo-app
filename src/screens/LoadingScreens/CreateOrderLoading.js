@@ -49,7 +49,7 @@ const CreateOrderLoading = () => {
         console.log(res);
         showMessage({
           message: "Error al hacer la compra",
-          message: res.message,
+          description: res.data.message,
           type: "danger",
         });
         navigation.goBack();

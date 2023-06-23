@@ -74,7 +74,7 @@ export const SAFEAREAVIEW = {
     AndroidSafeArea: {
         flex: 1,
         backgroundColor: COLORS.white,
-        paddingTop: 30,
+        paddingTop: 10,
     },
     DefaultBackground: {
         flex: 1,

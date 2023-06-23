@@ -9,11 +9,11 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from "@expo/vector-icons";
 import { Header, Button } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, dummyData } from "../common/constants";
 import { Picker } from "@react-native-picker/picker";
-import { Rating } from "react-native-ratings";
+import { Rating, AirbnbRating } from "react-native-ratings";
 import { useEffect } from "react";
 import { useOrdersContext } from "../context/OrdersContext";
 import { useAuthContext } from "../context/AuthContext";
@@ -23,11 +23,13 @@ import statusOrder from "../common/functions/statusOrder";
 
 export default function Order() {
   const navigation = useNavigation();
-  const { order, getOneOrder } = useOrdersContext();
+  const { order, getOneOrder, sendStarFn } = useOrdersContext();
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const route = useRoute();
   const { id, goHome } = route.params;
+  const [rating, setRating] = useState(3);
+  const [loadingRating, setLoadingRating] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -50,7 +52,7 @@ export default function Order() {
         }}
       >
         <View>
-          {/* {loading ? (
+          {loading ? (
             <View
               style={{
                 height: 206,
@@ -63,11 +65,10 @@ export default function Order() {
             ></View>
           ) : (
             <Image
-              source={{
-                uri:
-                  "https://backend.ruedalo.app/api/product/" +
-                  order?.product.image[0],
-              }}
+              // source={{
+              //   uri:
+              //     `https://backend.ruedalo.app/api/${order.product ? 'product' : 'avatar'}/${order.product ? order?.product?.image[0] : order?.commerce?.avatar[0]}`
+              // }}
               style={{
                 height: 206,
                 width: "100%",
@@ -77,7 +78,7 @@ export default function Order() {
               className="shadow-lg"
               resizeMode="stretch"
             />
-          )} */}
+          )}
           {loading ? (
             <Placeholder Animation={Fade}>
               <PlaceholderLine width={80} />
@@ -208,7 +209,6 @@ export default function Order() {
                     showRating={false}
                     isDisabled={false}
                     readonly={true}
-                    startingValue={order?.commerce.rating}
                   />
                   <Text
                     style={{
@@ -219,7 +219,7 @@ export default function Order() {
                       lineHeight: 12 * 1.2,
                     }}
                   >
-                    ({order?.commerce.rating})
+                    ({Number(order?.commerce?.rating)})
                   </Text>
                 </View>
               </View>
@@ -238,15 +238,13 @@ export default function Order() {
         )}
 
         <View className="bg-gray-200 p-4 w-100 rounded-lg">
-          {
-            order?.unit ? (
-              <View className="mb-3 flex flex-row space-x-2">
-                <Text className="text-orange-600 font-bold">Cantidad:</Text>
+          {order?.unit ? (
+            <View className="mb-3 flex flex-row space-x-2">
+              <Text className="text-orange-600 font-bold">Cantidad:</Text>
 
-                <Text>{order?.unit}</Text>
-              </View>
-            ) : null
-          }
+              <Text>{order?.unit}</Text>
+            </View>
+          ) : null}
 
           <View className="mb-3 flex flex-row space-x-2">
             <Text className="text-orange-600 font-bold">Método de pago:</Text>
@@ -270,20 +268,79 @@ export default function Order() {
             <Text>${order?.total}</Text>
           </View>
 
-
           <View className="mb-3 flex flex-row space-x-2">
-            <Text className="text-orange-600 font-bold">Estado de la compra:</Text>
+            <Text className="text-orange-600 font-bold">
+              Estado de la compra:
+            </Text>
 
             <Text>{statusOrder(order?.status)}</Text>
           </View>
         </View>
 
-        <Button
-          title={"Chatear con el vendedor"}
-          containerStyle={{ marginBottom: 20, marginTop: 60 }}
-          onPress={() => openWhatsAppChat(order?.commerce.phone)}
-          icon={<FontAwesome name="whatsapp" size={20} color="white" />}
-        />
+        {/* Calificar vendedor */}
+
+        {order?.status === "completed" ? (
+          <>
+            {order?.rate_to_c > 0 ? (
+              <View className="mt-5 mb-12" >
+                <Text className="text-orange-500 text-center font-bold text-lg mb-3">
+                  Tu Calificación
+                </Text>
+
+                <Rating
+                  type="star"
+                  count={5}
+                  startingValue={order?.rate_to_c}
+                  imageSize={15}
+                  showRating={false}
+                  readonly
+                />
+
+                <Text className="text-center">{order?.rate_to_c}</Text>
+              </View>
+            ) : (
+              <View className="my-12">
+                <Text className="text-orange-500 text-center font-bold text-lg">
+                  Califica la compra
+                </Text>
+                <View>
+                  <AirbnbRating
+                    count={5}
+                    reviews={[
+                      "Terrible",
+                      "Malo",
+                      "Normal",
+                      "Bueno",
+                      "Excelente",
+                    ]}
+                    defaultRating={rating}
+                    size={20}
+                    onFinishRating={setRating}
+                  />
+                </View>
+                <Button
+                  title={"Enviar mi calificación"}
+                  loading={loadingRating}
+                  containerStyle={{ marginBottom: 20, marginTop: 60 }}
+                  onPress={() =>
+                    sendStarFn(
+                      { id: order?.id, rate: rating },
+                      user?.token,
+                      setLoadingRating
+                    )
+                  }
+                />
+              </View>
+            )}
+          </>
+        ) : (
+          <Button
+            title={"Chatear con el vendedor"}
+            containerStyle={{ marginBottom: 20, marginTop: 60 }}
+            onPress={() => openWhatsAppChat(order?.commerce.phone)}
+            icon={<FontAwesome name="whatsapp" size={20} color="white" />}
+          />
+        )}
       </View>
     );
   }
@@ -294,7 +351,7 @@ export default function Order() {
         title="Detalles del producto"
         onPress={() => {
           if (goHome) return navigation.navigate("MainLayout");
-          navigation.goBack()
+          navigation.goBack();
         }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>

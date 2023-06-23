@@ -19,15 +19,15 @@ export default function OrderHistoryCategory({ item, type }) {
                 marginBottom: 15,
             }}
         >
-            {/* <Image
-                source={{ uri: `https://backend.ruedalo.app/api/${item.product ? 'product' : 'avatar'}/${item.product ? item?.product?.image[0] : item?.service?.image[0]}`}}
+            <Image
+                source={{ uri: `https://backend.ruedalo.app/api/${item.product ? 'product' : 'avatar'}/${item.product ? item?.product?.image[0] : item?.commerce?.avatar[0]}`}}
                 style={{
                     width: 65,
                     height: 65,
                     borderRadius: 40,
                     marginRight: 12,
                 }}
-            /> */}
+            />
             <View style={{ flex: 1 }}>
                 <View
                     style={{
@@ -134,7 +134,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                         color: COLORS.black2,
                                     }}
                                 >
-                                    Esperando pago
+                                      {statusOrder(item?.status)}
                                 </Text>
                             ) : (
                                 <Text
