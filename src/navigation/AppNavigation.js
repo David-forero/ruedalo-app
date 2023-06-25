@@ -13,9 +13,12 @@ import UserProvider from "../context/UserContext";
 import ServicesProvider from "../context/ServicesContext";
 import MyCarsProvider from "../context/MyCarsContext";
 
+import { StripeProvider } from "@stripe/stripe-react-native";
+
 export default function Navigation() {
   return (
     <NavigationContainer>
+      <StripeProvider publishableKey={'pk_test_51MLqmDGFUPnOrSP52erb66PXqhBdGZDJxnXZP6udhH5kIwuvuvgNQfgTSEHqXcVaSIkfe1sCbpq7ur76JlIIW1TA00zSDRDBUD'}>
       <AuthProvider>
         <UserProvider>
           <MyCarsProvider>
@@ -35,6 +38,7 @@ export default function Navigation() {
         </UserProvider>
       </AuthProvider>
       <FlashMessage position="top" />
+      </StripeProvider>
     </NavigationContainer>
   );
 }
