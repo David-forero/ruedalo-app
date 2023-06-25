@@ -1,25 +1,78 @@
 import React, { useRef, useState } from "react";
-import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, Button } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
+  Button,
+} from "react-native";
 // import Carousel from 'react-native-snap-carousel-v4'
 import { useNavigation } from "@react-navigation/native";
 import { Header, InputField } from "../../common/components";
-import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../../common/constants";
+import { COLORS, FONTS, SIZES } from "../../common/constants";
 import Modal from "react-native-modal";
-
-import Wizard from "react-native-wizard"
-import {BoxForm, FuelForm, CarForm, InfoAboutCar, OilForm} from "../components/Cars";
+import * as Yup from "yup";
+import Wizard from "react-native-wizard";
+import {
+  BoxForm,
+  FuelForm,
+  CarForm,
+  InfoAboutCar,
+  OilForm,
+} from "../components/Cars";
+import { Formik } from "formik";
+import { useMyCarsContext } from "../../context/MyCarsContext";
+import { useAuthContext } from "../../context/AuthContext";
 
 export default function AddCarForm() {
-  const wizard = useRef(null)
+  const wizard = useRef(null);
+  const {addVehicleFn} = useMyCarsContext();
+  const {user} = useAuthContext();
+
+  const [fullData, setFullData] = useState(null);
+
   const [showModal, setShowModal] = useState(false);
-  const [isFirstStep, setIsFirstStep] = useState(true)
-  const [isLastStep, setIsLastStep] = useState(false)
-  const [currentStep, setCurrentStep] = useState(0)
+  const [isFirstStep, setIsFirstStep] = useState(true);
+  const [isLastStep, setIsLastStep] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const [myYear, setMyYear] = useState(null);
+  const [myMakes, setMyMakes] = useState(null);
+  const [myModels, setMyModels] = useState(null);
+  const [myTrims, setMyTrims] = useState(null);
+
+  const [selectedYear, setSelectedYear] = useState(null);
+  const [selectedModel, setSelectedModel] = useState(null);
+  const [selectedBrand, setSelectedBrand] = useState(null);
+  const [selectedTrim, setSelectedTrim] = useState(null);
+
+  const DetailsCarFormSchema = Yup.object().shape({
+    aceite: Yup.string().required("Campo requerido"),
+    neumaticos: Yup.string().required("Campo requerido"),
+    bateria: Yup.string().required("Campo requerido"),
+    kilometraje: Yup.string().required("Campo requerido"),
+  });
 
   const navigation = useNavigation();
   const stepList = [
     {
-      content: <CarForm />,
+      content: (
+        <CarForm
+        setMyYear={setMyYear}
+        setMyMakes={setMyMakes}
+        setMyModels={setMyModels}
+        setMyTrims={setMyTrims}
+          setSelectedYear={setSelectedYear}
+          setSelectedModel={setSelectedModel}
+          setSelectedBrand={setSelectedBrand}
+          selectedYear={selectedYear}
+          selectedModel={selectedModel}
+          selectedBrand={selectedBrand}
+          selectedTrim={selectedTrim}
+          setSelectedTrim={setSelectedTrim}
+        />
+      ),
     },
     {
       content: <FuelForm />,
@@ -31,9 +84,29 @@ export default function AddCarForm() {
       content: <OilForm />,
     },
     {
-      content: <InfoAboutCar />,
+      content: (
+        <Formik
+          initialValues={{ aceite: new Date(), neumaticos: new Date(), bateria: new Date(), kilometraje: "" }}
+          onSubmit={(values) => {}}
+          validationSchema={DetailsCarFormSchema}
+          validateOnMount
+        >
+          {({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, setFieldValue }) => (
+            <InfoAboutCar
+              values={values}
+              setFullData={setFullData}
+              touched={touched}
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              isValid={isValid}
+              handleSubmit={handleSubmit}
+              setFieldValue={setFieldValue}
+            />
+          )}
+        </Formik>
+      ),
     },
-  ]
+  ];
 
   function ConfimModal() {
     return (
@@ -72,10 +145,11 @@ export default function AddCarForm() {
               textAlign: "center",
               ...FONTS.Roboto_400Regular,
               fontSize: 12,
-              marginBottom: 30
+              marginBottom: 30,
             }}
           >
-            ¿Desea recibir notificaciones y sugerencias sobre el funcionamiento de tu vehículo?
+            ¿Desea recibir notificaciones y sugerencias sobre el funcionamiento
+            de tu vehículo?
           </Text>
           <View
             style={{
@@ -96,7 +170,7 @@ export default function AddCarForm() {
               }}
               onPress={() => {
                 setShowModal(false);
-                navigation.navigate('CreateCardSuccess')
+                navigation.navigate("CreateCardSuccess");
               }}
             >
               <Text
@@ -122,7 +196,7 @@ export default function AddCarForm() {
               }}
               onPress={() => {
                 setShowModal(false);
-                navigation.navigate('CreateCardSuccess')
+                navigation.navigate("CreateCardSuccess");
               }}
             >
               <Text
@@ -141,25 +215,26 @@ export default function AddCarForm() {
     );
   }
 
-
-
   return (
-    <ScrollView contentContainerStyle={{ flexDirection: "column", justifyContent: "space-around", paddingVertical: 40, height: '100%' }}>
+    <ScrollView
+      contentContainerStyle={{
+        flexDirection: "column",
+        justifyContent: "space-around",
+        paddingVertical: 40,
+        height: "100%",
+      }}
+    >
       {<ConfimModal />}
 
       <Wizard
         ref={wizard}
         steps={stepList}
-        isFirstStep={val => setIsFirstStep(val)}
-        isLastStep={val => setIsLastStep(val)}
-        onNext={() => {
-          
-        }}
-        onPrev={() => {
-         
-        }}
+        isFirstStep={(val) => setIsFirstStep(val)}
+        isLastStep={(val) => setIsLastStep(val)}
+        onNext={() => {}}
+        onPrev={() => {}}
         currentStep={({ currentStep, isLastStep, isFirstStep }) => {
-          setCurrentStep(currentStep)
+          setCurrentStep(currentStep);
         }}
       />
 
@@ -168,11 +243,14 @@ export default function AddCarForm() {
           style={{
             justifyContent: "space-between",
             flexDirection: "row",
-          }}>
-
+          }}
+        >
           <TouchableOpacity
-            disabled={isFirstStep}
-            onPress={() => wizard.current.prev()}
+            // disabled={isFirstStep}
+            onPress={() => {
+              if (currentStep == 0) return navigation.goBack()
+              wizard.current.prev()
+            }}
             style={{
               width: 100,
               height: 50,
@@ -186,22 +264,25 @@ export default function AddCarForm() {
             <Text
               style={{
                 textAlign: "center",
-                color: 'white',
+                color: "white",
                 fontSize: 16,
                 color: COLORS.white,
                 textTransform: "capitalize",
                 ...FONTS.Roboto_500Medium,
               }}
-            >Atrás</Text>
+            >
+             {currentStep == 0 ? "Salir" : "Atrás"}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             // disabled={isLastStep}
             onPress={() => {
               if (currentStep == 4) {
-                setShowModal(true)
+                addVehicleFn(fullData, {myYear, myMakes, myModels, myTrims},navigation, user?.token)
+                // setShowModal(true);
               }
-              wizard.current.next()
+              wizard.current.next();
             }}
             className="rounded-l-full"
             style={{
@@ -216,16 +297,19 @@ export default function AddCarForm() {
             <Text
               style={{
                 textAlign: "center",
-                color: 'white',
+                color: "white",
                 fontSize: 16,
                 color: COLORS.white,
                 textTransform: "capitalize",
                 ...FONTS.Roboto_500Medium,
               }}
-            > {currentStep == 4 ? 'Agregar vehículo' : 'Siguiente'}</Text>
+            >
+              {" "}
+              {currentStep == 4 ? "Agregar vehículo" : "Siguiente"}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
-  )
+  );
 }

@@ -1,9 +1,13 @@
 import Axios from "../../config/axiosConfig";
 // import {ERROR_UNKNOWN} from '../constants/messages';
 
-const get = async (url) => {
+const get = async (url, token = '') => {
     try {
-        return await Axios.get(url);
+        return await Axios.get(url, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
 
     } catch (error) {
         console.error('❌ Error ->', error);

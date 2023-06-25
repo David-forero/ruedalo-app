@@ -1,101 +1,207 @@
-import { Text, ScrollView } from "react-native";
-import { Picker } from "@react-native-picker/picker";
-import React, {  useState } from "react";
-import { COLORS  } from "../../../common/constants";
+import { Text, ScrollView, View, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { COLORS } from "../../../common/constants";
+import { useMyCarsContext } from "../../../context/MyCarsContext";
+import { Dropdown } from "react-native-element-dropdown";
+import { useAuthContext } from "../../../context/AuthContext";
+import { SelectList } from "react-native-dropdown-select-list";
 
-const CarForm = () => {
-    const [marca, setMarca] = useState(null)
-    const [selectModel, setSelectModel] = useState(null);
-    const [yearCar, setYearCar] = useState(null);
+const CarForm = ({
+  setSelectedBrand,
+  setSelectedModel,
+  setSelectedYear,
+  selectedYear,
+  selectedModel,
+  selectedBrand,
+  setSelectedTrim,
+  selectedTrim,
+  setMyYear,
+  setMyModels,
+  setMyMakes,
+  setMyTrims,
+}) => {
+  const {
+    models,
+    makes,
+    trims,
+    getModelsFn,
+    getMakesFn,
+    getYearsFn,
+    getTrimsFn,
+  } = useMyCarsContext();
+  const { user } = useAuthContext();
+  const [isFocusYear, setIsFocusYear] = useState(false);
+  const [isFocusMake, setIsFocusMake] = useState(false);
+  const [isFocusModel, setIsFocusModel] = useState(false);
+  const [isFocusTrim, setIsFocusTrim] = useState(false);
 
-    const [bateria, setBateria] = useState(new Date());
-    const [showBateria, setShowBateria] = useState(false);
+  useEffect(() => {
+    getMakesFn(user?.token);
+    getYearsFn(user?.token);
+  }, []);
 
-    return (
-        <ScrollView
-            style={{
-                paddingHorizontal: 30,
-                height: '80%'
-            }}
-        >
+  return (
+    <ScrollView
+      style={{
+        paddingHorizontal: 30,
+        height: "80%",
+      }}
+    >
+      <Text className="font-bold text-md mb-3 text-left text-gray-700">
+        Año del vehículo
+      </Text>
+      <Dropdown
+        style={[styles.dropdown, isFocusYear && { borderColor: "blue" }]}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={[{ label: "2020", value: "2020" }]}
+        search
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder={!isFocusYear ? "Selecciona el año" : "..."}
+        searchPlaceholder="Buscar el año de tu vehículo..."
+        value={selectedYear}
+        onFocus={() => setIsFocusYear(true)}
+        onBlur={() => setIsFocusYear(false)}
+        onChange={(item) => {
+          console.log(item);
+          getMakesFn(item, user?.token);
+          setMyYear(item.value);
+          setSelectedYear(item.value);
+          setIsFocusYear(false);
+        }}
+      />
 
-            <Text className='font-bold text-md mb-3 text-left text-gray-700 mt-5'>Marca del coche</Text>
-            <Picker
-                style={{
-                    width: "100%",
-                    height: 50,
-                    backgroundColor: COLORS.lightGray,
-                    borderRadius: 10,
-                    alignItems: "center",
-                    flexDirection: "row",
-                    paddingHorizontal: 20,
-                    marginBottom: 13
-                }}
-                mode="dropdown"
-                selectedValue={marca}
-                onValueChange={(itemValue, itemIndex) =>
-                    setMarca(itemValue)
-                }
-            >
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Ford" value="ve" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Renault" value="co" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Opel" value="ec" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Toyota" value="pe" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Chery" value="ch" />
-            </Picker>
+      <Text className="font-bold text-md mb-3 text-left text-gray-700 mt-5">
+        Marca del vehículo
+      </Text>
+      <Dropdown
+        style={[styles.dropdown, isFocusMake && { borderColor: "blue" }]}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={makes || []}
+        disable={!selectedYear || !makes}
+        search
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder={!isFocusMake ? "Selecciona la marca" : "..."}
+        searchPlaceholder="Buscar la marca de tu vehículo..."
+        value={selectedBrand}
+        onFocus={() => setIsFocusMake(true)}
+        onBlur={() => setIsFocusMake(false)}
+        onChange={(item) => {
+          getModelsFn(item, user?.token, selectedYear);
+          setSelectedBrand(item.value);
+          setMyMakes(item);
 
+          setIsFocusMake(false);
+        }}
+      />
 
-            <Text className='font-bold text-md mb-3 text-left text-gray-700'>Modelo</Text>
-            <Picker
-                style={{
-                    width: "100%",
-                    height: 50,
-                    backgroundColor: COLORS.lightGray,
-                    borderRadius: 20,
-                    alignItems: "center",
-                    flexDirection: "row",
-                    paddingHorizontal: 20,
-                    marginBottom: 13
-                }}
-                mode="dropdown"
-                selectedValue={selectModel}
-                onValueChange={(itemValue, itemIndex) =>
-                    setSelectModel(itemValue)
-                }>
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Modelo 1" value="ve" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Modelo 2" value="co" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Modelo 3" value="ec" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Modelo 4" value="pe" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="Modelo 5" value="ch" />
-            </Picker>
+      <Text className="font-bold text-md mb-3 text-left text-gray-700 mt-5">
+        Modelo
+      </Text>
 
-            <Text className='font-bold text-md mb-3 text-left text-gray-700'>Año</Text>
-            <Picker
-                style={{
-                    width: "100%",
-                    height: 50,
-                    backgroundColor: COLORS.lightGray,
-                    borderRadius: 20,
-                    alignItems: "center",
-                    flexDirection: "row",
-                    paddingHorizontal: 20,
-                    marginBottom: 13
-                }}
-                mode="dropdown"
-                selectedValue={yearCar}
-                onValueChange={(itemValue, itemIndex) =>
-                    setYearCar(itemValue)
-                }>
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="2008" value="ve" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="2009" value="co" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="2010" value="ec" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="2011" value="pe" />
-                <Picker.Item style={{ color: COLORS.gray2, marginLeft: 10 }} label="2012" value="ch" />
-            </Picker>
-           
-        </ScrollView>
+      <Dropdown
+        style={[styles.dropdown, isFocusModel && { borderColor: "blue" }]}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={models || []}
+        disable={!selectedBrand || !models}
+        search
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder={!isFocusModel ? "Selecciona el modelo" : "..."}
+        searchPlaceholder="Buscar el modelo de tu vehículo..."
+        value={selectedModel}
+        onFocus={() => setIsFocusModel(true)}
+        onBlur={() => setIsFocusModel(false)}
+        onChange={(item) => {
+          getTrimsFn(selectedYear, item, selectedBrand, user?.token);
+          setSelectedModel(item.value);
+          setMyModels(item);
+          setIsFocusModel(false);
+        }}
+      />
 
-    )
-}
+      <Text className="font-bold text-md mb-3 text-left text-gray-700 mt-5">
+        Ajuste automovil (Opcional)
+      </Text>
+      <Dropdown
+        style={[styles.dropdown, isFocusTrim && { borderColor: "blue" }]}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={trims || []}
+        disable={!trims || !selectedModel}
+        search
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder={!isFocusTrim ? "Selecciona el ajuste" : "..."}
+        searchPlaceholder="Buscar el ajuste de tu vehículo..."
+        value={selectedTrim}
+        onFocus={() => setIsFocusTrim(true)}
+        onBlur={() => setIsFocusTrim(false)}
+        onChange={(item) => {
+          getTrimsFn(selectedYear, item, selectedBrand, user?.token);
+          setMyTrims(item);
+          setSelectedTrim(item.value);
+          setIsFocusTrim(false);
+        }}
+      />
+    </ScrollView>
+  );
+};
 
-export default CarForm
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "white",
+    padding: 16,
+  },
+  dropdown: {
+    height: 50,
+    backgroundColor: COLORS.gray1,
+    borderRadius: 10,
+    paddingHorizontal: 8,
+    marginBottom: 10,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  label: {
+    position: "absolute",
+    backgroundColor: "white",
+    left: 22,
+    top: 8,
+    zIndex: 999,
+    paddingHorizontal: 8,
+    fontSize: 14,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
+});
+
+export default CarForm;

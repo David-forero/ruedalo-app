@@ -11,24 +11,27 @@ import StoreProvider from "../context/StoreContext";
 import OrdersProvider from "../context/OrdersContext";
 import UserProvider from "../context/UserContext";
 import ServicesProvider from "../context/ServicesContext";
+import MyCarsProvider from "../context/MyCarsContext";
 
 export default function Navigation() {
   return (
     <NavigationContainer>
       <AuthProvider>
         <UserProvider>
-          <StoreProvider>
-            <ServicesProvider>
-            <OrdersProvider>
-              <StatusBar
-                translucent={false}
-                backgroundColor={COLORS.orange}
-                barStyle={"light-content"}
-              />
-              <ProtectViews />
-            </OrdersProvider>
-            </ServicesProvider>
-          </StoreProvider>
+          <MyCarsProvider>
+            <StoreProvider>
+              <ServicesProvider>
+                <OrdersProvider>
+                  <StatusBar
+                    translucent={false}
+                    backgroundColor={COLORS.orange}
+                    barStyle={"light-content"}
+                  />
+                  <ProtectViews />
+                </OrdersProvider>
+              </ServicesProvider>
+            </StoreProvider>
+          </MyCarsProvider>
         </UserProvider>
       </AuthProvider>
       <FlashMessage position="top" />
