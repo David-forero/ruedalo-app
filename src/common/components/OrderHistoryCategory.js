@@ -20,7 +20,7 @@ export default function OrderHistoryCategory({ item, type }) {
             }}
         >
             <Image
-                source={{ uri: `https://backend.ruedalo.app/api/${item.product ? 'product' : 'avatar'}/${item.product ? item?.product?.image[0] : item?.commerce?.avatar[0]}`}}
+                source={{ uri: `https://backend.ruedalo.app/api/${item.type === 'product' ? 'product' : 'avatar'}/${item.type === 'product' ? item?.product?.image[0] : item?.commerce?.avatar[0]}`}}
                 style={{
                     width: 65,
                     height: 65,
@@ -62,7 +62,7 @@ export default function OrderHistoryCategory({ item, type }) {
                             color: COLORS.carrot,
                         }}
                     >
-                        Total: ${item?.total}
+                        Total: ${item?.total} 
                     </Text>
                 </View>
 
@@ -74,7 +74,7 @@ export default function OrderHistoryCategory({ item, type }) {
                         color: COLORS.black,
                     }}
                 >
-                    {item?.product?.title || item?.service?.description}
+                    {item.type == 'product' ? item?.product?.title : item?.service?.description}
                 </Text>
                 <View
                     style={{
@@ -150,7 +150,7 @@ export default function OrderHistoryCategory({ item, type }) {
                         </View>
                     )}
 
-                    {type == "completed" && (
+                    {/* {type == "completed" && (
                         <TouchableOpacity
                             style={{
                                 backgroundColor: COLORS.black2,
@@ -167,7 +167,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                 Re-Order
                             </Text>
                         </TouchableOpacity>
-                    )}
+                    )} */}
                 </View>
             </View>
         </View>

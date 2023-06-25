@@ -53,7 +53,7 @@ const OrdersProvider = ({ children }) => {
     );
     setLoading(false);
     setOrder(data.data);
-    console.log(data.data);
+    console.log('getOneOrder',data.data);
   }, []);
 
   return (

@@ -52,7 +52,7 @@ export default function Order() {
         }}
       >
         <View>
-          {loading ? (
+          {loading && order?.type ? (
             <View
               style={{
                 height: 206,
@@ -65,10 +65,10 @@ export default function Order() {
             ></View>
           ) : (
             <Image
-              // source={{
-              //   uri:
-              //     `https://backend.ruedalo.app/api/${order.product ? 'product' : 'avatar'}/${order.product ? order?.product?.image[0] : order?.commerce?.avatar[0]}`
-              // }}
+              source={{
+                uri:
+                  `https://backend.ruedalo.app/api/${order.type === 'product' ? 'product' : 'avatar'}/${order.type === 'product' ? order?.product?.image[0] : order?.commerce?.avatar[0]}`
+              }}
               style={{
                 height: 206,
                 width: "100%",
@@ -93,7 +93,7 @@ export default function Order() {
                 color: COLORS.black,
               }}
             >
-              {order?.product?.title}
+              {order?.product?.title || order?.service?.description}
             </Text>
           )}
 
@@ -113,7 +113,7 @@ export default function Order() {
                 fontSize: 14,
                 color: COLORS.gray2,
                 lineHeight: 14 * 1.4,
-                marginBottom: 10,
+                marginBottom: order?.product?.description ? 10 : 0,
               }}
             >
               {/* {description} */}
