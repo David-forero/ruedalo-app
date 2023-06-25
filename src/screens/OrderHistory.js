@@ -144,7 +144,7 @@ export default function OrderHistory() {
           </View>
         ) : (
           <>
-            {orders ? (
+            {orders.length > 0 ? (
               <>
                 {renderCategory()}
                 {category === "upcoming" ? renderUpcoming() : renderHistory()}
