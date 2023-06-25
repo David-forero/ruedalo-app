@@ -140,6 +140,7 @@ const MyCarsProvider = ({ children }) => {
   const deleteCarFn = useCallback(
     async (id, token, setLoadingDelete, setShowModal) => {
       const { data } = await post("/delete_car", { id }, token);
+      setShowModal(true)
       setLoadingDelete(false);
 
       if (data.status === 400) {
@@ -150,6 +151,7 @@ const MyCarsProvider = ({ children }) => {
         })
       }
 
+      
       setShowModal(false);
       console.log(data);
       showMessage({

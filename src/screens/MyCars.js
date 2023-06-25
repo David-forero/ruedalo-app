@@ -256,9 +256,10 @@ export default function MyCars() {
                 alignItems: "center",
                 marginHorizontal: 7.5,
               }}
-              onPress={() => {
+              onPress={async () => {
                 setLoadingDelete(true)
-                deleteCarFn(carId, user?.token, setLoadingDelete, setShowModal)
+                await deleteCarFn(carId, user?.token, setLoadingDelete, setShowModal);
+                getListCarsFn(user?.token, setLoading)
               }}
             >
               <Text
