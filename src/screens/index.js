@@ -42,6 +42,7 @@ import CreateOrderLoading from "./LoadingScreens/CreateOrderLoading";
 import ServicesDetails from "./ServicesDetails";
 import MyDocuments from "./Profile/MyDocuments";
 import MemberShip from "./Profile/MemberShip";
+import DetailsBanner from "./DetailsBanner";
 
 export {
     OnBoarding,
@@ -87,5 +88,6 @@ export {
     CreateOrderLoading,
     ServicesDetails,
     MyDocuments,
-    MemberShip
+    MemberShip,
+    DetailsBanner
 };

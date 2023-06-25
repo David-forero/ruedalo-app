@@ -26,30 +26,14 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
-import useLocation from "../common/hooks/useLocation";
 import { RefreshControl } from "react-native-gesture-handler";
-
-const banners = [
-  {
-    image: require("../assets/images/banners/banner1.jpg"),
-  },
-  {
-    image: require("../assets/images/banners/banner3.jpg"),
-  },
-
-  {
-    image: require("../assets/images/banners/banner2.jpg"),
-  },
-
-  {
-    image: require("../assets/images/banners/banner4.jpg"),
-  },
-];
+import { useUserContext } from "../context/UserContext";
 
 export default function Home() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
+  const [bannerStore, setBannerStore] = useState(null);
   const { user } = useAuthContext();
   const {
     getListProductsFn,
@@ -61,12 +45,15 @@ export default function Home() {
     loadingLocation,
     location,
   } = useStoreContext();
+  const {getBannersFn} = useUserContext();
 
   //My hooks
 
   useEffect(() => {
     async function init() {
       setLoading(true);
+      let banners = await getBannersFn('product', user?.token)
+      setBannerStore(banners)
       const { data } = await getListProductsFn(
         {
           latitude: location?.latitude,
@@ -417,7 +404,7 @@ export default function Home() {
       >
         {renderHeader()}
 
-        <SliderBanner data={banners} />
+        <SliderBanner data={bannerStore || []} />
 
         {renderCategories()}
         {renderPopularRestaurants()}

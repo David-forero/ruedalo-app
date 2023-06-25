@@ -1,34 +1,38 @@
+import { useNavigation } from "@react-navigation/native";
 import * as React from "react";
-import { View, Dimensions, Text, Image, ImageBackground } from "react-native";
 import {
-  useSharedValue,
-} from "react-native-reanimated";
+  View,
+  Dimensions,
+  Text,
+  Image,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
+import { useSharedValue } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
 
-const window =  Dimensions.get("window");
+const window = Dimensions.get("window");
 
 const PAGE_WIDTH = window.width;
 
-
-const SliderBanner = ({data, autoPlay = true, isVertical = false }) => {
+const SliderBanner = ({ data, autoPlay = true, isVertical = false }) => {
   const [snapEnabled, setSnapEnabled] = React.useState(true);
   const progressValue = useSharedValue(0);
+  const navigation = useNavigation();
   const baseOptions = isVertical
-    ? ({
-      vertical: true,
-      width: PAGE_WIDTH * 0.86,
-      height: '170px',
-    })
-    : ({
-      vertical: false,
-      width: PAGE_WIDTH,
-      height: PAGE_WIDTH * 0.4,
-    });
+    ? {
+        vertical: true,
+        width: PAGE_WIDTH * 0.86,
+        height: "170px",
+      }
+    : {
+        vertical: false,
+        width: PAGE_WIDTH,
+        height: PAGE_WIDTH * 0.4,
+      };
 
   return (
-    <View
-      className="items-center"
-    >
+    <View className="items-center">
       <Carousel
         {...baseOptions}
         className="h-[155px]"
@@ -47,12 +51,16 @@ const SliderBanner = ({data, autoPlay = true, isVertical = false }) => {
         }}
         data={data}
         renderItem={({ item }) => (
-          <Image  
-            source={item.image}
-            className="w-full h-full"
-            resizeMode="contain"
-            resizeMethod="scale"
-          />
+          <TouchableOpacity onPress={() => navigation.navigate("DetailsBanner", {item})}>
+            <Image
+              source={{
+                uri: "https://backend.ruedalo.app/api/banner/" + item.banner[0],
+              }}
+              className="w-full h-full"
+              resizeMode="contain"
+              resizeMethod="scale"
+            />
+          </TouchableOpacity>
         )}
       />
       {/* {!!progressValue && (
@@ -90,9 +98,8 @@ const SliderBanner = ({data, autoPlay = true, isVertical = false }) => {
           })}
         </View>
       )} */}
-     
     </View>
   );
-}
+};
 
-export default SliderBanner
+export default SliderBanner;

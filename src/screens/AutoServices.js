@@ -35,6 +35,7 @@ import {
 import { useServicesContext } from "../context/ServicesContext";
 import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
+import { useUserContext } from "../context/UserContext";
 
 const banners = [
   {
@@ -52,16 +53,17 @@ const AutoServices = () => {
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
   const {myPlace, location} = useStoreContext();
+  const [bannerServices, setBannerServices] = useState(null);
 
   const { populars, setPopulars, mostSells, setMostSells, getListServicessFn } =
     useServicesContext();
-
-  //My hooks
-
+  const {getBannersFn} = useUserContext();
 
   useEffect(() => {
     async function init() {
       setLoading(true);
+      let banners = await getBannersFn('service', user?.token)
+      setBannerServices(banners)
       const { data } = await getListServicessFn(
         {
           latitude: location?.latitude,
@@ -494,7 +496,7 @@ const AutoServices = () => {
       >
         {renderHeader()}
 
-        <SliderBanner data={banners} />
+        <SliderBanner data={bannerServices || []} />
 
         {renderCategories()}
         {renderPopularRestaurants()}

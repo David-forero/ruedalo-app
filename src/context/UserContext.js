@@ -9,7 +9,6 @@ import { post, upload } from "../common/functions/http";
 const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
-  const [user2, setUser] = useState(null);
   const [coordenates, setCoordenates] = useState(null);
   const [token, setToken] = useState(null);
 
@@ -36,9 +35,18 @@ const UserProvider = ({ children }) => {
     []
   );
 
-  const getUserFn = useCallback(async (data, token, setLoading) => {
-    // const myUser = await post("", form, token);
-    setLoading(false);
+  const getBannersFn = useCallback(async (type, token) => {
+    const { data } = await post(
+      "/list_campaign",
+      {
+        limit: 10,
+        offset: 0,
+      },
+      token
+    );
+    let rows = data.body.data.rows;
+    let res = rows.filter((item) => item.type === type);
+    return res;
   }, []);
 
   return (
@@ -49,7 +57,7 @@ const UserProvider = ({ children }) => {
         setCoordenates,
         //Functions
         updateUserFn,
-        getUserFn,
+        getBannersFn,
       }}
     >
       {children}
