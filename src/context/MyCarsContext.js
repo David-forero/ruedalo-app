@@ -95,8 +95,15 @@ const MyCarsProvider = ({ children }) => {
     setBoxes(data.body.data);
   }, []);
 
+  const getListCarsFn = useCallback(async (token, setLoading) => {
+    const { data } = await get("/list_cars", token);
+    setLoading(false);
+    setListCars(data.body.data.rows);
+  }, []);
+
   const addVehicleFn = useCallback(
     async (fullData, otherData, navigation, token) => {
+      console.log(selectAceite);
       const prepareData = {
         alias: "Mi vehiculo test",
         year: otherData.myYear,
@@ -124,23 +131,20 @@ const MyCarsProvider = ({ children }) => {
           type: "danger",
         });
       } else {
+        getListCarsFn(token);
         navigation.navigate("CreateCardSuccess");
-        getListCarsFn(token)
+        setSelectAceite(null);
+        setCombustible(null);
+        setSelectCaja(null);
       }
     },
-    []
+    [selectAceite, combustible, selectCaja]
   );
-
-  const getListCarsFn = useCallback(async (token, setLoading) => {
-    const { data } = await get("/list_cars", token);
-    setLoading(false);
-    setListCars(data.body.data.rows);
-  }, []);
 
   const deleteCarFn = useCallback(
     async (id, token, setLoadingDelete, setShowModal) => {
       const { data } = await post("/delete_car", { id }, token);
-      setShowModal(true)
+      setShowModal(true);
       setLoadingDelete(false);
 
       if (data.status === 400) {
@@ -148,17 +152,16 @@ const MyCarsProvider = ({ children }) => {
           message: "Error al eliminar un vehículo",
           description: data.message,
           type: "danger",
-        })
+        });
       }
 
-      
       setShowModal(false);
       console.log(data);
       showMessage({
         message: "Vehículo eliminado",
-        description: 'Vehículo eliminado correctamente',
+        description: "Vehículo eliminado correctamente",
         type: "success",
-      })
+      });
     },
     []
   );
