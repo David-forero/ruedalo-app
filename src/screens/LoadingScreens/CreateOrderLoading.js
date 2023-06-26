@@ -37,7 +37,7 @@ const CreateOrderLoading = () => {
           unit: Number(unit),
           id_paycommerce,
           id_shipping,
-          amount_cash,
+          amount_cash: amount_cash || 0,
           type
         },
         user?.token
