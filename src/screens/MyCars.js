@@ -56,7 +56,7 @@ export default function MyCars() {
           <ActivityIndicator size={"large"} color={COLORS.orange} />
         ) : (
           <>
-            {listCars.length > 0 ? (
+            {listCars?.length > 0 ? (
               listCars.map((item, index) => {
                 return (
                   <Shadow
