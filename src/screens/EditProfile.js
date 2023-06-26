@@ -185,7 +185,7 @@ export default function EditProfile() {
                 }}
                 onPress={handleSubmit}
               />
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => navigation.navigate("ChangePassword")}
               >
                 <Text
@@ -198,7 +198,7 @@ export default function EditProfile() {
                 >
                   Cambiar contraseña
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </>
           )}
         </Formik>
