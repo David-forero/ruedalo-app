@@ -67,7 +67,7 @@ export default function Order() {
             <Image
               source={{
                 uri:
-                  `https://backend.ruedalo.app/api/${order.type === 'product' ? 'product' : 'avatar'}/${order.type === 'product' ? order?.product?.image[0] : order?.commerce?.avatar[0]}`
+                  `https://backend.ruedalo.app/api/${order?.type === 'product' ? 'product' : 'avatar'}/${order?.type === 'product' ? order?.product?.image[0] : order?.commerce?.avatar[0]}`
               }}
               style={{
                 height: 206,
