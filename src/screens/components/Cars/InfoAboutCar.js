@@ -1,12 +1,10 @@
 import { Text, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import React, { useRef, useState } from "react";
+import { useState, useEffect } from "react";
 import { InputField } from "../../../common/components";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { COLORS } from "../../../common/constants";
 import dayjs from "dayjs";
-import { useEffect } from "react";
-import { useMyCarsContext } from "../../../context/MyCarsContext";
 
 const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFullData }) => {
   const [showAceite, setShowAceite] = useState(false);
@@ -15,7 +13,6 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
 
   useEffect(() => {
     async function init() {
-      console.log(values);
       await setFullData(values);
     }
     init();

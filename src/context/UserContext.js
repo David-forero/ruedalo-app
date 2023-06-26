@@ -101,6 +101,19 @@ const UserProvider = ({ children }) => {
     []
   );
 
+  const getListDocsFn = useCallback(async (type, token) => {
+    const { data } = await post(
+      "/list_campaign",
+      {
+        limit: 10,
+        offset: 0,
+      },
+      token
+    );
+    console.log(data);
+    return data;
+  }, []);
+
   return (
     <UserContext.Provider
       value={{
@@ -111,6 +124,7 @@ const UserProvider = ({ children }) => {
         updateUserFn,
         getBannersFn,
         paySubscriptionFn,
+        getListDocsFn
       }}
     >
       {children}
