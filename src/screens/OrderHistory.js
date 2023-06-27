@@ -92,7 +92,7 @@ export default function OrderHistory() {
   }
 
   function renderUpcoming() {
-    return orders.rows.map((item, index) => {
+    return orders?.rows?.map((item, index) => {
       return (
         item.status !== "completed" && (
           <TouchableOpacity
@@ -107,7 +107,7 @@ export default function OrderHistory() {
   }
 
   function renderHistory() {
-    return orders.rows.map((item, index) => {
+    return orders?.rows?.map((item, index) => {
       return (
         item.status === "completed" && (
           <TouchableOpacity
