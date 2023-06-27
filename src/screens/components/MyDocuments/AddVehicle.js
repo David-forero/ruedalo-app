@@ -15,12 +15,17 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { Dropdown } from "react-native-element-dropdown";
+import { useAuthContext } from "../../../context/AuthContext";
+import { useUserContext } from "../../../context/UserContext";
 
-const AddVehicle = ({ showModal, setShowModal }) => {
+const AddVehicle = ({ showModal, setShowModal, isUpdate = false, dataEdit }) => {
   const [showExpirationDoc, setShowExpirationDoc] = useState(false);
   const [showEmisionDoc, setShowEmisionDoc] = useState(false);
   const [isFocusType, setIsFocusType] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const {user} = useAuthContext();
+  const {saveDocumentVehicleFn, getListDocsFn} = useUserContext()
 
   const AddVehicleSchema = Yup.object().shape({
     emission_date: Yup.string().required("Campo requerido"),
@@ -40,20 +45,23 @@ const AddVehicle = ({ showModal, setShowModal }) => {
     >
       <Formik
         initialValues={{
-          emission_date: new Date(),
-          expiration_date: new Date(),
-          type: "",
+          emission_date: dataEdit?.emission_date || new Date(),
+          expiration_date: dataEdit?.expiration_date || new Date(),
+          type: dataEdit?.type || "",
         }}
-        onSubmit={(values) => {
+        onSubmit={async (values) => {
           setLoading(true);
-          //   setShowModal(false);
-          console.log(values);
-          // logOutFn(navigation);
+          if (isUpdate) {
+            
+          }else{
+            await saveDocumentVehicleFn(values, setLoading, user?.token, setShowModal);
+          }
+          getListDocsFn(user?.token, setLoading);
         }}
         validationSchema={AddVehicleSchema}
         validateOnMount
       >
-        {({ handleSubmit, setFieldValue, errors, values, touched }) => (
+        {({ handleSubmit, setFieldValue, errors, values, touched, isValid }) => (
           <View
             style={{
               width: SIZES.width - 60,
@@ -73,16 +81,16 @@ const AddVehicle = ({ showModal, setShowModal }) => {
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
-              data={[{ label: "2020", value: "2020" }]}
+              data={[{ label: "RCV", value: "RCV" }, { label: "License", value: "License" }, { label: "Medic", value: "Medic" },]}
               maxHeight={300}
               labelField="label"
               valueField="value"
+              disable={isUpdate}
               placeholder={!isFocusType ? "Selecciona" : "..."}
               value={values.type}
               onFocus={() => setIsFocusType(true)}
               onBlur={() => setIsFocusType(false)}
               onChange={(item) => {
-                console.log(item);
                 setFieldValue("type", item.value);
                 setIsFocusType(false);
               }}
@@ -119,14 +127,16 @@ const AddVehicle = ({ showModal, setShowModal }) => {
               />
             )}
 
-            <Text className="font-bold text-md mb-3 text-left text-gray-700">
-              Fecha de vencimiento
-            </Text>
-            <InputField
-              editable={false}
-              value={dayjs(values.expiration_date).format("DD/MM/YYYY")}
-              contaynerStyle={{ marginBottom: 13 }}
-            />
+            <TouchableOpacity onPress={() => setShowExpirationDoc(true)}>
+              <Text className="font-bold text-md mb-3 text-left text-gray-700">
+                Fecha de vencimiento
+              </Text>
+              <InputField
+                editable={false}
+                value={dayjs(values.expiration_date).format("DD/MM/YYYY")}
+                contaynerStyle={{ marginBottom: 13 }}
+              />
+            </TouchableOpacity>
 
             {showExpirationDoc && (
               <DateTimePicker
@@ -185,8 +195,9 @@ const AddVehicle = ({ showModal, setShowModal }) => {
                   justifyContent: "center",
                   alignItems: "center",
                   marginHorizontal: 7.5,
+                  opacity: isValid ? 1 : 0.5
                 }}
-                onPress={() => handleSubmit}
+                onPress={handleSubmit}
               >
                 <Text
                   style={{

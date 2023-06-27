@@ -3,18 +3,18 @@ import {
   createContext,
   useState,
   useCallback,
-  useEffect,
 } from "react";
 import {
   useStripe,
 } from "@stripe/stripe-react-native";
-import { post, upload } from "../common/functions/http";
-import { Alert } from "react-native";
+import { post, upload, get } from "../common/functions/http";
+import { showMessage } from "react-native-flash-message";
+
 const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
   const [coordenates, setCoordenates] = useState(null);
-  const [token, setToken] = useState(null);
+  const [documentsVehicles, setDocumentsVehicles] = useState(false);
   const stripe = useStripe();
 
   const updateUserFn = useCallback(
@@ -65,53 +65,89 @@ const UserProvider = ({ children }) => {
         token
       );
 
+      let session = data.session;
+
       const { error } = await stripe.initPaymentSheet({
-        customerId: data.data.sessionId,
+        customerId: session.customer.id,
         merchantDisplayName: 'Ruédalo',
         defaultShippingDetails: false,
+        customerEphemeralKeySecret: session.ephemeralKey.secret,
         googlePay: true,
         primaryButtonLabel: "Pagar",
-        setupIntentClientSecret: data.data.client_secret.client_secret
+        paymentIntentClientSecret: session.paymentIntent.client_secret,
+        setupIntentClientSecret: session.paymentIntent.client_secret
       });
 
       if (error) {
-        console.log(`Error code: ${error.code}, message: ${error.message}`);
+        console.error('⭕️',error);
       } else {
         console.log("Success!!");
       }
 
       const presentSheet = await stripe.presentPaymentSheet({
-        clientSecret: data.data.client_secret.client_secret,
+        clientSecret: session.client_secret.client_secret,
       });
       if (presentSheet.error) {
-        console.log(`Error code: ${presentSheet.code}, message: ${presentSheet.message}`);
+        console.log(`⭕️ Error presentPaymentSheet: ${JSON.stringify(presentSheet.error, null, 2)}`);
       } else {
         console.log("Success presentSheet");
 
       }
-
-      // await stripe.initPaymentSheet({
-      //   customerId: '',
-      //   merchantDisplayName: 'Ruédalo',
-      //   paymentIntentClientSecret: '',
-      //   customerEphemeralKeySecret: '',
-      //   setupIntentClientSecret: data.data.client_secret.client_secret
-      // });
     },
     []
   );
 
-  const getListDocsFn = useCallback(async (type, token) => {
-    const { data } = await post(
-      "/list_campaign",
-      {
-        limit: 10,
-        offset: 0,
-      },
+  const getListDocsFn = useCallback(async (token, setLoading) => {
+    const {data} = await get(
+      "/list_docs",
+      token
+    );
+    setLoading(false)
+    setDocumentsVehicles(data.body.data.rows);
+  }, []);
+
+  const deleteDocumentVehicleFn = useCallback(async (id, token, setLoading) => {
+    setLoading(true);
+    console.log(id);
+    const {data} = await post(
+      "/delete_doc",
+      {id},
       token
     );
     console.log(data);
-    return data;
+    getListDocsFn(token, setLoading);
+  }, []);
+
+  const saveDocumentVehicleFn = useCallback(async (formData, setLoading, token, setShowModal) => {
+    const { data } = await post(
+      "/register_doc",
+      formData,
+      token
+    );
+    
+    setLoading(false);
+    setShowModal(false);
+
+    showMessage({
+      message: 'Documento del vehiculo agregado',
+      type: "success",
+    });
+  }, []);
+
+  const updateDocumentVehicleFn = useCallback(async (formData, setLoading, token, setShowModal) => {
+    const { data } = await post(
+      "/update_doc",
+      formData,
+      token
+    );
+    
+    setLoading(false);
+    setShowModal(false);
+
+    showMessage({
+      message: 'Documento del vehiculo agregado',
+      type: "success",
+    });
   }, []);
 
   return (
@@ -119,12 +155,16 @@ const UserProvider = ({ children }) => {
       value={{
         //Variables
         coordenates,
+        documentsVehicles,
         setCoordenates,
         //Functions
         updateUserFn,
         getBannersFn,
         paySubscriptionFn,
-        getListDocsFn
+        getListDocsFn,
+        saveDocumentVehicleFn,
+        deleteDocumentVehicleFn,
+        updateDocumentVehicleFn
       }}
     >
       {children}

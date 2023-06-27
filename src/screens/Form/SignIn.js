@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   TextInput,
+  TouchableHighlight,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -24,7 +25,7 @@ import * as Google from "expo-auth-session/providers/google";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Ionicons } from "@expo/vector-icons";
-
+import { Entypo } from '@expo/vector-icons';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -76,6 +77,11 @@ export default function SignIn() {
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
       <LoadingFullScreen isLoading={loadingGoogle} />
+      <View className="flex-row-reverse items-center px-4 py-1">
+      <TouchableHighlight onPress={() => navigation.navigate("OnBoarding")} >
+      <Entypo name="info-with-circle" size={24} color="#2d2d2d" />
+      </TouchableHighlight>
+      </View>
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
