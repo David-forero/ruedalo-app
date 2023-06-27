@@ -1,12 +1,5 @@
-import {
-  useContext,
-  createContext,
-  useState,
-  useCallback,
-} from "react";
-import {
-  useStripe,
-} from "@stripe/stripe-react-native";
+import { useContext, createContext, useState, useCallback } from "react";
+import { useStripe } from "@stripe/stripe-react-native";
 import { post, upload, get } from "../common/functions/http";
 import { showMessage } from "react-native-flash-message";
 
@@ -55,12 +48,11 @@ const UserProvider = ({ children }) => {
   }, []);
 
   const paySubscriptionFn = useCallback(
-    async (priceId = "", email, navigation, setLoading, token) => {
+    async (priceId = "", navigation, setLoading, token, setUser) => {
       const { data } = await post(
         "/create_payment",
         {
           priceId,
-          email: "david@gamil.com",
         },
         token
       );
@@ -69,17 +61,17 @@ const UserProvider = ({ children }) => {
 
       const { error } = await stripe.initPaymentSheet({
         customerId: session.customer.id,
-        merchantDisplayName: 'Ruédalo',
+        merchantDisplayName: "Ruédalo",
         defaultShippingDetails: false,
         customerEphemeralKeySecret: session.ephemeralKey.secret,
         googlePay: true,
         primaryButtonLabel: "Pagar",
         paymentIntentClientSecret: session.paymentIntent.client_secret,
-        setupIntentClientSecret: session.paymentIntent.client_secret
+        setupIntentClientSecret: session.paymentIntent.client_secret,
       });
 
       if (error) {
-        console.error('⭕️',error);
+        console.error("⭕️", error);
       } else {
         console.log("Success!!");
       }
@@ -87,68 +79,81 @@ const UserProvider = ({ children }) => {
       const presentSheet = await stripe.presentPaymentSheet({
         clientSecret: session.client_secret.client_secret,
       });
+      setLoading(false);
       if (presentSheet.error) {
-        console.log(`⭕️ Error presentPaymentSheet: ${JSON.stringify(presentSheet.error, null, 2)}`);
+        console.log(
+          `⭕️ Error presentPaymentSheet: ${JSON.stringify(
+            presentSheet.error,
+            null,
+            2
+          )}`
+        );
       } else {
-        console.log("Success presentSheet");
+        const { data } = await post(
+          "/check_payment",
+          {
+            paymentId: session.paymentIntent.id,
+          },
+          token
+        );
 
+        if (data.status === true || data.status == 200) {
+          showMessage({
+            message: "Subscripción Aprobada",
+            description: data.message,
+            type: "success",
+          });
+          setUser(data.data)
+          navigation.goBack();
+        }
       }
     },
     []
   );
 
   const getListDocsFn = useCallback(async (token, setLoading) => {
-    const {data} = await get(
-      "/list_docs",
-      token
-    );
-    setLoading(false)
+    const { data } = await get("/list_docs", token);
+    setLoading(false);
     setDocumentsVehicles(data.body.data.rows);
   }, []);
 
   const deleteDocumentVehicleFn = useCallback(async (id, token, setLoading) => {
     setLoading(true);
     console.log(id);
-    const {data} = await post(
-      "/delete_doc",
-      {id},
-      token
-    );
+    const { data } = await post("/delete_doc", { id }, token);
     console.log(data);
     getListDocsFn(token, setLoading);
   }, []);
 
-  const saveDocumentVehicleFn = useCallback(async (formData, setLoading, token, setShowModal) => {
-    const { data } = await post(
-      "/register_doc",
-      formData,
-      token
-    );
-    
-    setLoading(false);
-    setShowModal(false);
+  const saveDocumentVehicleFn = useCallback(
+    async (formData, setLoading, token, setShowModal) => {
+      const { data } = await post("/register_doc", formData, token);
 
-    showMessage({
-      message: 'Documento del vehiculo agregado',
-      type: "success",
-    });
-  }, []);
+      setLoading(false);
+      setShowModal(false);
 
-  const updateDocumentVehicleFn = useCallback(async (formData, setLoading, token, setShowModal) => {
-    const { data } = await post(
-      "/update_doc",
-      formData,
-      token
-    );
-    
-    setLoading(false);
-    setShowModal(false);
+      showMessage({
+        message: "Documento del vehiculo agregado",
+        type: "success",
+      });
+    },
+    []
+  );
 
-    showMessage({
-      message: 'Documento del vehiculo agregado',
-      type: "success",
-    });
-  }, []);
+  const updateDocumentVehicleFn = useCallback(
+    async (formData, setLoading, token, setShowModal) => {
+      const { data } = await post("/update_doc", formData, token);
+
+      setLoading(false);
+      setShowModal(false);
+
+      showMessage({
+        message: "Documento del vehiculo agregado",
+        type: "success",
+      });
+    },
+    []
+  );
 
   return (
     <UserContext.Provider
@@ -164,7 +169,7 @@ const UserProvider = ({ children }) => {
         getListDocsFn,
         saveDocumentVehicleFn,
         deleteDocumentVehicleFn,
-        updateDocumentVehicleFn
+        updateDocumentVehicleFn,
       }}
     >
       {children}

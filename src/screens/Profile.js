@@ -9,11 +9,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
-
+import { FontAwesome } from "@expo/vector-icons";
 import { ProfileCategory } from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 import { useAuthContext } from "../context/AuthContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Profile() {
   const navigation = useNavigation();
@@ -43,7 +42,7 @@ export default function Profile() {
             textTransform: "capitalize",
           }}
         >
-          Perfil
+          Perfil 
         </Text>
       </View>
     );
@@ -59,7 +58,7 @@ export default function Profile() {
           paddingBottom: 20,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
+        <TouchableOpacity onPress={() => navigation.navigate("EditProfile")} className="mb-4">
           {user?.avatar ? (
             <Image
               source={{
@@ -98,6 +97,16 @@ export default function Profile() {
           >
             {user?.name} {user?.lastname}
           </Text>
+        
+          {user?.plan == 2 ? (
+           <View className="flex items-center justify-center mt-1">
+             <View className="p-1 w-28 rounded-full bg-gray-800 flex-row items-center justify-center space-x-2 ">
+              <Text className="text-orange-600 font-bold text-xs"> Premium</Text>
+              <FontAwesome name="diamond" size={13} color={COLORS.orange} />
+            </View>
+           </View>
+          ) : null}
+
           {!user?.name && (
             <Text
               style={{
@@ -134,13 +143,17 @@ export default function Profile() {
           iconBgColor={COLORS.lightLilac}
           onPress={() => navigation.navigate("Notifications")}
         />
-        <ProfileCategory
-          icon={require("../assets/icons/coupon.png")}
-          title="Membresia"
-          subtitle="Obtenga beneficios"
-          onPress={() => navigation.navigate("MemberShip")}
-          iconBgColor={COLORS.lightLilac}
-        />
+
+        {user?.plan == 2 || !user?.phone ? null : (
+          <ProfileCategory
+            icon={require("../assets/icons/coupon.png")}
+            title="Membresia"
+            subtitle="Obtenga beneficios"
+            onPress={() => navigation.navigate("MemberShip")}
+            iconBgColor={COLORS.lightLilac}
+          />
+        )}
+
         <ProfileCategory
           icon={require("../assets/icons/faq.png")}
           title="FAQ"

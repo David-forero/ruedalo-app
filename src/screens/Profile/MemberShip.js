@@ -2,18 +2,16 @@ import { SafeAreaView, Text, View } from "react-native";
 import { useUserContext } from "../../context/UserContext";
 import { useAuthContext } from "../../context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SAFEAREAVIEW } from "../../common/constants";
 import { Button, Header } from "../../common/components";
 import Lottie from "lottie-react-native";
 
 const MemberShip = () => {
   const { paySubscriptionFn } = useUserContext();
-  const { user } = useAuthContext();
+  const { user, setUser } = useAuthContext();
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-
-  useEffect(() => {}, []);
 
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
@@ -38,15 +36,17 @@ const MemberShip = () => {
         <View className="w-2/4 mb-10">
           <Button
             title="Pagar con 5$"
-            onPress={() =>
+            loading={loading}
+            onPress={() => {
+              setLoading(true);
               paySubscriptionFn(
                 "price_1NLqqLGFUPnOrSP5iiNHqQnP",
-                user?.email,
                 navigation,
                 setLoading,
-                user?.token
-              )
-            }
+                user?.token,
+                setUser
+              );
+            }}
           />
         </View>
       </View>

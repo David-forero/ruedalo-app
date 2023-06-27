@@ -47,6 +47,11 @@ export default function AddCarForm() {
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedTrim, setSelectedTrim] = useState(null);
 
+  const [kilometraje, setKilometraje] = useState(null);
+  const [dateAceite, setDateAceite] = useState(null);
+  const [dateCauchos, setDateCauchos] = useState(null);
+  
+
   const DetailsCarFormSchema = Yup.object().shape({
     aceite: Yup.string().required("Campo requerido"),
     neumaticos: Yup.string().required("Campo requerido"),
