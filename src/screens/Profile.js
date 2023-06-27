@@ -144,7 +144,7 @@ export default function Profile() {
           onPress={() => navigation.navigate("Notifications")}
         />
 
-        {user?.plan == 2 || !user?.phone ? null : (
+        {/* {user?.plan !== 2 || !user?.phone ? null : (
           <ProfileCategory
             icon={require("../assets/icons/coupon.png")}
             title="Membresia"
@@ -152,7 +152,15 @@ export default function Profile() {
             onPress={() => navigation.navigate("MemberShip")}
             iconBgColor={COLORS.lightLilac}
           />
-        )}
+        )} */}
+
+<ProfileCategory
+            icon={require("../assets/icons/coupon.png")}
+            title="Membresia"
+            subtitle="Obtenga beneficios"
+            onPress={() => navigation.navigate("MemberShip")}
+            iconBgColor={COLORS.lightLilac}
+          />
 
         <ProfileCategory
           icon={require("../assets/icons/faq.png")}
