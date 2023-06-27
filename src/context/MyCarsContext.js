@@ -1,5 +1,6 @@
 import { useContext, createContext, useState, useCallback } from "react";
 import { post, get } from "../common/functions/http";
+import { validationFormForMyCar } from "../common/functions/customValidation";
 import dayjs from "dayjs";
 import { showMessage } from "react-native-flash-message";
 
@@ -103,35 +104,43 @@ const MyCarsProvider = ({ children }) => {
 
   const addVehicleFn = useCallback(
     async (fullData, otherData, navigation, token) => {
-      console.log(selectAceite);
       const prepareData = {
         alias: "Mi vehiculo test",
-        year: otherData.myYear,
-        odometro: fullData.kilometraje,
-        oil_date: dayjs(fullData.aceite).format("YYYY-MM-DD"),
-        tire_date: dayjs(fullData.neumaticos).format("YYYY-MM-DD"),
-        battery_date: dayjs(fullData.bateria).format("YYYY-MM-DD"),
-        id_make: otherData.myMakes.value,
-        make: otherData.myMakes.label,
-        id_model: otherData.myModels.value,
-        model: otherData.myModels.label,
+        year: otherData?.myYear,
+        odometro: fullData?.kilometraje,
+        oil_date: dayjs(fullData?.aceite).format("YYYY-MM-DD"),
+        tire_date: dayjs(fullData?.neumaticos).format("YYYY-MM-DD"),
+        battery_date: dayjs(fullData?.bateria).format("YYYY-MM-DD"),
+        id_make: otherData?.myMakes?.value,
+        make: otherData?.myMakes?.label,
+        id_model: otherData?.myModels?.value,
+        model: otherData?.myModels?.label,
         id_trim: otherData?.myTrims?.value,
         trim: "a",
-        trim_description: otherData?.myTrims.label,
+        trim_description: otherData?.myTrims?.label,
         id_oil: selectAceite,
         id_fuel: combustible,
         id_box: selectCaja,
       };
-      console.log(prepareData);
+
+      let validation = validationFormForMyCar(prepareData)
+
+     if (validation.error) {
+      return showMessage({
+        message: "Error al guardar vehículo",
+        description: validation.message,
+        type: "danger",
+      });
+     }
+
       const { data } = await post("/register_car", prepareData, token);
       if (data.status == 400) {
         return showMessage({
           message: "Error al guardar vehículo",
-          description: res.data.message,
+          description: data.data.message,
           type: "danger",
         });
       } else {
-        getListCarsFn(token);
         navigation.navigate("CreateCardSuccess");
         setSelectAceite(null);
         setCombustible(null);
