@@ -129,7 +129,7 @@ export default function PaymentMethodOne() {
                 {isAmount && item.paymethod.name === "Efectivo" ? (
                   <View>
                     <InputField
-                      placeholder="¿Cuando efectivo pagarás?"
+                      placeholder="¿Cuanto efectivo pagarás?"
                       value={cash}
                       onChangeText={setCash}
                       keyboardType="numeric"

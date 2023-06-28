@@ -55,7 +55,9 @@ const CreateOrderLoading = () => {
         navigation.goBack();
       }
     }
+   setTimeout(() => {
     init();
+   }, 4000);
 
     return () => backHandler.remove();
   }, [product, amount]);
