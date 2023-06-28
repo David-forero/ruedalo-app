@@ -42,7 +42,7 @@ export default function Profile() {
             textTransform: "capitalize",
           }}
         >
-          Perfil 
+          Perfil
         </Text>
       </View>
     );
@@ -58,7 +58,10 @@ export default function Profile() {
           paddingBottom: 20,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate("EditProfile")} className="mb-4">
+        <TouchableOpacity
+          onPress={() => navigation.navigate("EditProfile")}
+          className="mb-4"
+        >
           {user?.avatar ? (
             <Image
               source={{
@@ -97,14 +100,17 @@ export default function Profile() {
           >
             {user?.name} {user?.lastname}
           </Text>
-        
+
           {user?.plan == 2 ? (
-           <View className="flex items-center justify-center mt-1">
-             <View className="p-1 w-28 rounded-full bg-gray-800 flex-row items-center justify-center space-x-2 ">
-              <Text className="text-orange-600 font-bold text-xs"> Premium</Text>
-              <FontAwesome name="diamond" size={13} color={COLORS.orange} />
+            <View className="flex items-center justify-center mt-1">
+              <View className="p-1 w-28 rounded-full bg-gray-800 flex-row items-center justify-center space-x-2 ">
+                <Text className="text-orange-600 font-bold text-xs">
+                  {" "}
+                  Premium
+                </Text>
+                <FontAwesome name="diamond" size={13} color={COLORS.orange} />
+              </View>
             </View>
-           </View>
           ) : null}
 
           {!user?.name && (
@@ -129,13 +135,13 @@ export default function Profile() {
           onPress={() => navigation.navigate("MyDocuments")}
           iconBgColor={COLORS.lightLilac}
         />
-        {/* <ProfileCategory
-                    icon={require("../assets/icons/payment.png")}
-                    title="Métodos de pagos"
-                    subtitle="Selecciona tu metodo de pago por defecto"
-                    iconBgColor={COLORS.lightLilac}
-                    onPress={() => navigation.navigate("PaymentMethodTwo")}
-                /> */}
+        <ProfileCategory
+          icon={require("../assets/icons/payment.png")}
+          title="Transacciones"
+          subtitle="Revisa los últimos pagos en la app"
+          iconBgColor={COLORS.lightLilac}
+          onPress={() => navigation.navigate("PaymentMethodTwo")}
+        />
         <ProfileCategory
           icon={require("../assets/icons/notification.png")}
           title="Notificaciones"
@@ -144,7 +150,7 @@ export default function Profile() {
           onPress={() => navigation.navigate("Notifications")}
         />
 
-        {/* {user?.plan !== 2 || !user?.phone ? null : (
+        {user?.plan !== 2 || !user?.phone ? null : (
           <ProfileCategory
             icon={require("../assets/icons/coupon.png")}
             title="Membresia"
@@ -152,15 +158,7 @@ export default function Profile() {
             onPress={() => navigation.navigate("MemberShip")}
             iconBgColor={COLORS.lightLilac}
           />
-        )} */}
-
-<ProfileCategory
-            icon={require("../assets/icons/coupon.png")}
-            title="Membresia"
-            subtitle="Obtenga beneficios"
-            onPress={() => navigation.navigate("MemberShip")}
-            iconBgColor={COLORS.lightLilac}
-          />
+        )}
 
         <ProfileCategory
           icon={require("../assets/icons/faq.png")}

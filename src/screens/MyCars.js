@@ -52,9 +52,7 @@ export default function MyCars() {
           />
         }
       >
-        {loading ? (
-          <ActivityIndicator size={"large"} color={COLORS.orange} />
-        ) : (
+        {loading ? null : (
           <>
             {listCars?.length > 0 ? (
               listCars.map((item, index) => {

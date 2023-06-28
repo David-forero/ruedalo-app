@@ -34,6 +34,7 @@ export default function Order() {
   useEffect(() => {
     setLoading(true);
     getOneOrder(id, user?.token, setLoading);
+    console.log(order);
   }, []);
 
   const openWhatsAppChat = (phoneNumber) => {
@@ -335,7 +336,7 @@ export default function Order() {
           </>
         ) : (
           <Button
-            title={"Chatear con el vendedor"}
+            title={`Chatear con el vendedor ${order?.commerce.phone}`}
             containerStyle={{ marginBottom: 20, marginTop: 60 }}
             onPress={() => openWhatsAppChat(order?.commerce.phone)}
             icon={<FontAwesome name="whatsapp" size={20} color="white" />}
