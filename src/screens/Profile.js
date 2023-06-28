@@ -150,7 +150,7 @@ export default function Profile() {
           onPress={() => navigation.navigate("Notifications")}
         />
 
-        {user?.plan !== 2 || !user?.phone ? null : (
+        {user?.plan !== 2 ? null : (
           <ProfileCategory
             icon={require("../assets/icons/coupon.png")}
             title="Membresia"

@@ -17,6 +17,7 @@ import { Header, Remove } from "../common/components";
 import { SAFEAREAVIEW, COLORS, SIZES, FONTS } from "../common/constants";
 import { useMyCarsContext } from "../context/MyCarsContext";
 import { useAuthContext } from "../context/AuthContext";
+import dayjs from "dayjs";
 
 export default function MyCars() {
   const navigation = useNavigation();
@@ -39,7 +40,7 @@ export default function MyCars() {
           paddingHorizontal: 30,
           flexGrow: 1,
           paddingVertical: SIZES.paddingVertical,
-          marginTop: 10
+          marginTop: 10,
         }}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -57,106 +58,79 @@ export default function MyCars() {
             {listCars?.length > 0 ? (
               listCars.map((item, index) => {
                 return (
-                  <Shadow
-                    startColor={COLORS.shadowStartColor}
-                    finalColor={COLORS.shadowFinalColor}
-                    distance={COLORS.shadowDistance}
+                  <TouchableOpacity
                     key={index}
-                    viewStyle={{
-                      marginBottom: 30,
+                    style={{
                       width: "100%",
+                      backgroundColor: COLORS.gray1,
+                      borderRadius: 5,
                     }}
                   >
-                    <TouchableOpacity
-                      key={index}
+                   <View className="flex-row items-center justify-center">
+                   <Image
+                      source={require("../assets/icons/mycar.png")}
                       style={{
-                        width: "100%",
+                        width: 100,
                         height: 100,
-                        backgroundColor: COLORS.white,
-                        borderRadius: 5,
-                        flexDirection: "row",
-                        alignItems: "center",
-                        marginBottom: 50
+                      }}
+                    />
+                   </View>
+
+                   <View className='flex-row items-center justify-center my-2'>
+                   <Text
+                          style={{
+                            ...FONTS.Roboto_500Medium,
+                            fontSize: 16,
+                            textTransform: "capitalize",
+                            marginBottom: 2,
+                            lineHeight: 16 * 1.2,
+                          }}
+                          className="text-center text-orange-600 font-bold"
+                          numberOfLines={1}
+                        >
+                          {item.make} {item.model} {item.year}
+                        </Text>
+                   </View>
+
+                    <View className="px-5 py-2">
+                      <Text className="font-bold text-gray-800">
+                        Último cambio de aceite:
+                      </Text>
+
+                      <Text className="text-gray-500 mb-1">
+                        {dayjs(item.oil_date).format("DD/MM/YYYY")}
+                      </Text>
+
+                      <Text className="font-bold text-gray-800">
+                        Último cambios de neumáticos:
+                      </Text>
+
+                      <Text className="text-gray-500 mb-1">
+                        {dayjs(item.tire_date).format("DD/MM/YYYY")}
+                      </Text>
+
+                      <Text className="font-bold text-gray-800">
+                        Último cambio de batería:
+                      </Text>
+
+                      <Text className="text-gray-500 mb-1">
+                        {dayjs(item.battery_date).format("DD/MM/YYYY")}
+                      </Text>
+                    </View>
+                    <TouchableOpacity
+                      className="bg-red-600 p-2 m-5 items-center justify-center rounded-md"
+                      onPress={() => {
+                        setShowModal(!false);
+                        setCarId(item.id);
+                      }}
+                      style={{
+                        paddingHorizontal: 15,
+                        paddingVertical: 2,
                       }}
                     >
-                      <Image
-                        source={require("../assets/icons/mycar.png")}
-                        style={{
-                          width: 130,
-                          height: "100%",
-                          resizeMode: "cover",
-                          borderTopLeftRadius: 5,
-                          borderBottomLeftRadius: 5,
-                          marginRight: 16,
-                        }}
-                      />
-                      <View>
-                        <View
-                          style={{
-                            width: 200,
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <Text
-                            style={{
-                              ...FONTS.Roboto_500Medium,
-                              fontSize: 16,
-                              color: COLORS.black,
-                              textTransform: "capitalize",
-                              marginBottom: 2,
-                              lineHeight: 16 * 1.2,
-                            }}
-                            numberOfLines={1}
-                          >
-                            {item.make} {item.model} {item.year}
-                          </Text>
-                          <TouchableOpacity
-                            onPress={() => {
-                              setShowModal(!false)
-                              setCarId(item.id)
-                            }}
-                            style={{
-                              paddingHorizontal: 15,
-                              paddingVertical: 2,
-                            }}
-                          >
-                            <Remove
-                              width={30}
-                              height={30}
-                              strokeColor="red"
-                              fillColor="red"
-                            />
-                          </TouchableOpacity>
-                        </View>
-
-                        <Text className="font-bold text-gray-700">
-                          Ultimo cambio de ceite:
-                        </Text>
-
-                        <Text className="text-red-950 font-bold mb-1">
-                          {item.oil_date}
-                        </Text>
-
-                        <Text className="font-bold text-gray-700">
-                          Ultimo cambios de neumáticos:
-                        </Text>
-
-                        <Text className="text-green-900 font-bold mb-1">
-                          {item.tire_date}
-                        </Text>
-
-                        <Text className="font-bold text-gray-700">
-                          Ultimo cambio de batería:
-                        </Text>
-
-                        <Text className="text-yellow-600 mb-1">
-                          {item.battery_date}
-                        </Text>
-                      </View>
+                      <Text className="text-white text-lg">Eliminar Vehículo</Text>
                     </TouchableOpacity>
-                  </Shadow>
+                  </TouchableOpacity>
                 );
               })
             ) : (
@@ -255,9 +229,14 @@ export default function MyCars() {
                 marginHorizontal: 7.5,
               }}
               onPress={async () => {
-                setLoadingDelete(true)
-                await deleteCarFn(carId, user?.token, setLoadingDelete, setShowModal);
-                getListCarsFn(user?.token, setLoading)
+                setLoadingDelete(true);
+                await deleteCarFn(
+                  carId,
+                  user?.token,
+                  setLoadingDelete,
+                  setShowModal
+                );
+                getListCarsFn(user?.token, setLoading);
               }}
             >
               <Text
@@ -267,7 +246,11 @@ export default function MyCars() {
                   fontSize: 16,
                 }}
               >
-                {loadingDelete ? <ActivityIndicator size={'small'} color={'white'} /> : "Seguro"}
+                {loadingDelete ? (
+                  <ActivityIndicator size={"small"} color={"white"} />
+                ) : (
+                  "Seguro"
+                )}
               </Text>
             </TouchableOpacity>
           </View>
