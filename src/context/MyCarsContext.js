@@ -141,16 +141,43 @@ const MyCarsProvider = ({ children }) => {
           type: "danger",
         });
       } else {
-        navigation.navigate("CreateCardSuccess");
+        const { data: newListCars } = await get("/list_cars", token);
+        setListCars(newListCars.body.data.rows);
         setSelectAceite(null);
         setCombustible(null);
         setSelectCaja(null);
+        navigation.navigate("CreateCardSuccess");
       }
     },
     [selectAceite, combustible, selectCaja]
   );
 
   const deleteCarFn = useCallback(
+    async (id, token, setLoadingDelete, setShowModal) => {
+      const { data } = await post("/delete_car", { id }, token);
+      setShowModal(true);
+      setLoadingDelete(false);
+
+      if (data.status === 400) {
+        showMessage({
+          message: "Error al eliminar un vehículo",
+          description: data.message,
+          type: "danger",
+        });
+      }
+
+      setShowModal(false);
+      console.log(data);
+      showMessage({
+        message: "Vehículo eliminado",
+        description: "Vehículo eliminado correctamente",
+        type: "success",
+      });
+    },
+    []
+  );
+
+  const updateCarFn = useCallback(
     async (id, token, setLoadingDelete, setShowModal) => {
       const { data } = await post("/delete_car", { id }, token);
       setShowModal(true);

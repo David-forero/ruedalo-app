@@ -21,14 +21,13 @@ import {
   InfoAboutCar,
   OilForm,
 } from "../components/Cars";
-import { Formik } from "formik";
 import { useMyCarsContext } from "../../context/MyCarsContext";
 import { useAuthContext } from "../../context/AuthContext";
 
 export default function AddCarForm() {
   const wizard = useRef(null);
-  const {addVehicleFn} = useMyCarsContext();
-  const {user} = useAuthContext();
+  const { addVehicleFn } = useMyCarsContext();
+  const { user } = useAuthContext();
 
   const [fullData, setFullData] = useState(null);
 
@@ -48,26 +47,19 @@ export default function AddCarForm() {
   const [selectedTrim, setSelectedTrim] = useState(null);
 
   const [kilometraje, setKilometraje] = useState(null);
-  const [dateAceite, setDateAceite] = useState(null);
-  const [dateCauchos, setDateCauchos] = useState(null);
-  
-
-  const DetailsCarFormSchema = Yup.object().shape({
-    aceite: Yup.string().required("Campo requerido"),
-    neumaticos: Yup.string().required("Campo requerido"),
-    bateria: Yup.string().required("Campo requerido"),
-    kilometraje: Yup.string().required("Campo requerido"),
-  });
+  const [dateAceite, setDateAceite] = useState(new Date());
+  const [dateCauchos, setDateCauchos] = useState(new Date());
+  const [dateBateria, setDateBateria] = useState(new Date());
 
   const navigation = useNavigation();
   const stepList = [
     {
       content: (
         <CarForm
-        setMyYear={setMyYear}
-        setMyMakes={setMyMakes}
-        setMyModels={setMyModels}
-        setMyTrims={setMyTrims}
+          setMyYear={setMyYear}
+          setMyMakes={setMyMakes}
+          setMyModels={setMyModels}
+          setMyTrims={setMyTrims}
           setSelectedYear={setSelectedYear}
           setSelectedModel={setSelectedModel}
           setSelectedBrand={setSelectedBrand}
@@ -90,25 +82,16 @@ export default function AddCarForm() {
     },
     {
       content: (
-        <Formik
-          initialValues={{ aceite: new Date(), neumaticos: new Date(), bateria: new Date(), kilometraje: "" }}
-          onSubmit={(values) => {}}
-          validationSchema={DetailsCarFormSchema}
-          validateOnMount
-        >
-          {({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, setFieldValue }) => (
-            <InfoAboutCar
-              values={values}
-              setFullData={setFullData}
-              touched={touched}
-              handleChange={handleChange}
-              handleBlur={handleBlur}
-              isValid={isValid}
-              handleSubmit={handleSubmit}
-              setFieldValue={setFieldValue}
-            />
-          )}
-        </Formik>
+        <InfoAboutCar
+        setKilometraje={setKilometraje}
+        setDateAceite={setDateAceite}
+        setDateCauchos={setDateCauchos}
+        dateCauchos={dateCauchos}
+        dateAceite={dateAceite}
+        kilometraje={kilometraje}
+        setDateBateria={setDateBateria}
+        dateBateria={dateBateria}
+      />
       ),
     },
   ];
@@ -253,8 +236,8 @@ export default function AddCarForm() {
           <TouchableOpacity
             // disabled={isFirstStep}
             onPress={() => {
-              if (currentStep == 0) return navigation.goBack()
-              wizard.current.prev()
+              if (currentStep == 0) return navigation.goBack();
+              wizard.current.prev();
             }}
             style={{
               width: 100,
@@ -276,7 +259,7 @@ export default function AddCarForm() {
                 ...FONTS.Roboto_500Medium,
               }}
             >
-             {currentStep == 0 ? "Salir" : "Atrás"}
+              {currentStep == 0 ? "Salir" : "Atrás"}
             </Text>
           </TouchableOpacity>
 
@@ -284,7 +267,12 @@ export default function AddCarForm() {
             // disabled={isLastStep}
             onPress={() => {
               if (currentStep == 4) {
-                addVehicleFn(fullData, {myYear, myMakes, myModels, myTrims},navigation, user?.token)
+                addVehicleFn(
+                  {aceite: dateAceite, neumaticos: dateCauchos, bateria: dateBateria, kilometraje},
+                  { myYear, myMakes, myModels, myTrims },
+                  navigation,
+                  user?.token
+                );
                 // setShowModal(true);
               }
               wizard.current.next();

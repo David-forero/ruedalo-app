@@ -23,7 +23,7 @@ import AddCarForm from "./Cars/AddCarForm";
 import FAQ from "./Profile/FAQ";
 import MyPromocodes from "./Profile/MyPromocodes";
 import Category from "./Category";
-import CartIsEmpty from "./CartIsEmpty";
+import SuccessScreen from "./SuccessScreen";
 import OrderSuccessful from "./OrderSuccessful";
 import Filter from "./Form/Filter";
 import PaymentMethodOne from "./PaymentMethodOne";
@@ -69,7 +69,7 @@ export {
     FAQ,
     MyPromocodes,
     Category,
-    CartIsEmpty,
+    SuccessScreen,
     OrderSuccessful,
     Filter,
     AddCarForm,

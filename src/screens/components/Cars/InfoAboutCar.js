@@ -1,22 +1,15 @@
 import { Text, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { InputField } from "../../../common/components";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { COLORS } from "../../../common/constants";
 import dayjs from "dayjs";
 
-const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFullData }) => {
+const InfoAboutCar = ({ setKilometraje, setDateAceite, setDateCauchos, dateCauchos, dateAceite, kilometraje, setDateBateria, dateBateria }) => {
   const [showAceite, setShowAceite] = useState(false);
   const [showNeumatico, setShowNeumatico] = useState(false);
   const [showBateria, setShowBateria] = useState(false);
-
-  useEffect(() => {
-    async function init() {
-      await setFullData(values);
-    }
-    init();
-  }, [values]);
 
   return (
     <KeyboardAwareScrollView
@@ -26,15 +19,14 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
       }}
     >
       <Text className="font-bold text-md mb-3 text-left text-gray-700">
-        Kilometraje
+        Kilometraje actual del vehículo
       </Text>
       <InputField
-        placeholder="Kilometraje"
+        placeholder="Coloque el Kilometraje acá"
         contaynerStyle={{ marginBottom: 13 }}
         keyboardType="numeric"
-        onChangeText={handleChange("kilometraje")}
-        onBlur={handleBlur("kilometraje")}
-        value={values.kilometraje}
+        onChangeText={setKilometraje}
+        value={kilometraje}
       />
 
       <Text className="font-bold text-md mb-3 text-left text-gray-700">
@@ -43,7 +35,7 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
       <TouchableOpacity onPress={() => setShowAceite(true)}>
         <InputField
           editable={false}
-          value={dayjs(values.aceite).format("DD/MM/YYYY")}
+          value={dayjs(dateAceite).format("DD/MM/YYYY")}
           contaynerStyle={{ marginBottom: 13 }}
         />
       </TouchableOpacity>
@@ -52,7 +44,7 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
         <DateTimePicker
           mode="date"
           // display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          value={values.aceite}
+          value={dateAceite}
           maximumDate={new Date(2023, 10, 20)}
           locale="es-ES"
           positiveButton={{ label: "Confirmar", textColor: "black" }}
@@ -60,8 +52,8 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
           positiveButtonLabel="Confirmar"
           negativeButtonLabel="Cancelar"
           onChange={(e, selectedValue) => {
-            setFieldValue("aceite", selectedValue);
             setShowAceite(false);
+            setDateAceite(selectedValue)
           }}
         />
       )}
@@ -72,7 +64,7 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
       <TouchableOpacity onPress={() => setShowNeumatico(true)}>
         <InputField
           editable={false}
-          value={dayjs(values.neumaticos).format("DD/MM/YYYY")}
+          value={dayjs(dateCauchos).format("DD/MM/YYYY")}
           contaynerStyle={{ marginBottom: 13 }}
         />
       </TouchableOpacity>
@@ -80,7 +72,7 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
         <DateTimePicker
           mode="date"
           // display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          value={values.neumaticos}
+          value={dateCauchos}
           maximumDate={new Date(2023, 10, 20)}
           locale="es-ES"
           positiveButton={{ label: "Confirmar", textColor: "black" }}
@@ -88,8 +80,8 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
           positiveButtonLabel="Confirmar"
           negativeButtonLabel="Cancelar"
           onChange={(e, selectedValue) => {
-            setFieldValue("neumaticos", selectedValue);
             setShowNeumatico(false);
+            setDateCauchos(selectedValue);
           }}
         />
       )}
@@ -100,7 +92,7 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
       <TouchableOpacity onPress={() => setShowBateria(true)}>
         <InputField
           editable={false}
-          value={dayjs(values.bateria).format("DD/MM/YYYY")}
+          value={dayjs(dateBateria).format("DD/MM/YYYY")}
           contaynerStyle={{ marginBottom: 13 }}
         />
       </TouchableOpacity>
@@ -108,7 +100,7 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
         <DateTimePicker
           mode="date"
           // display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          value={values.bateria}
+          value={dateBateria}
           maximumDate={new Date(2023, 10, 20)}
           locale="es-ES"
           positiveButton={{ label: "Confirmar", textColor: "black" }}
@@ -116,8 +108,8 @@ const InfoAboutCar = ({ values, handleChange, handleBlur, setFieldValue, setFull
           positiveButtonLabel="Confirmar"
           negativeButtonLabel="Cancelar"
           onChange={(e, selectedValue) => {
-            setFieldValue("bateria", selectedValue);
             setShowBateria(false);
+            setDateBateria(selectedValue);
           }}
         />
       )}

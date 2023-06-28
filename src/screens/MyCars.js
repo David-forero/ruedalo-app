@@ -41,6 +41,7 @@ export default function MyCars() {
           flexGrow: 1,
           paddingVertical: SIZES.paddingVertical,
           marginTop: 10,
+          paddingBottom: 150
         }}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -64,6 +65,7 @@ export default function MyCars() {
                       width: "100%",
                       backgroundColor: COLORS.gray1,
                       borderRadius: 5,
+                      marginBottom: 20
                     }}
                   >
                    <View className="flex-row items-center justify-center">

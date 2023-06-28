@@ -23,7 +23,7 @@ import {
   FAQ,
   MyPromocodes,
   Category,
-  CartIsEmpty,
+  SuccessScreen,
   OrderSuccessful,
   Filter,
   AddCarForm,
@@ -101,7 +101,6 @@ const ProtectViews = () => {
             <Stack.Screen name="FAQ" component={FAQ} />
             <Stack.Screen name="MyPromocodes" component={MyPromocodes} />
             <Stack.Screen name="Category" component={Category} />
-            <Stack.Screen name="CartIsEmpty" component={CartIsEmpty} />
             <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="AddCarForm" component={AddCarForm} />
             <Stack.Screen name="NewPassword" component={NewPassword} />
@@ -121,6 +120,7 @@ const ProtectViews = () => {
           </>
         )}
 
+            <Stack.Screen name="SuccessScreen" component={SuccessScreen} />
         {/* <Stack.Screen name="OtpCodeEmail" component={OtpCodeEmail} /> */}
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
         <Stack.Screen
