@@ -13,6 +13,8 @@ const OrdersProvider = ({ children }) => {
   const [orders, setOrders] = useState(null);
   const [order, setOrder] = useState(null);
 
+  const [detailsOrder, setDetailsOrder] = useState(null);
+
   const sendStarFn = useCallback(async (body, token, setLoading) => {
     const { data } = await post("/rate_order", body, token);
 
@@ -28,6 +30,22 @@ const OrdersProvider = ({ children }) => {
     } else {
     }
     setLoading(false);
+  }, []);
+
+  const calculateOrderFn = useCallback(async (price, shippingprice, unit, token, setLoading) => {
+    const { data } = await post(
+      "/calculate_order",
+      {
+        price,
+        shippingprice,
+        unit
+      },
+      token
+    );
+    console.log(data);
+    setDetailsOrder(data.data)
+    setLoading(false);
+    setOrders(data.data);
   }, []);
 
   const getOrders = useCallback(async (token, setLoading) => {
@@ -62,10 +80,12 @@ const OrdersProvider = ({ children }) => {
         //Variables
         order,
         orders,
+        detailsOrder,
         //Functions
         getOrders,
         getOneOrder,
         sendStarFn,
+        calculateOrderFn
       }}
     >
       {children}

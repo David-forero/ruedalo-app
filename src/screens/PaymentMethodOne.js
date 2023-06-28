@@ -19,8 +19,9 @@ import {
   InputField,
 } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { useEffect } from "react";
+import { useOrdersContext } from "../context/OrdersContext";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function PaymentMethodOne() {
   const [selectedMethod, setSelectedMethod] = useState(null);
@@ -28,16 +29,33 @@ export default function PaymentMethodOne() {
   const navigation = useNavigation();
   const route = useRoute();
   const { amount, product, unit } = route.params;
-  const [total, setTotal] = useState(0);
   const [isDelivery, setIsDelivery] = useState(false);
   const [isAmount, setIsAmount] = useState(false);
   const [cash, setCash] = useState(null);
+  const { calculateOrderFn, detailsOrder } = useOrdersContext();
+  const { user } = useAuthContext();
+  const [loadingCalculate, setLoadingCalculate] = useState(false);
 
   useEffect(() => {
+    setLoadingCalculate(true);
+
     if (isDelivery) {
-      setTotal(Number(amount) + Number(product?.commerce?.shippings[0]?.price));
+      // setTotal(Number(amount) + Number(product?.commerce?.shippings[0]?.price));
+      calculateOrderFn(
+        amount,
+        product?.commerce?.shippings[0]?.price,
+        unit,
+        user?.token,
+        setLoadingCalculate
+      );
     } else {
-      setTotal(Number(amount));
+      calculateOrderFn(
+        amount,
+        0,
+        unit,
+        user?.token,
+        setLoadingCalculate
+      );
     }
   }, [amount, product, selectedMethod2, selectedMethod]);
 
@@ -110,7 +128,7 @@ export default function PaymentMethodOne() {
 
                 {isAmount && item.paymethod.name === "Efectivo" ? (
                   <View>
-                    <InputField 
+                    <InputField
                       placeholder="¿Cuando efectivo pagarás?"
                       value={cash}
                       onChangeText={setCash}
@@ -216,7 +234,36 @@ export default function PaymentMethodOne() {
                 marginBottom: 9,
               }}
             >
-              ${Number(amount).toFixed(2)}
+              ${detailsOrder && detailsOrder?.productprice}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                ...FONTS.Roboto_500Medium,
+                fontSize: 14,
+                textTransform: "capitalize",
+                color: COLORS.black,
+              }}
+            >
+              Comisión
+            </Text>
+            <Text
+              style={{
+                ...FONTS.Roboto_700Bold,
+                fontSize: 16,
+                color: COLORS.black2,
+                marginBottom: 9,
+              }}
+            >
+              ${detailsOrder && detailsOrder?.tax}
             </Text>
           </View>
 
@@ -245,7 +292,7 @@ export default function PaymentMethodOne() {
                   color: COLORS.gray2,
                 }}
               >
-                ${product?.commerce?.shippings[0]?.price}
+                ${detailsOrder && detailsOrder?.shippingprice}
               </Text>
             </View>
           )}
@@ -283,7 +330,7 @@ export default function PaymentMethodOne() {
                 color: COLORS.carrot,
               }}
             >
-              ${total.toFixed(2)}
+              ${detailsOrder && detailsOrder?.total}
             </Text>
           </View>
         </View>
@@ -297,7 +344,7 @@ export default function PaymentMethodOne() {
               unit,
               id_shipping: selectedMethod2,
               id_paycommerce: selectedMethod,
-              amount_cash: cash
+              amount_cash: cash,
             })
           }
         />

@@ -12,6 +12,8 @@ import DashedLine from "react-native-dashed-line";
 import { Header, CheckThree, Button, InputField } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 import { useEffect } from "react";
+import { useOrdersContext } from "../context/OrdersContext";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function PaymentMethodOne() {
   const [selectedMethod, setSelectedMethod] = useState(null);
@@ -20,10 +22,19 @@ export default function PaymentMethodOne() {
   const { amount, product } = route.params;
   const [total, setTotal] = useState(0);
   const [isAmount, setIsAmount] = useState(false);
+  const { calculateOrderFn, detailsOrder } = useOrdersContext();
+  const { user } = useAuthContext();
   const [cash, setCash] = useState(null);
+  const [loadingCalculate, setLoadingCalculate] = useState(false);
 
   useEffect(() => {
-    setTotal(Number(amount));
+    calculateOrderFn(
+      amount,
+      0,
+      1,
+      user?.token,
+      setLoadingCalculate
+    );
   }, [amount, product]);
 
   return (
@@ -144,7 +155,36 @@ export default function PaymentMethodOne() {
                 marginBottom: 9,
               }}
             >
-              ${Number(amount).toFixed(2)}
+                ${detailsOrder && detailsOrder?.productprice}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                ...FONTS.Roboto_500Medium,
+                fontSize: 14,
+                textTransform: "capitalize",
+                color: COLORS.black,
+              }}
+            >
+              Comisión
+            </Text>
+            <Text
+              style={{
+                ...FONTS.Roboto_700Bold,
+                fontSize: 16,
+                color: COLORS.black2,
+                marginBottom: 9,
+              }}
+            >
+              ${detailsOrder && detailsOrder?.tax}
             </Text>
           </View>
 
@@ -181,7 +221,7 @@ export default function PaymentMethodOne() {
                 color: COLORS.carrot,
               }}
             >
-              ${total.toFixed(2)}
+             ${detailsOrder && detailsOrder?.total}
             </Text>
           </View>
         </View>
