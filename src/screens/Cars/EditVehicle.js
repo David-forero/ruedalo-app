@@ -36,6 +36,9 @@ export default function EditVehicle() {
 
   useEffect(() => {
     setKilometraje(myVehicle.odometro);
+    setDateAceite(myVehicle.oil_date);
+    setDateBateria(myVehicle.battery_date);
+    setDateCauchos(myVehicle.tire_date)
   }, [myVehicle]);
 
   return (
