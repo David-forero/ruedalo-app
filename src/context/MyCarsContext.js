@@ -123,15 +123,15 @@ const MyCarsProvider = ({ children }) => {
         id_box: selectCaja,
       };
 
-      let validation = validationFormForMyCar(prepareData)
+      let validation = validationFormForMyCar(prepareData);
 
-     if (validation.error) {
-      return showMessage({
-        message: "Error al guardar vehículo",
-        description: validation.message,
-        type: "danger",
-      });
-     }
+      if (validation.error) {
+        return showMessage({
+          message: "Error al guardar vehículo",
+          description: validation.message,
+          type: "danger",
+        });
+      }
 
       const { data } = await post("/register_car", prepareData, token);
       if (data.status == 400) {
@@ -166,6 +166,9 @@ const MyCarsProvider = ({ children }) => {
         });
       }
 
+      const { data: newListCars } = await get("/list_cars", token);
+      setListCars(newListCars.body.data.rows);
+
       setShowModal(false);
       console.log(data);
       showMessage({
@@ -178,25 +181,28 @@ const MyCarsProvider = ({ children }) => {
   );
 
   const updateCarFn = useCallback(
-    async (id, token, setLoadingDelete, setShowModal) => {
-      const { data } = await post("/delete_car", { id }, token);
-      setShowModal(true);
-      setLoadingDelete(false);
+    async (vehicle, token, setLoading, navigation) => {
+      const { data } = await post("/update_car", vehicle, token);
+      setLoading(false);
 
       if (data.status === 400) {
         showMessage({
-          message: "Error al eliminar un vehículo",
+          message: "Error al editar vehículo",
           description: data.message,
           type: "danger",
         });
       }
 
-      setShowModal(false);
       console.log(data);
-      showMessage({
-        message: "Vehículo eliminado",
-        description: "Vehículo eliminado correctamente",
-        type: "success",
+
+      const { data: newListCars } = await get("/list_cars", token);
+      setListCars(newListCars.body.data.rows);
+
+      navigation.navigate("SuccessScreen", {
+        title: "Vehículo actualizado correctamente",
+        description: "Se ha actualizado los datos del vehículo sin problemas",
+        titleButton: "Ir a mis vehículos",
+        screen: "MyCars",
       });
     },
     []
@@ -230,6 +236,7 @@ const MyCarsProvider = ({ children }) => {
         addVehicleFn,
         getListCarsFn,
         deleteCarFn,
+        updateCarFn,
       }}
     >
       {children}

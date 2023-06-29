@@ -57,19 +57,19 @@ const MyDocuments = () => {
             {documentsVehicles?.length > 0 ? (
               documentsVehicles.map((item, index) => (
                 <View key={index} className="flex-row  justify-center mt-3">
-                  <View className="bg-[#2d2d2d] p-5 w-4/5 rounded-md">
+                  <View className="bg-gray-300 p-5 w-4/5 rounded-md">
                     <View className="flex-row item-center space-x-3 justify-center">
                       <Text className="text-md text-orange-600 font-bold">
                         Tipo de documento:
                       </Text>
-                      <Text className="text-white text-sm">{item.type}</Text>
+                      <Text className="text-gray-500 text-sm">{item.type}</Text>
                     </View>
 
                     <View className="flex-row mt-5">
                       <Text className="text-md text-orange-600 font-bold">
-                        F. Expedición:
+                        F. Emisión:
                       </Text>
-                      <Text className="text-white ml-4 text-sm">
+                      <Text className="text-gray-500 ml-4 text-sm">
                         {dayjs(item.emission_date).format("DD/MM/YYYY")}
                       </Text>
                     </View>
@@ -78,7 +78,7 @@ const MyDocuments = () => {
                       <Text className="text-md text-orange-600 font-bold">
                         F. Vencimiento:
                       </Text>
-                      <Text className="text-white ml-4 text-sm">
+                      <Text className="text-gray-500 ml-4 text-sm">
                         {dayjs(item.expiration_date).format("DD/MM/YYYY")}
                       </Text>
                     </View>

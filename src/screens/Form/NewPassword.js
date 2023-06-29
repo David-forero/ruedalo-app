@@ -30,7 +30,7 @@ export default function NewPassword() {
                         paddingHorizontal: 20,
                     }}
                 >
-                    We have sent you an SMS with a code to number +17 0123456789
+                    Hemos enviando un correo a david.forero1813@gmail.com
                 </Text>
                 <InputField
                     placeholder="New Password"

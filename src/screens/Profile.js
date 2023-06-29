@@ -150,15 +150,15 @@ export default function Profile() {
           onPress={() => navigation.navigate("Notifications")}
         />
 
-        {user?.plan !== 2 ? null : (
+        {user?.plan != 2 ? (
           <ProfileCategory
-            icon={require("../assets/icons/coupon.png")}
-            title="Membresia"
-            subtitle="Obtenga beneficios"
-            onPress={() => navigation.navigate("MemberShip")}
-            iconBgColor={COLORS.lightLilac}
-          />
-        )}
+          icon={require("../assets/icons/coupon.png")}
+          title="Membresia"
+          subtitle="Obtenga beneficios"
+          onPress={() => navigation.navigate("MemberShip")}
+          iconBgColor={COLORS.lightLilac}
+        />
+        ) : null}
 
         <ProfileCategory
           icon={require("../assets/icons/faq.png")}

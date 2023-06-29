@@ -45,6 +45,7 @@ export default function PaymentMethodOne() {
         amount,
         product?.commerce?.shippings[0]?.price,
         unit,
+        isAmount,
         user?.token,
         setLoadingCalculate
       );
@@ -53,11 +54,12 @@ export default function PaymentMethodOne() {
         amount,
         0,
         unit,
+        isAmount,
         user?.token,
         setLoadingCalculate
       );
     }
-  }, [amount, product, selectedMethod2, selectedMethod]);
+  }, [amount, product, selectedMethod2, selectedMethod, isAmount]);
 
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
@@ -253,7 +255,7 @@ export default function PaymentMethodOne() {
                 color: COLORS.black,
               }}
             >
-              Comisión
+              Comisión del servicio
             </Text>
             <Text
               style={{
@@ -266,6 +268,64 @@ export default function PaymentMethodOne() {
               ${detailsOrder && detailsOrder?.tax}
             </Text>
           </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                ...FONTS.Roboto_500Medium,
+                fontSize: 14,
+                color: COLORS.black,
+              }}
+            >
+              IVA
+            </Text>
+            <Text
+              style={{
+                ...FONTS.Roboto_700Bold,
+                fontSize: 16,
+                color: COLORS.black2,
+                marginBottom: 9,
+              }}
+            >
+              ${detailsOrder && detailsOrder?.iva}
+            </Text>
+          </View>
+
+          {isAmount ? (
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  ...FONTS.Roboto_500Medium,
+                  fontSize: 14,
+                  color: COLORS.black,
+                }}
+              >
+                IGTF
+              </Text>
+              <Text
+                style={{
+                  ...FONTS.Roboto_700Bold,
+                  fontSize: 16,
+                  color: COLORS.black2,
+                  marginBottom: 9,
+                }}
+              >
+                ${detailsOrder && detailsOrder?.igtf}
+              </Text>
+            </View>
+          ) : null}
 
           {isDelivery && (
             <View
@@ -336,7 +396,7 @@ export default function PaymentMethodOne() {
         </View>
         <Button
           title="Proceder al pago"
-          valid={selectedMethod && selectedMethod2}
+          valid={selectedMethod && selectedMethod2 && Number(cash) >= detailsOrder?.total}
           onPress={() =>
             navigation.navigate("CreateOrderLoading", {
               amount,

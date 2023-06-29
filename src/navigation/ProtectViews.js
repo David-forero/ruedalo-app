@@ -11,7 +11,7 @@ import {
   SignUpWith,
   Home,
   Profile,
-  MyList,
+  EditVehicle,
   Order,
   RestaurantMenu,
   FoodDetails,
@@ -89,7 +89,7 @@ const ProtectViews = () => {
               component={user?.status !== "pending" ? MainLayout : OtpCodeEmail}
             />
             <Stack.Screen name="RestaurantMenu" component={RestaurantMenu} />
-            <Stack.Screen name="MyList" component={MyList} />
+            <Stack.Screen name="EditVehicle" component={EditVehicle} />
             <Stack.Screen name="Order" component={Order} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Home" component={Home} />
@@ -103,7 +103,6 @@ const ProtectViews = () => {
             <Stack.Screen name="Category" component={Category} />
             <Stack.Screen name="Filter" component={Filter} />
             <Stack.Screen name="AddCarForm" component={AddCarForm} />
-            <Stack.Screen name="NewPassword" component={NewPassword} />
             <Stack.Screen name="AddNewCard" component={AddNewCard} />
             <Stack.Screen name="AutoServices" component={AutoServices} />
             <Stack.Screen name="ServicesDetails" component={ServicesDetails} />
@@ -136,6 +135,8 @@ const ProtectViews = () => {
           name="PasswordHasBeenReset"
           component={PasswordHasBeenReset}
         />
+        <Stack.Screen name="NewPassword" component={NewPassword} />
+
         <Stack.Screen name="PaymentMethodTwo" component={PaymentMethodTwo} />
         <Stack.Screen name="PaymentMethodOne" component={PaymentMethodOne} />
         <Stack.Screen name="OrderSuccessful" component={OrderSuccessful} />

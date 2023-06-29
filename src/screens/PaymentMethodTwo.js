@@ -29,13 +29,14 @@ export default function PaymentMethodOne() {
 
   useEffect(() => {
     calculateOrderFn(
-      amount,
-      0,
-      1,
-      user?.token,
-      setLoadingCalculate
-    );
-  }, [amount, product]);
+        amount,
+        0,
+        1,
+        isAmount,
+        user?.token,
+        setLoadingCalculate
+      );
+  }, [amount, product, isAmount, selectedMethod]);
 
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
@@ -195,6 +196,64 @@ export default function PaymentMethodOne() {
             dashColor="#C8C8D3"
             style={{ marginTop: 23 }}
           />
+             <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                ...FONTS.Roboto_500Medium,
+                fontSize: 14,
+                color: COLORS.black,
+              }}
+            >
+              IVA
+            </Text>
+            <Text
+              style={{
+                ...FONTS.Roboto_700Bold,
+                fontSize: 16,
+                color: COLORS.black2,
+                marginBottom: 9,
+              }}
+            >
+              ${detailsOrder && detailsOrder?.iva}
+            </Text>
+          </View>
+
+          {isAmount ? (
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text
+                style={{
+                  ...FONTS.Roboto_500Medium,
+                  fontSize: 14,
+                  color: COLORS.black,
+                }}
+              >
+                IGTF
+              </Text>
+              <Text
+                style={{
+                  ...FONTS.Roboto_700Bold,
+                  fontSize: 16,
+                  color: COLORS.black2,
+                  marginBottom: 9,
+                }}
+              >
+                ${detailsOrder && detailsOrder?.igtf}
+              </Text>
+            </View>
+          ) : null}
+
           <View
             style={{
               flexDirection: "row",
@@ -221,13 +280,13 @@ export default function PaymentMethodOne() {
                 color: COLORS.carrot,
               }}
             >
-             ${detailsOrder && detailsOrder?.total}
+             ${detailsOrder && detailsOrder?.total }
             </Text>
           </View>
         </View>
         <Button
           title="Proceder al pago"
-          valid={selectedMethod}
+          valid={selectedMethod && Number(cash) >= detailsOrder?.total}
           onPress={() =>
             navigation.navigate("CreateOrderLoading", {
               amount,

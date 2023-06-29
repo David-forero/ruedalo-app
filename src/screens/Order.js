@@ -336,7 +336,7 @@ export default function Order() {
           </>
         ) : (
           <Button
-            title={`Chatear con el vendedor ${order?.commerce.phone}`}
+            title={`Chatear con el vendedor`}
             containerStyle={{ marginBottom: 20, marginTop: 60 }}
             onPress={() => openWhatsAppChat(order?.commerce.phone)}
             icon={<FontAwesome name="whatsapp" size={20} color="white" />}

@@ -11,9 +11,8 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
-import { Shadow } from "react-native-shadow-2";
 import { FontAwesome } from "@expo/vector-icons";
-import { Header, Remove } from "../common/components";
+import { Header } from "../common/components";
 import { SAFEAREAVIEW, COLORS, SIZES, FONTS } from "../common/constants";
 import { useMyCarsContext } from "../context/MyCarsContext";
 import { useAuthContext } from "../context/AuthContext";
@@ -67,6 +66,7 @@ export default function MyCars() {
                       borderRadius: 5,
                       marginBottom: 20
                     }}
+                    onPress={() => navigation.navigate('EditVehicle', {myVehicle: item})}
                   >
                    <View className="flex-row items-center justify-center">
                    <Image

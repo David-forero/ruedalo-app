@@ -10,7 +10,7 @@ import Selectlocation from "./Selectlocation";
 import SignUpWith from "./Form/SignUpWith";
 import Home from "./Home";
 import Profile from "./Profile";
-import MyList from "./MyList";
+import EditVehicle from "./Cars/EditVehicle";
 import Order from "./Order";
 import RestaurantMenu from "./RestaurantMenu";
 import FoodDetails from "./FoodDetails";
@@ -57,7 +57,7 @@ export {
     SignUpWith,
     Home,
     Profile,
-    MyList,
+    EditVehicle,
     Order,
     RestaurantMenu,
     FoodDetails,
