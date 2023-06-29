@@ -140,7 +140,7 @@ export default function Profile() {
           title="Transacciones"
           subtitle="Revisa los últimos pagos en la app"
           iconBgColor={COLORS.lightLilac}
-          onPress={() => navigation.navigate("PaymentMethodTwo")}
+          onPress={() => navigation.navigate("TransactionsView")}
         />
         <ProfileCategory
           icon={require("../assets/icons/notification.png")}

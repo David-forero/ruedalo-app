@@ -2,6 +2,7 @@ import { useContext, createContext, useState, useCallback } from "react";
 import { useStripe } from "@stripe/stripe-react-native";
 import { post, upload, get } from "../common/functions/http";
 import { showMessage } from "react-native-flash-message";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const UserContext = createContext({});
 
@@ -9,6 +10,8 @@ const UserProvider = ({ children }) => {
   const [coordenates, setCoordenates] = useState(null);
   const [documentsVehicles, setDocumentsVehicles] = useState(false);
   const stripe = useStripe();
+
+  const [transactions, setTransactions] = useState(null);
 
   const updateUserFn = useCallback(
     async (form, token, setLoading, setUser, navigation) => {
@@ -103,7 +106,9 @@ const UserProvider = ({ children }) => {
             description: data.message,
             type: "success",
           });
-          setUser(data.data)
+          setUser(data.data);
+          let dataString = JSON.stringify(data.data);
+          await AsyncStorage.setItem('user', dataString)
           navigation.goBack();
         }
       }
@@ -155,6 +160,23 @@ const UserProvider = ({ children }) => {
     []
   );
 
+  const getTransactionsAppFn = useCallback(async (setLoading, token) => {
+      const { data } = await post(
+        "/list_payments",
+
+        {
+          limit: '5',
+          offset: '5',
+        },
+        token
+      );
+      setLoading(false);
+      console.log(data);
+      setTransactions(data.data);
+    },
+    []
+  );
+
   return (
     <UserContext.Provider
       value={{
@@ -170,6 +192,7 @@ const UserProvider = ({ children }) => {
         saveDocumentVehicleFn,
         deleteDocumentVehicleFn,
         updateDocumentVehicleFn,
+        getTransactionsAppFn,
       }}
     >
       {children}

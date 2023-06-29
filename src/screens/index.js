@@ -43,6 +43,7 @@ import ServicesDetails from "./ServicesDetails";
 import MyDocuments from "./Profile/MyDocuments";
 import MemberShip from "./Profile/MemberShip";
 import DetailsBanner from "./DetailsBanner";
+import TransactionsView from "./TransactionsView";
 
 export {
     OnBoarding,
@@ -89,5 +90,6 @@ export {
     ServicesDetails,
     MyDocuments,
     MemberShip,
-    DetailsBanner
+    DetailsBanner,
+    TransactionsView
 };
