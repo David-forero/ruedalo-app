@@ -147,7 +147,7 @@ const UserProvider = ({ children }) => {
 
   const updateDocumentVehicleFn = useCallback(
     async (formData, setLoading, token, setShowModal) => {
-      const { data } = await post("/update_doc", formData, token);
+      await post("/update_doc", formData, token);
 
       setLoading(false);
       setShowModal(false);
@@ -165,14 +165,14 @@ const UserProvider = ({ children }) => {
         "/list_payments",
 
         {
-          limit: '5',
-          offset: '5',
+          limit: 10,
+          offset: 0,
         },
         token
       );
       setLoading(false);
       console.log(data);
-      setTransactions(data.data);
+      setTransactions(data.data.rows);
     },
     []
   );
@@ -184,6 +184,7 @@ const UserProvider = ({ children }) => {
         coordenates,
         documentsVehicles,
         setCoordenates,
+        transactions,
         //Functions
         updateUserFn,
         getBannersFn,

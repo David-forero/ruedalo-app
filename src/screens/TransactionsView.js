@@ -9,16 +9,17 @@ import {
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-import { SAFEAREAVIEW } from "../common/constants";
+import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 import { Header, NotificationCategory, Wallet } from "../common/components";
 import { useUserContext } from "../context/UserContext";
 import { useEffect } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { useState } from "react";
+import dayjs from "dayjs";
 
 export default function TransactionsView() {
   const navigation = useNavigation();
-  const { getTransactionsAppFn } = useUserContext();
+  const { getTransactionsAppFn, transactions } = useUserContext();
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(false);
 
@@ -47,11 +48,55 @@ export default function TransactionsView() {
           />
         }
       >
-        <NotificationCategory
-          title="Payment"
-          subtitle="Thank you! Your transaction is com..."
-          icon={<Wallet />}
-        />
+        {transactions
+          ? transactions.map((item) => (
+              <View
+                style={{
+                  width: "100%",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  borderColor: COLORS.lightGray,
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  paddingHorizontal: 16,
+                  paddingVertical: 19,
+                }}
+              >
+                <Wallet />
+                <View style={{ marginLeft: 15 }}>
+                  <Text
+                    style={{
+                      ...FONTS.Roboto_700Bold,
+                      fontSize: 16,
+                      color: COLORS.black,
+                      textTransform: "capitalize",
+                      marginBottom: 3,
+                    }}
+                  >
+                    {item.description}
+                  </Text>
+                  <Text
+                    style={{
+                      ...FONTS.Roboto_400Regular,
+                      fontSize: 14,
+                      color: COLORS.gray2,
+                    }}
+                  >
+                    Se ha hecho un cobro de ${Number(item.amount)}
+                  </Text>
+                  <Text
+                    style={{
+                      ...FONTS.Roboto_400Regular,
+                      fontSize: 14,
+                      color: COLORS.gray2,
+                    }}
+                  >
+                   {dayjs(item.createdAt).format("DD/MM/YYYY")}
+                  </Text>
+                </View>
+              </View>
+            ))
+          : null}
       </ScrollView>
     </SafeAreaView>
   );
