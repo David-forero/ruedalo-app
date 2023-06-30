@@ -1,6 +1,6 @@
 import { useContext, createContext, useState, useCallback } from "react";
 import { post } from "../common/functions/http";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 
 //Web==
@@ -20,11 +20,11 @@ const AuthProvider = ({ children }) => {
   const [coordenatesPermitions, setCoordenatesPermitions] = useState(false);
 
   const loadingApp = async (setLoading, SplashScreen) => {
-    console.log('🔥 cargando app...');
+    console.log("🔥 cargando app...");
     //Obteniendo datos almacenados
-    let userValue = await AsyncStorage.getItem('user');
-    let onboarding = await AsyncStorage.getItem('onboarding');
-    let coordenateEnable = await AsyncStorage.getItem('coordenatesPermitions');
+    let userValue = await AsyncStorage.getItem("user");
+    let onboarding = await AsyncStorage.getItem("onboarding");
+    let coordenateEnable = await AsyncStorage.getItem("coordenatesPermitions");
 
     //Transformando con json parse
     coordenateEnable = JSON.parse(coordenateEnable);
@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
     onboarding = JSON.parse(onboarding);
 
     //Seteando informacion
-    setEnableBoarding(onboarding)
+    setEnableBoarding(onboarding);
     setUser(userValue);
     setCoordenatesPermitions(coordenateEnable);
 
@@ -42,49 +42,58 @@ const AuthProvider = ({ children }) => {
     }
     setLoading(false);
     SplashScreen.hideAsync();
-  }
+  };
 
   const sendVerifyEmailFn = useCallback(async (myToken) => {
     await post("/verify-email", {}, myToken);
   }, []);
 
-  const confirmVerifyEmailFn = useCallback(async (otp, navigation, setLoading, myToken) => {
-    //Transformacion del otp
-    let keys = Object.keys(otp).sort()
-    let otpString = '';
-    for (const key of keys) {
-      otpString += otp[key];
-    }
-    otp = otpString
-    //Se verifica el token ✅
-    const { data } = await post("/verify-email", { otp }, myToken);
-    setLoading(false);
-    if (!data.status) {
-      return showMessage({
-        message: "Error al confirmar correo",
-        description: data.message,
-        type: "danger",
-      });
-    }
-    navigation.navigate('AccountCreated')
+  const confirmVerifyEmailFn = useCallback(
+    async (otp, navigation, setLoading, myToken) => {
+      //Transformacion del otp
+      let keys = Object.keys(otp).sort();
+      let otpString = "";
+      for (const key of keys) {
+        otpString += otp[key];
+      }
+      otp = otpString;
+      //Se verifica el token ✅
+      const { data } = await post("/verify-email", { otp }, myToken);
+      setLoading(false);
+      if (!data.status) {
+        return showMessage({
+          message: "Error al confirmar correo",
+          description: data.message,
+          type: "danger",
+        });
+      }
+      navigation.navigate("AccountCreated");
 
-    //En caso de que funcione, obtengo los datos del usuario y actualizo el status ✍️
-    let userValue = await AsyncStorage.getItem('user');
-    userValue = JSON.parse(userValue);
-    userValue.status = 'confirmed';
-    setUser(userValue);
-    await AsyncStorage.setItem('user', JSON.stringify(userValue));
-
-  }, []);
+      //En caso de que funcione, obtengo los datos del usuario y actualizo el status ✍️
+      let userValue = await AsyncStorage.getItem("user");
+      userValue = JSON.parse(userValue);
+      userValue.status = "confirmed";
+      setUser(userValue);
+      await AsyncStorage.setItem("user", JSON.stringify(userValue));
+    },
+    []
+  );
 
   const signInFn = async (formData, navigation, setLoading) => {
     try {
       const { data } = await post("/login", formData);
+      setLoading(false);
+      if (data.status == 400 || data.status === false) {
+        return showMessage({
+          message: "Error al iniciar sessión",
+          description: data.message,
+          type: "danger",
+        });
+      }
       setUser(data.data);
       let dataString = JSON.stringify(data.data);
-      await AsyncStorage.setItem('user', dataString)
+      await AsyncStorage.setItem("user", dataString);
       setAuth(true);
-      setLoading(false);
     } catch (error) {
       showMessage({
         message: "Error al iniciar sessión",
@@ -92,22 +101,23 @@ const AuthProvider = ({ children }) => {
         type: "danger",
       });
     }
+      setLoading(false);
 
-  }
+  };
 
   const signUpFn = useCallback(async (formData, navigation, setLoading) => {
     try {
-      delete formData.confirmPassword
+      delete formData.confirmPassword;
       const { data } = await post("/register_user", formData);
       setLoading(false);
 
       if (data.status === true) {
-        data.data.status = 'pending'
-        setAuth(true)
+        data.data.status = "pending";
+        setAuth(true);
         await setUser(data.data);
         let dataString = JSON.stringify(data.data);
-        await AsyncStorage.setItem('user', dataString)
-        return navigation.navigate('OtpCodeEmail')
+        await AsyncStorage.setItem("user", dataString);
+        return navigation.navigate("OtpCodeEmail");
       } else {
         showMessage({
           message: "Error al registrar",
@@ -120,7 +130,7 @@ const AuthProvider = ({ children }) => {
       console.log(error);
       showMessage({
         message: "Error al registrar",
-        description: 'Algo salió mal, intenta mas tarde',
+        description: "Algo salió mal, intenta mas tarde",
         type: "danger",
       });
     }
@@ -130,17 +140,17 @@ const AuthProvider = ({ children }) => {
     // await post("/login", {}, token);
     setAuth(false);
     setUser(null);
-    await AsyncStorage.removeItem('user');
+    await AsyncStorage.removeItem("user");
     navigation.navigate("SignIn");
   }, []);
 
   const signWithGoogleFn = async (googleData) => {
-    const { data } = await post("/login-google", {email: googleData.email})
+    const { data } = await post("/login-google", { email: googleData.email });
     setUser(data.data);
     setAuth(true);
     let dataString = JSON.stringify(data?.data);
-    await AsyncStorage.setItem('user', dataString)
-  }
+    await AsyncStorage.setItem("user", dataString);
+  };
 
   return (
     <AuthContext.Provider

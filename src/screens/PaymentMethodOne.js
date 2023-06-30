@@ -339,7 +339,7 @@ export default function PaymentMethodOne() {
                 style={{
                   ...FONTS.Roboto_500Medium,
                   fontSize: 14,
-                  color: COLORS.gray2,
+                  color: COLORS.black,
                   textTransform: "capitalize",
                 }}
               >
@@ -347,9 +347,9 @@ export default function PaymentMethodOne() {
               </Text>
               <Text
                 style={{
-                  ...FONTS.Roboto_400Regular,
+                  ...FONTS.Roboto_700Bold,
                   fontSize: 14,
-                  color: COLORS.gray2,
+                  color: COLORS.black,
                 }}
               >
                 ${detailsOrder && detailsOrder?.shippingprice}
