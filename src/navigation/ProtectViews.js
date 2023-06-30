@@ -45,7 +45,8 @@ import {
   MyDocuments,
   MemberShip,
   DetailsBanner,
-  TransactionsView
+  TransactionsView,
+  OtpCodePassword
 } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useAuthContext } from "../context/AuthContext";
@@ -151,6 +152,8 @@ const ProtectViews = () => {
         <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         <Stack.Screen name="CreateCardSuccess" component={CreateCardSuccess} />
         <Stack.Screen name="ListProducts" component={ListProducts} />
+        <Stack.Screen name="OtpCodePassword" component={OtpCodePassword} />
+        
       </Stack.Navigator>
     );
   }

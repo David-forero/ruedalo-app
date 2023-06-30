@@ -15,7 +15,6 @@ import { Header, Button } from "../../common/components";
 import { SAFEAREAVIEW, SIZES, COLORS, FONTS } from "../../common/constants";
 import { useAuthContext } from "../../context/AuthContext";
 import useCountdownTimer from "../../common/hooks/useCountdownTimer";
-import * as SecureStore from 'expo-secure-store';
 
 export default function OtpCode() {
     const navigation = useNavigation();

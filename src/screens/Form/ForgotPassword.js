@@ -16,6 +16,7 @@ import { Header, InputField, Button } from "../../common/components";
 export default function ForgotPassword() {
     const navigation = useNavigation();
     const [showModal, setShowModal] = useState(false);
+    const [email, setEmail] = useState(false);
 
     function renderContent() {
         return (
@@ -37,13 +38,15 @@ export default function ForgotPassword() {
                         lineHeight: 16 * 1.5,
                     }}
                 >
-                    Por favor escriba su correo. Recibirá un enlace para crear la nueva contraseña.
+                    Por favor escriba su correo. Recibirá un codigo para crear la nueva contraseña.
                 </Text>
                 <InputField
+                    onChangeText={setEmail}
+                    value={email}
                     placeholder="Correo"
                     contaynerStyle={{ marginBottom: 30 }}
                 />
-                <Button title="Enviar" onPress={() => setShowModal(true)} />
+                <Button title="Enviar" onPress={() => navigation.navigate("OtpCodePassword", {email})} />
             </KeyboardAwareScrollView>
         );
     }

@@ -1,6 +1,7 @@
 import OnBoarding from "./OnBoarding";
 import SignIn from "./Form/SignIn";
 import SignUp from "./Form/SignUp";
+import OtpCodePassword from "./Form/OtpCodePassword";
 import AddAddress from "./AddAddress";
 import MainLayout from "./MainLayout";
 import ForgotPassword from "./Form/ForgotPassword";
@@ -91,5 +92,6 @@ export {
     MyDocuments,
     MemberShip,
     DetailsBanner,
-    TransactionsView
+    TransactionsView,
+    OtpCodePassword
 };

@@ -40,7 +40,7 @@ export default function PasswordHasBeenReset() {
                 </Text>
                 <View style={{ height: SIZES.height / 5 }} />
                 <Button
-                    title="Done"
+                    title="Listo"
                     onPress={() => navigation.navigate("SignIn")}
                 />
             </ScrollView>

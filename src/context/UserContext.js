@@ -13,6 +13,19 @@ const UserProvider = ({ children }) => {
 
   const [transactions, setTransactions] = useState(null);
 
+  const forgotPasswordFn = useCallback(async (form, setLoading) => {
+    const { data } = await post(
+      "/forgot-pass",
+      form,
+    );
+    console.log(data);
+    if (data.status === 400 || !data) {
+      return;
+    }
+
+    setLoading(false);
+  }, []);
+
   const updateUserFn = useCallback(
     async (form, token, setLoading, setUser, navigation) => {
       const formData = new FormData();
@@ -108,7 +121,7 @@ const UserProvider = ({ children }) => {
           });
           setUser(data.data);
           let dataString = JSON.stringify(data.data);
-          await AsyncStorage.setItem('user', dataString)
+          await AsyncStorage.setItem("user", dataString);
           navigation.goBack();
         }
       }
@@ -161,21 +174,19 @@ const UserProvider = ({ children }) => {
   );
 
   const getTransactionsAppFn = useCallback(async (setLoading, token) => {
-      const { data } = await post(
-        "/list_payments",
+    const { data } = await post(
+      "/list_payments",
 
-        {
-          limit: 10,
-          offset: 0,
-        },
-        token
-      );
-      setLoading(false);
-      console.log(data);
-      setTransactions(data.data.rows);
-    },
-    []
-  );
+      {
+        limit: 10,
+        offset: 0,
+      },
+      token
+    );
+    setLoading(false);
+    console.log(data);
+    setTransactions(data.data.rows);
+  }, []);
 
   return (
     <UserContext.Provider
@@ -194,6 +205,7 @@ const UserProvider = ({ children }) => {
         deleteDocumentVehicleFn,
         updateDocumentVehicleFn,
         getTransactionsAppFn,
+        forgotPasswordFn,
       }}
     >
       {children}
