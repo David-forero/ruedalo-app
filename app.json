@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Ruédalo",
-    "slug": "ruedalo",
+    "slug": "prueba",
     "scheme": "myapp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -36,19 +36,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "6b098aeb-e8fb-42e4-82f7-32f0f807ffb9"
+        "projectId": "c48198d9-1ac3-4c47-8d12-5fb571ad94b1"
       }
     },
-    "owner": "misrepuestos",
-    "plugins": [
-     [
-      "expo-build-properties",
-      {
-        "android": {
-          "flipper": true
-        }
-      }
-     ]
-    ]
+    "owner": "misrepuestos"
   }
 }

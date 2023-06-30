@@ -30,6 +30,7 @@ export default function PaymentMethodOne() {
   const route = useRoute();
   const { amount, product, unit } = route.params;
   const [isDelivery, setIsDelivery] = useState(false);
+  const [deliveryAmount, setDeliveryAmount] = useState(null);
   const [isAmount, setIsAmount] = useState(false);
   const [cash, setCash] = useState(null);
   const { calculateOrderFn, detailsOrder } = useOrdersContext();
@@ -40,10 +41,9 @@ export default function PaymentMethodOne() {
     setLoadingCalculate(true);
 
     if (isDelivery) {
-      // setTotal(Number(amount) + Number(product?.commerce?.shippings[0]?.price));
       calculateOrderFn(
         amount,
-        product?.commerce?.shippings[0]?.price,
+        deliveryAmount,
         unit,
         isAmount,
         user?.token,
@@ -163,7 +163,10 @@ export default function PaymentMethodOne() {
                 }}
                 onPress={() => {
                   setSelectedMethod2(item.id);
-                  if (item.type === "delivery") return setIsDelivery(true);
+                  if (item.type === "delivery") {
+                    setDeliveryAmount(item.price);
+                    return setIsDelivery(true)
+                  };
                   setIsDelivery(false);
                 }}
               >
