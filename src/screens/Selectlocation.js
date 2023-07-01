@@ -20,7 +20,6 @@ export default function Selectlocation() {
     }
     // Permiso de ubicación concedido
     try {
-      const location = await Location.getCurrentPositionAsync({});
       await AsyncStorage.setItem('coordenatesPermitions', JSON.stringify(true))
       setCoordenatesPermitions(true);
       navigation.navigate("MainLayout");

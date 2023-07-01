@@ -33,7 +33,6 @@ const OrdersProvider = ({ children }) => {
   }, []);
 
   const calculateOrderFn = useCallback(async (price, shippingprice, unit, isCash, token, setLoading) => {
-    console.log(shippingprice);
     const { data } = await post(
       "/calculate_order",
       {
@@ -73,7 +72,6 @@ const OrdersProvider = ({ children }) => {
     );
     setLoading(false);
     setOrder(data.data);
-    console.log('getOneOrder',data.data);
   }, []);
 
   return (

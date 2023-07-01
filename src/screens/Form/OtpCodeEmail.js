@@ -32,7 +32,6 @@ export default function OtpCode() {
 
     useEffect(() => {
         sendVerifyEmailFn(user?.token);
-        console.log(user?.token);
     }, [user?.token])
 
 

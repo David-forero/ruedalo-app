@@ -18,7 +18,6 @@ const UserProvider = ({ children }) => {
       "/forgot-pass",
       form,
     );
-    console.log(data);
     if (data.status === 400 || !data) {
       return;
     }
@@ -50,17 +49,26 @@ const UserProvider = ({ children }) => {
   );
 
   const getBannersFn = useCallback(async (type, token) => {
-    const { data } = await post(
-      "/list_campaign",
-      {
-        limit: 10,
-        offset: 0,
-      },
-      token
-    );
-    let rows = data.body.data.rows;
-    let res = rows.filter((item) => item.type === type);
-    return res;
+    try {
+      const { data } = await post(
+        "/list_campaign",
+        {
+          limit: 10,
+          offset: 0,
+        },
+        token
+      );
+
+      let rows = data.body.data.rows;
+      let res = rows.filter((item) => item.type === type);
+      return res;
+    } catch (error) {
+      console.log(error);
+      showMessage({
+        message: "Error al cargar los anuncios... reintentando",
+        type: "warning"
+      })
+    }
   }, []);
 
   const paySubscriptionFn = useCallback(
@@ -137,9 +145,7 @@ const UserProvider = ({ children }) => {
 
   const deleteDocumentVehicleFn = useCallback(async (id, token, setLoading) => {
     setLoading(true);
-    console.log(id);
     const { data } = await post("/delete_doc", { id }, token);
-    console.log(data);
     getListDocsFn(token, setLoading);
   }, []);
 

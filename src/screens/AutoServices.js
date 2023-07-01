@@ -72,7 +72,6 @@ const AutoServices = () => {
         user?.token,
         setLoading
       );
-      console.log("list services -> ", data);
       setPopulars(data.data);
       setMostSells(data.data);
     }

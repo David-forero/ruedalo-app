@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Ruédalo",
-    "slug": "prueba",
+    "slug": "ruedalo",
     "scheme": "myapp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,9 +12,7 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.daele.repuestosya"
@@ -36,9 +34,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": "c48198d9-1ac3-4c47-8d12-5fb571ad94b1"
+        "projectId": "6b098aeb-e8fb-42e4-82f7-32f0f807ffb9"
       }
     },
+    "plugins": ["@react-native-google-signin/google-signin"],
     "owner": "misrepuestos"
   }
 }

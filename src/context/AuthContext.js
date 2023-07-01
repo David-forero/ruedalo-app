@@ -1,5 +1,5 @@
 import { useContext, createContext, useState, useCallback } from "react";
-import { post } from "../common/functions/http";
+import { get, post } from "../common/functions/http";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 
@@ -21,24 +21,37 @@ const AuthProvider = ({ children }) => {
 
   const loadingApp = async (setLoading, SplashScreen) => {
     console.log("🔥 cargando app...");
-    //Obteniendo datos almacenados
-    let userValue = await AsyncStorage.getItem("user");
-    let onboarding = await AsyncStorage.getItem("onboarding");
-    let coordenateEnable = await AsyncStorage.getItem("coordenatesPermitions");
+    try {
+      //Obteniendo datos almacenados
+      const [userValue, onboarding, coordenateEnable] = await Promise.all([
+        AsyncStorage.getItem("user"),
+        AsyncStorage.getItem("onboarding"),
+        AsyncStorage.getItem("coordenatesPermitions"),
+      ]);
 
-    //Transformando con json parse
-    coordenateEnable = JSON.parse(coordenateEnable);
-    userValue = JSON.parse(userValue);
-    onboarding = JSON.parse(onboarding);
+      // Parse JSON values
+      const parsedUserValue = JSON.parse(userValue);
+      const parsedOnboarding = JSON.parse(onboarding);
+      const parsedCoordenateEnable = JSON.parse(coordenateEnable);
 
-    //Seteando informacion
-    setEnableBoarding(onboarding);
-    setUser(userValue);
-    setCoordenatesPermitions(coordenateEnable);
+       //Prueba de token
+       const {data} = await get('/list_cars', parsedUserValue.token)
+       if (data.message === "Token Invalido" && data.status === 302) {
+         await AsyncStorage.removeItem('user');
+         return;
+       }
+      
+      // Set state
+      setEnableBoarding(parsedOnboarding);
+      setUser(parsedUserValue);
+      setCoordenatesPermitions(parsedCoordenateEnable);
 
-    //Habilitar auth
-    if (userValue) {
-      setAuth(true);
+      //Habilitar auth
+      if (userValue) {
+        setAuth(true);
+      }
+    } catch (error) {
+      console.error("⭕️", error);
     }
     setLoading(false);
     SplashScreen.hideAsync();
@@ -101,8 +114,7 @@ const AuthProvider = ({ children }) => {
         type: "danger",
       });
     }
-      setLoading(false);
-
+    setLoading(false);
   };
 
   const signUpFn = useCallback(async (formData, navigation, setLoading) => {

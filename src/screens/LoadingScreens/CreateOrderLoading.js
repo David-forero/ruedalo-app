@@ -46,7 +46,6 @@ const CreateOrderLoading = () => {
         
         navigation.navigate("OrderSuccessful", {data: res});
       } else {
-        console.log(res);
         showMessage({
           message: "Error al hacer la compra",
           description: res.data.message,

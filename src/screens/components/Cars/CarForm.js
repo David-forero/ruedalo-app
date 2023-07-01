@@ -67,7 +67,6 @@ const CarForm = ({
         onFocus={() => setIsFocusYear(true)}
         onBlur={() => setIsFocusYear(false)}
         onChange={(item) => {
-          console.log(item);
           getMakesFn(item, user?.token);
           setMyYear(item.value);
           setSelectedYear(item.value);

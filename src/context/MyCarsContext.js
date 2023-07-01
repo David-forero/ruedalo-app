@@ -170,7 +170,6 @@ const MyCarsProvider = ({ children }) => {
       setListCars(newListCars.body.data.rows);
 
       setShowModal(false);
-      console.log(data);
       showMessage({
         message: "Vehículo eliminado",
         description: "Vehículo eliminado correctamente",
@@ -192,8 +191,6 @@ const MyCarsProvider = ({ children }) => {
           type: "danger",
         });
       }
-
-      console.log(data);
 
       const { data: newListCars } = await get("/list_cars", token);
       setListCars(newListCars.body.data.rows);
