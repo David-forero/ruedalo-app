@@ -34,6 +34,7 @@ export default function Order() {
   useEffect(() => {
     setLoading(true);
     getOneOrder(id, user?.token, setLoading);
+    console.log('id de la orden --->', id);
     console.log(order);
   }, []);
 
@@ -190,14 +191,14 @@ export default function Order() {
                 source={{
                   uri:
                     "https://backend.ruedalo.app/api/avatar/" +
-                    order?.commerce.avatar[0],
+                    order?.commerce?.avatar[0],
                 }}
                 className="h-10 w-10 rounded-full"
                 resizeMode="stretch"
               />
 
               <View>
-                <Text>{order?.commerce.registered_name}</Text>
+                <Text>{order?.commerce?.registered_name}</Text>
                 <View
                   style={{
                     flexDirection: "row",
@@ -340,7 +341,7 @@ export default function Order() {
           <Button
             title={`Chatear con el vendedor`}
             containerStyle={{ marginBottom: 20, marginTop: 60 }}
-            onPress={() => openWhatsAppChat(order?.commerce.phone)}
+            onPress={() => openWhatsAppChat(order?.commerce?.phone)}
             icon={<FontAwesome name="whatsapp" size={20} color="white" />}
           />
         )}

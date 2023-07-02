@@ -14,10 +14,12 @@ import ServicesProvider from "../context/ServicesContext";
 import MyCarsProvider from "../context/MyCarsContext";
 
 import { StripeProvider } from "@stripe/stripe-react-native";
+import { useNavigationCustom } from "../common/hooks";
+
 
 export default function Navigation() {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={useNavigationCustom}>
       <StripeProvider publishableKey={'pk_test_51MLqmDGFUPnOrSP52erb66PXqhBdGZDJxnXZP6udhH5kIwuvuvgNQfgTSEHqXcVaSIkfe1sCbpq7ur76JlIIW1TA00zSDRDBUD'}>
       <AuthProvider>
         <UserProvider>

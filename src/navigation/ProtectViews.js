@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { createNavigationContainerRef } from '@react-navigation/native';
+const navigationRef = createNavigationContainerRef()
+
 import {
   OnBoarding,
   SignIn,

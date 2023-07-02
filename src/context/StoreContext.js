@@ -5,11 +5,12 @@ import {
   useCallback,
   useEffect,
 } from "react";
-import { post } from "../common/functions/http";
+import { post, timeoutCustom } from "../common/functions/http";
 import { useAuthContext } from "./AuthContext";
 import * as Location from "expo-location";
 import { useNavigation } from "@react-navigation/native";
-import { createNavigationContainerRef } from '@react-navigation/native';
+import { useNavigationCustom } from "../common/hooks";
+import { log } from "react-native-reanimated";
 
 const StoreContext = createContext({});
 
@@ -25,36 +26,30 @@ const StoreProvider = ({ children }) => {
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [product, setProduct] = useState(null);
 
-  const navigationRef = createNavigationContainerRef()
-
-
   useEffect(() => {
     initPlaceFn();
   }, []);
 
   async function initPlaceFn() {
     console.log('se ejecuta initPlace');
-    if (!coordenatesPermitions) {
-      return navigation.navigate("Selectlocation");
-    }
-    
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      return navigation.navigate("Selectlocation");
-    }
 
-    if ((coordenatesPermitions && !location) || !myPlace) {
+    if (!location || !myPlace) {
     console.log('🔎 buscando ubicacion');
 
       setLoadingLocation(true);
+     try {
       const location = await Location.getCurrentPositionAsync({});
       setLocation(location.coords);
 
-      const place = await Location.reverseGeocodeAsync({
+      const placePromise = Location.reverseGeocodeAsync({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       });
+      const place = await timeoutCustom(5000, placePromise);
       setMyPlace(place);
+     } catch (error) {
+      console.error(error)
+     }
       setLoadingLocation(false);
     }
   }

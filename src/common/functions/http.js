@@ -103,6 +103,24 @@ const upload = async (url, data, token) => {
     }
 }
 
+function timeoutCustom(ms, promise) {
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        reject(new Error("Promise timed out!"));
+      }, ms);
+  
+      promise
+        .then((value) => {
+          clearTimeout(timer);
+          resolve(value);
+        })
+        .catch((reason) => {
+          clearTimeout(timer);
+          reject(reason);
+        });
+    });
+  }
+
 
 export {
     get,
@@ -110,5 +128,6 @@ export {
     put,
     patch,
     delet,
-    upload
+    upload,
+    timeoutCustom
 }

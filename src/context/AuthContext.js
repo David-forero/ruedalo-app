@@ -1,7 +1,16 @@
-import { useContext, createContext, useState, useCallback } from "react";
+import {
+  useContext,
+  createContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { get, post } from "../common/functions/http";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
+import * as Notifications from "expo-notifications";
+import * as Device from "expo-device";
+import { useNavigationCustom } from "../common/hooks";
 
 //Web==
 //Secret: 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
@@ -12,12 +21,85 @@ import { showMessage } from "react-native-flash-message";
 //Client ID: 469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com
 
 const AuthContext = createContext({});
-
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
   const [enableBoarding, setEnableBoarding] = useState(true);
   const [coordenatesPermitions, setCoordenatesPermitions] = useState(false);
+
+  // Proporciona una función para navegar que puedes usar en todo tu código
+  const navigate = (name, params) => {
+    useNavigationCustom.current?.navigate(name, params);
+  };
+
+  useEffect(() => {
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true, // Configurado para mostrar la notificación incluso cuando la app está en primer plano
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+      }),
+    });
+
+    const subscription = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        const {
+          notification: {
+            request: {
+              content: { data },
+            },
+          },
+        } = response;
+        console.log("data ---> ", data);
+        
+        // Aquí se puede verificar el tipo de notificación y redirigir al usuario según sea necesario
+        // Asegúrate de tener este nombre en tu stack de navegación
+        if (data.objective === "order") {
+          console.log("🔎 a buscar la orden...");
+          navigate("Order", { id: data.id_objective });
+        }
+      }
+    );
+
+    return () => {
+      // limpieza al desmontar
+      subscription.remove();
+    };
+  }, []);
+
+  async function registerForPushNotificationsAsync() {
+    let token;
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+      token = (await Notifications.getExpoPushTokenAsync()).data;
+    } else {
+      console.warn(
+        "Debe usar un dispositivo físico para las notificaciones automáticas"
+      );
+      // alert('Must use physical device for Push Notifications');
+    }
+
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
+    }
+
+    return token;
+  }
 
   const loadingApp = async (setLoading, SplashScreen) => {
     console.log("🔥 cargando app...");
@@ -30,17 +112,17 @@ const AuthProvider = ({ children }) => {
       ]);
 
       // Parse JSON values
-      const parsedUserValue = JSON.parse(userValue);
+      const parsedUserValue = await JSON.parse(userValue);
       const parsedOnboarding = JSON.parse(onboarding);
       const parsedCoordenateEnable = JSON.parse(coordenateEnable);
 
-       //Prueba de token
-       const {data} = await get('/list_cars', parsedUserValue.token)
-       if (data.message === "Token Invalido" && data.status === 302) {
-         await AsyncStorage.removeItem('user');
-         return;
-       }
-      
+      //Prueba de token
+      const { data } = await get("/list_cars", parsedUserValue?.token);
+      if (data.message === "Token Invalido" && data.status === 302) {
+        await AsyncStorage.removeItem("user");
+        return;
+      }
+
       // Set state
       setEnableBoarding(parsedOnboarding);
       setUser(parsedUserValue);
@@ -103,14 +185,19 @@ const AuthProvider = ({ children }) => {
           type: "danger",
         });
       }
+
+      const tokenNotify = await registerForPushNotificationsAsync();
+      console.log(tokenNotify);
+
       setUser(data.data);
       let dataString = JSON.stringify(data.data);
       await AsyncStorage.setItem("user", dataString);
       setAuth(true);
     } catch (error) {
+      console.error(error);
       showMessage({
         message: "Error al iniciar sessión",
-        description: data.message,
+        description: "Error desconocido...",
         type: "danger",
       });
     }

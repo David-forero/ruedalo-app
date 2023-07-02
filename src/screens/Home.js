@@ -68,6 +68,8 @@ export default function Home() {
     init();
   }, [location, user?.token]);
 
+  
+
   function renderHeader() {
     return (
       <View
