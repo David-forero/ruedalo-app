@@ -9,6 +9,7 @@ const UserContext = createContext({});
 const UserProvider = ({ children }) => {
   const [coordenates, setCoordenates] = useState(null);
   const [documentsVehicles, setDocumentsVehicles] = useState(false);
+  const [notifications, setNotifications] = useState(null);
   const stripe = useStripe();
 
   const [transactions, setTransactions] = useState(null);
@@ -190,8 +191,20 @@ const UserProvider = ({ children }) => {
       token
     );
     setLoading(false);
-    console.log(data);
     setTransactions(data.data.rows);
+  }, []);
+
+  const getListNotifFn = useCallback(async (setLoading, token) => {
+    const { data } = await post(
+      "/list_notif",
+      {
+        limit: 10,
+        offset: 0,
+      },
+      token
+    );
+    setLoading(false);
+    setNotifications(data.data.rows);
   }, []);
 
   return (
@@ -202,6 +215,7 @@ const UserProvider = ({ children }) => {
         documentsVehicles,
         setCoordenates,
         transactions,
+        notifications,
         //Functions
         updateUserFn,
         getBannersFn,
@@ -212,6 +226,7 @@ const UserProvider = ({ children }) => {
         updateDocumentVehicleFn,
         getTransactionsAppFn,
         forgotPasswordFn,
+        getListNotifFn
       }}
     >
       {children}

@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { useState } from "react";
 import dayjs from "dayjs";
+import { formatDollar } from "../common/functions/formatCurrency";
 
 export default function TransactionsView() {
   const navigation = useNavigation();
@@ -27,6 +28,7 @@ export default function TransactionsView() {
     setLoading(false);
     getTransactionsAppFn(setLoading, user?.token);
   }, []);
+
 
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
@@ -82,7 +84,7 @@ export default function TransactionsView() {
                       color: COLORS.gray2,
                     }}
                   >
-                    Se ha hecho un cobro de ${Number(item.amount)}
+                    Se ha hecho un cobro de {formatDollar(Number(item.amount) / 100)}
                   </Text>
                   <Text
                     style={{
@@ -96,7 +98,11 @@ export default function TransactionsView() {
                 </View>
               </View>
             ))
-          : null}
+          : (
+            <View className="flex-1 items-center justify-center mb-24">
+            <Text>De momento no hay transacciones</Text>
+          </View>
+          )}
       </ScrollView>
     </SafeAreaView>
   );
