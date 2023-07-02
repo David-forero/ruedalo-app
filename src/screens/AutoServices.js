@@ -52,18 +52,18 @@ const AutoServices = () => {
   const { user } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
-  const {myPlace, location} = useStoreContext();
+  const { myPlace, location, loadingLocation } = useStoreContext();
   const [bannerServices, setBannerServices] = useState(null);
 
   const { populars, setPopulars, mostSells, setMostSells, getListServicessFn } =
     useServicesContext();
-  const {getBannersFn} = useUserContext();
+  const { getBannersFn } = useUserContext();
 
   useEffect(() => {
     async function init() {
       setLoading(true);
-      let banners = await getBannersFn('service', user?.token)
-      setBannerServices(banners)
+      let banners = await getBannersFn("service", user?.token);
+      setBannerServices(banners);
       const { data } = await getListServicessFn(
         {
           latitude: location?.latitude,
@@ -94,10 +94,21 @@ const AutoServices = () => {
               ...FONTS.Roboto_400Regular,
               fontSize: 14,
             }}
+            onPress={() => {
+              if (!myplace) {
+                navigation.navigate("Selectlocation");
+              }
+            }}
           >
-             {myPlace
-              ? `${myPlace[0]?.name} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
-              : "Crear una dirección acá"}
+            {loadingLocation ? (
+              "Cargando..."
+            ) : (
+              <>
+                {myPlace
+                  ? `${myPlace[0]?.name} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
+                  : "Activar mi ubicación"}
+              </>
+            )}
           </Text>
         </View>
 
@@ -215,7 +226,7 @@ const AutoServices = () => {
             }}
             onPress={() =>
               navigation.navigate("ServicesDetails", {
-                id: item.id
+                id: item.id,
               })
             }
           >
@@ -290,7 +301,7 @@ const AutoServices = () => {
                 style={{
                   ...FONTS.Roboto_500Medium,
                   fontSize: 12,
-                //   marginBottom: 8,
+                  //   marginBottom: 8,
                 }}
                 numberOfLines={1}
               >
@@ -301,9 +312,7 @@ const AutoServices = () => {
                   flexDirection: "row",
                   alignItems: "center",
                 }}
-              >
-                
-              </View>
+              ></View>
             </View>
           </TouchableOpacity>
         </Shadow>

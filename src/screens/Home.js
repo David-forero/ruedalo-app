@@ -85,7 +85,11 @@ export default function Home() {
               fontSize: 14,
             }}
             numberOfLines={1}
-            onPress={() => navigation.navigate("Selectlocation")}
+            onPress={() => {
+              if (!myplace) {
+                navigation.navigate("Selectlocation")
+              }
+            }}
           >
             {loadingLocation ? (
               "Cargando..."

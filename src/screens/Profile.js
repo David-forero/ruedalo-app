@@ -13,8 +13,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import { ProfileCategory } from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 import { useAuthContext } from "../context/AuthContext";
-import * as Permissions from "expo-permissions";
-import * as ImagePicker from "expo-image-picker";
 
 
 export default function Profile() {
@@ -178,7 +176,7 @@ export default function Profile() {
           onPress={() => setShowModal(true)}
         />
 
-        <ProfileCategory
+        {/* <ProfileCategory
           icon={require("../assets/icons/exit.png")}
           title="Resetear permisos"
           iconBgColor={COLORS.lightPink}
@@ -187,7 +185,7 @@ export default function Profile() {
             // await Permissions.askAsync(Permissions.LOCATION_BACKGROUND);
             // await Permissions.askAsync(Permissions.LOCATION_FOREGROUND);
           }}
-        />
+        /> */}
       </ScrollView>
     );
   }
