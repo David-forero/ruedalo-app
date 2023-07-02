@@ -50,12 +50,8 @@ const AuthProvider = ({ children }) => {
             },
           },
         } = response;
-        console.log("data ---> ", data);
-        
-        // Aquí se puede verificar el tipo de notificación y redirigir al usuario según sea necesario
-        // Asegúrate de tener este nombre en tu stack de navegación
+
         if (data.objective === "order") {
-          console.log("🔎 a buscar la orden...");
           navigate("Order", { id: data.id_objective });
         }
       }
@@ -175,6 +171,8 @@ const AuthProvider = ({ children }) => {
   );
 
   const signInFn = async (formData, navigation, setLoading) => {
+    const tokenNotify = await registerForPushNotificationsAsync();
+    formData.token_notif = tokenNotify
     try {
       const { data } = await post("/login", formData);
       setLoading(false);
@@ -185,9 +183,6 @@ const AuthProvider = ({ children }) => {
           type: "danger",
         });
       }
-
-      const tokenNotify = await registerForPushNotificationsAsync();
-      console.log(tokenNotify);
 
       setUser(data.data);
       let dataString = JSON.stringify(data.data);
@@ -244,7 +239,11 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const signWithGoogleFn = async (googleData) => {
-    const { data } = await post("/login-google", { email: googleData.email });
+    const tokenNotify = await registerForPushNotificationsAsync();
+    const { data } = await post("/login-google", { 
+      email: googleData.email,
+      token_notif: tokenNotify
+    });
     setUser(data.data);
     setAuth(true);
     let dataString = JSON.stringify(data?.data);
