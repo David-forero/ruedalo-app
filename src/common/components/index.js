@@ -73,6 +73,7 @@ import LoadingListOne from './loadings/LoadingListOne';
 import LoadingListTwo from './loadings/LoadingListTwo';
 import LoadingFullScreen from './loadings/LoadingFullScreen';
 import InputPhone from './InputPhone';
+import ModalPermitions from './ModalPermitions';
 
 export {
     Button,
@@ -147,5 +148,6 @@ export {
     //LOADINGS ⏳️
     LoadingListOne,
     LoadingListTwo,
-    LoadingFullScreen
+    LoadingFullScreen,
+    ModalPermitions
 };

@@ -24,26 +24,36 @@ const StoreProvider = ({ children }) => {
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [product, setProduct] = useState(null);
 
-  useEffect(() => {
-    async function init() {
-      if (!coordenatesPermitions) {
-        navigation.navigate("Selectlocation")
-      }
-      if ((coordenatesPermitions && !location) || !myPlace) {
-        setLoadingLocation(true);
-        const location = await Location.getCurrentPositionAsync({});
-        setLocation(location.coords);
 
-        const place = await Location.reverseGeocodeAsync({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        });
-        setMyPlace(place);
-        setLoadingLocation(false);
-      }
-    }
-    init();
+
+  useEffect(() => {
+    
+    initPlaceFn();
   }, []);
+
+  async function initPlaceFn() {
+    if (!coordenatesPermitions) {
+      return navigation.navigate("Selectlocation");
+    }
+    
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      return navigation.navigate("Selectlocation");
+    }
+
+    if ((coordenatesPermitions && !location) || !myPlace) {
+      setLoadingLocation(true);
+      const location = await Location.getCurrentPositionAsync({});
+      setLocation(location.coords);
+
+      const place = await Location.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+      setMyPlace(place);
+      setLoadingLocation(false);
+    }
+  }
 
   const getListProductsFn = async (params, token, setLoading) => {
     const myParams = {
@@ -85,6 +95,7 @@ const StoreProvider = ({ children }) => {
         getListProductsFn,
         getProductFn,
         checkoutProcessFn,
+        initPlaceFn
       }}
     >
       {children}

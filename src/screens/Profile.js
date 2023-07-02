@@ -13,6 +13,9 @@ import { FontAwesome } from "@expo/vector-icons";
 import { ProfileCategory } from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 import { useAuthContext } from "../context/AuthContext";
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from "expo-image-picker";
+
 
 export default function Profile() {
   const navigation = useNavigation();
@@ -152,12 +155,12 @@ export default function Profile() {
 
         {user?.plan != 2 ? (
           <ProfileCategory
-          icon={require("../assets/icons/coupon.png")}
-          title="Membresia"
-          subtitle="Obtenga beneficios"
-          onPress={() => navigation.navigate("MemberShip")}
-          iconBgColor={COLORS.lightLilac}
-        />
+            icon={require("../assets/icons/coupon.png")}
+            title="Membresia"
+            subtitle="Obtenga beneficios"
+            onPress={() => navigation.navigate("MemberShip")}
+            iconBgColor={COLORS.lightLilac}
+          />
         ) : null}
 
         <ProfileCategory
@@ -175,12 +178,16 @@ export default function Profile() {
           onPress={() => setShowModal(true)}
         />
 
-        {/* <ProfileCategory
+        <ProfileCategory
           icon={require("../assets/icons/exit.png")}
-          title="Limpiar Cache"
+          title="Resetear permisos"
           iconBgColor={COLORS.lightPink}
-          onPress={() => AsyncStorage.removeItem("coordenatesPermitions")}
-        /> */}
+          onPress={async () => {
+            // await Permissions.askAsync(Permissions.);
+            // await Permissions.askAsync(Permissions.LOCATION_BACKGROUND);
+            // await Permissions.askAsync(Permissions.LOCATION_FOREGROUND);
+          }}
+        />
       </ScrollView>
     );
   }

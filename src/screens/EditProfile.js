@@ -1,28 +1,25 @@
 import {
   View,
-  TextInput,
-  ScrollView,
   SafeAreaView,
   Text,
   TouchableOpacity,
   Image,
 } from "react-native";
-import React, { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as ImagePicker from "expo-image-picker";
 import {
-  EditProfileCategory,
   Header,
   Button,
   InputField,
   InputPhone,
+  ModalPermitions,
 } from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useAuthContext } from "../context/AuthContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUserContext } from "../context/UserContext";
 
 export default function EditProfile() {
@@ -31,6 +28,7 @@ export default function EditProfile() {
   const [loading, setLoading] = useState(false);
   const { user, setUser } = useAuthContext();
   const { updateUserFn } = useUserContext();
+  const [showModalPermition, setShowModalPermition] = useState(false)
 
   useEffect(() => {
     setImage(null);
@@ -38,10 +36,13 @@ export default function EditProfile() {
 
   // Función para seleccionar una imagen del dispositivo
   const pickImage = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const { status, canAskAgain } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!canAskAgain) {
+      return setShowModalPermition(true)
+    }
+
     if (status !== "granted") {
-      console.log("Permisos denegados");
-      return;
+      return setShowModalPermition(true)
     }
 
     const result = await ImagePicker.launchImageLibraryAsync();
@@ -184,6 +185,13 @@ export default function EditProfile() {
                   marginBottom: 20,
                 }}
                 onPress={handleSubmit}
+              />
+
+              <ModalPermitions 
+                showModal={showModalPermition}
+                setShowModal={setShowModalPermition}
+                title={'Permisos requeridos'}
+                description={'Necesitamos su permiso para acceder a la galería. Por favor, vaya a la configuración de la aplicación y conceda el permiso.'}
               />
               {/* <TouchableOpacity
                 onPress={() => navigation.navigate("ChangePassword")}

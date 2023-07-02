@@ -1,12 +1,13 @@
 import React from "react";
 import { Modal, View, ActivityIndicator, StyleSheet, Text } from "react-native";
+import { COLORS } from "../../constants";
 
 const LoadingFullScreen = ({ isLoading, message }) => {
   return (
     <Modal transparent visible={isLoading} onRequestClose={() => {}}>
       <View style={styles.modalBackground}>
         <View style={styles.activityIndicatorWrapper}>
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" color={COLORS.orange} />
           {/* <Text className="mt-4 text-center">Iniciando session con google</Text> */}
         </View>
       </View>

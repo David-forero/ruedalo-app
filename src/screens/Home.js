@@ -85,6 +85,7 @@ export default function Home() {
               fontSize: 14,
             }}
             numberOfLines={1}
+            onPress={() => navigation.navigate("Selectlocation")}
           >
             {loadingLocation ? (
               "Cargando..."
@@ -92,7 +93,7 @@ export default function Home() {
               <>
                 {myPlace
                   ? `${myPlace[0]?.name} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
-                  : "Crear una dirección acá"}
+                  : "Activar mi ubicación"}
               </>
             )}
           </Text>

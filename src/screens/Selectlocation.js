@@ -1,27 +1,34 @@
-import { View, Text, ScrollView, SafeAreaView, Image } from "react-native";
-import React, { useEffect } from "react";
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import * as Location from "expo-location";
 
-import { Header, Button } from "../common/components";
+import { Header, Button, ModalPermitions, LoadingFullScreen } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, SIZES } from "../common/constants";
 import { useAuthContext } from "../context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ScrollView, SafeAreaView, Image, Text } from "react-native";
+import { useStoreContext } from "../context/StoreContext";
 
 export default function Selectlocation() {
   const navigation = useNavigation();
-  const {setCoordenatesPermitions} = useAuthContext()
+  const { setCoordenatesPermitions } = useAuthContext();
+  const {initPlaceFn} = useStoreContext()
+  const [showModalPermition, setShowModalPermition] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const getLocationPermission = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
-      console.log("Permiso de ubicación denegado");
+      setShowModalPermition(true)
       return;
     }
     // Permiso de ubicación concedido
     try {
-      await AsyncStorage.setItem('coordenatesPermitions', JSON.stringify(true))
+      setLoading(false);
+      await AsyncStorage.setItem("coordenatesPermitions", JSON.stringify(true));
       setCoordenatesPermitions(true);
+      setLoading(true);
+      initPlaceFn()
       navigation.navigate("MainLayout");
     } catch (error) {
       console.log("Error al obtener la ubicación:", error);
@@ -65,7 +72,10 @@ export default function Selectlocation() {
 
         <Button
           title="Dar permiso"
-          containerStyle={{ backgroundColor: COLORS.orange, marginVertical: 20 }}
+          containerStyle={{
+            backgroundColor: COLORS.orange,
+            marginVertical: 20,
+          }}
           onPress={getLocationPermission}
           // onPress={() => navigation.navigate("VerifyYourPhoneNumber")}
         />
@@ -83,6 +93,15 @@ export default function Selectlocation() {
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
       <Header title="Geolocalización" onPress={() => navigation.goBack()} />
       {renderContent()}
+      <ModalPermitions
+        showModal={showModalPermition}
+        setShowModal={setShowModalPermition}
+        title={"Permisos requeridos"}
+        description={
+          "Necesitamos su permiso para la ubicación. Por favor, vaya a la configuración de la aplicación y conceda el permiso."
+        }
+      />
+      <LoadingFullScreen isLoading={loading} />
     </SafeAreaView>
   );
 }
