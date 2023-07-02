@@ -173,6 +173,8 @@ export default function ServicesDetails() {
               onPress={() =>
                 navigation.navigate("RestaurantMenu", {
                   restaurant: dummyData[0],
+                  id: service?.commerce.id,
+                  typeCommerce: "service"
                 })
               }
               className=" flex-row space-x-3 mt-2"

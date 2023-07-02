@@ -65,10 +65,6 @@ const UserProvider = ({ children }) => {
       return res;
     } catch (error) {
       console.log(error);
-      showMessage({
-        message: "Error al cargar los anuncios... reintentando",
-        type: "warning"
-      })
     }
   }, []);
 

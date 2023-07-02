@@ -180,6 +180,8 @@ export default function Order() {
               onPress={() =>
                 navigation.navigate("RestaurantMenu", {
                   restaurant: dummyData[0],
+                  id: order?.commerce?.id,
+                  typeCommerce: order?.type
                 })
               }
               className=" flex-row space-x-3 mt-2"

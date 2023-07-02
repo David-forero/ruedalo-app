@@ -9,6 +9,7 @@ import { post } from "../common/functions/http";
 import { useAuthContext } from "./AuthContext";
 import * as Location from "expo-location";
 import { useNavigation } from "@react-navigation/native";
+import { createNavigationContainerRef } from '@react-navigation/native';
 
 const StoreContext = createContext({});
 
@@ -24,14 +25,15 @@ const StoreProvider = ({ children }) => {
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [product, setProduct] = useState(null);
 
+  const navigationRef = createNavigationContainerRef()
 
 
   useEffect(() => {
-    
     initPlaceFn();
   }, []);
 
   async function initPlaceFn() {
+    console.log('se ejecuta initPlace');
     if (!coordenatesPermitions) {
       return navigation.navigate("Selectlocation");
     }
@@ -42,6 +44,8 @@ const StoreProvider = ({ children }) => {
     }
 
     if ((coordenatesPermitions && !location) || !myPlace) {
+    console.log('🔎 buscando ubicacion');
+
       setLoadingLocation(true);
       const location = await Location.getCurrentPositionAsync({});
       setLocation(location.coords);

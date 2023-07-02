@@ -26,14 +26,14 @@ export default function FoodDetails() {
   const [loading, setLoading] = useState(true);
   const route = useRoute();
   const [selectAcount, setSelectAcount] = useState(1);
-  const { id } = route.params;
+  const { id, commerceGoBack } = route.params;
 
   const [amount, setAmount] = useState(null);
 
   useEffect(() => {
     setLoading(true);
     getProductFn(id, user?.token, setLoading);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     setAmount(product?.price);
@@ -173,7 +173,8 @@ export default function FoodDetails() {
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("RestaurantMenu", {
-                  restaurant: dummyData[0],
+                  id: product?.commerce.id,
+                  typeCommerce: 'product'
                 })
               }
               className=" flex-row space-x-3 mt-2"
@@ -290,7 +291,15 @@ export default function FoodDetails() {
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
       <Header
         title="Detalles del producto"
-        onPress={() => navigation.goBack()}
+        onPress={() => {
+          if (commerceGoBack === true) {
+            return navigation.navigate("RestaurantMenu", {
+              id: product?.commerce.id,
+              typeCommerce: 'product'
+            })
+          }
+          navigation.goBack()
+        }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         {renderDetails()}

@@ -44,6 +44,8 @@ const DetailsBanner = () => {
           onPress={() =>
             navigation.navigate("RestaurantMenu", {
               restaurant: dummyData[0],
+              id: item?.commerce.id,
+              typeCommerce: item?.type
             })
           }
           className="px-5 flex-row space-x-3 mt-5"

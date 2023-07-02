@@ -14,6 +14,8 @@ const ServicesProvider = ({ children }) => {
   const [populars, setPopulars] = useState(null);
   const [mostSells, setMostSells] = useState(null);
   const [service, setService] = useState(null);
+  const [commerce, setCommerce] = useState(null);
+  const [catalog, setCatalog] = useState(null)
 
   const getListServicessFn = async (params, token, setLoading) => {
     const myParams = {
@@ -34,10 +36,37 @@ const ServicesProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  // const checkoutProcessFn = useCallback(async (params, token) => {
-  //   const res = await post("/create_order", params, token);
-  //   return res
-  // }, []);
+  const getCommerceFn = useCallback(async (id, token, setLoading) => {
+    const { data } = await post("/get_commerce", { id }, token);
+    setCommerce(data.data);
+    setLoading(false);
+  }, []);
+
+  const listServicesCommmerceFn = useCallback(async (id, category = null, token, setLoading) => {
+    let prepareBody = {
+      offset: 0,
+      limit: 20,
+      id_commerce: id
+    }
+    if (category) prepareBody.id_category = category
+
+    console.log('prepare service ->',prepareBody);
+    const { data } = await post("/list_service_commerce", prepareBody, token);
+    setCatalog(data.data);
+    setLoading(false);
+  }, []);
+
+  const listProductsCommmerceFn = useCallback(async (id, category = null, token, setLoading) => {
+    let prepareBody = {
+      offset: 0,
+      limit: 20,
+      id_commerce: id
+    }
+    if (category) prepareBody.id_category = category
+    const { data } = await post("/list_product_commerce", prepareBody, token);
+    setCatalog(data.data.rows);
+    setLoading(false);
+  }, []);
 
   return (
     <ServicesContext.Provider
@@ -48,9 +77,14 @@ const ServicesProvider = ({ children }) => {
         setPopulars,
         setMostSells,
         service,
+        commerce,
+        catalog,
         //Functions
         getListServicessFn,
         getServiceFn,
+        getCommerceFn,
+        listServicesCommmerceFn,
+        listProductsCommmerceFn
         // checkoutProcessFn,
       }}
     >
