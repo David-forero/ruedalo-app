@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -28,6 +29,7 @@ export default function PaymentMethodOne() {
   const [loadingCalculate, setLoadingCalculate] = useState(false);
 
   useEffect(() => {
+    setLoadingCalculate(true);
     calculateOrderFn(
         amount,
         0,
@@ -156,7 +158,7 @@ export default function PaymentMethodOne() {
                 marginBottom: 9,
               }}
             >
-                ${detailsOrder && detailsOrder?.productprice}
+              {loadingCalculate ? <ActivityIndicator size={'small'} color={'#2d2d2d'} /> : `$${detailsOrder?.productprice}`}
             </Text>
           </View>
 
@@ -185,7 +187,7 @@ export default function PaymentMethodOne() {
                 marginBottom: 9,
               }}
             >
-              ${detailsOrder && detailsOrder?.tax}
+              {loadingCalculate ? <ActivityIndicator size={'small'} color={'#2d2d2d'} /> : `$${detailsOrder?.tax}`}
             </Text>
           </View>
 
@@ -220,7 +222,7 @@ export default function PaymentMethodOne() {
                 marginBottom: 9,
               }}
             >
-              ${detailsOrder && detailsOrder?.iva}
+              {loadingCalculate ? <ActivityIndicator size={'small'} color={'#2d2d2d'} /> : `$${detailsOrder?.iva}`}
             </Text>
           </View>
 
@@ -249,7 +251,7 @@ export default function PaymentMethodOne() {
                   marginBottom: 9,
                 }}
               >
-                ${detailsOrder && detailsOrder?.igtf}
+              {loadingCalculate ? <ActivityIndicator size={'small'} color={'#2d2d2d'} /> : `$${detailsOrder?.igtf}`}
               </Text>
             </View>
           ) : null}

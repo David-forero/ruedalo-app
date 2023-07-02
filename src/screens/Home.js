@@ -86,7 +86,7 @@ export default function Home() {
             }}
             numberOfLines={1}
             onPress={() => {
-              if (!myplace) {
+              if (!myPlace) {
                 navigation.navigate("Selectlocation")
               }
             }}

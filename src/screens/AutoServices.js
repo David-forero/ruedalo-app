@@ -95,7 +95,7 @@ const AutoServices = () => {
               fontSize: 14,
             }}
             onPress={() => {
-              if (!myplace) {
+              if (!myPlace) {
                 navigation.navigate("Selectlocation");
               }
             }}
