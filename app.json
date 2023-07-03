@@ -12,6 +12,7 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
+    
     "assetBundlePatterns": ["**/*"],
     "notification": {
       "icon": "./assets/adaptive-icon.png",
@@ -23,25 +24,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/adaptive-icon.png"
       },
       "package": "com.daele.repuestosya"
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "config": {
-        "googleSignIn": {
-          "reservedClientId": "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com"
-        }
-      }
+      "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
         "projectId": "6b098aeb-e8fb-42e4-82f7-32f0f807ffb9"
       }
     },
-    "plugins": ["@react-native-google-signin/google-signin"],
     "owner": "misrepuestos"
   }
 }

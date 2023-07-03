@@ -20,14 +20,14 @@ import {
 } from "../../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../../common/constants";
 import { useAuthContext } from "../../context/AuthContext";
-import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
+// import * as WebBrowser from "expo-web-browser";
+// import * as Google from "expo-auth-session/providers/google";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from '@expo/vector-icons';
 
-WebBrowser.maybeCompleteAuthSession();
+// WebBrowser.maybeCompleteAuthSession();
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -43,36 +43,36 @@ export default function SignIn() {
     password: Yup.string().required("Campo requerido"),
   });
 
-  async function fetchUserInfo() {
-    let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-    const useInfo = await response.json();
-    signWithGoogleFn(useInfo);
-    navigation.navigate("MainLayout");
+  // async function fetchUserInfo() {
+  //   let response = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+  //     headers: { Authorization: `Bearer ${accessToken}` },
+  //   });
+  //   const useInfo = await response.json();
+  //   signWithGoogleFn(useInfo);
+  //   navigation.navigate("MainLayout");
 
-    setUser(useInfo);
-  }
+  //   setUser(useInfo);
+  // }
 
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    webClientId:
-      "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
-    clientSecret: "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",
-    expoClientId:
-      "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
-    androidClientId:
-      "469688688692-jbm36cdotrfies2i9fp9p8d7i3ua2ne9.apps.googleusercontent.com",
-    iosClientId:
-      "469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com",
-  });
+  // const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+  //   webClientId:
+  //     "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
+  //   clientSecret: "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",
+  //   expoClientId:
+  //     "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
+  //   androidClientId:
+  //     "469688688692-jbm36cdotrfies2i9fp9p8d7i3ua2ne9.apps.googleusercontent.com",
+  //   iosClientId:
+  //     "469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com",
+  // });
 
-  useEffect(() => {
-    setLoadingGoogle(false);
-    if (response?.type === "success") {
-      setAccessToken(response.authentication.accessToken);
-      accessToken && fetchUserInfo();
-    }
-  }, [response, accessToken]);
+  // useEffect(() => {
+  //   setLoadingGoogle(false);
+  //   if (response?.type === "success") {
+  //     setAccessToken(response.authentication.accessToken);
+  //     accessToken && fetchUserInfo();
+  //   }
+  // }, [response, accessToken]);
 
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
@@ -200,7 +200,7 @@ export default function SignIn() {
           )}
         </Formik>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
           onPress={() => {
             setLoadingGoogle(true);
@@ -222,7 +222,7 @@ export default function SignIn() {
           </Text>
 
           <View className="w-4 h-4"></View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <View
           style={{
