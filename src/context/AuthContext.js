@@ -238,12 +238,13 @@ const AuthProvider = ({ children }) => {
     navigation.navigate("SignIn");
   }, []);
 
-  const signWithGoogleFn = async (googleData) => {
+  const signWithGoogleFn = async (googleData, setLoading) => {
     const tokenNotify = await registerForPushNotificationsAsync();
     const { data } = await post("/login-google", { 
       email: googleData.email,
       token_notif: tokenNotify
     });
+    setLoading(false);
     setUser(data.data);
     setAuth(true);
     let dataString = JSON.stringify(data?.data);

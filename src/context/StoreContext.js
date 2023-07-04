@@ -15,9 +15,6 @@ import { log } from "react-native-reanimated";
 const StoreContext = createContext({});
 
 const StoreProvider = ({ children }) => {
-  const { coordenatesPermitions } = useAuthContext();
-  const navigation = useNavigation();
-
   //List products home
   const [forMyCar, setForMyCar] = useState(null);
   const [mostSells, setMostSells] = useState(null);

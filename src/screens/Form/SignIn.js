@@ -48,10 +48,9 @@ export default function SignIn() {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     const useInfo = await response.json();
-    signWithGoogleFn(useInfo);
-    navigation.navigate("MainLayout");
-
-    setUser(useInfo);
+    setLoadingGoogle(false)
+    signWithGoogleFn(useInfo, setLoadingGoogle);
+    // navigation.navigate("MainLayout");
   }
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
@@ -67,11 +66,11 @@ export default function SignIn() {
   });
 
   useEffect(() => {
-    setLoadingGoogle(false);
     if (response?.type === "success") {
       setAccessToken(response.authentication.accessToken);
-      accessToken && fetchUserInfo();
+      return accessToken && fetchUserInfo();
     }
+    setLoadingGoogle(false);
   }, [response, accessToken]);
 
   return (
