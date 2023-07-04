@@ -6,11 +6,7 @@ import {
   useEffect,
 } from "react";
 import { post, timeoutCustom } from "../common/functions/http";
-import { useAuthContext } from "./AuthContext";
 import * as Location from "expo-location";
-import { useNavigation } from "@react-navigation/native";
-import { useNavigationCustom } from "../common/hooks";
-import { log } from "react-native-reanimated";
 
 const StoreContext = createContext({});
 
@@ -28,26 +24,37 @@ const StoreProvider = ({ children }) => {
   }, []);
 
   async function initPlaceFn() {
-    console.log('se ejecuta initPlace');
+    console.log("se ejecuta initPlace");
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status === "granted") {
+      if (!location || !myPlace) {
+        console.log("🔎 buscando ubicacion");
 
-    if (!location || !myPlace) {
-    console.log('🔎 buscando ubicacion');
+        setLoadingLocation(true);
+        try {
+          console.log("buscando localizar...");
 
-      setLoadingLocation(true);
-     try {
-      const location = await Location.getCurrentPositionAsync({});
-      setLocation(location.coords);
+          const locationPromise = Location.getCurrentPositionAsync({});
 
-      const placePromise = Location.reverseGeocodeAsync({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      });
-      const place = await timeoutCustom(5000, placePromise);
-      setMyPlace(place);
-     } catch (error) {
-      console.error(error)
-     }
-      setLoadingLocation(false);
+          console.log("obteniendo location...");
+          const location = await timeoutCustom(5000, locationPromise);
+          setLocation(location.coords);
+          if (!location?.coords) {
+            return;
+          }
+          console.log("se obtuvo location!");
+
+          const placePromise = await Location.reverseGeocodeAsync({
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+          });
+          const place = await timeoutCustom(5000, placePromise);
+          setMyPlace(place);
+        } catch (error) {
+          console.error(error);
+        }
+        setLoadingLocation(false);
+      }
     }
   }
 
@@ -91,7 +98,7 @@ const StoreProvider = ({ children }) => {
         getListProductsFn,
         getProductFn,
         checkoutProcessFn,
-        initPlaceFn
+        initPlaceFn,
       }}
     >
       {children}

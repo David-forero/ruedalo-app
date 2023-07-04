@@ -68,9 +68,10 @@ export default function SignIn() {
   useEffect(() => {
     if (response?.type === "success") {
       setAccessToken(response.authentication.accessToken);
-      return accessToken && fetchUserInfo();
+      accessToken && fetchUserInfo();
+    }else{
+      setLoadingGoogle(false);
     }
-    setLoadingGoogle(false);
   }, [response, accessToken]);
 
   return (

@@ -55,8 +55,8 @@ export default function Home() {
       let banners = await getBannersFn('product', user?.token)
       setBannerStore(banners)
       let coordenates = {
-        latitude: location?.latitude,
-        longitude: location?.longitude,
+        latitude: location?.latitude || null,
+        longitude: location?.longitude || null,
       }
       const { data } = await getListProductsFn(
        coordenates?.latitude ? coordenates : {},
@@ -397,8 +397,8 @@ export default function Home() {
               setLoading(true);
               const { data } = await getListProductsFn(
                 {
-                  latitude: location.latitude,
-                  longitude: location.longitude,
+                  latitude: location?.latitude,
+                  longitude: location?.longitude,
                 },
                 user?.token,
                 setLoading

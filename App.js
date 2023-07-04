@@ -1,9 +1,8 @@
 import React from "react";
-import { useFonts } from "expo-font";
 import AppNavigation from "./src/navigation/AppNavigation";
 import { LogBox } from 'react-native';
 
-// LogBox.ignoreAllLogs(true);
+LogBox.ignoreAllLogs(true);
 
 // import BasketProvider from "./context/BasketContext";
 // import OrderProvider from "./context/OrderContext";
