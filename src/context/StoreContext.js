@@ -7,6 +7,7 @@ import {
 } from "react";
 import { post, timeoutCustom } from "../common/functions/http";
 import * as Location from "expo-location";
+import { useAuthContext } from "./AuthContext";
 
 const StoreContext = createContext({});
 
@@ -18,16 +19,19 @@ const StoreProvider = ({ children }) => {
   const [location, setLocation] = useState(null);
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [product, setProduct] = useState(null);
+const {auth} = useAuthContext()
 
   useEffect(() => {
-    initPlaceFn();
-  }, []);
+    if (auth) {
+      initPlaceFn();
+    }
+  }, [auth]);
 
   async function initPlaceFn() {
     console.log("se ejecuta initPlace");
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status === "granted") {
-      if (!location || !myPlace) {
+      if (!location || !myPlace && auth === true) {
         console.log("🔎 buscando ubicacion");
 
         setLoadingLocation(true);
