@@ -38,21 +38,23 @@ const {auth} = useAuthContext()
         try {
           console.log("buscando localizar...");
 
-          const locationPromise = Location.getCurrentPositionAsync({});
+          const locationPromise = Location.getLastKnownPositionAsync({});
 
           console.log("obteniendo location...");
           const location = await timeoutCustom(5000, locationPromise);
+          console.log(location);
           setLocation(location.coords);
           if (!location?.coords) {
             return;
           }
           console.log("se obtuvo location!");
 
-          const placePromise = await Location.reverseGeocodeAsync({
+          const placePromise = Location.reverseGeocodeAsync({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
           });
           const place = await timeoutCustom(5000, placePromise);
+          console.log(place);
           setMyPlace(place);
         } catch (error) {
           console.error(error);
