@@ -5,13 +5,12 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  FlatList,
 } from "react-native";
 import React, { useState } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { Header, Button } from "../common/components";
-import { COLORS, FONTS, SAFEAREAVIEW, dummyData } from "../common/constants";
+import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 import { Picker } from "@react-native-picker/picker";
 import { Rating } from "react-native-ratings";
 import { useEffect } from "react";
@@ -66,11 +65,9 @@ export default function FoodDetails() {
               }}
               style={{
                 height: 206,
-                width: "100%",
                 borderRadius: 14,
                 marginBottom: 21,
               }}
-              className="shadow-lg"
               resizeMode="stretch"
             />
           )}

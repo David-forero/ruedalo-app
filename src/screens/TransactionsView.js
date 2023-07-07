@@ -53,6 +53,7 @@ export default function TransactionsView() {
         {transactions
           ? transactions.map((item) => (
               <View
+                key={item}
                 style={{
                   width: "100%",
                   flexDirection: "row",

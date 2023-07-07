@@ -3,6 +3,7 @@ import { useStripe } from "@stripe/stripe-react-native";
 import { post, upload, get } from "../common/functions/http";
 import { showMessage } from "react-native-flash-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Sentry from 'sentry-expo';
 
 const UserContext = createContext({});
 
@@ -64,7 +65,7 @@ const UserProvider = ({ children }) => {
       let res = rows.filter((item) => item.type === type);
       return res;
     } catch (error) {
-      console.log(error);
+      Sentry.Native.captureException(error);
     }
   }, []);
 

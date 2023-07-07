@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "469688688692",
+    "project_id": "repuestos-ya-387913",
+    "storage_bucket": "repuestos-ya-387913.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469688688692:android:21c79d1b6cd5e9f8462a61",
+        "android_client_info": {
+          "package_name": "com.daele.repuestosya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgNYfxY8hRgp1t8FU-55dET8PZ3fwHpSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.daele.repuestosya"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

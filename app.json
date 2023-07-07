@@ -12,8 +12,9 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "notification": {
       "icon": "./assets/adaptive-icon.png",
       "color": "#000000"
@@ -23,6 +24,7 @@
       "bundleIdentifier": "com.daele.repuestosya"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png"
       },
@@ -36,6 +38,9 @@
         "projectId": "6b098aeb-e8fb-42e4-82f7-32f0f807ffb9"
       }
     },
-    "owner": "misrepuestos"
+    "owner": "misrepuestos",
+    "plugins": [
+      "sentry-expo"
+    ]
   }
 }

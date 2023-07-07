@@ -55,6 +55,7 @@ export default function Notifications() {
               title=""
               subtitle={item.description}
               icon={<Accept />}
+              key={item.id}
             />
           ))
         ) : (

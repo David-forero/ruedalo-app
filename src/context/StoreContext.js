@@ -8,6 +8,7 @@ import {
 import { post, timeoutCustom } from "../common/functions/http";
 import * as Location from "expo-location";
 import { useAuthContext } from "./AuthContext";
+import * as Sentry from 'sentry-expo';
 
 const StoreContext = createContext({});
 
@@ -28,36 +29,28 @@ const {auth} = useAuthContext()
   }, [auth]);
 
   async function initPlaceFn() {
-    console.log("se ejecuta initPlace");
     let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status === "granted") {
-      if (!location || !myPlace && auth === true) {
+    if (status === "granted" && auth) {
+      if (!location || !myPlace) {
         console.log("🔎 buscando ubicacion");
 
         setLoadingLocation(true);
         try {
-          console.log("buscando localizar...");
-
           const locationPromise = Location.getLastKnownPositionAsync({});
-
-          console.log("obteniendo location...");
           const location = await timeoutCustom(5000, locationPromise);
-          console.log(location);
           setLocation(location.coords);
           if (!location?.coords) {
             return;
           }
-          console.log("se obtuvo location!");
-
           const placePromise = Location.reverseGeocodeAsync({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
           });
           const place = await timeoutCustom(5000, placePromise);
-          console.log(place);
           setMyPlace(place);
         } catch (error) {
-          console.error(error);
+          console.error('🔴 Erroooooor --->', error);
+          Sentry.Native.captureException(error);
         }
         setLoadingLocation(false);
       }

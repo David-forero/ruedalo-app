@@ -44,8 +44,8 @@ const MyCarsProvider = ({ children }) => {
     );
     const setNewDataArray = data.data.map((item) => {
       return {
-        value: item.id,
-        label: item.name,
+        value: item?.id,
+        label: item?.name,
       };
     });
     setMakes(setNewDataArray);

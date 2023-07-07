@@ -11,7 +11,8 @@ import { showMessage } from "react-native-flash-message";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import { useNavigationCustom } from "../common/hooks";
-
+import * as Sentry from 'sentry-expo';
+import { Alert } from "react-native";
 //Web==
 //Secret: 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
 //ID:469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com
@@ -64,7 +65,8 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   async function registerForPushNotificationsAsync() {
-    let token;
+    try {
+      let token;
     if (Device.isDevice) {
       const { status: existingStatus } =
         await Notifications.getPermissionsAsync();
@@ -77,7 +79,9 @@ const AuthProvider = ({ children }) => {
         alert("Failed to get push token for push notification!");
         return;
       }
-      token = (await Notifications.getExpoPushTokenAsync()).data;
+      token = (await Notifications.getExpoPushTokenAsync({
+        projectId: '6b098aeb-e8fb-42e4-82f7-32f0f807ffb9',
+      })).data;
     } else {
       console.warn(
         "Debe usar un dispositivo físico para las notificaciones automáticas"
@@ -95,12 +99,15 @@ const AuthProvider = ({ children }) => {
     }
 
     return token;
+    } catch (error) {
+      Alert.alert("Error", "Ocurrió un error al generar el token: " + error.message);
+    }
   }
 
   const loadingApp = async (setLoading, SplashScreen) => {
     console.log("🔥 cargando app...");
     try {
-      //Obteniendo datos almacenados
+      // Obteniendo datos almacenados
       const [userValue, onboarding, coordenateEnable] = await Promise.all([
         AsyncStorage.getItem("user"),
         AsyncStorage.getItem("onboarding"),
@@ -112,7 +119,7 @@ const AuthProvider = ({ children }) => {
       const parsedOnboarding = JSON.parse(onboarding);
       const parsedCoordenateEnable = JSON.parse(coordenateEnable);
 
-      //Prueba de token
+      // Prueba de token
       const { data } = await get("/list_cars", parsedUserValue?.token);
       if (data.message === "Token Invalido" && data.status === 302) {
         await AsyncStorage.removeItem("user");
@@ -129,7 +136,8 @@ const AuthProvider = ({ children }) => {
         setAuth(true);
       }
     } catch (error) {
-      console.error("⭕️", error);
+      console.error("⭕️ error --->", error);
+      Sentry.Native.captureException(error);
     }
     setLoading(false);
     SplashScreen.hideAsync();
@@ -221,7 +229,8 @@ const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      console.error('🔴 Erroooooor --->', error);
+      Sentry.Native.captureException(error);
       showMessage({
         message: "Error al registrar",
         description: "Algo salió mal, intenta mas tarde",
@@ -239,7 +248,8 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const signWithGoogleFn = async (googleData, setLoading) => {
-    const tokenNotify = await registerForPushNotificationsAsync();
+    try {
+      const tokenNotify = await registerForPushNotificationsAsync();
     const { data } = await post("/login-google", { 
       email: googleData.email,
       token_notif: tokenNotify
@@ -249,6 +259,11 @@ const AuthProvider = ({ children }) => {
     setAuth(true);
     let dataString = JSON.stringify(data?.data);
     await AsyncStorage.setItem("user", dataString);
+    } catch (error) {
+      console.error('🔴 Erroooooor --->', error);
+      Alert.alert("Error", "Ocurrió un error al iniciar con googletoken: " + error.message);
+      Sentry.Native.captureException(error);
+    }
   };
 
   return (

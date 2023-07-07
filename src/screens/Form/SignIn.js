@@ -27,7 +27,7 @@ import * as Yup from "yup";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from '@expo/vector-icons';
 
-// WebBrowser.maybeCompleteAuthSession();
+WebBrowser.maybeCompleteAuthSession();
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -204,7 +204,7 @@ export default function SignIn() {
           className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
           onPress={() => {
             setLoadingGoogle(true);
-            promptAsync({ useProxy: true })
+            promptAsync({ useProxy: false })
           }}
           disabled={loadingGoogle || loading}
         >

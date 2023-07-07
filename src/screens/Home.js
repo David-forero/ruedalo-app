@@ -99,7 +99,7 @@ export default function Home() {
             ) : (
               <>
                 {myPlace
-                  ? `${myPlace[0]?.name} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
+                  ? `${myPlace[0]?.region} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
                   : "Activar mi ubicación"}
               </>
             )}

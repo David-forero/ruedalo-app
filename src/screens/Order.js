@@ -73,11 +73,9 @@ export default function Order() {
               }}
               style={{
                 height: 206,
-                width: "100%",
                 borderRadius: 14,
                 marginBottom: 21,
               }}
-              className="shadow-lg"
               resizeMode="stretch"
             />
           )}

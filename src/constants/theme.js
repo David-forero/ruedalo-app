@@ -1,4 +1,5 @@
 import { Dimensions } from "react-native";
+import { Platform, StatusBar } from "react-native";
 const { width, height } = Dimensions.get("window");
 
 export const COLORS = {
@@ -6,8 +7,8 @@ export const COLORS = {
     white: "#fff",
     gray1: "#D7D7D7",
     gray2: "#8A8D9F",
-    black2: "#2d2d2d",
-    lightOrange: "#ff572224",
+    green: "#1DBF73",
+    lightGreen: "rgba(29, 191, 115, 0.1)",
     lightGreen_02: "rgba(29, 191, 115, 0.2)",
     lightYellow: "rgba(255,199,0, 0.1)",
     lightRed: "rgba(254,33,33, 0.1)",
@@ -16,7 +17,7 @@ export const COLORS = {
     lightLilac: "#F4F1FC",
     carrot: "#FE724E",
     darkBlue: "#1F1D2B",
-    orange: "#ff5722",
+    yellow: "#FFC700",
     red: "#FE2121",
     lightPink: "#FFEDF2",
 
@@ -55,7 +56,7 @@ export const FONTS = {
     H2: {
         fontFamily: "Roboto_700Bold",
         fontSize: 22,
-        color: COLORS.black2,
+        color: COLORS.green,
         textTransform: "capitalize",
         textAlign: "center",
         lineHeight: 22 * 1.2,
@@ -73,7 +74,7 @@ export const SAFEAREAVIEW = {
     AndroidSafeArea: {
         flex: 1,
         backgroundColor: COLORS.white,
-        paddingTop: 10,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     },
     DefaultBackground: {
         flex: 1,

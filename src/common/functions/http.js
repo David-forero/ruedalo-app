@@ -1,5 +1,6 @@
 import Axios from "../../config/axiosConfig";
 // import {ERROR_UNKNOWN} from '../constants/messages';
+import * as Sentry from 'sentry-expo';
 
 const get = async (url, token = '') => {
     try {
@@ -11,6 +12,7 @@ const get = async (url, token = '') => {
 
     } catch (error) {
         console.error('❌ Error ->', error);
+        Sentry.Native.captureException(error);
        return {
             data: {
                 status: error.response.data.status, message: error.response.data.message, data: false
@@ -30,6 +32,7 @@ const post = async (url, data, token = '') => {
 
     } catch (error) {
         console.error('❌ Error ->', error);
+        Sentry.Native.captureException(error);
         return {
             data: {
                 status: error.response.data.status, message: error.response.data.message, data: false
@@ -45,6 +48,7 @@ const put = async (url, data) => {
 
     } catch (error) {
         console.error('❌ Error ->', error);
+        Sentry.Native.captureException(error);
        return {
             data: {
                 status: error.response.data.status, message: error.response.data.message, data: false
@@ -60,6 +64,7 @@ const patch = async (url, data) => {
 
     } catch (error) {
         console.error('❌ Error ->', error);
+        Sentry.Native.captureException(error);
        return {
             data: {
                 status: error.response.data.status, message: error.response.data.message, data: false
@@ -75,6 +80,7 @@ const delet = async (url, data) => {
 
     } catch (error) {
         console.error('❌ Error ->', error);
+        Sentry.Native.captureException(error);
        return {
             data: {
                 status: error.response.data.status, message: error.response.data.message, data: false
