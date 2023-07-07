@@ -36,16 +36,7 @@ import { useServicesContext } from "../context/ServicesContext";
 import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
 import { useUserContext } from "../context/UserContext";
-
-const banners = [
-  {
-    image: require("../assets/images/banners/banner5.jpg"),
-  },
-
-  {
-    image: require("../assets/images/banners/banner6.jpg"),
-  },
-];
+import Logo from '../assets/icons/logo.png'
 
 const AutoServices = () => {
   const navigation = useNavigation();
@@ -86,30 +77,40 @@ const AutoServices = () => {
           paddingLeft: 20,
         }}
       >
-        <View className="ml-3 flex-row mt-3 mb-4">
-          <Pin />
-          <Text
-            style={{
-              marginLeft: 12,
-              ...FONTS.Roboto_400Regular,
-              fontSize: 14,
-            }}
-            onPress={() => {
-              if (!myPlace) {
-                navigation.navigate("Selectlocation");
-              }
-            }}
-          >
-            {loadingLocation ? (
-              "Cargando..."
-            ) : (
-              <>
-                {myPlace
-                  ? `${myPlace[0]?.region} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
-                  : "Activar mi ubicación"}
-              </>
-            )}
-          </Text>
+        <View className="flex-row items-center justify-between mb-5 pr-5">
+          <Image
+            source={Logo}
+            className="w-10 h-10 ml-2"
+          />
+
+
+          <View className="ml-3 flex-row">
+          
+            <Text
+              style={{
+                marginLeft: 12,
+                ...FONTS.Roboto_400Regular,
+                fontSize: 14,
+              }}
+              numberOfLines={1}
+              onPress={() => {
+                if (!myPlace) {
+                  navigation.navigate("Selectlocation");
+                }
+              }}
+            >
+              {loadingLocation ? (
+                "Cargando..."
+              ) : (
+                <>
+                  {myPlace
+                    ? `${myPlace[0]?.region} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
+                    : "Activar mi ubicación"}
+                </>
+              )}
+            </Text>
+            <Pin />
+          </View>
         </View>
 
         <View

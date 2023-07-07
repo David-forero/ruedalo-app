@@ -28,6 +28,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
 import { RefreshControl } from "react-native-gesture-handler";
 import { useUserContext } from "../context/UserContext";
+import Logo from '../assets/icons/logo.png'
 
 export default function Home() {
   const navigation = useNavigation();
@@ -45,21 +46,21 @@ export default function Home() {
     loadingLocation,
     location,
   } = useStoreContext();
-  const {getBannersFn} = useUserContext();
+  const { getBannersFn } = useUserContext();
 
   //My hooks
 
   useEffect(() => {
     async function init() {
       setLoading(true);
-      let banners = await getBannersFn('product', user?.token)
-      setBannerStore(banners)
+      let banners = await getBannersFn("product", user?.token);
+      setBannerStore(banners);
       let coordenates = {
         latitude: location?.latitude || null,
         longitude: location?.longitude || null,
-      }
+      };
       const { data } = await getListProductsFn(
-       coordenates?.latitude ? coordenates : {},
+        coordenates?.latitude ? coordenates : {},
         user?.token,
         setLoading
       );
@@ -69,8 +70,6 @@ export default function Home() {
     init();
   }, [location, user?.token]);
 
-  
-
   function renderHeader() {
     return (
       <View
@@ -79,31 +78,40 @@ export default function Home() {
           paddingLeft: 20,
         }}
       >
-        <View className="ml-3 flex-row mt-3 mb-4">
-          <Pin />
-          <Text
-            style={{
-              marginLeft: 12,
-              ...FONTS.Roboto_400Regular,
-              fontSize: 14,
-            }}
-            numberOfLines={1}
-            onPress={() => {
-              if (!myPlace) {
-                navigation.navigate("Selectlocation")
-              }
-            }}
-          >
-            {loadingLocation ? (
-              "Cargando..."
-            ) : (
-              <>
-                {myPlace
-                  ? `${myPlace[0]?.region} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
-                  : "Activar mi ubicación"}
-              </>
-            )}
-          </Text>
+        <View className="flex-row items-center justify-between mb-5 pr-5">
+          <Image
+            source={Logo}
+            className="w-10 h-10 ml-2"
+          />
+
+
+          <View className="ml-3 flex-row">
+          
+            <Text
+              style={{
+                marginLeft: 12,
+                ...FONTS.Roboto_400Regular,
+                fontSize: 14,
+              }}
+              numberOfLines={1}
+              onPress={() => {
+                if (!myPlace) {
+                  navigation.navigate("Selectlocation");
+                }
+              }}
+            >
+              {loadingLocation ? (
+                "Cargando..."
+              ) : (
+                <>
+                  {myPlace
+                    ? `${myPlace[0]?.region} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
+                    : "Activar mi ubicación"}
+                </>
+              )}
+            </Text>
+            <Pin />
+          </View>
         </View>
 
         <View
