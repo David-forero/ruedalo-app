@@ -1,6 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { PUBLIC_KEY_STRIPE } from '@env'
 import FlashMessage from "react-native-flash-message";
 
 import AuthProvider from "../context/AuthContext";
@@ -20,7 +20,7 @@ import { useNavigationCustom } from "../common/hooks";
 export default function Navigation() {
   return (
     <NavigationContainer ref={useNavigationCustom}>
-      <StripeProvider publishableKey={'pk_test_51MLqmDGFUPnOrSP52erb66PXqhBdGZDJxnXZP6udhH5kIwuvuvgNQfgTSEHqXcVaSIkfe1sCbpq7ur76JlIIW1TA00zSDRDBUD'}>
+      <StripeProvider publishableKey={PUBLIC_KEY_STRIPE}>
       <AuthProvider>
         <UserProvider>
           <MyCarsProvider>

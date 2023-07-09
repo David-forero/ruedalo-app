@@ -122,7 +122,7 @@ export default function SignIn() {
                 onBlur={handleBlur("email")}
                 value={values.email}
               />
-              {/* Contraseña sin el componente por peticion 🙄 */}
+              {/* Contraseña sin el componente por peticion */}
               <View className="mb-3">
                 <View
                   className="bg-gray-100"
@@ -204,7 +204,7 @@ export default function SignIn() {
           className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
           onPress={() => {
             setLoadingGoogle(true);
-            promptAsync({ useProxy: false })
+            promptAsync(__DEV__ ? { useProxy: true } : {})
           }}
           disabled={loadingGoogle || loading}
         >

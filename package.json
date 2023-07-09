@@ -48,6 +48,7 @@
     "react-native-collapsible": "^1.6.0",
     "react-native-curved-bottom-bar": "^3.2.6",
     "react-native-dashed-line": "^1.1.0",
+    "react-native-dotenv": "^3.4.9",
     "react-native-dropdown-select-list": "^2.0.4",
     "react-native-element-dropdown": "^2.9.0",
     "react-native-flash-message": "^0.2.1",
