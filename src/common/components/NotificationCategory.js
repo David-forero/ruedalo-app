@@ -18,7 +18,7 @@ export default function NotificationCategory({ icon, title, subtitle }) {
             }}
         >
             {icon}
-            <View style={{ marginLeft: 15 }}>
+            <View style={{ marginLeft: 15, width: '85%' }}>
                 <Text
                     style={{
                         ...FONTS.Roboto_700Bold,

@@ -28,6 +28,7 @@ export default function Notifications() {
 
   useEffect(() => {
     getListNotifFn(setLoading, user?.token);
+    console.log(notifications);
   }, []);
 
   return (
@@ -52,8 +53,8 @@ export default function Notifications() {
         {notifications ? (
           notifications.map((item) => (
             <NotificationCategory
-              title=""
-              subtitle={item.description}
+              title={item.title}
+              subtitle={item.text}
               icon={<Accept />}
               key={item.id}
             />

@@ -22,13 +22,14 @@ import {
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../../common/constants";
 import { useAuthContext } from "../../context/AuthContext";
 import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import Logo from '../../assets/icons/logo.png'
+import * as Google from "expo-auth-session/providers/google";
 WebBrowser.maybeCompleteAuthSession();
+
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -65,6 +66,7 @@ export default function SignIn() {
     iosClientId:
       "469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com",
   });
+
 
   useEffect(() => {
     if (response?.type === "success") {

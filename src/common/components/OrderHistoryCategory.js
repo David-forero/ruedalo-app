@@ -44,7 +44,7 @@ export default function OrderHistoryCategory({ item, type }) {
                             flex: 1,
                         }}
                     >
-                        {Dayjs(item?.date).format('DD/MM/YYYY')}
+                        {Dayjs(item?.createdAt).format('DD/MM/YYYY')}
                     </Text>
                     <View
                         style={{
