@@ -52,6 +52,8 @@ const AuthProvider = ({ children }) => {
           },
         } = response;
 
+        // alert("Acá llego una notificacion");
+
         if (data.objective === "order") {
           navigate("Order", { id: data.id_objective });
         }

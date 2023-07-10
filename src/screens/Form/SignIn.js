@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   TouchableHighlight,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -25,8 +26,8 @@ import * as Google from "expo-auth-session/providers/google";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Ionicons } from "@expo/vector-icons";
-import { Entypo } from '@expo/vector-icons';
-
+import { Entypo } from "@expo/vector-icons";
+import Logo from '../../assets/icons/logo.png'
 WebBrowser.maybeCompleteAuthSession();
 
 export default function SignIn() {
@@ -48,7 +49,7 @@ export default function SignIn() {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     const useInfo = await response.json();
-    setLoadingGoogle(false)
+    setLoadingGoogle(false);
     signWithGoogleFn(useInfo, setLoadingGoogle);
     // navigation.navigate("MainLayout");
   }
@@ -69,7 +70,7 @@ export default function SignIn() {
     if (response?.type === "success") {
       setAccessToken(response.authentication.accessToken);
       accessToken && fetchUserInfo();
-    }else{
+    } else {
       setLoadingGoogle(false);
     }
   }, [response, accessToken]);
@@ -78,9 +79,9 @@ export default function SignIn() {
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
       <LoadingFullScreen isLoading={loadingGoogle} />
       <View className="flex-row-reverse items-center px-4 py-1">
-      <TouchableHighlight onPress={() => navigation.navigate("OnBoarding")} >
-      <Entypo name="info-with-circle" size={24} color="#2d2d2d" />
-      </TouchableHighlight>
+        <TouchableHighlight onPress={() => navigation.navigate("OnBoarding")}>
+          <Entypo name="info-with-circle" size={24} color="#2d2d2d" />
+        </TouchableHighlight>
       </View>
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
@@ -110,7 +111,12 @@ export default function SignIn() {
             isValid,
           }) => (
             <>
-              <View style={{ justifyContent: "center", marginBottom: 20 }}>
+
+              <View style={{ justifyContent: "center", marginBottom: 20, alignItems: "center" }}>
+                <Image
+                source={Logo}
+                className="w-16 h-16 mb-3"
+                />
                 <Text style={{ fontSize: 18 }}>Inicio de sesión</Text>
               </View>
 
@@ -162,7 +168,6 @@ export default function SignIn() {
                 </View>
               </View>
 
-
               {/* ======================= */}
               <View
                 style={{
@@ -204,7 +209,7 @@ export default function SignIn() {
           className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
           onPress={() => {
             setLoadingGoogle(true);
-            promptAsync(__DEV__ ? { useProxy: true } : {})
+            promptAsync(__DEV__ ? { useProxy: true } : {});
           }}
           disabled={loadingGoogle || loading}
         >
