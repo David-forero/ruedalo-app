@@ -10,10 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import {
   Header,
-  Cancel,
   NotificationCategory,
-  Wallet,
-  Promo,
   Accept,
 } from "../../common/components";
 import { SAFEAREAVIEW } from "../../common/constants";
@@ -28,7 +25,6 @@ export default function Notifications() {
 
   useEffect(() => {
     getListNotifFn(setLoading, user?.token);
-    console.log(notifications);
   }, []);
 
   return (
@@ -56,7 +52,10 @@ export default function Notifications() {
               title={item.title}
               subtitle={item.text}
               icon={<Accept />}
+              createdAt={item.createdAt}
               key={item.id}
+              id={item.id}
+              objective={item.objective}
             />
           ))
         ) : (

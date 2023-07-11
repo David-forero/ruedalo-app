@@ -200,6 +200,8 @@ const UserProvider = ({ children }) => {
       },
       token
     );
+
+    console.log(data.data.rows);
     setLoading(false);
     setNotifications(data.data.rows);
   }, []);
