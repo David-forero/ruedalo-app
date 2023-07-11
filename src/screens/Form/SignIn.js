@@ -59,7 +59,7 @@ export default function SignIn() {
     webClientId:
       "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
     // clientSecret: "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",
-    // expoClientId:"469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
+    expoClientId:"469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
     androidClientId:
       "469688688692-jbm36cdotrfies2i9fp9p8d7i3ua2ne9.apps.googleusercontent.com",
     iosClientId:

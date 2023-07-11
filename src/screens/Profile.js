@@ -136,6 +136,7 @@ export default function Profile() {
           onPress={() => navigation.navigate("MyDocuments")}
           iconBgColor={COLORS.lightLilac}
         />
+
         <ProfileCategory
           icon={require("../assets/icons/payment.png")}
           title="Transacciones"
@@ -143,6 +144,7 @@ export default function Profile() {
           iconBgColor={COLORS.lightLilac}
           onPress={() => navigation.navigate("TransactionsView")}
         />
+        
         <ProfileCategory
           icon={require("../assets/icons/notification.png")}
           title="Notificaciones"
