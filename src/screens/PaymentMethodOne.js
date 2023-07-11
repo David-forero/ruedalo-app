@@ -240,7 +240,7 @@ export default function PaymentMethodOne() {
                 marginBottom: 9,
               }}
             >
-              {loadingCalculate ? <ActivityIndicator size={'small'} color={'#2d2d2d'} /> : `$${detailsOrder?.productprice}`}
+              {loadingCalculate ? <ActivityIndicator size={'small'} color={'#2d2d2d'} /> : `$${detailsOrder?.productprice * detailsOrder?.unit}`}
             </Text>
           </View>
 

@@ -58,9 +58,8 @@ export default function SignIn() {
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     webClientId:
       "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
-    clientSecret: "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",
-    expoClientId:
-      "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
+    // clientSecret: "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",
+    // expoClientId:"469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
     androidClientId:
       "469688688692-jbm36cdotrfies2i9fp9p8d7i3ua2ne9.apps.googleusercontent.com",
     iosClientId:
@@ -211,7 +210,7 @@ export default function SignIn() {
           className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
           onPress={() => {
             setLoadingGoogle(true);
-            promptAsync(__DEV__ ? { useProxy: true } : {});
+            promptAsync();
           }}
           disabled={loadingGoogle || loading}
         >

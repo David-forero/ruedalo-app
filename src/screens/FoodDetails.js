@@ -274,7 +274,7 @@ export default function FoodDetails() {
           containerStyle={{ marginBottom: 20, marginTop: 60 }}
           onPress={() => {
             navigation.navigate("PaymentMethodOne", {
-              amount,
+              amount: Number(product?.price),
               product,
               unit: selectAcount,
             });
