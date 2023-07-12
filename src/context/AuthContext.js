@@ -34,36 +34,40 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    Notifications.setNotificationHandler({
-      handleNotification: async () => ({
-        shouldShowAlert: true, // Configurado para mostrar la notificación incluso cuando la app está en primer plano
-        shouldPlaySound: true,
-        shouldSetBadge: false,
-      }),
-    });
-
-    const subscription = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        const {
-          notification: {
-            request: {
-              content: { data },
+    try {
+      Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldShowAlert: true, // Configurado para mostrar la notificación incluso cuando la app está en primer plano
+          shouldPlaySound: true,
+          shouldSetBadge: false,
+        }),
+      });
+  
+      const subscription = Notifications.addNotificationResponseReceivedListener(
+        (response) => {
+          const {
+            notification: {
+              request: {
+                content: { data },
+              },
             },
-          },
-        } = response;
-
-        // alert("Acá llego una notificacion");
-
-        if (data.objective === "order") {
-          navigate("Order", { id: data.id_objective });
+          } = response;
+  
+          alert("Acá llego una notificacion");
+  
+          if (data.objective === "order") {
+            navigate("Order", { id: data.id_objective });
+          }
         }
-      }
-    );
-
-    return () => {
-      // limpieza al desmontar
-      subscription.remove();
-    };
+      );
+  
+      return () => {
+        // limpieza al desmontar
+        subscription.remove();
+      };
+    } catch (error) {
+      alert("Error al recibir notificaciones")
+    }
   }, []);
 
   async function registerForPushNotificationsAsync() {
@@ -78,12 +82,16 @@ const AuthProvider = ({ children }) => {
         finalStatus = status;
       }
       if (finalStatus !== "granted") {
-        alert("Failed to get push token for push notification!");
+        // alert("Failed to get push token for push notification!");
         return;
       }
-      token = (await Notifications.getExpoPushTokenAsync({
-        projectId: '6b098aeb-e8fb-42e4-82f7-32f0f807ffb9',
-      })).data;
+      if (__DEV__) {
+        token = (await Notifications.getExpoPushTokenAsync({
+          projectId: '6b098aeb-e8fb-42e4-82f7-32f0f807ffb9',
+        })).data;
+      }else{
+        token = (await Notifications.getDevicePushTokenAsync()).data;
+      }
     } else {
       console.warn(
         "Debe usar un dispositivo físico para las notificaciones automáticas"
@@ -184,6 +192,9 @@ const AuthProvider = ({ children }) => {
     const tokenNotify = await registerForPushNotificationsAsync();
     formData.token_notif = tokenNotify
     try {
+
+      // alert(`He recibido el token y lo he dado ${tokenNotify}`)
+
       const { data } = await post("/login", formData);
       setLoading(false);
       if (data.status == 400 || data.status === false) {
