@@ -82,6 +82,7 @@ export default function SignUp() {
                             showPasswords={showPasswords}
                             setShowPasswords={setShowPasswords}
                         />
+                        
                         <InputPassword
                             placeholder="Confirmar Contraseña"
                             onChangeText={handleChange("confirmPassword")}

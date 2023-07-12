@@ -50,14 +50,20 @@ const MyDocuments = () => {
         }
       >
         {loading ? (
-          <View className="flex-1 justify-center items-center">
-          </View>
+          <View className="flex-1 justify-center items-center"></View>
         ) : (
           <>
             {documentsVehicles?.length > 0 ? (
               documentsVehicles.map((item, index) => (
                 <View key={index} className="flex-row  justify-center mt-3">
                   <View className="bg-gray-300 p-5 w-4/5 rounded-md">
+                    <Text className="text-center mb-3">
+                      <Ionicons
+                        name="document-text-outline"
+                        size={40}
+                        color="black"
+                      />
+                    </Text>
                     <View className="flex-row item-center space-x-3 justify-center">
                       <Text className="text-md text-orange-600 font-bold">
                         Tipo de documento:
