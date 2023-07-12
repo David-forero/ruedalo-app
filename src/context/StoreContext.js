@@ -8,7 +8,7 @@ import {
 import { post, timeoutCustom } from "../common/functions/http";
 import * as Location from "expo-location";
 import { useAuthContext } from "./AuthContext";
-import * as Sentry from 'sentry-expo';
+import * as Sentry from "sentry-expo";
 
 const StoreContext = createContext({});
 
@@ -20,7 +20,8 @@ const StoreProvider = ({ children }) => {
   const [location, setLocation] = useState(null);
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [product, setProduct] = useState(null);
-const {auth} = useAuthContext()
+  const { auth } = useAuthContext();
+  const [searchList, setSearchList] = useState([]);
 
   useEffect(() => {
     if (auth) {
@@ -49,13 +50,28 @@ const {auth} = useAuthContext()
           const place = await timeoutCustom(5000, placePromise);
           setMyPlace(place);
         } catch (error) {
-          console.error('🔴 Erroooooor --->', error);
+          console.error("🔴 Erroooooor --->", error);
           Sentry.Native.captureException(error);
         }
         setLoadingLocation(false);
       }
     }
   }
+
+  const searchFn = async (params, token, setLoading) => { 
+    const myParams = {
+      title: params.query,
+      offset: params.offset || 0,
+      limit: params.limit || 10,
+      latitude: params.latitude || 28.626137,
+      longitude: params.longitude || 28.626137,
+      // distance: 15,
+    };
+    const { data } = await post("/list_product", myParams, token);
+    setLoading(false);
+    console.log('buscador -->',data);
+    setSearchList(data);
+   }
 
   const getListProductsFn = async (params, token, setLoading) => {
     const myParams = {
@@ -93,11 +109,13 @@ const {auth} = useAuthContext()
         myPlace,
         location,
         loadingLocation,
+        searchList,
         //Functions
         getListProductsFn,
         getProductFn,
         checkoutProcessFn,
         initPlaceFn,
+        searchFn
       }}
     >
       {children}

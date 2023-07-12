@@ -1,22 +1,52 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { useState } from "react";
+import {
+  SafeAreaView,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useState, useEffect } from "react";
 import { CardCatalog, Header } from "../common/components";
-import { COLORS, FONTS, SIZES, SAFEAREAVIEW, category, dummyData } from "../common/constants";
-import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
+import {
+  COLORS,
+  FONTS,
+  SIZES,
+  SAFEAREAVIEW,
+  category,
+  dummyData,
+} from "../common/constants";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import { useAuthContext } from "../context/AuthContext";
+import { useStoreContext } from "../context/StoreContext";
 
 const ListProducts = () => {
-  // const route = useRoute();
+  const route = useRoute();
   const navigation = useNavigation();
+  const { query, location } = route.params;
+  const { user } = useAuthContext();
+  const { searchFn, searchList } = useStoreContext();
+  const [searchText, setSearchText] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log("el query ->", query);
+    if (query) {
+      setLoading(true);
+      let params = {
+        query,
+        latitude: location.latitude,
+        longitude: location.longitude,
+        limit: 30,
+      };
+      searchFn(params, user?.token, setLoading);
+    }
+  }, [query]);
+
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-      >
-        <Header
-          title="Productos"
-          onPress={() => navigation.goBack()}
-        />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header title="Productos" onPress={() => navigation.goBack()} />
 
         <View
           style={{
@@ -27,7 +57,7 @@ const ListProducts = () => {
             alignItems: "center",
             flexDirection: "row",
             paddingLeft: 14,
-            marginTop: 12
+            marginTop: 12,
           }}
           className="bg-gray-100"
         >
@@ -53,29 +83,29 @@ const ListProducts = () => {
             paddingVertical: SIZES.paddingTop_01,
           }}
         >
-          {dummyData[0].dishes.map(item => (
-            <View key={item.id}>
-              <CardCatalog image={item.image} name={item.name} price={item.price} description={item.description} />
-              <View className="h-1 w-full border-b-2 border-slate-200">
-                {/* HR */}
-              </View>
-            </View>
-          ))}
-
-          {dummyData[0].dishes.map(item => (
-            <View key={item.id}>
-              <CardCatalog image={item.image} name={item.name} price={item.price} description={item.description} />
-              <View className="h-1 w-full border-b-2 border-slate-200">
-                {/* HR */}
-              </View>
-            </View>
-          ))}
+          {loading ? null : (
+            <>
+              {!searchList
+                ? searchList?.map((item) => (
+                    <View key={item.id}>
+                      {/* <CardCatalog
+                        image={item.image}
+                        name={item.name}
+                        price={item.price}
+                        description={item.description}
+                      /> */}
+                      <View className="h-1 w-full border-b-2 border-slate-200">
+                        {/* HR */}
+                      </View>
+                    </View>
+                  ))
+                : null}
+            </>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default ListProducts
-
-const styles = StyleSheet.create({})
+export default ListProducts;

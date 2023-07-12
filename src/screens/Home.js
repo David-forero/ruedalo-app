@@ -36,6 +36,7 @@ export default function Home() {
   const [selectCategory, setSelectCategory] = useState(1);
   const [bannerStore, setBannerStore] = useState(null);
   const { user } = useAuthContext();
+  const [searchText, setSearchText] = useState('');
   const {
     getListProductsFn,
     forMyCar,
@@ -129,10 +130,13 @@ export default function Home() {
           {/* <Search /> */}
           <TextInput
             placeholder="Buscar..."
+            value={searchText}
+            onChangeText={setSearchText}
             style={{ flex: 1, paddingLeft: 7 }}
+            onSubmitEditing={() => navigation.navigate("ListProducts", { query: searchText, location })}
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("ListProducts")}
+            onPress={() => navigation.navigate("ListProducts", {query: searchText, location})}
             style={{
               paddingHorizontal: 14,
               // paddingVertical: 15,
@@ -298,6 +302,7 @@ export default function Home() {
                     borderRadius: 10,
                     marginRight: 20,
                   }}
+                  resizeMode="contain"
                 />
                 <View style={{ flex: 1 }}>
                   <Text

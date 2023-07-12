@@ -403,6 +403,7 @@ const AutoServices = () => {
                 borderRadius: 10,
                 marginRight: 20,
               }}
+              resizeMode="stretch"
             />
             <View style={{ flex: 1 }}>
               <Text
