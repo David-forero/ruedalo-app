@@ -32,8 +32,6 @@ export default function Order() {
   useEffect(() => {
     setLoading(true);
     getOneOrder(id, user?.token, setLoading);
-    console.log('id de la orden --->', id);
-    console.log(order);
   }, []);
 
   const openWhatsAppChat = (phoneNumber) => {
@@ -176,7 +174,6 @@ export default function Order() {
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("RestaurantMenu", {
-                  restaurant: dummyData[0],
                   id: order?.commerce?.id,
                   typeCommerce: order?.type
                 })

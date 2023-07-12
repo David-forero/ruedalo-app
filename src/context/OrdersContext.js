@@ -27,8 +27,7 @@ const OrdersProvider = ({ children }) => {
         token
       );
       setOrder(data.data);
-    } else {
-    }
+    } 
     setLoading(false);
   }, []);
 

@@ -42,7 +42,7 @@ export default function RestaurantMenu() {
   const { user } = useAuthContext();
   const route = useRoute();
   const navigation = useNavigation();
-  const { restaurant, id, typeCommerce } = route.params;
+  const { id, typeCommerce } = route.params;
   const [tabCommerce, setTabCommerce] = useState("product");
 
   useEffect(() => {
