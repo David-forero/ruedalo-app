@@ -21,7 +21,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.daele.repuestosya"
+      "bundleIdentifier": "com.daele.ruedalo"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -29,7 +29,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundImage": "./assets/adaptive-icon.png"
       },
-      "package": "com.daele.repuestosya"
+      "package": "com.daele.ruedalo"
     },
     "web": {
       "favicon": "./assets/favicon.png"

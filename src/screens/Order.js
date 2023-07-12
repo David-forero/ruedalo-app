@@ -5,14 +5,12 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  FlatList,
 } from "react-native";
 import React, { useState } from "react";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Header, Button } from "../common/components";
 import { COLORS, FONTS, SAFEAREAVIEW, dummyData } from "../common/constants";
-import { Picker } from "@react-native-picker/picker";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { useEffect } from "react";
 import { useOrdersContext } from "../context/OrdersContext";
