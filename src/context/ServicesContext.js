@@ -15,7 +15,7 @@ const ServicesProvider = ({ children }) => {
   const [mostSells, setMostSells] = useState(null);
   const [service, setService] = useState(null);
   const [commerce, setCommerce] = useState(null);
-  const [catalog, setCatalog] = useState(null)
+  const [catalog, setCatalog] = useState([])
 
   const getListServicessFn = async (params, token, setLoading) => {
     const myParams = {
@@ -52,7 +52,7 @@ const ServicesProvider = ({ children }) => {
 
     console.log('prepare service ->',prepareBody);
     const { data } = await post("/list_service_commerce", prepareBody, token);
-    setCatalog(data.data);
+    setCatalog(data.data.rows);
     setLoading(false);
   }, []);
 

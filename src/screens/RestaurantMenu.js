@@ -31,7 +31,7 @@ import { useAuthContext } from "../context/AuthContext";
 export default function RestaurantMenu() {
   const [selectCategory, setSelectCategory] = useState(null);
   const [loadingCommerce, setLoadingCommerce] = useState(false);
-  const [loadingProducts, setLoadingProducts] = useState(false);
+  const [loadingCatalog, setLoadingCatalog] = useState(false);
   const {
     getCommerceFn,
     commerce,
@@ -42,8 +42,9 @@ export default function RestaurantMenu() {
   const { user } = useAuthContext();
   const route = useRoute();
   const navigation = useNavigation();
-  const { id, typeCommerce } = route.params;
+  const { id } = route.params;
   const [tabCommerce, setTabCommerce] = useState("product");
+  const [typeCatalog, setTypeCatalog] = useState("product");
 
   useEffect(() => {
     setLoadingCommerce(true);
@@ -52,21 +53,17 @@ export default function RestaurantMenu() {
   }, [id]);
 
   const getProducts = () => {
-    listProductsCommmerceFn(
-      id,
-      selectCategory,
-      user?.token,
-      setLoadingProducts
-    );
+    setLoadingCatalog(true);
+
+    listProductsCommmerceFn(id, selectCategory, user?.token, setLoadingCatalog);
+    setTypeCatalog("product");
   };
 
   const getServices = () => {
-    listServicesCommmerceFn(
-      id,
-      selectCategory,
-      user?.token,
-      setLoadingProducts
-    );
+    setLoadingCatalog(true);
+
+    listServicesCommmerceFn(id, selectCategory, user?.token, setLoadingCatalog);
+    setTypeCatalog("service");
   };
 
   return (
@@ -134,18 +131,40 @@ export default function RestaurantMenu() {
               </View>
 
               <View className="flex-row items-center justify-around space-x-3 mt-4">
-                <TouchableOpacity onPress={() => {
-                    setTabCommerce('product')
-                    getProducts()
-                }} className="w-2/6 h-8 bg-gray-900 items-center rounded-lg justify-center">
-                  <Text className={`${tabCommerce === "product" ? 'text-orange-600' : 'text-white' } font-bold`}>Productos</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    setTabCommerce("product");
+                    getProducts();
+                  }}
+                  className="w-2/6 h-8 bg-gray-900 items-center rounded-lg justify-center"
+                >
+                  <Text
+                    className={`${
+                      tabCommerce === "product"
+                        ? "text-orange-600"
+                        : "text-white"
+                    } font-bold`}
+                  >
+                    Productos
+                  </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => {
-                    setTabCommerce('service')
-                    getServices()
-                }} className="w-2/6 h-8 bg-gray-900 items-center rounded-lg justify-center">
-                  <Text className={`${tabCommerce === "service" ? 'text-orange-600' : 'text-white'} font-bold`}>Servicios</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    setTabCommerce("service");
+                    getServices();
+                  }}
+                  className="w-2/6 h-8 bg-gray-900 items-center rounded-lg justify-center"
+                >
+                  <Text
+                    className={`${
+                      tabCommerce === "service"
+                        ? "text-orange-600"
+                        : "text-white"
+                    } font-bold`}
+                  >
+                    Servicios
+                  </Text>
                 </TouchableOpacity>
               </View>
 
@@ -189,20 +208,30 @@ export default function RestaurantMenu() {
                 paddingVertical: SIZES.paddingTop_01,
               }}
             >
-              {catalog ? (
-                catalog?.map((item) => (
-                  <CardCatalog
-                    key={item.id}
-                    id={item.id}
-                    image={item.image}
-                    name={item.title}
-                    price={item.price}
-                    type={typeCommerce}
-                    description={item.description}
-                  />
-                ))
+              {!loadingCatalog ? (
+                <>
+                  {catalog.length > 0 ? (
+                    catalog?.map((item) => (
+                      <CardCatalog
+                        key={item.id}
+                        id={item.id}
+                        image={item.image || item.commerce.avatar}
+                        name={item.title || item?.category?.name}
+                        price={item.price}
+                        type={typeCatalog}
+                        description={item.description}
+                      />
+                    ))
+                  ) : (
+                    <Text className="text-center font-semibold text-lg mt-3">
+                      De momento no hay{" "}
+                      {typeCatalog === "product" ? "productos" : "servicios"} en
+                      esta tienda...
+                    </Text>
+                  )}
+                </>
               ) : (
-                <Text>Cargando...</Text>
+                <Text className="text-center text-lg font-semibold mt-5">Cargando...</Text>
               )}
             </View>
             {/* END CATALOG */}
