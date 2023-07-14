@@ -135,7 +135,7 @@ export default function SignUp() {
                                             flexDirection: 'row'
                                         }}
                                     >
-                                        Acepto los <Text className="font-bold ">Terminos y Condiciones</Text> del servicio y las <Text className="font-bold"> Políticas de Privadidad</Text> por MiRepuesto
+                                        Acepto los <Text className="font-bold ">Terminos y Condiciones</Text> del servicio y las <Text className="font-bold"> Políticas de Privadidad</Text> por Ruédalo
                                     </Text>
                                 </View>
                             </TouchableOpacity>

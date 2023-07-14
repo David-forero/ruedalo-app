@@ -101,7 +101,6 @@ const UserProvider = ({ children }) => {
       const presentSheet = await stripe.presentPaymentSheet({
         clientSecret: session.client_secret.client_secret,
       });
-      setLoading(false);
       if (presentSheet.error) {
         console.log(
           `⭕️ Error presentPaymentSheet: ${JSON.stringify(
@@ -120,17 +119,15 @@ const UserProvider = ({ children }) => {
         );
 
         if (data.status === true || data.status == 200) {
-          showMessage({
-            message: "Subscripción Aprobada",
-            description: data.message,
-            type: "success",
-          });
           setUser(data.data);
           let dataString = JSON.stringify(data.data);
           await AsyncStorage.setItem("user", dataString);
-          navigation.goBack();
+          navigation.navigate('SuccessScreen', {screen: "Profile", title: "Compra realizada", description: "Se ha hecho la compra correctamente, disfruta de tus beneficios", titleButton: "Aceptar"})
         }
       }
+
+      setLoading(false);
+
     },
     []
   );
@@ -143,21 +140,16 @@ const UserProvider = ({ children }) => {
 
   const deleteDocumentVehicleFn = useCallback(async (id, token, setLoading) => {
     setLoading(true);
-    const { data } = await post("/delete_doc", { id }, token);
+    await post("/delete_doc", { id }, token);
     getListDocsFn(token, setLoading);
   }, []);
 
   const saveDocumentVehicleFn = useCallback(
-    async (formData, setLoading, token, setShowModal) => {
-      const { data } = await post("/register_doc", formData, token);
-
+    async (formData, setLoading, token, setShowModal, navigation) => {
+      await post("/register_doc", formData, token);
       setLoading(false);
       setShowModal(false);
-
-      showMessage({
-        message: "Documento del vehiculo agregado",
-        type: "success",
-      });
+      navigation.navigate('SuccessScreen', {screen: "Profile", title: "Documento del vehiculo agregado", description: "Se ha agregado tu documento correctamente", titleButton: "Aceptar"})
     },
     []
   );

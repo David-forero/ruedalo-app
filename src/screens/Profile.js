@@ -137,13 +137,13 @@ export default function Profile() {
           iconBgColor={COLORS.lightLilac}
         />
 
-        <ProfileCategory
+        {/* <ProfileCategory
           icon={require("../assets/icons/payment.png")}
           title="Transacciones"
           subtitle="Revisa los últimos pagos en la app"
           iconBgColor={COLORS.lightLilac}
           onPress={() => navigation.navigate("TransactionsView")}
-        />
+        /> */}
         
         <ProfileCategory
           icon={require("../assets/icons/notification.png")}
@@ -163,13 +163,13 @@ export default function Profile() {
           />
         ) : null}
 
-        <ProfileCategory
+        {/* <ProfileCategory
           icon={require("../assets/icons/faq.png")}
           title="FAQ"
           subtitle="Preguntas frecuentes"
           onPress={() => navigation.navigate("FAQ")}
           iconBgColor={COLORS.lightLilac}
-        />
+        /> */}
 
         <ProfileCategory
           icon={require("../assets/icons/exit.png")}

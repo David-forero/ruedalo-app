@@ -25,7 +25,6 @@ export default function SuccessScreen() {
                         textAlign: "center",
                         ...FONTS.Roboto_700Bold,
                         fontSize: 22,
-                        textTransform: "capitalize",
                         color: COLORS.black2,
                         marginBottom: 10,
                     }}

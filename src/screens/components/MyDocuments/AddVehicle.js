@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { COLORS, FONTS, SIZES } from "../../../common/constants";
 import Modal from "react-native-modal";
-import { InputField } from "../../../common/components";
+import { Check, InputField } from "../../../common/components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -17,15 +17,22 @@ import dayjs from "dayjs";
 import { Dropdown } from "react-native-element-dropdown";
 import { useAuthContext } from "../../../context/AuthContext";
 import { useUserContext } from "../../../context/UserContext";
+import { useNavigation } from "@react-navigation/native";
 
-const AddVehicle = ({ showModal, setShowModal, isUpdate = false, dataEdit }) => {
+const AddVehicle = ({
+  showModal,
+  setShowModal,
+  isUpdate = false,
+  dataEdit,
+}) => {
   const [showExpirationDoc, setShowExpirationDoc] = useState(false);
   const [showEmisionDoc, setShowEmisionDoc] = useState(false);
   const [isFocusType, setIsFocusType] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const {user} = useAuthContext();
-  const {saveDocumentVehicleFn, getListDocsFn} = useUserContext()
+  const navigation = useNavigation();
+  const { user } = useAuthContext();
+  const { saveDocumentVehicleFn, getListDocsFn } = useUserContext();
+  const [remember, setRemember] = useState(false);
 
   const AddVehicleSchema = Yup.object().shape({
     emission_date: Yup.string().required("Campo requerido"),
@@ -52,16 +59,28 @@ const AddVehicle = ({ showModal, setShowModal, isUpdate = false, dataEdit }) => 
         onSubmit={async (values) => {
           setLoading(true);
           if (isUpdate) {
-            
-          }else{
-            await saveDocumentVehicleFn(values, setLoading, user?.token, setShowModal);
+          } else {
+            await saveDocumentVehicleFn(
+              values,
+              setLoading,
+              user?.token,
+              setShowModal,
+              navigation
+            );
           }
           getListDocsFn(user?.token, setLoading);
         }}
         validationSchema={AddVehicleSchema}
         validateOnMount
       >
-        {({ handleSubmit, setFieldValue, errors, values, touched, isValid }) => (
+        {({
+          handleSubmit,
+          setFieldValue,
+          errors,
+          values,
+          touched,
+          isValid,
+        }) => (
           <View
             style={{
               width: SIZES.width - 60,
@@ -81,7 +100,11 @@ const AddVehicle = ({ showModal, setShowModal, isUpdate = false, dataEdit }) => 
               selectedTextStyle={styles.selectedTextStyle}
               inputSearchStyle={styles.inputSearchStyle}
               iconStyle={styles.iconStyle}
-              data={[{ label: "RCV", value: "RCV" }, { label: "License", value: "License" }, { label: "Medic", value: "Medic" },]}
+              data={[
+                { label: "RCV", value: "RCV" },
+                { label: "Lincencia de conducir", value: "License" },
+                { label: "Seguro médico", value: "Medic" },
+              ]}
               maxHeight={300}
               labelField="label"
               valueField="value"
@@ -158,6 +181,51 @@ const AddVehicle = ({ showModal, setShowModal, isUpdate = false, dataEdit }) => 
 
             <View
               style={{
+                width: "100%",
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  marginBottom: 30,
+                  alignItems: "center",
+                  marginLeft: 20,
+                }}
+                onPress={() => setRemember(!remember)}
+              >
+                <View
+                  style={{
+                    width: 16,
+                    height: 16,
+                    borderRadius: 3,
+                    borderWidth: 1,
+                    borderColor: COLORS.green,
+                    marginRight: 8,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {remember && <Check />}
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text
+                    style={{
+                      ...FONTS.Roboto_400Regular,
+                      fontSize: 12,
+                      marginLeft: 3,
+                      color: COLORS.gray2,
+                      lineHeight: 16 * 1.3,
+                      flexDirection: "row",
+                    }}
+                  >
+                    Recordarme con una notificación si está por vencerse este documento
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            <View
+              style={{
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center",
@@ -195,7 +263,7 @@ const AddVehicle = ({ showModal, setShowModal, isUpdate = false, dataEdit }) => 
                   justifyContent: "center",
                   alignItems: "center",
                   marginHorizontal: 7.5,
-                  opacity: isValid ? 1 : 0.5
+                  opacity: isValid ? 1 : 0.5,
                 }}
                 onPress={handleSubmit}
               >

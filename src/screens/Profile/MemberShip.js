@@ -76,6 +76,11 @@ const MemberShip = () => {
               <Text className="text-orange-600 font-semibold">Beneficio 4</Text>
               <AntDesign name="checksquareo" size={20} color={COLORS.orange} />
             </View>
+
+            <View className="flex-row items-center justify-around mb-2">
+              <Text className="text-orange-600 font-semibold">Beneficio 5</Text>
+              <AntDesign name="checksquareo" size={20} color={COLORS.orange} />
+            </View>
           </View>
         </View>
 
