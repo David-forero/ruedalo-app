@@ -26,10 +26,9 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import Logo from '../../assets/icons/logo.png'
+import Logo from "../../assets/icons/logo.png";
 import * as Google from "expo-auth-session/providers/google";
 WebBrowser.maybeCompleteAuthSession();
-
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -58,18 +57,18 @@ export default function SignIn() {
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     webClientId:
       "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
-    // clientSecret: "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",
-    expoClientId:"469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
+    clientSecret: __DEV__ ? "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" : "",
+    expoClientId:
+      "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
     androidClientId:
       "469688688692-jbm36cdotrfies2i9fp9p8d7i3ua2ne9.apps.googleusercontent.com",
     iosClientId:
-      "469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com",
+      "469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com"
   });
-
 
   useEffect(() => {
     if (response?.type === "success") {
-      setAccessToken(response.authentication.accessToken);
+      setAccessToken(response?.authentication?.accessToken);
       accessToken && fetchUserInfo();
     } else {
       setLoadingGoogle(false);
@@ -112,12 +111,14 @@ export default function SignIn() {
             isValid,
           }) => (
             <>
-
-              <View style={{ justifyContent: "center", marginBottom: 20, alignItems: "center" }}>
-                <Image
-                source={Logo}
-                className="w-16 h-16 mb-3"
-                />
+              <View
+                style={{
+                  justifyContent: "center",
+                  marginBottom: 20,
+                  alignItems: "center",
+                }}
+              >
+                <Image source={Logo} className="w-16 h-16 mb-3" />
                 <Text style={{ fontSize: 18 }}>Inicio de sesión</Text>
               </View>
 
