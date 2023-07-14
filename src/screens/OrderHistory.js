@@ -9,7 +9,7 @@ import {
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import { Header, OrderHistoryCategory } from "../common/components";
+import { Header, OrderHistoryCategory, Wallet } from "../common/components";
 import {
   COLORS,
   FONTS,
@@ -20,16 +20,22 @@ import {
 import { useEffect } from "react";
 import { useOrdersContext } from "../context/OrdersContext";
 import { useAuthContext } from "../context/AuthContext";
+import { useUserContext } from "../context/UserContext";
+import { formatDollar } from "../common/functions/formatCurrency";
+import dayjs from "dayjs";
 
 export default function OrderHistory() {
   const [category, setCategory] = useState("upcoming");
   const navigation = useNavigation();
   const { orders, getOrders } = useOrdersContext();
   const { user } = useAuthContext();
+  const { getTransactionsAppFn, transactions } = useUserContext();
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
+    getTransactionsAppFn(setLoading, user?.token)
     getOrders(user?.token, setLoading);
   }, []);
 
@@ -45,8 +51,8 @@ export default function OrderHistory() {
       >
         <TouchableOpacity
           style={{
-            height: 50,
-            width: "48%",
+            height: 30,
+            width: "30%",
             backgroundColor:
               category == "upcoming" ? COLORS.black2 : COLORS.lightOrange,
             justifyContent: "center",
@@ -58,17 +64,41 @@ export default function OrderHistory() {
           <Text
             style={{
               ...FONTS.Roboto_700Bold,
-              fontSize: 16,
+              fontSize: 12,
               color: category == "upcoming" ? COLORS.white : COLORS.black2,
             }}
           >
             En proceso
           </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={{
-            height: 50,
-            width: "48%",
+            height: 30,
+            width: "30%",
+            backgroundColor:
+              category == "pays" ? COLORS.black2 : COLORS.lightOrange,
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: 10,
+          }}
+          onPress={() => setCategory("pays")}
+        >
+          <Text
+            style={{
+              ...FONTS.Roboto_700Bold,
+              fontSize: 12,
+              color: category == "pays" ? COLORS.white : COLORS.black2,
+            }}
+          >
+            Pagos
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            height: 30,
+            width: "30%",
             backgroundColor:
               category == "history" ? COLORS.orange : COLORS.lightYellow,
             justifyContent: "center",
@@ -80,7 +110,7 @@ export default function OrderHistory() {
           <Text
             style={{
               ...FONTS.Roboto_700Bold,
-              fontSize: 16,
+              fontSize: 12,
               color: category == "history" ? COLORS.white : COLORS.orange,
             }}
           >
@@ -121,6 +151,66 @@ export default function OrderHistory() {
     });
   }
 
+  function renderPays() {
+    return transactions?.map((item, index) => {
+      return (
+        <View
+            key={index}
+            style={{
+              width: "100%",
+              flexDirection: "row",
+              alignItems: "center",
+              borderColor: COLORS.lightGray,
+              borderWidth: 1,
+              borderRadius: 10,
+              paddingHorizontal: 16,
+              paddingVertical: 19,
+            }}
+          >
+            <Wallet />
+            <View style={{ marginLeft: 15 }}>
+              <Text
+                style={{
+                  ...FONTS.Roboto_700Bold,
+                  fontSize: 16,
+                  color: COLORS.black,
+                  textTransform: "capitalize",
+                  marginBottom: 3,
+                }}
+              >
+                {item.description}
+              </Text>
+              <Text
+                style={{
+                  ...FONTS.Roboto_400Regular,
+                  fontSize: 14,
+                  color: COLORS.gray2,
+                }}
+              >
+                Se ha hecho un cobro de{" "}
+                {formatDollar(Number(item.amount) / 100)}
+              </Text>
+              <Text
+                style={{
+                  ...FONTS.Roboto_400Regular,
+                  fontSize: 14,
+                  color: COLORS.gray2,
+                }}
+              >
+                {dayjs(item.createdAt).format("DD/MM/YYYY")}
+              </Text>
+            </View>
+          </View>
+      );
+    });
+  }
+
+  const SelectedCatalog = (category) => {
+    if (category === "upcoming") return renderUpcoming();
+    if (category === "history") return renderHistory();
+    if (category === "pays") return renderPays();
+  };
+
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
       <Header title="Compras realizadas" onPress={() => navigation.goBack()} />
@@ -128,26 +218,31 @@ export default function OrderHistory() {
         contentContainerStyle={{
           paddingHorizontal: 30,
           flexGrow: 1,
-          paddingBottom: 80 
+          paddingBottom: 80,
         }}
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={() => {
-            setLoading(true);
-            getOrders(user?.token, setLoading);
-          }} />
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={() => {
+              setLoading(true);
+              getOrders(user?.token, setLoading);
+            }}
+          />
         }
       >
         {loading ? (
           <View className="flex-1 items-center justify-center">
-            <Text className="text-center">Cargando ordenes... espere un momento</Text>
+            <Text className="text-center">
+              Cargando ordenes... espere un momento
+            </Text>
           </View>
         ) : (
           <>
             {orders ? (
               <>
                 {renderCategory()}
-                {category === "upcoming" ? renderUpcoming() : renderHistory()}
+                {SelectedCatalog(category)}
               </>
             ) : (
               <View className="flex-1 items-center justify-center">

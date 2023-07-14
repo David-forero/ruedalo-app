@@ -261,8 +261,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const signWithGoogleFn = async (googleData, setLoading) => {
-    try {
-      const tokenNotify = await registerForPushNotificationsAsync();
+    const tokenNotify = await registerForPushNotificationsAsync();
     const { data } = await post("/login-google", { 
       email: googleData.email,
       token_notif: tokenNotify
@@ -272,11 +271,6 @@ const AuthProvider = ({ children }) => {
     setAuth(true);
     let dataString = JSON.stringify(data?.data);
     await AsyncStorage.setItem("user", dataString);
-    } catch (error) {
-      console.error('🔴 Erroooooor --->', error);
-      Alert.alert("Error", "Ocurrió un error al iniciar con googletoken: " + error.message);
-      Sentry.Native.captureException(error);
-    }
   };
 
   return (
