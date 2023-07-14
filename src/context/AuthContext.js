@@ -66,7 +66,7 @@ const AuthProvider = ({ children }) => {
         subscription.remove();
       };
     } catch (error) {
-      alert("Error al recibir notificaciones")
+      // alert("Error al recibir notificaciones")
     }
   }, []);
 
@@ -110,7 +110,8 @@ const AuthProvider = ({ children }) => {
 
     return token;
     } catch (error) {
-      Alert.alert("Error", "Ocurrió un error al generar el token: " + error.message);
+      console.error(error);
+      // Alert.alert("Error", "Ocurrió un error al generar el token: " + error.message);
     }
   }
 

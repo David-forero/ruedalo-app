@@ -26,7 +26,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Ionicons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-import Logo from "../../assets/icons/logo.png";
+import Logo from "../../assets/icons/ruedalo2.png";
 import * as Google from "expo-auth-session/providers/google";
 WebBrowser.maybeCompleteAuthSession();
 
