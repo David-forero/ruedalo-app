@@ -33,7 +33,7 @@ const DetailsBanner = () => {
         <Header title="Publicidad" onPress={() => navigation.goBack()} />
         <Image
           source={{
-            uri: "https://backend.ruedalo.app/api/banner/" + item?.banner[0],
+            uri: "https://backend.dev.ruedalo.app/api/banner/" + item?.banner[0],
           }}
           style={styles.image}
           className="rounded-b-lg"
@@ -53,7 +53,7 @@ const DetailsBanner = () => {
           <Image
             source={{
               uri:
-                "https://backend.ruedalo.app/api/avatar/" +
+                "https://backend.dev.ruedalo.app/api/avatar/" +
                 item?.commerce.avatar[0],
             }}
             className="h-10 w-10 rounded-full"

@@ -39,16 +39,18 @@ const StoreProvider = ({ children }) => {
         try {
           const locationPromise = Location.getLastKnownPositionAsync({});
           const location = await timeoutCustom(5000, locationPromise);
+          console.log('ĺocation ->', location);
           setLocation(location.coords);
           if (!location?.coords) {
             return;
           }
-          const placePromise = Location.reverseGeocodeAsync({
+          const placePromise = await Location.reverseGeocodeAsync({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
           });
-          const place = await timeoutCustom(5000, placePromise);
-          setMyPlace(place);
+          console.log('placePromise ->', placePromise);
+
+          setMyPlace(placePromise);
         } catch (error) {
           console.error("🔴 Erroooooor --->", error);
           Sentry.Native.captureException(error);

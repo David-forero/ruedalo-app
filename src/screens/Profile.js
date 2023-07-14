@@ -66,7 +66,7 @@ export default function Profile() {
           {user?.avatar ? (
             <Image
               source={{
-                uri: "https://backend.ruedalo.app/api/avatar/" + user.avatar[0],
+                uri: "https://backend.dev.ruedalo.app/api/avatar/" + user.avatar[0],
               }}
               style={{
                 width: 80,

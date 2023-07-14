@@ -54,7 +54,7 @@ const SliderBanner = ({ data, autoPlay = true, isVertical = false }) => {
           <TouchableOpacity onPress={() => navigation.navigate("DetailsBanner", {item})}>
             <Image
               source={{
-                uri: "https://backend.ruedalo.app/api/banner/" + item.banner[0],
+                uri: "https://backend.dev.ruedalo.app/api/banner/" + item.banner[0],
               }}
               className="w-full h-full"
               resizeMode="contain"

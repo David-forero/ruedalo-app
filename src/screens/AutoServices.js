@@ -238,7 +238,7 @@ const AutoServices = () => {
           >
             <ImageBackground
               source={{
-                uri: "https://backend.ruedalo.app/api/avatar/" + item?.avatar,
+                uri: "https://backend.dev.ruedalo.app/api/avatar/" + item?.avatar,
               }}
               style={{
                 height: 136,
@@ -400,7 +400,7 @@ const AutoServices = () => {
           >
             <Image
               source={{
-                uri: "https://backend.ruedalo.app/api/avatar/" + item.avatar[0],
+                uri: "https://backend.dev.ruedalo.app/api/avatar/" + item.avatar[0],
               }}
               style={{
                 height: 100,

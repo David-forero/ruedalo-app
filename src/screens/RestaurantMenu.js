@@ -80,7 +80,7 @@ export default function RestaurantMenu() {
             <Image
               source={{
                 uri:
-                  "https://backend.ruedalo.app/api/avatar/" +
+                  "https://backend.dev.ruedalo.app/api/avatar/" +
                   commerce?.avatar[0],
               }}
               style={styles.image}

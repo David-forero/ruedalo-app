@@ -293,7 +293,7 @@ export default function Home() {
                 <Image
                   source={{
                     uri:
-                      "https://backend.ruedalo.app/api/product/" +
+                      "https://backend.dev.ruedalo.app/api/product/" +
                       item.image[0],
                   }}
                   style={{

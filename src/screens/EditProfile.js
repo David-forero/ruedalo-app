@@ -75,7 +75,7 @@ export default function EditProfile() {
         {user?.avatar ? (
           <View className="flex flex-row items-center justify-center mb-10">
             <Image
-              source={{ uri: "https://backend.ruedalo.app/api/avatar/" + user?.avatar[0] }}
+              source={{ uri: "https://backend.dev.ruedalo.app/api/avatar/" + user?.avatar[0] }}
               className="rounded-full w-32 h-32 text-center"
             />
           </View>
