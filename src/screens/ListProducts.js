@@ -23,7 +23,7 @@ import { useStoreContext } from "../context/StoreContext";
 const ListProducts = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { query, location } = route.params;
+  const { query, location, titleHeader, isProduct } = route.params;
   const { user } = useAuthContext();
   const { searchFn, searchList } = useStoreContext();
   const [searchText, setSearchText] = useState("");
@@ -46,7 +46,7 @@ const ListProducts = () => {
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header title="Productos" onPress={() => navigation.goBack()} />
+        <Header title={titleHeader} onPress={() => navigation.goBack()} />
 
         <View
           style={{

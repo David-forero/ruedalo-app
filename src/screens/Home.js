@@ -133,10 +133,10 @@ export default function Home() {
             value={searchText}
             onChangeText={setSearchText}
             style={{ flex: 1, paddingLeft: 7 }}
-            onSubmitEditing={() => navigation.navigate("ListProducts", { query: searchText, location })}
+            onSubmitEditing={() => navigation.navigate("ListProducts", { query: searchText, location, titleHeader: 'Productos', isProduct: true })}
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("ListProducts", {query: searchText, location})}
+            onPress={() => navigation.navigate("ListProducts", {query: searchText, location, titleHeader: 'Productos', isProduct: true})}
             style={{
               paddingHorizontal: 14,
               // paddingVertical: 15,

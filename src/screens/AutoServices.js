@@ -37,6 +37,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
 import { useUserContext } from "../context/UserContext";
 import Logo from '../assets/icons/logo.png'
+import { Ionicons } from "@expo/vector-icons";
 
 const AutoServices = () => {
   const navigation = useNavigation();
@@ -45,7 +46,7 @@ const AutoServices = () => {
   const [selectCategory, setSelectCategory] = useState(1);
   const { myPlace, location, loadingLocation } = useStoreContext();
   const [bannerServices, setBannerServices] = useState(null);
-
+  const [searchText, setSearchText] = useState('');
   const { populars, setPopulars, mostSells, setMostSells, getListServicessFn } =
     useServicesContext();
   const { getBannersFn } = useUserContext();
@@ -125,19 +126,23 @@ const AutoServices = () => {
           }}
           className="bg-gray-100"
         >
-          {/* <Search /> */}
-          <TextInput
+         {/* <Search /> */}
+         <TextInput
             placeholder="Buscar..."
+            value={searchText}
+            onChangeText={setSearchText}
             style={{ flex: 1, paddingLeft: 7 }}
+            onSubmitEditing={() => navigation.navigate("ListProducts", { query: searchText, location, titleHeader: 'Servicios', isProduct: false })}
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("Filter")}
+            onPress={() => navigation.navigate("ListProducts", {query: searchText, location, titleHeader: 'Servicios', isProduct: false})}
             style={{
               paddingHorizontal: 14,
-              paddingVertical: 15,
+              // paddingVertical: 15,
             }}
           >
-            <Filter />
+            {/* <Filter /> */}
+            <Ionicons name="search-outline" size={16} color="#2d2d2d" />
           </TouchableOpacity>
         </View>
       </View>
