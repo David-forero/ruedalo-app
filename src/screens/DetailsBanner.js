@@ -4,19 +4,16 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
-  FlatList,
   Image,
   StyleSheet,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
-import { CardCatalog, CategoryFilter, Header } from "../common/components";
+import { Header } from "../common/components";
 import {
   COLORS,
   FONTS,
-  SIZES,
   SAFEAREAVIEW,
-  category,
 } from "../common/constants";
 import { useState } from "react";
 import { Rating } from "react-native-ratings";
@@ -39,6 +36,7 @@ const DetailsBanner = () => {
           className="rounded-b-lg"
           resizeMode="contain"
         />
+        
 
         <TouchableOpacity
           onPress={() =>

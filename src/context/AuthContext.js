@@ -11,15 +11,9 @@ import { showMessage } from "react-native-flash-message";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import { useNavigationCustom } from "../common/hooks";
-import * as Sentry from 'sentry-expo';
+import * as Sentry from "sentry-expo";
 import { Alert } from "react-native";
-//Web==
-//Secret: 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
-//ID:469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com
-//Android==
-//ID: 469688688692-jbm36cdotrfies2i9fp9p8d7i3ua2ne9.apps.googleusercontent.com
-//Ios==
-//Client ID: 469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com
+// import messaging from '@react-native-firebase/messaging';
 
 const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
@@ -34,7 +28,7 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    try {
+    if (__DEV__) {
       Notifications.setNotificationHandler({
         handleNotification: async () => ({
           shouldShowAlert: true, // Configurado para mostrar la notificación incluso cuando la app está en primer plano
@@ -42,9 +36,9 @@ const AuthProvider = ({ children }) => {
           shouldSetBadge: false,
         }),
       });
-  
-      const subscription = Notifications.addNotificationResponseReceivedListener(
-        (response) => {
+
+      const subscription =
+        Notifications.addNotificationResponseReceivedListener((response) => {
           const {
             notification: {
               request: {
@@ -52,65 +46,59 @@ const AuthProvider = ({ children }) => {
               },
             },
           } = response;
-  
-          alert("Acá llego una notificacion");
-  
+
           if (data.objective === "order") {
             navigate("Order", { id: data.id_objective });
           }
-        }
-      );
-  
+        });
+
       return () => {
         // limpieza al desmontar
         subscription.remove();
       };
-    } catch (error) {
-      // alert("Error al recibir notificaciones")
     }
   }, []);
 
   async function registerForPushNotificationsAsync() {
     try {
       let token;
-    if (Device.isDevice) {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
-      let finalStatus = existingStatus;
-      if (existingStatus !== "granted") {
-        const { status } = await Notifications.requestPermissionsAsync();
-        finalStatus = status;
+      if (Device.isDevice) {
+        const { status: existingStatus } =
+          await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+        if (existingStatus !== "granted") {
+          const { status } = await Notifications.requestPermissionsAsync();
+          finalStatus = status;
+        }
+        if (finalStatus !== "granted") {
+          // alert("Failed to get push token for push notification!");
+          return;
+        }
+        token = (
+          await Notifications.getExpoPushTokenAsync({
+            projectId: "6b098aeb-e8fb-42e4-82f7-32f0f807ffb9",
+          })
+        ).data;
+      } else {
+        console.warn(
+          "Debe usar un dispositivo físico para las notificaciones automáticas"
+        );
+        // alert('Must use physical device for Push Notifications');
       }
-      if (finalStatus !== "granted") {
-        // alert("Failed to get push token for push notification!");
-        return;
-      }
-      if (__DEV__) {
-        token = (await Notifications.getExpoPushTokenAsync({
-          projectId: '6b098aeb-e8fb-42e4-82f7-32f0f807ffb9',
-        })).data;
-      }else{
-        token = (await Notifications.getDevicePushTokenAsync()).data;
-      }
-    } else {
-      console.warn(
-        "Debe usar un dispositivo físico para las notificaciones automáticas"
-      );
-      // alert('Must use physical device for Push Notifications');
-    }
 
-    if (Platform.OS === "android") {
-      Notifications.setNotificationChannelAsync("default", {
-        name: "default",
-        importance: Notifications.AndroidImportance.MAX,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: "#FF231F7C",
-      });
-    }
+      if (Platform.OS === "android") {
+        Notifications.setNotificationChannelAsync("default", {
+          name: "default",
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: "#FF231F7C",
+        });
+      }
 
-    return token;
+      console.log('my token -> ' + token);
+      return token;
     } catch (error) {
-      console.error(error);
+      console.error('error token ->', error);
       // Alert.alert("Error", "Ocurrió un error al generar el token: " + error.message);
     }
   }
@@ -191,9 +179,8 @@ const AuthProvider = ({ children }) => {
 
   const signInFn = async (formData, navigation, setLoading) => {
     const tokenNotify = await registerForPushNotificationsAsync();
-    formData.token_notif = tokenNotify
+    formData.token_notif = tokenNotify;
     try {
-
       // alert(`He recibido el token y lo he dado ${tokenNotify}`)
 
       const { data } = await post("/login", formData);
@@ -243,7 +230,7 @@ const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       setLoading(false);
-      console.error('🔴 Erroooooor --->', error);
+      console.error("🔴 Erroooooor --->", error);
       Sentry.Native.captureException(error);
       showMessage({
         message: "Error al registrar",
@@ -263,9 +250,9 @@ const AuthProvider = ({ children }) => {
 
   const signWithGoogleFn = async (googleData, setLoading) => {
     const tokenNotify = await registerForPushNotificationsAsync();
-    const { data } = await post("/login-google", { 
+    const { data } = await post("/login-google", {
       email: googleData.email,
-      token_notif: tokenNotify
+      token_notif: tokenNotify,
     });
     setLoading(false);
     setUser(data.data);

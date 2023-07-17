@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "469688688692",
-    "project_id": "repuestos-ya-387913",
-    "storage_bucket": "repuestos-ya-387913.appspot.com"
+    "project_number": "93752777808",
+    "project_id": "ruedalo-3909f",
+    "storage_bucket": "ruedalo-3909f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:469688688692:android:21c79d1b6cd5e9f8462a61",
+        "mobilesdk_app_id": "1:93752777808:android:281ba80721fbef44d5c555",
         "android_client_info": {
-          "package_name": "com.daele.repuestosya"
+          "package_name": "com.daele.ruedalo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
+          "client_id": "93752777808-clnepbbcbjhvk0lg6orvdno96f58o54t.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAgNYfxY8hRgp1t8FU-55dET8PZ3fwHpSM"
+          "current_key": "AIzaSyBpmHXaAhxxKAXKcFJHIpmd-x_ShA_uMHo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
+              "client_id": "93752777808-clnepbbcbjhvk0lg6orvdno96f58o54t.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.daele.repuestosya"
-              }
             }
           ]
         }

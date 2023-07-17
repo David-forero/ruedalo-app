@@ -74,6 +74,8 @@ import LoadingListTwo from './loadings/LoadingListTwo';
 import LoadingFullScreen from './loadings/LoadingFullScreen';
 import InputPhone from './InputPhone';
 import ModalPermitions from './ModalPermitions';
+import Pagination from './Pagination';
+import CustomImageCarousal from './CustomImageCarousal';
 
 export {
     Button,
@@ -145,6 +147,8 @@ export {
     Remove,
     InputPassword,
     InputPhone,
+    Pagination,
+    CustomImageCarousal,
     //LOADINGS ⏳️
     LoadingListOne,
     LoadingListTwo,

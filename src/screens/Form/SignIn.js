@@ -56,14 +56,14 @@ export default function SignIn() {
 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     webClientId:
-      "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
-    clientSecret: __DEV__ ? "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" : "",
+      "553402707258-30nb16fguqjq9a6lvj82hqiutsivb5hv.apps.googleusercontent.com",
+    clientSecret: __DEV__ ? "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" : "",
     expoClientId:
-      "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com",
+      "553402707258-30nb16fguqjq9a6lvj82hqiutsivb5hv.apps.googleusercontent.com",
     androidClientId:
-      "469688688692-jbm36cdotrfies2i9fp9p8d7i3ua2ne9.apps.googleusercontent.com",
+      "553402707258-li8klp1l4geq99n2smn36a056nsvdoog.apps.googleusercontent.com",
     iosClientId:
-      "469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com"
+      "919346816499-j4sh5mjmuog29cmd8qt167fq19ba5t2r.apps.googleusercontent.com"
   });
 
   useEffect(() => {

@@ -39,7 +39,6 @@ const StoreProvider = ({ children }) => {
         try {
           const locationPromise = Location.getLastKnownPositionAsync({});
           const location = await timeoutCustom(5000, locationPromise);
-          console.log('ĺocation ->', location);
           setLocation(location.coords);
           if (!location?.coords) {
             return;
@@ -48,8 +47,6 @@ const StoreProvider = ({ children }) => {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
           });
-          console.log('placePromise ->', placePromise);
-
           setMyPlace(placePromise);
         } catch (error) {
           console.error("🔴 Erroooooor --->", error);
@@ -90,6 +87,11 @@ const StoreProvider = ({ children }) => {
 
   const getProductFn = useCallback(async (id, token, setLoading) => {
     const { data } = await post("/get_product", { id }, token);
+    let images = [...data.data.image, ...data.data.extra_image || []]
+    data.data.images = images.map(image => {
+      return {image: image}
+    })
+    console.log('--->', data.data);
     setProduct(data.data);
     setLoading(false);
   }, []);
