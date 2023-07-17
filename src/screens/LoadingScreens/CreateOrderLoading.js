@@ -101,7 +101,7 @@ const CreateOrderLoading = () => {
         }}
         className="font-bold text-md text-gray-800 text-center animate-pulse my-5"
       >
-        Creando el pedido, espere un momento...
+        Creando la orden, espere un momento...
       </Animated.Text>
       <ActivityIndicator size="small" color={COLORS.orange} />
     </SafeAreaView>

@@ -36,7 +36,7 @@ import { useServicesContext } from "../context/ServicesContext";
 import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
 import { useUserContext } from "../context/UserContext";
-import Logo from '../assets/icons/logo.png'
+import Logo from "../assets/icons/logo.png";
 import { Ionicons } from "@expo/vector-icons";
 
 const AutoServices = () => {
@@ -46,7 +46,7 @@ const AutoServices = () => {
   const [selectCategory, setSelectCategory] = useState(1);
   const { myPlace, location, loadingLocation } = useStoreContext();
   const [bannerServices, setBannerServices] = useState(null);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const { populars, setPopulars, mostSells, setMostSells, getListServicessFn } =
     useServicesContext();
   const { getBannersFn } = useUserContext();
@@ -79,14 +79,9 @@ const AutoServices = () => {
         }}
       >
         <View className="flex-row items-center justify-between mb-5 pr-5">
-          <Image
-            source={Logo}
-            className="w-10 h-10 ml-2"
-          />
-
+          <Image source={Logo} className="w-10 h-10 ml-2" />
 
           <View className="ml-3 flex-row">
-          
             <Text
               style={{
                 marginLeft: 12,
@@ -126,16 +121,30 @@ const AutoServices = () => {
           }}
           className="bg-gray-100"
         >
-         {/* <Search /> */}
-         <TextInput
+          {/* <Search /> */}
+          <TextInput
             placeholder="Buscar..."
             value={searchText}
             onChangeText={setSearchText}
             style={{ flex: 1, paddingLeft: 7 }}
-            onSubmitEditing={() => navigation.navigate("ListProducts", { query: searchText, location, titleHeader: 'Servicios', isProduct: false })}
+            onSubmitEditing={() =>
+              navigation.navigate("ListProducts", {
+                query: searchText,
+                location,
+                titleHeader: "Servicios",
+                isProduct: false,
+              })
+            }
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("ListProducts", {query: searchText, location, titleHeader: 'Servicios', isProduct: false})}
+            onPress={() =>
+              navigation.navigate("ListProducts", {
+                query: searchText,
+                location,
+                titleHeader: "Servicios",
+                isProduct: false,
+              })
+            }
             style={{
               paddingHorizontal: 14,
               // paddingVertical: 15,
@@ -238,7 +247,15 @@ const AutoServices = () => {
           >
             <ImageBackground
               source={{
-                uri: "https://backend.dev.ruedalo.app/api/avatar/" + item?.avatar,
+                uri: `https://backend.dev.ruedalo.app/api/${
+                  item?.image?.length > 0 ? "service" : "avatar"
+                }/${
+                  item?.image?.length > 0
+                    ? item.image[0]
+                    : item?.avatar?.length > 0
+                    ? item.avatar[0]
+                    : "default_avatar"
+                }`,
               }}
               style={{
                 height: 136,
@@ -400,7 +417,15 @@ const AutoServices = () => {
           >
             <Image
               source={{
-                uri: "https://backend.dev.ruedalo.app/api/avatar/" + item.avatar[0],
+                uri: `https://backend.dev.ruedalo.app/api/${
+                  item?.image?.length > 0 ? "service" : "avatar"
+                }/${
+                  item?.image?.length > 0
+                    ? item.image[0]
+                    : item?.avatar?.length > 0
+                    ? item.avatar[0]
+                    : "default_avatar"
+                }`,
               }}
               style={{
                 height: 100,

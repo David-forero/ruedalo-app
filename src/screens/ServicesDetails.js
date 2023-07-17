@@ -61,7 +61,15 @@ export default function ServicesDetails() {
           ) : (
             <Image
               source={{
-                uri: "https://backend.dev.ruedalo.app/api/avatar/" + service?.commerce.avatar[0],
+                uri: `https://backend.dev.ruedalo.app/api/${
+                  service?.image?.length > 0 ? "service" : "avatar"
+                }/${
+                  service?.image?.length > 0
+                    ? service.image[0]
+                    : service?.commerce.avatar?.length > 0
+                    ? service.commerce.avatar[0]
+                    : "default_avatar"
+                }`,
               }}
               style={{
                 height: 206,

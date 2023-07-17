@@ -91,7 +91,6 @@ const StoreProvider = ({ children }) => {
     data.data.images = images.map(image => {
       return {image: image}
     })
-    console.log('--->', data.data);
     setProduct(data.data);
     setLoading(false);
   }, []);

@@ -30,14 +30,7 @@ export default function PaymentMethodOne() {
 
   useEffect(() => {
     setLoadingCalculate(true);
-    calculateOrderFn(
-        amount,
-        0,
-        1,
-        isAmount,
-        user?.token,
-        setLoadingCalculate
-      );
+    calculateOrderFn(amount, 0, 1, isAmount, user?.token, setLoadingCalculate);
   }, [amount, product, isAmount, selectedMethod]);
 
   return (
@@ -158,7 +151,11 @@ export default function PaymentMethodOne() {
                 marginBottom: 9,
               }}
             >
-              {loadingCalculate ? <ActivityIndicator size={'small'} color={'#2d2d2d'} /> : `$${detailsOrder?.productprice}`}
+              {loadingCalculate ? (
+                <ActivityIndicator size={"small"} color={"#2d2d2d"} />
+              ) : (
+                `$${detailsOrder?.productprice}`
+              )}
             </Text>
           </View>
 
@@ -187,18 +184,15 @@ export default function PaymentMethodOne() {
                 marginBottom: 9,
               }}
             >
-              {loadingCalculate ? <ActivityIndicator size={'small'} color={'#2d2d2d'} /> : `$${detailsOrder?.tax}`}
+              {loadingCalculate ? (
+                <ActivityIndicator size={"small"} color={"#2d2d2d"} />
+              ) : (
+                `$${detailsOrder?.tax}`
+              )}
             </Text>
           </View>
 
-          <DashedLine
-            dashLength={7}
-            dashThickness={1}
-            dashGap={5}
-            dashColor="#C8C8D3"
-            style={{ marginTop: 23 }}
-          />
-             <View
+          <View
             style={{
               flexDirection: "row",
               alignItems: "center",
@@ -222,7 +216,11 @@ export default function PaymentMethodOne() {
                 marginBottom: 9,
               }}
             >
-              {loadingCalculate ? <ActivityIndicator size={'small'} color={'#2d2d2d'} /> : `$${detailsOrder?.iva}`}
+              {loadingCalculate ? (
+                <ActivityIndicator size={"small"} color={"#2d2d2d"} />
+              ) : (
+                `$${detailsOrder?.iva}`
+              )}
             </Text>
           </View>
 
@@ -251,10 +249,22 @@ export default function PaymentMethodOne() {
                   marginBottom: 9,
                 }}
               >
-              {loadingCalculate ? <ActivityIndicator size={'small'} color={'#2d2d2d'} /> : `$${detailsOrder?.igtf}`}
+                {loadingCalculate ? (
+                  <ActivityIndicator size={"small"} color={"#2d2d2d"} />
+                ) : (
+                  `$${detailsOrder?.igtf}`
+                )}
               </Text>
             </View>
           ) : null}
+
+          <DashedLine
+            dashLength={7}
+            dashThickness={1}
+            dashGap={5}
+            dashColor="#C8C8D3"
+            style={{ marginTop: 23 }}
+          />
 
           <View
             style={{
@@ -282,7 +292,7 @@ export default function PaymentMethodOne() {
                 color: COLORS.carrot,
               }}
             >
-             ${detailsOrder && detailsOrder?.total }
+              ${detailsOrder && detailsOrder?.total}
             </Text>
           </View>
         </View>
@@ -297,7 +307,7 @@ export default function PaymentMethodOne() {
               id_shipping: 0,
               id_paycommerce: selectedMethod,
               type: "service",
-              amount_cash: cash
+              amount_cash: cash,
             })
           }
         />
