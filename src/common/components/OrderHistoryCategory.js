@@ -20,7 +20,7 @@ export default function OrderHistoryCategory({ item, type }) {
             }}
         >
             <Image
-                source={{ uri: `https://backend.dev.ruedalo.app/api/${item.type === 'product' ? 'product' : 'avatar'}/${item.type === 'product' ? item?.product?.image[0] : item?.commerce?.avatar[0]}`}}
+                source={{ uri: `https://backend.dev.ruedalo.app/api/${item.type === 'product' ? 'product' : 'service'}/${item.type === 'product' ? item?.product?.image[0] : item?.service?.image[0]}`}}
                 style={{
                     width: 65,
                     height: 65,

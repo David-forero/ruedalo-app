@@ -193,10 +193,29 @@ const UserProvider = ({ children }) => {
       token
     );
 
-    console.log(data.data.rows);
     setLoading(false);
     setNotifications(data.data.rows);
   }, []);
+
+  const unsubscribeFn = async (setLoading, setShowModal, token, setUser) => { 
+    const { data } = await get(
+      "/down_plan",
+      token
+    );
+    setLoading(false);
+    setShowModal(false);
+    if (data.status === true || data.status == 200) {
+      setUser(data.data);
+      let dataString = JSON.stringify(data.data);
+      await AsyncStorage.setItem("user", dataString);
+      navigation.navigate('SuccessScreen', {screen: "Profile", title: "Plan Cancelado", description: "Se ha cancelado tu membresia sin ningún problema", titleButton: "Aceptar"})
+    }else{
+      showMessage({
+        message: data.message,
+        type: "danger",
+      });
+    }
+   }
 
   return (
     <UserContext.Provider
@@ -208,6 +227,7 @@ const UserProvider = ({ children }) => {
         transactions,
         notifications,
         //Functions
+        unsubscribeFn,
         updateUserFn,
         getBannersFn,
         paySubscriptionFn,

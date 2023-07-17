@@ -6,7 +6,7 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
 import { FontAwesome } from "@expo/vector-icons";
@@ -18,10 +18,6 @@ import { useAuthContext } from "../context/AuthContext";
 export default function Profile() {
   const navigation = useNavigation();
   const { user, logOutFn } = useAuthContext();
-
-  useEffect(() => {
-    console.log("🔥 user:", user);
-  }, []);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -153,15 +149,13 @@ export default function Profile() {
           onPress={() => navigation.navigate("Notifications")}
         />
 
-        {user?.plan != 2 ? (
-          <ProfileCategory
+ <ProfileCategory
             icon={require("../assets/icons/coupon.png")}
             title="Membresia"
             subtitle="Obtenga beneficios"
             onPress={() => navigation.navigate("MemberShip")}
             iconBgColor={COLORS.lightLilac}
           />
-        ) : null}
 
         {/* <ProfileCategory
           icon={require("../assets/icons/faq.png")}
