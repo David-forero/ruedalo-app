@@ -27,8 +27,8 @@ const StoreProvider = ({ children }) => {
 
   useEffect(() => {
    async function init() {
-     const permitionAddres = await AsyncStorage.getItem(coordenatesPermitions)
-    if (auth && permitionAddres) {
+     const permitionAddress = await AsyncStorage.getItem('coordenatesPermitions')
+    if (auth && permitionAddress) {
       initPlaceFn();
     }
    }
