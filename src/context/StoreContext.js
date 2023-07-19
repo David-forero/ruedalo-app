@@ -10,6 +10,7 @@ import * as Location from "expo-location";
 import { useAuthContext } from "./AuthContext";
 import * as Sentry from "sentry-expo";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const StoreContext = createContext({});
 
@@ -25,9 +26,13 @@ const StoreProvider = ({ children }) => {
   const [searchList, setSearchList] = useState([]);
 
   useEffect(() => {
-    if (auth) {
+   async function init() {
+     const permitionAddres = await AsyncStorage.getItem(coordenatesPermitions)
+    if (auth && permitionAddres) {
       initPlaceFn();
     }
+   }
+   init()
   }, [auth]);
 
   async function initPlaceFn() {
