@@ -28,35 +28,33 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (__DEV__) {
-      Notifications.setNotificationHandler({
-        handleNotification: async () => ({
-          shouldShowAlert: true, // Configurado para mostrar la notificación incluso cuando la app está en primer plano
-          shouldPlaySound: true,
-          shouldSetBadge: false,
-        }),
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true, // Configurado para mostrar la notificación incluso cuando la app está en primer plano
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+      }),
+    });
+
+    const subscription =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        const {
+          notification: {
+            request: {
+              content: { data },
+            },
+          },
+        } = response;
+
+        if (data.objective === "order") {
+          navigate("Order", { id: data.id_objective });
+        }
       });
 
-      const subscription =
-        Notifications.addNotificationResponseReceivedListener((response) => {
-          const {
-            notification: {
-              request: {
-                content: { data },
-              },
-            },
-          } = response;
-
-          if (data.objective === "order") {
-            navigate("Order", { id: data.id_objective });
-          }
-        });
-
-      return () => {
-        // limpieza al desmontar
-        subscription.remove();
-      };
-    }
+    return () => {
+      // limpieza al desmontar
+      subscription.remove();
+    };
   }, []);
 
   async function registerForPushNotificationsAsync() {

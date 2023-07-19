@@ -9,6 +9,7 @@ import { post, timeoutCustom } from "../common/functions/http";
 import * as Location from "expo-location";
 import { useAuthContext } from "./AuthContext";
 import * as Sentry from "sentry-expo";
+import axios from "axios";
 
 const StoreContext = createContext({});
 
@@ -43,11 +44,9 @@ const StoreProvider = ({ children }) => {
           if (!location?.coords) {
             return;
           }
-          const placePromise = await Location.reverseGeocodeAsync({
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-          });
-          setMyPlace(placePromise);
+          
+          const {data: resPlace} = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.coords.latitude}&lon=${location.coords.longitude}`)
+          setMyPlace(resPlace);
         } catch (error) {
           console.error("🔴 Erroooooor --->", error);
           Sentry.Native.captureException(error);

@@ -100,7 +100,7 @@ const AutoServices = () => {
               ) : (
                 <>
                   {myPlace
-                    ? `${myPlace[0]?.region} ${myPlace[0]?.subregion} ${myPlace[0]?.postalCode} `
+                    ?  myPlace.display_name
                     : "Activar mi ubicación"}
                 </>
               )}
