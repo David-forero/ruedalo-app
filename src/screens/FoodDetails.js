@@ -250,37 +250,37 @@ export default function FoodDetails() {
                 />
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
-                  label="2 Unidad"
+                  label="2 Unidades"
                   value="2"
                 />
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
-                  label="3 Unidad"
+                  label="3 Unidades"
                   value="3"
                 />
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
-                  label="4 Unidad"
+                  label="4 Unidades"
                   value="4s"
                 />
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
-                  label="5 Unidad"
+                  label="5 Unidades"
                   value="5"
                 />
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
-                  label="6 Unidad"
+                  label="6 Unidades"
                   value="6"
                 />
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
-                  label="7 Unidad"
+                  label="7 Unidades"
                   value="7"
                 />
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
-                  label="8 Unidad"
+                  label="8 Unidades"
                   value="8"
                 />
               </Picker>
