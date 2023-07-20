@@ -84,7 +84,7 @@ const CustomImageCarousal = ({data, autoPlay, pagination}) => {
           return (
             <View style={{width: SIZE}} key={index}>
               <Animated.View style={[styles.imageContainer, style]}>
-                <Image resizeMode='stretch' source={{uri: `https://backend.dev.ruedalo.app/api/product/${item.image}`}} style={styles.image} />
+                <Image resizeMode="contain" source={{uri: `https://backend.dev.ruedalo.app/api/product/${item.image}`}} style={styles.image} />
 
               </Animated.View>
             </View>
@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     borderRadius: 18,
     overflow: 'hidden',
-    backgroundColor: '#2d2d2d',
   },
   image: {
     width: '100%',

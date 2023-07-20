@@ -26,9 +26,9 @@ export default function Selectlocation() {
     try {
       setLoading(false);
       await AsyncStorage.setItem("coordenatesPermitions", JSON.stringify(true));
+      await initPlaceFn()
       setCoordenatesPermitions(true);
       setLoading(true);
-      initPlaceFn()
       navigation.navigate("MainLayout");
     } catch (error) {
       console.log("Error al obtener la ubicación:", error);

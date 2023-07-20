@@ -106,12 +106,12 @@ export default function Home() {
               ) : (
                 <>
                   {myPlace
-                    ?  myPlace.display_name
+                    ?  myPlace.display_name.length > 30 ? myPlace.display_name.slice(0, 35) + '...' : myPlace.display_name
                     : "Activar mi ubicación"}
                 </>
               )}
             </Text>
-            <Pin />
+            <Pin className="ml-1" />
           </View>
         </View>
 

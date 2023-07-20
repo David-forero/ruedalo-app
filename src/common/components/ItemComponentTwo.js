@@ -24,6 +24,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                         width: "100%",
                     }}
                     imageStyle={{ borderRadius: 10 }}
+                    resizeMode="contain"
                 >
                     {/* <TouchableOpacity
                         style={{
