@@ -15,13 +15,10 @@ const MemberShip = () => {
     title: "Plan Básico",
     items: [
       {
-        b: "Beneficio 1",
+        b: "Registra hasta 1 vehículo",
       },
       {
-        b: "Beneficio 2",
-      },
-      {
-        b: "Beneficio 3",
+        b: "Obtén notificaciones de repuestos y servicios cercanos a ti ",
       },
     ],
   };
@@ -31,19 +28,16 @@ const MemberShip = () => {
     title: "Plan Premium",
     items: [
       {
-        b: "Beneficio 1",
+        b: "Registra vehículo ilimitados",
       },
       {
-        b: "Beneficio 2",
+        b: "Obtén notificaciones en tiempo real de ofertas y promociones",
       },
       {
-        b: "Beneficio 3",
+        b: "Obtén recordatorios de vencimiento de documentos legales ",
       },
       {
-        b: "Beneficio 4",
-      },
-      {
-        b: "Beneficio 5",
+        b: "Obtén descuentos especiales para tu vehículo",
       },
     ],
   };
@@ -170,7 +164,7 @@ const MemberShip = () => {
           <View className="flex-row flex-wrap justify-center items-center space-x-5 mt-10">
             <TouchableOpacity
               className={`shadow-md rounded-lg bg-white overflow-hidden ${
-                selectedPlan.id === 1 ? "opacity-100" : "opacity-40"
+                selectedPlan.id === 1 ? "border-orange-500 border-[2px]" : "border-orange-100"
               }`}
               onPress={() => setselectedPlan(plan1)}
             >
@@ -184,14 +178,11 @@ const MemberShip = () => {
                 </Text>
               </View>
 
-              <View className="w-100 items-center text-center bg-gray-800 px-5 py-2">
-                <Text className="text-gray-100 text-md ">Plan Básico</Text>
-              </View>
             </TouchableOpacity>
 
             <TouchableOpacity
               className={`shadow-md rounded-md bg-white overflow-hidden ${
-                selectedPlan.id === 2 ? "opacity-100" : "opacity-40"
+                selectedPlan.id === 2 ? "border-orange-500 border-[2px]" : "border-orange-100"
               }`}
               onPress={() => setselectedPlan(plan2)}
             >
@@ -205,14 +196,11 @@ const MemberShip = () => {
                 </Text>
               </View>
 
-              <View className="w-100 items-center text-center bg-gray-800 px-5 py-2">
-                <Text className="text-gray-100 text-md ">Ahorra 1 mes</Text>
-              </View>
             </TouchableOpacity>
           </View>
 
           <View className="space-y-3">
-            <Text className="font-bold text-lg pl-10 mt-16">
+            <Text className="font-bold text-lg pl-10 mt-16 mb-5">
               Beneficios del{" "}
               <Text className="text-orange-600">{selectedPlan.title}</Text>:
             </Text>
@@ -222,7 +210,7 @@ const MemberShip = () => {
                 key={i}
                 className="flex-row items-center justify-around mb-2"
               >
-                <Text className="text-orange-600 font-semibold">{item.b}</Text>
+                <Text className="text-orange-600 font-semibold w-[250px]">{item.b}</Text>
                 <AntDesign
                   name="checksquareo"
                   size={20}
@@ -238,7 +226,7 @@ const MemberShip = () => {
             <>
               {user?.plan === 2 ? (
                 <Button
-                  title="Desuscribirse"
+                  title="volver a suscripción gratuita"
                   loading={loading}
                   onPress={() => {
                     setShowModal(true);
@@ -246,7 +234,7 @@ const MemberShip = () => {
                 />
               ) : (
                 <Button
-                  title="Pagar con 5$"
+                  title="Subscribirse a este plan"
                   loading={loading}
                   onPress={() => {
                     setLoading(true);
@@ -265,40 +253,6 @@ const MemberShip = () => {
         </View>
       </View>
       {<ModalCancelMembership />}
-      {/* <View className="flex-1 items-center justify-center">
-        <Lottie
-          style={{
-            width: 250,
-            height: 250,
-          }}
-          autoPlay
-          loop
-          source={require("../../assets/animations/subscription.json")}
-        />
-
-        <Text className="text-2xl font-bold text-center mb-3 text-orange-500 capitalize">
-          Obten beneficios premium
-        </Text>
-        <Text className="text-gray-600 mb-5 text-sm ">
-          Al subscribirte al plan, podrás crear más de 2 vehículo
-        </Text>
-        <View className="w-2/4 mb-10">
-          <Button
-            title="Pagar con 5$"
-            loading={loading}
-            onPress={() => {
-              setLoading(true);
-              paySubscriptionFn(
-                "price_1NLqqLGFUPnOrSP5iiNHqQnP",
-                navigation,
-                setLoading,
-                user?.token,
-                setUser
-              );
-            }}
-          />
-        </View>
-      </View> */}
     </SafeAreaView>
   );
 };
