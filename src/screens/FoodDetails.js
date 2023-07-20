@@ -223,7 +223,7 @@ export default function FoodDetails() {
           ) : (
             <View className="mt-10">
               <Text className="font-bold text-md mb-3 text-left text-gray-700">
-                Cantidad
+                Cantidad ({product?.stock} Disponibles)
               </Text>
 
               <Picker
@@ -245,18 +245,43 @@ export default function FoodDetails() {
               >
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
-                  label="1"
+                  label="1 Unidad"
                   value="1"
                 />
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
-                  label="2"
+                  label="2 Unidad"
                   value="2"
                 />
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
-                  label="3"
+                  label="3 Unidad"
                   value="3"
+                />
+                <Picker.Item
+                  style={{ color: COLORS.gray2, marginLeft: 10 }}
+                  label="4 Unidad"
+                  value="4s"
+                />
+                <Picker.Item
+                  style={{ color: COLORS.gray2, marginLeft: 10 }}
+                  label="5 Unidad"
+                  value="5"
+                />
+                <Picker.Item
+                  style={{ color: COLORS.gray2, marginLeft: 10 }}
+                  label="6 Unidad"
+                  value="6"
+                />
+                <Picker.Item
+                  style={{ color: COLORS.gray2, marginLeft: 10 }}
+                  label="7 Unidad"
+                  value="7"
+                />
+                <Picker.Item
+                  style={{ color: COLORS.gray2, marginLeft: 10 }}
+                  label="8 Unidad"
+                  value="8"
                 />
               </Picker>
             </View>
