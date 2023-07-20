@@ -1,20 +1,14 @@
 import {
   SafeAreaView,
   ScrollView,
+  Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { useState, useEffect } from "react";
 import { CardCatalog, Header } from "../common/components";
-import {
-  COLORS,
-  FONTS,
-  SIZES,
-  SAFEAREAVIEW,
-  category,
-  dummyData,
-} from "../common/constants";
+import { SIZES, SAFEAREAVIEW } from "../common/constants";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuthContext } from "../context/AuthContext";
@@ -30,16 +24,16 @@ const ListProducts = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("el query ->", query);
     if (query) {
+      setSearchText(query);
       setLoading(true);
-      let params = {
+      let myParams = {
         query,
         latitude: location.latitude,
         longitude: location.longitude,
         limit: 30,
       };
-      searchFn(params, user?.token, setLoading);
+      searchFn(myParams, user?.token, setLoading, isProduct);
     }
   }, [query]);
 
@@ -64,10 +58,33 @@ const ListProducts = () => {
           {/* <Search /> */}
           <TextInput
             placeholder="Buscar..."
+            value={searchText}
+            onChangeText={setSearchText}
             style={{ flex: 1, paddingLeft: 7 }}
+            onSubmitEditing={() => {
+              setLoading(true);
+
+              let myParams = {
+                query: searchText,
+                latitude: location.latitude,
+                longitude: location.longitude,
+                limit: 30,
+              };
+              searchFn(myParams, user?.token, setLoading, isProduct);
+            }}
           />
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => {
+              setLoading(true);
+
+              let myParams = {
+                query: searchText,
+                latitude: location.latitude,
+                longitude: location.longitude,
+                limit: 30,
+              };
+              searchFn(myParams, user?.token, setLoading, isProduct);
+            }}
             style={{
               paddingHorizontal: 14,
             }}
@@ -83,23 +100,32 @@ const ListProducts = () => {
             paddingVertical: SIZES.paddingTop_01,
           }}
         >
-          {loading ? null : (
+          {loading ? (
+            <Text className="text-center text-gray-900 font-bold text-lg mt-10">
+              Buscando...
+            </Text>
+          ) : (
             <>
-              {!searchList
-                ? searchList?.map((item) => (
-                    <View key={item.id}>
-                      {/* <CardCatalog
-                        image={item.image}
-                        name={item.name}
-                        price={item.price}
-                        description={item.description}
-                      /> */}
-                      <View className="h-1 w-full border-b-2 border-slate-200">
-                        {/* HR */}
-                      </View>
+              {searchList?.length > 0 ? (
+                searchList.map((item) => (
+                  <View key={item.id}>
+                    <CardCatalog
+                      image={item.image}
+                      name={item.title}
+                      price={item.price}
+                      description={item.description}
+                      type={isProduct ? "product" : "service"}
+                    />
+                    <View className="h-1 w-full border-b-2 border-slate-200">
+                      {/* HR */}
                     </View>
-                  ))
-                : null}
+                  </View>
+                ))
+              ) : (
+                <Text className="text-center text-gray-900 font-bold text-lg mt-10">
+                  No hay ningún producto con esa busqueda...
+                </Text>
+              )}
             </>
           )}
         </View>

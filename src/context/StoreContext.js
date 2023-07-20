@@ -61,7 +61,7 @@ const StoreProvider = ({ children }) => {
     }
   }
 
-  const searchFn = async (params, token, setLoading) => { 
+  const searchFn = async (params, token, setLoading, isProduct) => { 
     const myParams = {
       title: params.query,
       offset: params.offset || 0,
@@ -70,10 +70,16 @@ const StoreProvider = ({ children }) => {
       longitude: params.longitude || 28.626137,
       // distance: 15,
     };
-    const { data } = await post("/list_product", myParams, token);
+
+    if (isProduct) {
+      const { data } = await post("/list_product", myParams, token);
+      setSearchList(data.data.list_product);
+    }else{
+      const { data } = await post("/list_service", myParams, token);
+      setSearchList(data.data.list_product);
+    }
+    
     setLoading(false);
-    console.log('buscador -->',data);
-    setSearchList(data);
    }
 
   const getListProductsFn = async (params, token, setLoading) => {
