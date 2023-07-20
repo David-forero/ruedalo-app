@@ -111,7 +111,7 @@ const ListProducts = () => {
                   <View key={item.id}>
                     <CardCatalog
                       image={item.image}
-                      name={item.title}
+                      name={item.title || item.description}
                       price={item.price}
                       description={item.description}
                       type={isProduct ? "product" : "service"}

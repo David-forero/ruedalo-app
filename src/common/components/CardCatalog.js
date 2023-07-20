@@ -35,7 +35,7 @@ const CardCatalog = ({ name, price, image, description, type, id }) => {
           <Image
             source={{
               uri: `https://backend.dev.ruedalo.app/api/${
-                type === "product" ? "product" : "avatar"
+                type === "product" ? "product" : "service"
               }/${image[0]}`,
             }}
             style={{

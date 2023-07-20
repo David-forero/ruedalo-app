@@ -76,7 +76,7 @@ const StoreProvider = ({ children }) => {
       setSearchList(data.data.list_product);
     }else{
       const { data } = await post("/list_service", myParams, token);
-      setSearchList(data.data.list_product);
+      setSearchList(data.data.list_service);
     }
     
     setLoading(false);
