@@ -2,18 +2,14 @@ import {
   useContext,
   createContext,
   useState,
-  useCallback,
-  useEffect,
+  useCallback
 } from "react";
 import { get, post } from "../common/functions/http";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
-import * as Notifications from "expo-notifications";
-import * as Device from "expo-device";
-import { useNavigationCustom } from "../common/hooks";
 import * as Sentry from "sentry-expo";
-import { Alert } from "react-native";
 // import messaging from '@react-native-firebase/messaging';
+import { registerIndieID } from 'native-notify';
 
 const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
@@ -21,86 +17,7 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(false);
   const [enableBoarding, setEnableBoarding] = useState(true);
   const [coordenatesPermitions, setCoordenatesPermitions] = useState(false);
-
-  // Proporciona una función para navegar que puedes usar en todo tu código
-  const navigate = (name, params) => {
-    useNavigationCustom.current?.navigate(name, params);
-  };
-
-  useEffect(() => {
-    Notifications.setNotificationHandler({
-      handleNotification: async () => ({
-        shouldShowAlert: true, // Configurado para mostrar la notificación incluso cuando la app está en primer plano
-        shouldPlaySound: true,
-        shouldSetBadge: false,
-      }),
-    });
-
-    const subscription =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        const {
-          notification: {
-            request: {
-              content: { data },
-            },
-          },
-        } = response;
-
-        if (data.objective === "order") {
-          navigate("Order", { id: data.id_objective });
-        }
-      });
-
-    return () => {
-      // limpieza al desmontar
-      subscription.remove();
-    };
-  }, []);
-
-  async function registerForPushNotificationsAsync() {
-    try {
-      let token;
-      if (Device.isDevice) {
-        const { status: existingStatus } =
-          await Notifications.getPermissionsAsync();
-        let finalStatus = existingStatus;
-        if (existingStatus !== "granted") {
-          const { status } = await Notifications.requestPermissionsAsync();
-          finalStatus = status;
-        }
-        if (finalStatus !== "granted") {
-          // alert("Failed to get push token for push notification!");
-          return;
-        }
-        token = (
-          await Notifications.getExpoPushTokenAsync({
-            projectId: "6b098aeb-e8fb-42e4-82f7-32f0f807ffb9",
-          })
-        ).data;
-      } else {
-        console.warn(
-          "Debe usar un dispositivo físico para las notificaciones automáticas"
-        );
-        // alert('Must use physical device for Push Notifications');
-      }
-
-      if (Platform.OS === "android") {
-        Notifications.setNotificationChannelAsync("default", {
-          name: "default",
-          importance: Notifications.AndroidImportance.MAX,
-          vibrationPattern: [0, 250, 250, 250],
-          lightColor: "#FF231F7C",
-        });
-      }
-
-      console.log('my token -> ' + token);
-      return token;
-    } catch (error) {
-      console.error('error token ->', error);
-      // Alert.alert("Error", "Ocurrió un error al generar el token: " + error.message);
-    }
-  }
-
+ 
   const loadingApp = async (setLoading, SplashScreen) => {
     console.log("🔥 cargando app...");
     try {
@@ -176,11 +93,8 @@ const AuthProvider = ({ children }) => {
   );
 
   const signInFn = async (formData, navigation, setLoading) => {
-    const tokenNotify = await registerForPushNotificationsAsync();
-    formData.token_notif = tokenNotify;
+    formData.token_notif = formData.email;
     try {
-      // alert(`He recibido el token y lo he dado ${tokenNotify}`)
-
       const { data } = await post("/login", formData);
       setLoading(false);
       if (data.status == 400 || data.status === false) {
@@ -192,6 +106,8 @@ const AuthProvider = ({ children }) => {
       }
 
       setUser(data.data);
+      registerIndieID(`${formData.email}`, 9483, 'bqoXH6eT0xaUSZiecB9LHV');
+
       let dataString = JSON.stringify(data.data);
       await AsyncStorage.setItem("user", dataString);
       setAuth(true);
@@ -247,10 +163,9 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const signWithGoogleFn = async (googleData, setLoading) => {
-    const tokenNotify = await registerForPushNotificationsAsync();
     const { data } = await post("/login-google", {
       email: googleData.email,
-      token_notif: tokenNotify,
+      token_notif: googleData.email,
     });
     setLoading(false);
     setUser(data.data);

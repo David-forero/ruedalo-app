@@ -16,20 +16,19 @@
       "**/*"
     ],
     "notification": {
-      "icon": "./assets/adaptive-icon.png",
-      "color": "#000000"
+      "icon": "./assets/adaptive-icon.png"
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.daele.ruedalo"
     },
     "android": {
-      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundImage": "./assets/adaptive-icon.png"
       },
-      "package": "com.daele.ruedalo"
+      "package": "com.daele.ruedalo",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

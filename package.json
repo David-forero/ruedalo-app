@@ -43,6 +43,7 @@
     "formik": "^2.4.0",
     "lottie-react-native": "5.1.4",
     "metro-config": "^0.76.7",
+    "native-notify": "^3.0.6",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-native": "0.71.8",
