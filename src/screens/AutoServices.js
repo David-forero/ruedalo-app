@@ -82,30 +82,24 @@ const AutoServices = () => {
           <Image source={Logo} className="w-10 h-10 ml-2" />
 
           <View className="ml-3 flex-row">
-            <Text
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Notifications")}
               style={{
-                marginLeft: 12,
-                ...FONTS.Roboto_400Regular,
-                fontSize: 14,
-              }}
-              numberOfLines={1}
-              onPress={() => {
-                if (!myPlace) {
-                  navigation.navigate("Selectlocation");
-                }
+                elevation: 7,
+                marginRight: 20,
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              {loadingLocation ? (
-                "Cargando..."
-              ) : (
-                <>
-                  {myPlace
-                    ?  myPlace.display_name.length > 30 ? myPlace.display_name.slice(0, 35) + '...' : myPlace.display_name
-                    : "Activar mi ubicación"}
-                </>
-              )}
-            </Text>
-            <Pin className="ml-1" />
+              {notificationCounts > 0 ? (
+                <Text className="absolute text-[12px] -top-1 -right-1 h-3 w-3 bg-blue-500 text-center rounded-full text-white flex justify-center items-center font-bold"></Text>
+              ) : null}
+              <Ionicons
+                name="ios-notifications-outline"
+                size={22}
+                color="#2d2d2d"
+              />
+            </TouchableOpacity>
           </View>
         </View>
 

@@ -14,7 +14,6 @@ import { Rating } from "react-native-ratings";
 
 import { COLORS, FONTS, SAFEAREAVIEW, category } from "../common/constants";
 import {
-  Pin,
   Clock,
   PinTwo,
   Heading,
@@ -28,7 +27,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
 import { RefreshControl } from "react-native-gesture-handler";
 import { useUserContext } from "../context/UserContext";
-import Logo from '../assets/icons/logo.png'
+import Logo from "../assets/icons/logo.png";
 
 export default function Home() {
   const navigation = useNavigation();
@@ -36,19 +35,15 @@ export default function Home() {
   const [selectCategory, setSelectCategory] = useState(1);
   const [bannerStore, setBannerStore] = useState(null);
   const { user } = useAuthContext();
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const {
     getListProductsFn,
     forMyCar,
-    myPlace,
     setForMyCar,
     mostSells,
     setMostSells,
-    loadingLocation,
-    location,
-  } = useStoreContext();
-  const { getBannersFn } = useUserContext();
-
+    location  } = useStoreContext();
+  const { getBannersFn, notificationCounts } = useUserContext();
   //My hooks
 
   useEffect(() => {
@@ -80,38 +75,29 @@ export default function Home() {
         }}
       >
         <View className="flex-row items-center justify-between mb-5 pr-5">
-          <Image
-            source={Logo}
-            className="w-10 h-10 ml-2"
-          />
-
+          <Image source={Logo} className="w-10 h-10 ml-2" />
 
           <View className="ml-3 flex-row">
-          
-            <Text
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Notifications")}
               style={{
-                marginLeft: 12,
-                ...FONTS.Roboto_400Regular,
-                fontSize: 14,
-              }}
-              numberOfLines={1}
-              onPress={() => {
-                if (!myPlace) {
-                  navigation.navigate("Selectlocation");
-                }
+                elevation: 7,
+                marginRight: 20,
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              {loadingLocation ? (
-                "Cargando..."
-              ) : (
-                <>
-                  {myPlace
-                    ?  myPlace.display_name.length > 30 ? myPlace.display_name.slice(0, 35) + '...' : myPlace.display_name
-                    : "Activar mi ubicación"}
-                </>
-              )}
-            </Text>
-            <Pin className="ml-1" />
+              {
+                notificationCounts > 0 ? (
+                  <Text className="absolute text-[12px] -top-1 -right-1 h-3 w-3 bg-blue-500 text-center rounded-full text-white flex justify-center items-center font-bold"></Text>
+                ) : null
+              }
+              <Ionicons
+                name="ios-notifications-outline"
+                size={22}
+                color="#2d2d2d"
+              />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -133,10 +119,24 @@ export default function Home() {
             value={searchText}
             onChangeText={setSearchText}
             style={{ flex: 1, paddingLeft: 7 }}
-            onSubmitEditing={() => navigation.navigate("ListProducts", { query: searchText, location, titleHeader: 'Productos', isProduct: true })}
+            onSubmitEditing={() =>
+              navigation.navigate("ListProducts", {
+                query: searchText,
+                location,
+                titleHeader: "Productos",
+                isProduct: true,
+              })
+            }
           />
           <TouchableOpacity
-            onPress={() => navigation.navigate("ListProducts", {query: searchText, location, titleHeader: 'Productos', isProduct: true})}
+            onPress={() =>
+              navigation.navigate("ListProducts", {
+                query: searchText,
+                location,
+                titleHeader: "Productos",
+                isProduct: true,
+              })
+            }
             style={{
               paddingHorizontal: 14,
               // paddingVertical: 15,

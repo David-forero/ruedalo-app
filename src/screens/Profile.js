@@ -13,12 +13,12 @@ import { FontAwesome } from "@expo/vector-icons";
 import { ProfileCategory } from "../common/components";
 import { SAFEAREAVIEW, FONTS, COLORS, SIZES } from "../common/constants";
 import { useAuthContext } from "../context/AuthContext";
-
+import { useStoreContext } from "../context/StoreContext";
 
 export default function Profile() {
   const navigation = useNavigation();
   const { user, logOutFn } = useAuthContext();
-
+  const { myPlace, loadingLocation } = useStoreContext();
   const [showModal, setShowModal] = useState(false);
 
   function renderHeader() {
@@ -62,7 +62,9 @@ export default function Profile() {
           {user?.avatar ? (
             <Image
               source={{
-                uri: "https://backend.dev.ruedalo.app/api/avatar/" + user.avatar[0],
+                uri:
+                  "https://backend.dev.ruedalo.app/api/avatar/" +
+                  user.avatar[0],
               }}
               style={{
                 width: 80,
@@ -98,8 +100,30 @@ export default function Profile() {
             {user?.name} {user?.lastname}
           </Text>
 
+          <Text 
+            numberOfLines={2}
+
+          className="text-center font-semibold text-gray-400 text-xs mt-1 mb-3"
+          onPress={() => {
+            if (!myPlace) {
+              navigation.navigate("Selectlocation");
+            }
+          }}
+          >
+           {loadingLocation ? (
+                "Cargando..."
+              ) : (
+                <>
+                  {/* {myPlace
+                    ?  myPlace.display_name.length > 30 ? myPlace.display_name.slice(0, 35) + '...' : myPlace.display_name
+                    : "Activar mi ubicación"} */}
+                    {myPlace.display_name}
+                </>
+              )}
+          </Text>
+
           {user?.plan == 2 ? (
-            <View className="flex items-center justify-center mt-1">
+            <View className="flex items-center justify-center mb-3">
               <View className="p-1 w-28 rounded-full bg-gray-800 flex-row items-center justify-center space-x-2 ">
                 <Text className="text-orange-600 font-bold text-xs">
                   {" "}
@@ -140,7 +164,7 @@ export default function Profile() {
           iconBgColor={COLORS.lightLilac}
           onPress={() => navigation.navigate("TransactionsView")}
         /> */}
-        
+
         <ProfileCategory
           icon={require("../assets/icons/notification.png")}
           title="Notificaciones"
@@ -149,13 +173,13 @@ export default function Profile() {
           onPress={() => navigation.navigate("Notifications")}
         />
 
- <ProfileCategory
-            icon={require("../assets/icons/coupon.png")}
-            title="Membresia"
-            subtitle="Obtenga beneficios"
-            onPress={() => navigation.navigate("MemberShip")}
-            iconBgColor={COLORS.lightLilac}
-          />
+        <ProfileCategory
+          icon={require("../assets/icons/coupon.png")}
+          title="Membresia"
+          subtitle="Obtenga beneficios"
+          onPress={() => navigation.navigate("MemberShip")}
+          iconBgColor={COLORS.lightLilac}
+        />
 
         {/* <ProfileCategory
           icon={require("../assets/icons/faq.png")}

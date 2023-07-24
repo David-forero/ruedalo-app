@@ -1,25 +1,56 @@
-import { useContext, createContext, useState, useCallback } from "react";
+import {
+  useContext,
+  createContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { useStripe } from "@stripe/stripe-react-native";
 import { post, upload, get } from "../common/functions/http";
 import { showMessage } from "react-native-flash-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Sentry from 'sentry-expo';
+import * as Sentry from "sentry-expo";
+import {
+  getNotificationInbox,
+  getIndieNotificationInbox,
+  getUnreadIndieNotificationInboxCount,
+  getUnreadNotificationInboxCount,
+} from "native-notify";
+import { useAuthContext } from "./AuthContext";
+import { convertToDate } from "../common/functions/formatTime";
 
 const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
+  const { user, auth } = useAuthContext();
   const [coordenates, setCoordenates] = useState(null);
   const [documentsVehicles, setDocumentsVehicles] = useState(false);
   const [notifications, setNotifications] = useState(null);
+  const [notificationCounts, setNotificationCounts] = useState(null);
   const stripe = useStripe();
 
   const [transactions, setTransactions] = useState(null);
 
+  useEffect(() => {
+    async function init() {
+      const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
+        getUnreadIndieNotificationInboxCount(
+          `${user?.email}`,
+          9483,
+          "bqoXH6eT0xaUSZiecB9LHV"
+        ),
+        getUnreadNotificationInboxCount(9483, "bqoXH6eT0xaUSZiecB9LHV"),
+      ]);
+
+      let totalCount = unreadCountIndie + unreadCountGeneral;
+      setNotificationCounts(totalCount);
+    }
+
+    if (auth) init();
+  }, [user?.email, auth]);
+
   const forgotPasswordFn = useCallback(async (form, setLoading) => {
-    const { data } = await post(
-      "/forgot-pass",
-      form,
-    );
+    const { data } = await post("/forgot-pass", form);
     if (data.status === 400 || !data) {
       return;
     }
@@ -122,12 +153,17 @@ const UserProvider = ({ children }) => {
           setUser(data.data);
           let dataString = JSON.stringify(data.data);
           await AsyncStorage.setItem("user", dataString);
-          navigation.navigate('SuccessScreen', {screen: "Profile", title: "Compra realizada", description: "Se ha hecho la compra correctamente, disfruta de tus beneficios", titleButton: "Aceptar"})
+          navigation.navigate("SuccessScreen", {
+            screen: "Profile",
+            title: "Compra realizada",
+            description:
+              "Se ha hecho la compra correctamente, disfruta de tus beneficios",
+            titleButton: "Aceptar",
+          });
         }
       }
 
       setLoading(false);
-
     },
     []
   );
@@ -149,7 +185,12 @@ const UserProvider = ({ children }) => {
       await post("/register_doc", formData, token);
       setLoading(false);
       setShowModal(false);
-      navigation.navigate('SuccessScreen', {screen: "Profile", title: "Documento del vehiculo agregado", description: "Se ha agregado tu documento correctamente", titleButton: "Aceptar"})
+      navigation.navigate("SuccessScreen", {
+        screen: "MainLayout",
+        title: "Documento del vehiculo agregado",
+        description: "Se ha agregado tu documento correctamente",
+        titleButton: "Aceptar",
+      });
     },
     []
   );
@@ -184,38 +225,47 @@ const UserProvider = ({ children }) => {
   }, []);
 
   const getListNotifFn = useCallback(async (setLoading, token) => {
-    const { data } = await post(
-      "/list_notif",
-      {
-        limit: 10,
-        offset: 0,
-      },
-      token
-    );
+    const [notificationsGeneral, notificationsUser] = await Promise.all([
+      getNotificationInbox(9483, "bqoXH6eT0xaUSZiecB9LHV"),
+      getIndieNotificationInbox(
+        `${user?.email}`,
+        9483,
+        "bqoXH6eT0xaUSZiecB9LHV"
+      ),
+    ]);
+
+    let totalNotifications = [...notificationsUser, ...notificationsGeneral];
+    totalNotifications.forEach((notification) => {
+      notification.date = convertToDate(notification.date);
+    });
+    totalNotificationsk.sort((a, b) => b.date - a.date);
+    setNotifications(totalNotifications);
 
     setLoading(false);
-    setNotifications(data.data.rows);
+    // setNotifications(data.data.rows);
   }, []);
 
-  const unsubscribeFn = async (setLoading, setShowModal, token, setUser) => { 
-    const { data } = await get(
-      "/down_plan",
-      token
-    );
+  const unsubscribeFn = async (setLoading, setShowModal, token, setUser) => {
+    const { data } = await get("/down_plan", token);
     setLoading(false);
     setShowModal(false);
     if (data.status === true || data.status == 200) {
       setUser(data.data);
       let dataString = JSON.stringify(data.data);
       await AsyncStorage.setItem("user", dataString);
-      navigation.navigate('SuccessScreen', {screen: "Profile", title: "Plan Cancelado", description: "Se ha cancelado tu membresia sin ningún problema", titleButton: "Aceptar"})
-    }else{
+      navigation.navigate("SuccessScreen", {
+        screen: "Profile",
+        title: "Plan Cancelado",
+        description: "Se ha cancelado tu membresia sin ningún problema",
+        titleButton: "Aceptar",
+      });
+    } else {
       showMessage({
         message: data.message,
         type: "danger",
       });
     }
-   }
+  };
 
   return (
     <UserContext.Provider
@@ -226,6 +276,7 @@ const UserProvider = ({ children }) => {
         setCoordenates,
         transactions,
         notifications,
+        notificationCounts,
         //Functions
         unsubscribeFn,
         updateUserFn,
@@ -237,7 +288,7 @@ const UserProvider = ({ children }) => {
         updateDocumentVehicleFn,
         getTransactionsAppFn,
         forgotPasswordFn,
-        getListNotifFn
+        getListNotifFn,
       }}
     >
       {children}

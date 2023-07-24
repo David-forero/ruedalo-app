@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-
 import {
   Header,
   NotificationCategory,
@@ -41,19 +40,19 @@ export default function Notifications() {
             refreshing={loading}
             onRefresh={async () => {
               setLoading(true);
-              getTransactionsAppFn(setLoading, user?.token);
+              getListNotifFn(setLoading, user?.token);
             }}
           />
         }
       >
         {notifications ? (
-          notifications.map((item) => (
+          notifications.map((item, i) => (
             <NotificationCategory
               title={item.title}
-              subtitle={item.text}
+              subtitle={item.message}
               icon={<Accept />}
-              createdAt={item.createdAt}
-              key={item.id}
+              createdAt={item.date}
+              key={item.notification_id}
               id={item.id}
               objective={item.objective}
             />

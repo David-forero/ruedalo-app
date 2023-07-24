@@ -2,14 +2,16 @@ import {
   useContext,
   createContext,
   useState,
-  useCallback
+  useCallback,
+  useEffect,
 } from "react";
 import { get, post } from "../common/functions/http";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 import * as Sentry from "sentry-expo";
+import { getPushDataObject } from "native-notify";
 // import messaging from '@react-native-firebase/messaging';
-import { registerIndieID } from 'native-notify';
+import { registerIndieID } from "native-notify";
 
 const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
@@ -17,7 +19,24 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(false);
   const [enableBoarding, setEnableBoarding] = useState(true);
   const [coordenatesPermitions, setCoordenatesPermitions] = useState(false);
- 
+  let pushDataObject = getPushDataObject();
+
+  useEffect(() => {
+    console.log(pushDataObject);
+
+    // const {
+    //   notification: {
+    //     request: {
+    //       content: { data },
+    //     },
+    //   },
+    // } = pushDataObject;
+
+    // if (data.objective === "order") {
+    //   navigate("Order", { id: data.id_objective });
+    // }
+  }, [pushDataObject]);
+
   const loadingApp = async (setLoading, SplashScreen) => {
     console.log("🔥 cargando app...");
     try {
@@ -48,6 +67,7 @@ const AuthProvider = ({ children }) => {
       //Habilitar auth
       if (userValue) {
         setAuth(true);
+        registerIndieID(`${userValue.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
       }
     } catch (error) {
       console.error("⭕️ error --->", error);
@@ -106,7 +126,7 @@ const AuthProvider = ({ children }) => {
       }
 
       setUser(data.data);
-      registerIndieID(`${formData.email}`, 9483, 'bqoXH6eT0xaUSZiecB9LHV');
+      registerIndieID(`${formData.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
 
       let dataString = JSON.stringify(data.data);
       await AsyncStorage.setItem("user", dataString);
