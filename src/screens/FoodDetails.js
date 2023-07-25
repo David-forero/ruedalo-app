@@ -308,12 +308,12 @@ export default function FoodDetails() {
       <Header
         title="Detalles del producto"
         onPress={() => {
-          if (commerceGoBack === true) {
-            return navigation.navigate("RestaurantMenu", {
-              id: product?.commerce.id,
-              typeCommerce: "product",
-            });
-          }
+          // if (commerceGoBack === true) {
+          //   return navigation.navigate("RestaurantMenu", {
+          //     id: product?.commerce.id,
+          //     typeCommerce: "product",
+          //   });
+          // }
           navigation.goBack();
         }}
       />
