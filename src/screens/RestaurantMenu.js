@@ -220,6 +220,7 @@ export default function RestaurantMenu() {
                         price={item.price}
                         type={typeCatalog}
                         description={item.description}
+                        commerceGoBack={true}
                       />
                     ))
                   ) : (

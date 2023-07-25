@@ -115,6 +115,7 @@ const ListProducts = () => {
                       price={item.price}
                       description={item.description}
                       type={isProduct ? "product" : "service"}
+                      id={item.id}
                     />
                     <View className="h-1 w-full border-b-2 border-slate-200">
                       {/* HR */}

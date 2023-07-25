@@ -1,18 +1,16 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Shadow } from "react-native-shadow-2";
-import Minus from "./svg/Minus";
-import Plus from "./svg/Plus";
 import { COLORS, FONTS } from "../constants";
 import { useNavigation } from "@react-navigation/native";
 
-const CardCatalog = ({ name, price, image, description, type, id }) => {
+const CardCatalog = ({ name, price, image, description, type, id, commerceGoBack = false }) => {
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
       onPress={() =>
-       { console.log('SAS')
-        navigation.navigate("FoodDetails", { id, commerceGoBack: true })}
+       { 
+        navigation.navigate("FoodDetails", { id, commerceGoBack})}
       }
       style={{ paddingBottom: 15 }}
     >
