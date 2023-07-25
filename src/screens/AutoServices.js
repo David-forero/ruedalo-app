@@ -41,10 +41,10 @@ import { Ionicons } from "@expo/vector-icons";
 
 const AutoServices = () => {
   const navigation = useNavigation();
-  const { user } = useAuthContext();
+  const { user, notificationCounts } = useAuthContext();
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
-  const { myPlace, location, loadingLocation } = useStoreContext();
+  const { location } = useStoreContext();
   const [bannerServices, setBannerServices] = useState(null);
   const [searchText, setSearchText] = useState("");
   const { populars, setPopulars, mostSells, setMostSells, getListServicessFn } =

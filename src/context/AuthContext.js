@@ -9,15 +9,20 @@ import { get, post } from "../common/functions/http";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
 import * as Sentry from "sentry-expo";
-import { getPushDataObject } from "native-notify";
-// import messaging from '@react-native-firebase/messaging';
-import { registerIndieID } from "native-notify";
+import {
+  registerIndieID,
+  getUnreadIndieNotificationInboxCount,
+  getUnreadNotificationInboxCount,
+  getPushDataObject,
+} from "native-notify";
 
 const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
   const [enableBoarding, setEnableBoarding] = useState(true);
+  const [notificationCounts, setNotificationCounts] = useState(null);
+
   const [coordenatesPermitions, setCoordenatesPermitions] = useState(false);
   let pushDataObject = getPushDataObject();
 
@@ -66,6 +71,19 @@ const AuthProvider = ({ children }) => {
 
       //Habilitar auth
       if (userValue) {
+        //Activar cantidad de notificaciones del usuario
+        const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
+          getUnreadIndieNotificationInboxCount(
+            `${userValue?.email}`,
+            9483,
+            "bqoXH6eT0xaUSZiecB9LHV"
+          ),
+          getUnreadNotificationInboxCount(9483, "bqoXH6eT0xaUSZiecB9LHV"),
+        ]);
+
+        let totalCount = unreadCountIndie + unreadCountGeneral;
+        setNotificationCounts(totalCount);
+
         setAuth(true);
         registerIndieID(`${userValue.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
       }
@@ -127,6 +145,17 @@ const AuthProvider = ({ children }) => {
 
       setUser(data.data);
       registerIndieID(`${formData.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
+      const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
+        getUnreadIndieNotificationInboxCount(
+          `${formData?.email}`,
+          9483,
+          "bqoXH6eT0xaUSZiecB9LHV"
+        ),
+        getUnreadNotificationInboxCount(9483, "bqoXH6eT0xaUSZiecB9LHV"),
+      ]);
+
+      let totalCount = unreadCountIndie + unreadCountGeneral;
+      setNotificationCounts(totalCount);
 
       let dataString = JSON.stringify(data.data);
       await AsyncStorage.setItem("user", dataString);
@@ -203,6 +232,7 @@ const AuthProvider = ({ children }) => {
         enableBoarding,
         coordenatesPermitions,
         setCoordenatesPermitions,
+        notificationCounts,
         //Functions
         signInFn,
         signUpFn,

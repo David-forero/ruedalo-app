@@ -13,8 +13,6 @@ import * as Sentry from "sentry-expo";
 import {
   getNotificationInbox,
   getIndieNotificationInbox,
-  getUnreadIndieNotificationInboxCount,
-  getUnreadNotificationInboxCount,
 } from "native-notify";
 import { useAuthContext } from "./AuthContext";
 import { convertToDate } from "../common/functions/formatTime";
@@ -26,28 +24,9 @@ const UserProvider = ({ children }) => {
   const [coordenates, setCoordenates] = useState(null);
   const [documentsVehicles, setDocumentsVehicles] = useState(false);
   const [notifications, setNotifications] = useState(null);
-  const [notificationCounts, setNotificationCounts] = useState(null);
   const stripe = useStripe();
 
   const [transactions, setTransactions] = useState(null);
-
-  useEffect(() => {
-    async function init() {
-      const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
-        getUnreadIndieNotificationInboxCount(
-          `${user?.email}`,
-          9483,
-          "bqoXH6eT0xaUSZiecB9LHV"
-        ),
-        getUnreadNotificationInboxCount(9483, "bqoXH6eT0xaUSZiecB9LHV"),
-      ]);
-
-      let totalCount = unreadCountIndie + unreadCountGeneral;
-      setNotificationCounts(totalCount);
-    }
-
-    if (auth) init();
-  }, [user?.email, auth]);
 
   const forgotPasswordFn = useCallback(async (form, setLoading) => {
     const { data } = await post("/forgot-pass", form);
@@ -235,10 +214,10 @@ const UserProvider = ({ children }) => {
     ]);
 
     let totalNotifications = [...notificationsUser, ...notificationsGeneral];
-    totalNotifications.forEach((notification) => {
-      notification.date = convertToDate(notification.date);
-    });
-    totalNotificationsk.sort((a, b) => b.date - a.date);
+    // totalNotifications.forEach((notification) => {
+    //   notification.date = convertToDate(notification.date);
+    // });
+    totalNotifications.sort((a, b) => b.date - a.date);
     setNotifications(totalNotifications);
 
     setLoading(false);
@@ -276,7 +255,6 @@ const UserProvider = ({ children }) => {
         setCoordenates,
         transactions,
         notifications,
-        notificationCounts,
         //Functions
         unsubscribeFn,
         updateUserFn,

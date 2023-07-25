@@ -34,7 +34,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
   const [bannerStore, setBannerStore] = useState(null);
-  const { user } = useAuthContext();
+  const { user, notificationCounts } = useAuthContext();
   const [searchText, setSearchText] = useState("");
   const {
     getListProductsFn,
@@ -43,7 +43,7 @@ export default function Home() {
     mostSells,
     setMostSells,
     location  } = useStoreContext();
-  const { getBannersFn, notificationCounts } = useUserContext();
+  const { getBannersFn } = useUserContext();
   //My hooks
 
   useEffect(() => {
