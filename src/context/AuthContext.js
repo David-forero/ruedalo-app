@@ -218,6 +218,20 @@ const AuthProvider = ({ children }) => {
     });
     setLoading(false);
     setUser(data.data);
+
+    registerIndieID(`${googleData.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
+    const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
+      getUnreadIndieNotificationInboxCount(
+        `${googleData.email}`,
+        9483,
+        "bqoXH6eT0xaUSZiecB9LHV"
+      ),
+      getUnreadNotificationInboxCount(9483, "bqoXH6eT0xaUSZiecB9LHV"),
+    ]);
+
+    let totalCount = unreadCountIndie + unreadCountGeneral;
+    setNotificationCounts(totalCount);
+
     setAuth(true);
     let dataString = JSON.stringify(data?.data);
     await AsyncStorage.setItem("user", dataString);
@@ -233,6 +247,7 @@ const AuthProvider = ({ children }) => {
         coordenatesPermitions,
         setCoordenatesPermitions,
         notificationCounts,
+        setNotificationCounts,
         //Functions
         signInFn,
         signUpFn,

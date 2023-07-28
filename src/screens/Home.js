@@ -34,7 +34,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectCategory, setSelectCategory] = useState(1);
   const [bannerStore, setBannerStore] = useState(null);
-  const { user, notificationCounts } = useAuthContext();
+  const { user, notificationCounts, setNotificationCounts } = useAuthContext();
   const [searchText, setSearchText] = useState("");
   const {
     getListProductsFn,
@@ -79,7 +79,10 @@ export default function Home() {
 
           <View className="ml-3 flex-row">
             <TouchableOpacity
-              onPress={() => navigation.navigate("Notifications")}
+              onPress={() => {
+                setNotificationCounts(0)
+                navigation.navigate("Notifications")
+              }}
               style={{
                 elevation: 7,
                 marginRight: 20,

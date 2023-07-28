@@ -83,7 +83,10 @@ const AutoServices = () => {
 
           <View className="ml-3 flex-row">
             <TouchableOpacity
-              onPress={() => navigation.navigate("Notifications")}
+              onPress={() => {
+                setNotificationCounts(0);
+                navigation.navigate("Notifications");
+              }}
               style={{
                 elevation: 7,
                 marginRight: 20,
