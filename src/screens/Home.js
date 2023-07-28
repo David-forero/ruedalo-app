@@ -42,13 +42,19 @@ export default function Home() {
     setForMyCar,
     mostSells,
     setMostSells,
-    location  } = useStoreContext();
+    location,
+    getCategoryProductsFn,
+    categoriesProducts
+  } = useStoreContext();
   const { getBannersFn } = useUserContext();
   //My hooks
 
   useEffect(() => {
     async function init() {
       setLoading(true);
+
+      getCategoryProductsFn(user?.token, setLoading)
+
       let banners = await getBannersFn("product", user?.token);
       setBannerStore(banners);
       let coordenates = {
@@ -157,7 +163,7 @@ export default function Home() {
     function categories(item, index) {
       return (
         <TouchableOpacity onPress={() => setSelectCategory(item.id)}>
-          <View style={{ marginLeft: index === 0 ? 0 : 20 }}>
+          <View style={{ marginLeft: index === 0 ? 0 : 40 }}>
             <View
               className="bg-gray-100"
               style={{
@@ -206,7 +212,7 @@ export default function Home() {
       <View style={{ marginBottom: 40 }}>
         <View>
           <FlatList
-            data={category}
+            data={categoriesProducts}
             horizontal={true}
             keyExtractor={(item) => item.id}
             renderItem={({ item, index }) => categories(item, index)}
@@ -419,7 +425,6 @@ export default function Home() {
                 user?.token,
                 setLoading
               );
-              console.log("list porducts 2j-> ", data);
               setForMyCar(data.data);
               setMostSells(data.data);
             }}

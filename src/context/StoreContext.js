@@ -5,7 +5,7 @@ import {
   useCallback,
   useEffect,
 } from "react";
-import { post, timeoutCustom } from "../common/functions/http";
+import { get, post, timeoutCustom } from "../common/functions/http";
 import * as Location from "expo-location";
 import { useAuthContext } from "./AuthContext";
 import * as Sentry from "sentry-expo";
@@ -24,6 +24,7 @@ const StoreProvider = ({ children }) => {
   const [product, setProduct] = useState(null);
   const { auth } = useAuthContext();
   const [searchList, setSearchList] = useState([]);
+  const [categoriesProducts, setCategoriesProducts] = useState(null);
 
   useEffect(() => {
    async function init() {
@@ -95,6 +96,13 @@ const StoreProvider = ({ children }) => {
     return post("/list_product", myParams, token);
   };
 
+  const getCategoryProductsFn = async (token, setLoading) => {
+    setLoading(false);
+    const {data} = await get("/list_categories", token);
+    console.log(data.data.rows);
+    setCategoriesProducts(data.data.rows)
+  };
+
   const getProductFn = useCallback(async (id, token, setLoading) => {
     const { data } = await post("/get_product", { id }, token);
     let images = [...data.data.image, ...data.data.extra_image || []]
@@ -123,8 +131,10 @@ const StoreProvider = ({ children }) => {
         location,
         loadingLocation,
         searchList,
+        categoriesProducts,
         //Functions
         getListProductsFn,
+        getCategoryProductsFn,
         getProductFn,
         checkoutProcessFn,
         initPlaceFn,

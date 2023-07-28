@@ -5,7 +5,7 @@ import {
   useCallback,
   useEffect,
 } from "react";
-import { post } from "../common/functions/http";
+import { get, post } from "../common/functions/http";
 
 const ServicesContext = createContext({});
 
@@ -15,7 +15,8 @@ const ServicesProvider = ({ children }) => {
   const [mostSells, setMostSells] = useState(null);
   const [service, setService] = useState(null);
   const [commerce, setCommerce] = useState(null);
-  const [catalog, setCatalog] = useState([])
+  const [catalog, setCatalog] = useState([]);
+  const [categoriesServices, setCategoriesServices] = useState(null);
 
   const getListServicessFn = async (params, token, setLoading) => {
     const myParams = {
@@ -41,6 +42,13 @@ const ServicesProvider = ({ children }) => {
     setCommerce(data.data);
     setLoading(false);
   }, []);
+
+  const getCategoryServicesFn = async (token, setLoading) => {
+    const {data} = await get("/list_categories_services", token);
+    setLoading(false);
+    console.log(data.data.rows);
+    setCategoriesServices(data.data.rows)
+  };
 
   const listServicesCommmerceFn = useCallback(async (id, category = null, token, setLoading) => {
     let prepareBody = {
@@ -79,7 +87,9 @@ const ServicesProvider = ({ children }) => {
         service,
         commerce,
         catalog,
+        categoriesServices,
         //Functions
+        getCategoryServicesFn,
         getListServicessFn,
         getServiceFn,
         getCommerceFn,

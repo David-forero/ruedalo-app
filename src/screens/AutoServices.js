@@ -12,7 +12,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Shadow } from "react-native-shadow-2";
-import { Rating, AirbnbRating } from "react-native-ratings";
+import { Rating } from "react-native-ratings";
 
 import {
   COLORS,
@@ -47,13 +47,22 @@ const AutoServices = () => {
   const { location } = useStoreContext();
   const [bannerServices, setBannerServices] = useState(null);
   const [searchText, setSearchText] = useState("");
-  const { populars, setPopulars, mostSells, setMostSells, getListServicessFn } =
-    useServicesContext();
+  const {
+    getCategoryServicesFn,
+    populars,
+    setPopulars,
+    mostSells,
+    setMostSells,
+    getListServicessFn,
+    categoriesServices
+  } = useServicesContext();
   const { getBannersFn } = useUserContext();
 
   useEffect(() => {
     async function init() {
       setLoading(true);
+      getCategoryServicesFn(user?.token, setLoading);
+
       let banners = await getBannersFn("service", user?.token);
       setBannerServices(banners);
       const { data } = await getListServicessFn(
@@ -159,7 +168,7 @@ const AutoServices = () => {
     function categories(item, index) {
       return (
         <TouchableOpacity onPress={() => setSelectCategory(item.id)}>
-          <View style={{ marginLeft: index === 0 ? 0 : 20 }}>
+          <View style={{ marginLeft: index === 0 ? 0 : 40 }}>
             <View
               className="bg-gray-100"
               style={{
@@ -208,7 +217,7 @@ const AutoServices = () => {
       <View style={{ marginBottom: 40 }}>
         <View>
           <FlatList
-            data={category}
+            data={categoriesServices}
             horizontal={true}
             keyExtractor={(item) => item.id}
             renderItem={({ item, index }) => categories(item, index)}
