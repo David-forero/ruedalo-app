@@ -179,7 +179,7 @@ export default function RestaurantMenu() {
             </View>
 
             {/* START CATEGORY */}
-            <View className="mt-5">
+            {/* <View className="mt-5">
               <FlatList
                 data={category}
                 horizontal={true}
@@ -197,7 +197,7 @@ export default function RestaurantMenu() {
                 contentContainerStyle={{ paddingLeft: 30 }}
                 showsHorizontalScrollIndicator={false}
               />
-            </View>
+            </View> */}
             {/* END CATEGORY */}
 
             {/* START CATALOG */}
