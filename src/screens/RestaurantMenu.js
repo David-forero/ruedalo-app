@@ -12,21 +12,19 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 
 import {
   CardCatalog,
-  CategoryFilter,
   Header,
-  Heading,
 } from "../common/components";
 import {
   COLORS,
   FONTS,
   SIZES,
   SAFEAREAVIEW,
-  category,
 } from "../common/constants";
 import { useEffect, useState } from "react";
 import { Rating } from "react-native-ratings";
 import { useServicesContext } from "../context/ServicesContext";
 import { useAuthContext } from "../context/AuthContext";
+import { getFormattedBusinessDays } from "../common/functions/formatTime";
 
 export default function RestaurantMenu() {
   const [selectCategory, setSelectCategory] = useState(null);
@@ -121,6 +119,10 @@ export default function RestaurantMenu() {
                       {commerce?.rating}
                     </Text>
                   </View>
+
+                  <Text className="my-2">
+                      {getFormattedBusinessDays(commerce?.business_hours)}
+                    </Text>
                 </View>
 
                 <View className="bg-green-300 p-2 rounded-full">
