@@ -44,7 +44,8 @@ export default function Home() {
     setMostSells,
     location,
     getCategoryProductsFn,
-    categoriesProducts
+    categoriesProducts,
+    getNotificationsCountsFn
   } = useStoreContext();
   const { getBannersFn } = useUserContext();
   //My hooks
@@ -52,7 +53,7 @@ export default function Home() {
   useEffect(() => {
     async function init() {
       setLoading(true);
-
+      getNotificationsCountsFn(user?.email);
       getCategoryProductsFn(user?.token, setLoading)
 
       let banners = await getBannersFn("product", user?.token);

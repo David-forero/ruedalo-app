@@ -19,6 +19,7 @@ export default function Notifications() {
   const { user } = useAuthContext();
 
   useEffect(() => {
+    setLoading(true);
     getListNotifFn(setLoading, user?.token);
   }, []);
 

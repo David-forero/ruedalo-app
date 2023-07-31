@@ -37,11 +37,11 @@ const AuthProvider = ({ children }) => {
     }
   }, [pushDataObject]);
 
-  const getNotificationsCountsFn = async () => {
+  const getNotificationsCountsFn = async (email) => {
     console.log("LLamando notificacions counts..."); 
     const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
       getUnreadIndieNotificationInboxCount(
-        `${userValue?.email}`,
+        `${email}`,
         9483,
         "bqoXH6eT0xaUSZiecB9LHV"
       ),
@@ -82,7 +82,7 @@ const AuthProvider = ({ children }) => {
       //Habilitar auth
       if (userValue) {
         //Activar cantidad de notificaciones del usuario
-        await getNotificationsCountsFn();
+        await getNotificationsCountsFn(userValue.email);
 
         setAuth(true);
         registerIndieID(`${userValue.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
@@ -145,7 +145,7 @@ const AuthProvider = ({ children }) => {
 
       setUser(data.data);
       registerIndieID(`${formData.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
-      await getNotificationsCountsFn();
+      await getNotificationsCountsFn(formData.email);
 
       let dataString = JSON.stringify(data.data);
       await AsyncStorage.setItem("user", dataString);

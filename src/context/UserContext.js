@@ -217,15 +217,16 @@ const UserProvider = ({ children }) => {
     // setNotifications(data.data.rows);
   }, []);
 
-  const unsubscribeFn = async (setLoading, setShowModal, token, setUser) => {
+  const unsubscribeFn = async (setLoading, setShowModal, token, setUser, navigation) => {
     const { data } = await get("/down_plan", token);
     setLoading(false);
     setShowModal(false);
-    console.log(data);
     if (data.status === true || data.status == 200) {
       setUser(data.data);
       let dataString = JSON.stringify(data.data);
       await AsyncStorage.setItem("user", dataString);
+
+      
       navigation.navigate("SuccessScreen", {
         screen: "Profile",
         title: "Plan Cancelado",

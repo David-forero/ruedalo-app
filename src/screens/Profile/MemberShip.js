@@ -99,7 +99,7 @@ const MemberShip = () => {
               }}
               onPress={() => {
                 setLoadingModal(true)
-                unsubscribeFn(setLoadingModal, setShowModal, user?.token, setUser);
+                unsubscribeFn(setLoadingModal, setShowModal, user?.token, setUser, navigation);
               }}
             >
               <Text
