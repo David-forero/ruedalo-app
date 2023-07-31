@@ -34,7 +34,7 @@ export default function Home() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [bannerStore, setBannerStore] = useState(null);
-  const { user, notificationCounts, setNotificationCounts } = useAuthContext();
+  const { user, notificationCounts, setNotificationCounts, getNotificationsCountsFn } = useAuthContext();
   const [searchText, setSearchText] = useState("");
   const {
     getListProductsFn,
@@ -44,8 +44,7 @@ export default function Home() {
     setMostSells,
     location,
     getCategoryProductsFn,
-    categoriesProducts,
-    getNotificationsCountsFn
+    categoriesProducts
   } = useStoreContext();
   const { getBannersFn } = useUserContext();
   //My hooks
