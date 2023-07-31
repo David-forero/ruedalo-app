@@ -52,7 +52,7 @@ export default function Home() {
   useEffect(() => {
     async function init() {
       setLoading(true);
-      getNotificationsCountsFn(user?.email);
+      // getNotificationsCountsFn(user?.email);
       getCategoryProductsFn(user?.token, setLoading)
 
       let banners = await getBannersFn("product", user?.token);
