@@ -15,6 +15,7 @@ import {
   getUnreadNotificationInboxCount,
   getPushDataObject,
 } from "native-notify";
+import { useNavigationCustom } from "../common/hooks";
 
 const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
@@ -26,21 +27,30 @@ const AuthProvider = ({ children }) => {
   const [coordenatesPermitions, setCoordenatesPermitions] = useState(false);
   let pushDataObject = getPushDataObject();
 
+  const navigate = (name, params) => { 
+    useNavigationCustom.current?.navigate(name, params)
+   }
+
   useEffect(() => {
-    console.log(pushDataObject);
-
-    // const {
-    //   notification: {
-    //     request: {
-    //       content: { data },
-    //     },
-    //   },
-    // } = pushDataObject;
-
-    // if (data.objective === "order") {
-    //   navigate("Order", { id: data.id_objective });
-    // }
+    if (pushDataObject.objective === "order") {
+      navigate("Order", { id: pushDataObject.id_objective });
+    }
   }, [pushDataObject]);
+
+  const getNotificationsCountsFn = async () => {
+    console.log("LLamando notificacions counts..."); 
+    const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
+      getUnreadIndieNotificationInboxCount(
+        `${userValue?.email}`,
+        9483,
+        "bqoXH6eT0xaUSZiecB9LHV"
+      ),
+      getUnreadNotificationInboxCount(9483, "bqoXH6eT0xaUSZiecB9LHV"),
+    ]);
+
+    let totalCount = unreadCountIndie + unreadCountGeneral;
+    return setNotificationCounts(totalCount);
+   }
 
   const loadingApp = async (setLoading, SplashScreen) => {
     console.log("🔥 cargando app...");
@@ -72,17 +82,7 @@ const AuthProvider = ({ children }) => {
       //Habilitar auth
       if (userValue) {
         //Activar cantidad de notificaciones del usuario
-        const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
-          getUnreadIndieNotificationInboxCount(
-            `${userValue?.email}`,
-            9483,
-            "bqoXH6eT0xaUSZiecB9LHV"
-          ),
-          getUnreadNotificationInboxCount(9483, "bqoXH6eT0xaUSZiecB9LHV"),
-        ]);
-
-        let totalCount = unreadCountIndie + unreadCountGeneral;
-        setNotificationCounts(totalCount);
+        await getNotificationsCountsFn();
 
         setAuth(true);
         registerIndieID(`${userValue.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
@@ -145,17 +145,7 @@ const AuthProvider = ({ children }) => {
 
       setUser(data.data);
       registerIndieID(`${formData.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
-      const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
-        getUnreadIndieNotificationInboxCount(
-          `${formData?.email}`,
-          9483,
-          "bqoXH6eT0xaUSZiecB9LHV"
-        ),
-        getUnreadNotificationInboxCount(9483, "bqoXH6eT0xaUSZiecB9LHV"),
-      ]);
-
-      let totalCount = unreadCountIndie + unreadCountGeneral;
-      setNotificationCounts(totalCount);
+      await getNotificationsCountsFn();
 
       let dataString = JSON.stringify(data.data);
       await AsyncStorage.setItem("user", dataString);
@@ -249,6 +239,7 @@ const AuthProvider = ({ children }) => {
         notificationCounts,
         setNotificationCounts,
         //Functions
+        getNotificationsCountsFn,
         signInFn,
         signUpFn,
         signWithGoogleFn,

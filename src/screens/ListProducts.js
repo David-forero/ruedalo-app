@@ -17,24 +17,25 @@ import { useStoreContext } from "../context/StoreContext";
 const ListProducts = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const { query, location, titleHeader, isProduct } = route.params;
+  const { query, location, titleHeader, isProduct, idSubcategory } = route.params;
   const { user } = useAuthContext();
   const { searchFn, searchList } = useStoreContext();
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (query) {
-      setSearchText(query);
+    setSearchText(query);
       setLoading(true);
       let myParams = {
-        query,
-        latitude: location.latitude,
-        longitude: location.longitude,
+        query: query || null,
+        latitude: location?.latitude,
+        longitude: location?.longitude,
         limit: 30,
+        // id_category: idCategory,
+        id_subcategory: idSubcategory
       };
+     
       searchFn(myParams, user?.token, setLoading, isProduct);
-    }
   }, [query]);
 
   return (

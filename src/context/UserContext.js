@@ -1,21 +1,11 @@
-import {
-  useContext,
-  createContext,
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
+import { useContext, createContext, useState, useCallback } from "react";
 import { useStripe } from "@stripe/stripe-react-native";
 import { post, upload, get } from "../common/functions/http";
 import { showMessage } from "react-native-flash-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Sentry from "sentry-expo";
-import {
-  getNotificationInbox,
-  getIndieNotificationInbox,
-} from "native-notify";
+import { getNotificationInbox, getIndieNotificationInbox } from "native-notify";
 import { useAuthContext } from "./AuthContext";
-import { convertToDate } from "../common/functions/formatTime";
 
 const UserContext = createContext({});
 
@@ -111,27 +101,30 @@ const UserProvider = ({ children }) => {
       const presentSheet = await stripe.presentPaymentSheet({
         clientSecret: session.client_secret.client_secret,
       });
+
+      setLoading(false);
+
       if (presentSheet.error) {
-        console.log(
-          `⭕️ Error presentPaymentSheet: ${JSON.stringify(
-            presentSheet.error,
-            null,
-            2
-          )}`
-        );
+        console.log('⭕️ Error presentPaymentSheet:');
       } else {
         const { data } = await post(
           "/check_payment",
           {
             paymentId: session.paymentIntent.id,
+            customerId: session.customer.id,
+            priceId
           },
           token
         );
 
         if (data.status === true || data.status == 200) {
+          setLoading(true);
           setUser(data.data);
           let dataString = JSON.stringify(data.data);
+
           await AsyncStorage.setItem("user", dataString);
+
+          setLoading(false);
           navigation.navigate("SuccessScreen", {
             screen: "Profile",
             title: "Compra realizada",
@@ -142,7 +135,7 @@ const UserProvider = ({ children }) => {
         }
       }
 
-      setLoading(false);
+      
     },
     []
   );
@@ -228,6 +221,7 @@ const UserProvider = ({ children }) => {
     const { data } = await get("/down_plan", token);
     setLoading(false);
     setShowModal(false);
+    console.log(data);
     if (data.status === true || data.status == 200) {
       setUser(data.data);
       let dataString = JSON.stringify(data.data);

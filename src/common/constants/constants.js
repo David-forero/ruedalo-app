@@ -50,36 +50,36 @@ const tabs = [
 ];
 
 const category = [
-    {
-        id: "1",
-        name: "Cauchos",
-        image: require("../../assets/icons/categories/llanta.png"),
-    },
-    {
-        id: "2",
-        name: "Motor",
-        image: require("../../assets/icons/categories/motor.png"),
-    },
-    {
-        id: "3",
-        name: "Frenos",
-        image: require("../../assets/icons/categories/disco-frenos.png"),
-    },
-    {
-        id: "4",
-        name: "Aceites",
-        image: require("../../assets/icons/categories/aceite-de-motor.png"),
-    },
-    {
-        id: "5",
-        name: "Carroceria",
-        image: require("../../assets/icons/categories/cerradura-de-la-puerta.png"),
-    },
-    {
-        id: "6",
-        name: "Kits",
-        image: require("../../assets/icons/categories/caja-de-herramientas.png"),
-    },
+    // {
+    //     id: "1",
+    //     name: "Cauchos",
+    //     image: require("../../assets/icons/categories/llanta.png"),
+    // },
+    // {
+    //     id: "2",
+    //     name: "Motor",
+    //     image: require("../../assets/icons/categories/motor.png"),
+    // },
+    // // {
+    // //     id: "3",
+    // //     name: "Frenos",
+    // //     image: require("../../assets/icons/categories/disco-frenos.png"),
+    // // },
+    // {
+    //     id: "4",
+    //     name: "Aceites",
+    //     image: require("../../assets/icons/categories/aceite-de-motor.png"),
+    // },
+    // {
+    //     id: "5",
+    //     name: "Carroceria",
+    //     image: require("../../assets/icons/categories/cerradura-de-la-puerta.png"),
+    // },
+    // {
+    //     id: "6",
+    //     name: "Kits",
+    //     image: require("../../assets/icons/categories/caja-de-herramientas.png"),
+    // },
 ];
 
 const history = [

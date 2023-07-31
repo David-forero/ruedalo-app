@@ -7,11 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import {
-  Header,
-  NotificationCategory,
-  Accept,
-} from "../../common/components";
+import { Header, NotificationCategory, Accept } from "../../common/components";
 import { SAFEAREAVIEW } from "../../common/constants";
 import { useUserContext } from "../../context/UserContext";
 import { useAuthContext } from "../../context/AuthContext";
@@ -45,21 +41,31 @@ export default function Notifications() {
           />
         }
       >
-        {notifications ? (
-          notifications.map((item, i) => (
-            <NotificationCategory
-              title={item.title}
-              subtitle={item.message}
-              icon={<Accept />}
-              createdAt={item.date}
-              key={item.notification_id}
-              id={item.id}
-              objective={item.objective}
-            />
-          ))
+        {!loading ? (
+          <>
+            {!notifications ? (
+              <View className="flex-1 items-center justify-center mb-24">
+                <Text>No hay notificaciones por los momentos...</Text>
+              </View>
+            ) : (
+              <>
+                {notifications.map((item, i) => (
+                  <NotificationCategory
+                    title={item.title}
+                    subtitle={item.message}
+                    icon={<Accept />}
+                    createdAt={item.date}
+                    key={item.notification_id}
+                    id={item.id}
+                    objective={item.objective}
+                  />
+                ))}
+              </>
+            )}
+          </>
         ) : (
           <View className="flex-1 items-center justify-center mb-24">
-            <Text>De momento no hay notificaciones</Text>
+            <Text>Cargando notificaciones...</Text>
           </View>
         )}
       </ScrollView>

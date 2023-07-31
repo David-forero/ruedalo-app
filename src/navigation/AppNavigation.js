@@ -20,7 +20,7 @@ import { useNavigationCustom } from "../common/hooks";
 export default function Navigation() {
   return (
     <NavigationContainer ref={useNavigationCustom}>
-      <StripeProvider publishableKey={PUBLIC_KEY_STRIPE}>
+      <StripeProvider publishableKey={'pk_test_gM2ZwEHriwHYScvQhIOTkhMX00VdiBXkDX'}>
       <AuthProvider>
         <UserProvider>
           <MyCarsProvider>

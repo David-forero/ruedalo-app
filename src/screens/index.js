@@ -44,7 +44,7 @@ import ServicesDetails from "./ServicesDetails";
 import MyDocuments from "./Profile/MyDocuments";
 import MemberShip from "./Profile/MemberShip";
 import DetailsBanner from "./DetailsBanner";
-import TransactionsView from "./TransactionsView";
+import SubCategory from "./SubCategory";
 
 export {
     OnBoarding,
@@ -92,6 +92,6 @@ export {
     MyDocuments,
     MemberShip,
     DetailsBanner,
-    TransactionsView,
+    SubCategory,
     OtpCodePassword
 };

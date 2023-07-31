@@ -32,9 +32,8 @@ export default function Button({
                 loading ? (<ActivityIndicator size="small" color="#fff" />) : (<Text
                     style={{
                         textAlign: "center",
-                        color: textColor,
+                        color: textColor || COLORS.white,
                         fontSize: 16,
-                        color: COLORS.white,
                         textTransform: "capitalize",
                         ...FONTS.Roboto_500Medium,
                         ...textStyle,

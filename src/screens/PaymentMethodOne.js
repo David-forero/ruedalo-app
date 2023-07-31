@@ -287,7 +287,7 @@ export default function PaymentMethodOne() {
                 color: COLORS.black,
               }}
             >
-              IVA
+              {detailsOrder?.ivalabel}
             </Text>
             <Text
               style={{
@@ -316,7 +316,7 @@ export default function PaymentMethodOne() {
                   color: COLORS.black,
                 }}
               >
-                IGTF
+                {detailsOrder.igtfvlabel}
               </Text>
               <Text
                 style={{

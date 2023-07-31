@@ -261,7 +261,7 @@ export default function FoodDetails() {
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}
                   label="4 Unidades"
-                  value="4s"
+                  value="4"
                 />
                 <Picker.Item
                   style={{ color: COLORS.gray2, marginLeft: 10 }}

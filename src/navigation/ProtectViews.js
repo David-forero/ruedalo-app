@@ -48,7 +48,7 @@ import {
   MyDocuments,
   MemberShip,
   DetailsBanner,
-  TransactionsView,
+  SubCategory,
   OtpCodePassword
 } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -114,7 +114,7 @@ const ProtectViews = () => {
             <Stack.Screen name="MyDocuments" component={MyDocuments} />
             <Stack.Screen name="MemberShip" component={MemberShip} />
             <Stack.Screen name="DetailsBanner" component={DetailsBanner} />
-            <Stack.Screen name="TransactionsView" component={TransactionsView} />
+            <Stack.Screen name="SubCategory" component={SubCategory} />
           </>
         ) : (
           <>

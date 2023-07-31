@@ -199,8 +199,9 @@ export default function SignIn() {
               <Button
                 loading={loading}
                 valid={isValid}
+                textColor={'white'}
                 title="Iniciar Sesión"
-                containerStyle={{ backgroundColor: COLORS.black2 }}
+                containerStyle={{ backgroundColor: '#1E40AF'}}
                 onPress={handleSubmit}
               />
             </>
@@ -208,7 +209,7 @@ export default function SignIn() {
         </Formik>
 
         <TouchableOpacity
-          className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-600 mt-5"
+          className="flex-row items-center space-x-3 w-full h-[50px] rounded-lg justify-around bg-gray-100 mt-5"
           onPress={() => {
             setLoadingGoogle(true);
             promptAsync();
@@ -221,7 +222,7 @@ export default function SignIn() {
               textAlign: "center",
               color: "white",
               fontSize: 16,
-              color: COLORS.white,
+              color: COLORS.black,
               textTransform: "capitalize",
             }}
           >

@@ -36,7 +36,7 @@ import { useServicesContext } from "../context/ServicesContext";
 import { useAuthContext } from "../context/AuthContext";
 import { useStoreContext } from "../context/StoreContext";
 import { useUserContext } from "../context/UserContext";
-import Logo from "../assets/icons/logo.png";
+import Logo from "../assets/icons/ruedalo3.png";
 import { Ionicons } from "@expo/vector-icons";
 
 const AutoServices = () => {
@@ -88,7 +88,7 @@ const AutoServices = () => {
         }}
       >
         <View className="flex-row items-center justify-between mb-5 pr-5">
-          <Image source={Logo} className="w-10 h-10 ml-2" />
+        <Image source={Logo} resizeMode="contain" className="w-36 h-10 ml-2" />
 
           <View className="ml-3 flex-row">
             <TouchableOpacity
@@ -167,8 +167,8 @@ const AutoServices = () => {
   function renderCategories() {
     function categories(item, index) {
       return (
-        <TouchableOpacity onPress={() => setSelectCategory(item.id)}>
-          <View style={{ marginLeft: index === 0 ? 0 : 40 }}>
+        <TouchableOpacity onPress={() => navigation.navigate('SubCategory', {id: item.id, name: item.name, type: 'service'})}>
+          <View style={{ marginLeft: index === 0 ? 0 : 36 }}>
             <View
               className="bg-gray-100"
               style={{
@@ -188,11 +188,7 @@ const AutoServices = () => {
                 source={item.image}
                 style={{
                   height: 28,
-                  width: "100%",
-                  // tintColor:
-                  //     selectCategory == item.id
-                  //         ? COLORS.white
-                  //         : COLORS.gray2,
+                  width: "100%"
                 }}
                 resizeMode="contain"
               />
@@ -203,8 +199,10 @@ const AutoServices = () => {
                 ...FONTS.Roboto_500Medium,
                 fontSize: 14,
                 textTransform: "capitalize",
-                color: selectCategory == item.id ? COLORS.black2 : COLORS.gray2,
+                color: COLORS.gray2,
+                width: 65
               }}
+               numberOfLines={1}
             >
               {item.name}
             </Text>

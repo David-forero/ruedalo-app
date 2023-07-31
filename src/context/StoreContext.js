@@ -25,6 +25,7 @@ const StoreProvider = ({ children }) => {
   const { auth } = useAuthContext();
   const [searchList, setSearchList] = useState([]);
   const [categoriesProducts, setCategoriesProducts] = useState(null);
+  const [subCategory, setSubCategory] = useState([]);
 
   useEffect(() => {
    async function init() {
@@ -63,14 +64,25 @@ const StoreProvider = ({ children }) => {
   }
 
   const searchFn = async (params, token, setLoading, isProduct) => { 
+   
     const myParams = {
-      title: params.query,
+      title: params.query || null,
       offset: params.offset || 0,
-      limit: params.limit || 10,
+      limit: params.limit || 20,
       latitude: params.latitude || 28.626137,
       longitude: params.longitude || 28.626137,
+      id_subcategory: params.id_subcategory || null
       // distance: 15,
     };
+
+    if (!myParams.latitude) {
+      delete myParams.latitude
+      delete myParams.longitude  
+    }
+
+    if (!params.query) {
+      delete myParams.title
+    }
 
     if (isProduct) {
       const { data } = await post("/list_product", myParams, token);
@@ -97,11 +109,20 @@ const StoreProvider = ({ children }) => {
   };
 
   const getCategoryProductsFn = async (token, setLoading) => {
-    setLoading(false);
     const {data} = await get("/list_categories", token);
-    console.log(data.data.rows);
+    setLoading(false);
     setCategoriesProducts(data.data.rows)
   };
+
+  const getCategoryFn = async (id, token, setLoading) => { 
+    const {data} = await get(`/list_subcategories/${id}`, token);
+    setLoading(false);
+    if (data.data.rows.length % 2 !== 0) {
+      data.data.rows.push({ id: '0' }); // Agrega un elemento vacío si la longitud de los datos es impar.
+    }
+    setSubCategory(data.data.rows)
+    console.log(data);
+   }
 
   const getProductFn = useCallback(async (id, token, setLoading) => {
     const { data } = await post("/get_product", { id }, token);
@@ -132,9 +153,11 @@ const StoreProvider = ({ children }) => {
         loadingLocation,
         searchList,
         categoriesProducts,
+        subCategory,
         //Functions
         getListProductsFn,
         getCategoryProductsFn,
+        getCategoryFn,
         getProductFn,
         checkoutProcessFn,
         initPlaceFn,

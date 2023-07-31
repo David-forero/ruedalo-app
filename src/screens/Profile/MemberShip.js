@@ -75,22 +75,10 @@ const MemberShip = () => {
               textAlign: "center",
               ...FONTS.Roboto_700Bold,
               fontSize: 16,
-              marginBottom: 12,
-              color: 'red'
-            }}
-          >
-            Atención!
-          </Text>
-
-          <Text
-            style={{
-              textAlign: "center",
-              ...FONTS.Roboto_700Bold,
-              fontSize: 16,
               marginBottom: 26,
             }}
           >
-            Si cancelas tu membresia no se hará devolución
+            ¿Esta seguro de cancelar su subscripción?
           </Text>
           <View
             style={{
@@ -239,7 +227,7 @@ const MemberShip = () => {
                   onPress={() => {
                     setLoading(true);
                     paySubscriptionFn(
-                      "price_1NLqqLGFUPnOrSP5iiNHqQnP",
+                      "price_1NN0i3LMRr0T3EiEspJH8v1P",
                       navigation,
                       setLoading,
                       user?.token,
