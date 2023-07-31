@@ -153,7 +153,7 @@ const MyCarsProvider = ({ children }) => {
   );
 
   const deleteCarFn = useCallback(
-    async (id, token, setLoadingDelete, setShowModal) => {
+    async (id, token, setLoadingDelete, setShowModal, navigation) => {
       const { data } = await post("/delete_car", { id }, token);
       setShowModal(true);
       setLoadingDelete(false);
@@ -170,10 +170,11 @@ const MyCarsProvider = ({ children }) => {
       setListCars(newListCars.body.data.rows);
 
       setShowModal(false);
-      showMessage({
-        message: "Vehículo eliminado",
+      navigation.navigate("SuccessScreen", {
+        screen: "MyCars",
+        title: "Vehículo eliminado",
         description: "Vehículo eliminado correctamente",
-        type: "success",
+        titleButton: "Aceptar",
       });
     },
     []

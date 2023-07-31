@@ -231,12 +231,12 @@ export default function MyCars() {
                 marginHorizontal: 7.5,
               }}
               onPress={async () => {
-                setLoadingDelete(true);
                 await deleteCarFn(
                   carId,
                   user?.token,
                   setLoadingDelete,
-                  setShowModal
+                  setShowModal,
+                  navigation
                 );
                 getListCarsFn(user?.token, setLoading);
               }}
