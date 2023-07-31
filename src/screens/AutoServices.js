@@ -36,12 +36,13 @@ import { useStoreContext } from "../context/StoreContext";
 import { useUserContext } from "../context/UserContext";
 import Logo from "../assets/icons/ruedalo3.png";
 import { Ionicons } from "@expo/vector-icons";
+import categoriesIcons from '../assets/icons/categories';
+
 
 const AutoServices = () => {
   const navigation = useNavigation();
   const { user, notificationCounts } = useAuthContext();
   const [loading, setLoading] = useState(true);
-  const [selectCategory, setSelectCategory] = useState(1);
   const { location } = useStoreContext();
   const [bannerServices, setBannerServices] = useState(null);
   const [searchText, setSearchText] = useState("");
