@@ -171,7 +171,7 @@ const MyCarsProvider = ({ children }) => {
 
       setShowModal(false);
       navigation.navigate("SuccessScreen", {
-        screen: "MyCars",
+        screen: "MainLayout",
         title: "Vehículo eliminado",
         description: "Vehículo eliminado correctamente",
         titleButton: "Aceptar",

@@ -18,8 +18,6 @@ import {
   COLORS,
   FONTS,
   SAFEAREAVIEW,
-  category,
-  dummyData,
 } from "../common/constants";
 import {
   Pin,
@@ -185,7 +183,7 @@ const AutoServices = () => {
               }}
             >
               <Image
-                source={item.image}
+                source={categoriesIcons[item.icon ? item.icon : "notImage"]}
                 style={{
                   height: 28,
                   width: "100%"

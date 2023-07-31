@@ -180,7 +180,7 @@ export default function Home() {
               }}
             >
               <Image
-                source={categoriesIcons[item.icon]}
+                source={categoriesIcons[item.icon ? item.icon : "notImage"]}
                 style={{
                   height: 28,
                   width: "100%",

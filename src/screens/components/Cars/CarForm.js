@@ -132,7 +132,7 @@ const CarForm = ({
         }}
       />
 
-      <Text className="font-bold text-md mb-3 text-left text-gray-700 mt-5">
+      {/* <Text className="font-bold text-md mb-3 text-left text-gray-700 mt-5">
         Ajuste automovil (Opcional)
       </Text>
       <Dropdown
@@ -158,7 +158,7 @@ const CarForm = ({
           setSelectedTrim(item.value);
           setIsFocusTrim(false);
         }}
-      />
+      /> */}
     </ScrollView>
   );
 };

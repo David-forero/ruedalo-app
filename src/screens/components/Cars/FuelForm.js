@@ -4,8 +4,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useMyCarsContext } from "../../../context/MyCarsContext";
@@ -21,19 +21,21 @@ const FuelForm = () => {
 
   return (
     <View>
-      <Text className="font-bold text-2xl mb-6 text-gray-700 mt-5 text-center">
+      <Text className="font-bold text-2xl mb-6 text-gray-700 mt-2 text-center">
         Tipo de combustible
       </Text>
 
-      <View className="justify-center flex-wrap flex-row ">
-        {fuels &&
-          fuels.map((item) => (
+      <View className="items-center justify-center">
+        <FlatList
+          className=""
+          data={fuels}
+          renderItem={({ item }) => (
             <TouchableOpacity
               key={item.id}
               onPress={() => {
                 setCombustible(item.id);
               }}
-              className={`w-32 h-32 items-center m-5 justify-center shadow-sm ${
+              className={`w-32 h-32 items-center m-3 justify-center shadow-sm ${
                 combustible === item.id ? "bg-orange-600" : "bg-gray-800"
               } rounded-md`}
             >
@@ -42,7 +44,10 @@ const FuelForm = () => {
                 {item.title}
               </Text>
             </TouchableOpacity>
-          ))}
+          )}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+        />
       </View>
     </View>
   );

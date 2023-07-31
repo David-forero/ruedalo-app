@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity, ScrollView, FlatList } from "react-native";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
 import { useAuthContext } from "../../../context/AuthContext";
@@ -16,9 +16,11 @@ const BoxForm = () => {
     <View>
       <Text className='font-bold text-2xl mb-6 text-gray-700 mt-5 text-center'>Tipo de caja</Text>
 
-      <View className="justify-between px-5 flex-wrap flex-row ">
-        {boxes &&
-          boxes.map((item) => (
+      <View className="justify-between items-center">
+         <FlatList
+          className=""
+          data={boxes}
+          renderItem={({ item }) => (
             <TouchableOpacity
             key={item.id}
               onPress={() => {
@@ -33,7 +35,11 @@ const BoxForm = () => {
                 {item.title}
               </Text>
             </TouchableOpacity>
-          ))}
+          )}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+        />
+       
       </View>
     </View>
   )

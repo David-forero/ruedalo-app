@@ -1,4 +1,10 @@
-import { View, Text, SafeAreaView, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+} from "react-native";
 import { useEffect } from "react";
 import { useAuthContext } from "../../../context/AuthContext";
 import { useMyCarsContext } from "../../../context/MyCarsContext";
@@ -11,13 +17,16 @@ const OilForm = () => {
   }, []);
 
   return (
-    <View
-    >
-      <Text className='font-bold text-2xl mb-6 text-gray-700 mt-5 text-center'>Tipo de Aceite</Text>
-     
-      <View className="justify-between px-5 flex-wrap flex-row ">
-        {oils &&
-          oils.map((item) => (
+    <View>
+      <Text className="font-bold text-2xl mb-6 text-gray-700 mt-5 text-center">
+        Tipo de Aceite
+      </Text>
+
+      <View className="justify-between items-center ">
+        <FlatList
+          className=""
+          data={oils}
+          renderItem={({ item }) => (
             <TouchableOpacity
               key={item.id}
               onPress={() => {
@@ -33,10 +42,13 @@ const OilForm = () => {
                 {item.title}
               </Text>
             </TouchableOpacity>
-          ))}
+          )}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+        />
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default OilForm
+export default OilForm;

@@ -8,6 +8,7 @@ import Bateria from "./batería.png";
 import Carroceria from "./carroceria.png";
 import Llanta from "./llanta.png";
 import Kit from './kit.png'
+import NotImage from './notImage.png'
 //... importar las demás imágenes
 
 // Crear un objeto que mapee los nombres de los iconos a las imágenes importadas
@@ -20,7 +21,8 @@ const category = {
   "batería.png": Bateria,
   "carroceria.png": Carroceria,
   "llanta.png": Llanta,
-  'kit.png': Kit
+  'kit.png': Kit,
+  "notImage": NotImage
 };
 
 export default category;
