@@ -118,8 +118,8 @@ export default function SignIn() {
                   alignItems: "center",
                 }}
               >
-                <Image source={Logo} className="w-16 h-16 mb-3" />
-                <Text style={{ fontSize: 18 }}>Inicio de sesión</Text>
+                <Image source={Logo} className="w-32 h-32 mb-3" />
+                {/* <Text style={{ fontSize: 18 }}>Inicio de sesión</Text> */}
               </View>
 
               <InputField
