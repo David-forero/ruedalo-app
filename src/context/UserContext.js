@@ -228,7 +228,7 @@ const UserProvider = ({ children }) => {
 
       
       navigation.navigate("SuccessScreen", {
-        screen: "Profile",
+        screen: "MainLayout",
         title: "Plan Cancelado",
         description: "Se ha cancelado tu membresia sin ningún problema",
         titleButton: "Aceptar",

@@ -263,7 +263,7 @@ export default function MyCars() {
 
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-      <Header title="Mis Vehículos" onPress={() => navigation.goBack()} />
+      <Header title={`Mis Vehículos ${user?.plan} - ${listCars?.length}`} onPress={() => navigation.goBack()} />
 
       {renderMyCarsList()}
       {<DeleteModal />}
@@ -280,10 +280,17 @@ export default function MyCars() {
           bottom: 90,
           right: 20,
           borderRadius: 100,
+          opacity: user?.plan == 1 && listCars?.length == 2 ? 0.50 : 1
         }}
-        onPress={() => navigation.navigate("AddCarForm")}
+        onPress={() => {
+          if (user?.plan == 1 && listCars?.length == 2) {
+            return
+          }else{
+            navigation.navigate("AddCarForm")
+          }
+        }}
       >
-        <Text className="text-white text-3xl ">+</Text>
+        <Text className="text-white text-3xl">+</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
