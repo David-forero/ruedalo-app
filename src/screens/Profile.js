@@ -59,7 +59,7 @@ export default function Profile() {
           onPress={() => navigation.navigate("EditProfile")}
           className="mb-4"
         >
-          {user?.avatar[0] ? (
+          {user?.avatar || user?.avatar[0] ? (
             <Image
               source={{
                 uri:
