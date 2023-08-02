@@ -120,9 +120,11 @@ export default function RestaurantMenu() {
                     </Text>
                   </View>
 
-                  <Text className="my-2">
-                      {getFormattedBusinessDays(commerce?.business_hours)}
-                    </Text>
+                 {
+                  commerce?.business_hours ? <Text className="my-2">
+                  {getFormattedBusinessDays(commerce?.business_hours)}
+                </Text> : null
+                 }
                 </View>
 
                 <View className="bg-green-300 p-2 rounded-full">

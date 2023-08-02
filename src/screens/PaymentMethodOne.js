@@ -37,9 +37,17 @@ export default function PaymentMethodOne() {
   const { calculateOrderFn, detailsOrder } = useOrdersContext();
   const { user } = useAuthContext();
   const [loadingCalculate, setLoadingCalculate] = useState(false);
+  const [enableButton, setEnableButton] = useState(false);
 
   useEffect(() => {
     setLoadingCalculate(true);
+
+    setEnableButton(true);
+
+    if (isAmount && Number(cash) < detailsOrder?.total) {
+      setEnableButton(false);
+    }
+
 
     if (isDelivery) {
       calculateOrderFn(
@@ -60,7 +68,9 @@ export default function PaymentMethodOne() {
         setLoadingCalculate
       );
     }
-  }, [amount, product, selectedMethod2, selectedMethod, isAmount]);
+
+
+  }, [amount, product, selectedMethod2, selectedMethod, isAmount, cash]);
 
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
@@ -400,7 +410,7 @@ export default function PaymentMethodOne() {
         </View>
         <Button
           title="Proceder al pago"
-          valid={selectedMethod && selectedMethod2 && Number(cash) >= detailsOrder?.total}
+          valid={selectedMethod && selectedMethod2 && enableButton}
           onPress={() =>
             navigation.navigate("CreateOrderLoading", {
               amount,

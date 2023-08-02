@@ -59,7 +59,7 @@ export default function Profile() {
           onPress={() => navigation.navigate("EditProfile")}
           className="mb-4"
         >
-          {user?.avatar || user?.avatar[0] ? (
+          {user?.avatar ? (
             <Image
               source={{
                 uri:
@@ -103,7 +103,7 @@ export default function Profile() {
           <Text 
             numberOfLines={2}
 
-          className="text-center font-semibold text-gray-400 text-xs mt-1 mb-3"
+          className={`text-center font-semibold ${myPlace ? 'text-gray-400 text-xs' : 'text-orange-600 font-bold underline'} mt-1 mb-3`}
           onPress={() => {
             if (!myPlace) {
               navigation.navigate("Selectlocation");
@@ -114,17 +114,14 @@ export default function Profile() {
                 "Cargando..."
               ) : (
                 <>
-                  {/* {myPlace
-                    ?  myPlace.display_name.length > 30 ? myPlace.display_name.slice(0, 35) + '...' : myPlace.display_name
-                    : "Activar mi ubicación"} */}
-                    {myPlace.display_name}
+                  {myPlace ? myPlace?.display_name : "🔎 Activar mi ubicación"}
                 </>
               )}
           </Text>
 
           {user?.plan == 2 ? (
             <View className="flex items-center justify-center mb-3">
-              <View className="p-1 w-28 rounded-full bg-gray-800 flex-row items-center justify-center space-x-2 ">
+              <View className="p-1 w-28 rounded-full bg-gray-800 flex-row items-center justify-center space-x-2">
                 <Text className="text-orange-600 font-bold text-xs">
                   {" "}
                   Premium
@@ -138,13 +135,12 @@ export default function Profile() {
             <Text
               style={{
                 textAlign: "center",
-                ...FONTS.Roboto_400Regular,
                 fontSize: 14,
-                color: COLORS.gray2,
                 marginBottom: 20,
               }}
+              className="underline font-bold text-orange-600"
             >
-              Confirma tu Cuenta acá
+              👤 Confirma tu Cuenta acá
             </Text>
           )}
         </TouchableOpacity>
@@ -156,14 +152,6 @@ export default function Profile() {
           onPress={() => navigation.navigate("MyDocuments")}
           iconBgColor={COLORS.lightLilac}
         />
-
-        {/* <ProfileCategory
-          icon={require("../assets/icons/payment.png")}
-          title="Transacciones"
-          subtitle="Revisa los últimos pagos en la app"
-          iconBgColor={COLORS.lightLilac}
-          onPress={() => navigation.navigate("TransactionsView")}
-        /> */}
 
         <ProfileCategory
           icon={require("../assets/icons/notification.png")}
@@ -196,16 +184,6 @@ export default function Profile() {
           onPress={() => setShowModal(true)}
         />
 
-        {/* <ProfileCategory
-          icon={require("../assets/icons/exit.png")}
-          title="Resetear permisos"
-          iconBgColor={COLORS.lightPink}
-          onPress={async () => {
-            // await Permissions.askAsync(Permissions.);
-            // await Permissions.askAsync(Permissions.LOCATION_BACKGROUND);
-            // await Permissions.askAsync(Permissions.LOCATION_FOREGROUND);
-          }}
-        /> */}
       </ScrollView>
     );
   }

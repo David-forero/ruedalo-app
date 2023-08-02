@@ -263,7 +263,7 @@ export default function MyCars() {
 
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-      <Header title={`Mis Vehículos ${user?.plan} - ${listCars?.length}`} onPress={() => navigation.goBack()} />
+      <Header title={`Mis Vehículos`} onPress={() => navigation.goBack()} />
 
       {renderMyCarsList()}
       {<DeleteModal />}
