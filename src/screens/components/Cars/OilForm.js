@@ -30,7 +30,6 @@ const OilForm = () => {
             <TouchableOpacity
               key={item.id}
               onPress={() => {
-                console.log(item.id);
                 setSelectAceite(item.id);
               }}
               className={`w-32 h-32 items-center m-5 justify-center shadow-sm ${

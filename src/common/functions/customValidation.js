@@ -1,5 +1,4 @@
 export const validationFormForMyCar = (form) => { 
-    console.log(form);
     let validation = {
         error: false,
         message: 'Vehículo agregado'

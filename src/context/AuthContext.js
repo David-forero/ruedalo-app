@@ -38,7 +38,6 @@ const AuthProvider = ({ children }) => {
   }, [pushDataObject]);
 
   const getNotificationsCountsFn = async (email) => {
-    console.log("LLamando notificacions counts..."); 
     const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
       getUnreadIndieNotificationInboxCount(
         `${email}`,

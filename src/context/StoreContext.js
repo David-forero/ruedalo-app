@@ -41,8 +41,6 @@ const StoreProvider = ({ children }) => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status === "granted" && auth) {
       if (!location || !myPlace) {
-        console.log("🔎 buscando ubicacion");
-
         setLoadingLocation(true);
         try {
           const locationPromise = Location.getLastKnownPositionAsync({});

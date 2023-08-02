@@ -28,8 +28,6 @@ const CustomImageCarousal = ({data, autoPlay, pagination}) => {
     },
   });
 
-  console.log('el arreglo ->', data);
-
   useEffect(() => {
     if (isAutoPlay === true) {
       let _offSet = offSet.value;
