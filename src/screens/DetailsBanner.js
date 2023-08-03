@@ -15,15 +15,13 @@ import {
   FONTS,
   SAFEAREAVIEW,
 } from "../common/constants";
-import { useState } from "react";
 import { Rating } from "react-native-ratings";
 
 const DetailsBanner = () => {
-  const [selectCategory, setSelectCategory] = useState(0);
-
   const route = useRoute();
   const navigation = useNavigation();
   const { item } = route.params;
+
   return (
     <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -41,7 +39,6 @@ const DetailsBanner = () => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("RestaurantMenu", {
-              restaurant: dummyData[0],
               id: item?.commerce.id,
               typeCommerce: item?.type
             })
