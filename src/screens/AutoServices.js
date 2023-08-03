@@ -14,11 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Shadow } from "react-native-shadow-2";
 import { Rating } from "react-native-ratings";
 
-import {
-  COLORS,
-  FONTS,
-  SAFEAREAVIEW,
-} from "../common/constants";
+import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 import {
   Pin,
   Star,
@@ -36,8 +32,7 @@ import { useStoreContext } from "../context/StoreContext";
 import { useUserContext } from "../context/UserContext";
 import Logo from "../assets/icons/ruedalo3.png";
 import { Ionicons } from "@expo/vector-icons";
-import categoriesIcons from '../assets/icons/categories';
-
+import categoriesIcons from "../assets/icons/categories";
 
 const AutoServices = () => {
   const navigation = useNavigation();
@@ -53,7 +48,7 @@ const AutoServices = () => {
     mostSells,
     setMostSells,
     getListServicessFn,
-    categoriesServices
+    categoriesServices,
   } = useServicesContext();
   const { getBannersFn } = useUserContext();
 
@@ -87,7 +82,11 @@ const AutoServices = () => {
         }}
       >
         <View className="flex-row items-center justify-between mb-5 pr-5">
-        <Image source={Logo} resizeMode="contain" className="w-36 h-10 ml-2" />
+          <Image
+            source={Logo}
+            resizeMode="contain"
+            className="w-36 h-10 ml-2"
+          />
 
           <View className="ml-3 flex-row">
             <TouchableOpacity
@@ -166,7 +165,15 @@ const AutoServices = () => {
   function renderCategories() {
     function categories(item, index) {
       return (
-        <TouchableOpacity onPress={() => navigation.navigate('SubCategory', {id: item.id, name: item.name, type: 'service'})}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("SubCategory", {
+              id: item.id,
+              name: item.name,
+              type: "service",
+            })
+          }
+        >
           <View style={{ marginLeft: index === 0 ? 0 : 36 }}>
             <View
               className="bg-gray-100"
@@ -184,7 +191,7 @@ const AutoServices = () => {
                 source={categoriesIcons[item.icon ? item.icon : "notImage"]}
                 style={{
                   height: 28,
-                  width: "100%"
+                  width: "100%",
                 }}
                 resizeMode="contain"
               />
@@ -196,9 +203,9 @@ const AutoServices = () => {
                 fontSize: 14,
                 textTransform: "capitalize",
                 color: COLORS.gray2,
-                width: 65
+                width: 65,
               }}
-               numberOfLines={1}
+              numberOfLines={1}
             >
               {item.name}
             </Text>
@@ -355,7 +362,7 @@ const AutoServices = () => {
           <Text
             style={{
               ...FONTS.Roboto_700Bold,
-              fontSize: 20
+              fontSize: 20,
             }}
           >
             Servicios más populares
@@ -395,7 +402,7 @@ const AutoServices = () => {
       <View style={{ paddingHorizontal: 30 }}>
         <Heading
           title="Cerca de ti"
-          fontStyle={{textTransform: "none"}}
+          fontStyle={{ textTransform: "none" }}
           containerStyle={{ paddingHorizontal: 0, marginBottom: 21 }}
         />
 
@@ -440,13 +447,25 @@ const AutoServices = () => {
                 style={{
                   ...FONTS.Roboto_500Medium,
                   fontSize: 16,
-                  marginBottom: 10,
+                  marginBottom: 2,
                   lineHeight: 16 * 1,
                   textTransform: "capitalize",
                 }}
                 numberOfLines={1}
               >
                 {item.description}
+              </Text>
+
+              <Text
+                style={{
+                  ...FONTS.Roboto_500Medium,
+                  fontSize: 14,
+                  marginBottom: 12,
+                  color: COLORS.orange,
+                }}
+                numberOfLines={1}
+              >
+                {`$${item.price}`}
               </Text>
 
               <View
@@ -491,34 +510,6 @@ const AutoServices = () => {
                   }}
                 >
                   Unos {Math.round(item?.distance)}km de distancia
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <Rating
-                  type="star"
-                  count={5}
-                  defaultRating={14}
-                  imageSize={12}
-                  showRating={false}
-                  isDisabled={false}
-                  readonly={true}
-                  startingValue={item?.rating}
-                />
-                <Text
-                  style={{
-                    ...FONTS.Roboto_400Regular,
-                    fontSize: 12,
-                    color: COLORS.gray2,
-                    marginLeft: 10,
-                    lineHeight: 12 * 1.2,
-                  }}
-                >
-                  ({item?.rating})
                 </Text>
               </View>
             </View>

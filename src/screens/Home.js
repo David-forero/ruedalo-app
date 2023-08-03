@@ -317,13 +317,24 @@ export default function Home() {
                     style={{
                       ...FONTS.Roboto_500Medium,
                       fontSize: 16,
-                      marginBottom: 10,
+                      marginBottom: 2,
                       lineHeight: 16 * 1,
                       textTransform: "capitalize",
                     }}
                     numberOfLines={1}
                   >
                     {item.title}
+                  </Text>
+                  <Text
+                    style={{
+                      ...FONTS.Roboto_500Medium,
+                      fontSize: 14,
+                      marginBottom: 12,
+                      color: COLORS.orange
+                    }}
+                    numberOfLines={1}
+                  >
+                    {`$${item.price}`}
                   </Text>
                   <View
                     style={{
@@ -367,34 +378,6 @@ export default function Home() {
                       }}
                     >
                       Unos {Math.round(item?.distance)}km de distancia
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Rating
-                      type="star"
-                      count={5}
-                      defaultRating={14}
-                      imageSize={12}
-                      showRating={false}
-                      isDisabled={false}
-                      readonly={true}
-                      startingValue={item?.rating}
-                    />
-                    <Text
-                      style={{
-                        ...FONTS.Roboto_400Regular,
-                        fontSize: 12,
-                        color: COLORS.gray2,
-                        marginLeft: 10,
-                        lineHeight: 12 * 1.2,
-                      }}
-                    >
-                      ({Number(item?.rating)})
                     </Text>
                   </View>
                 </View>

@@ -29,7 +29,7 @@ export default function Navigation() {
                 <OrdersProvider>
                   <StatusBar
                     translucent={false}
-                    backgroundColor={COLORS.orange}
+                    backgroundColor={'#2d2d2d'}
                     barStyle={"light-content"}
                   />
                   <ProtectViews />

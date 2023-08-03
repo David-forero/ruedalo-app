@@ -26,7 +26,6 @@ export default function AccountCreated() {
                         ...FONTS.Roboto_700Bold,
                         fontSize: 22,
                         color: COLORS.black2,
-                        textTransform: "capitalize",
                         textAlign: "center",
                         marginTop: 35,
                         marginBottom: 10,
