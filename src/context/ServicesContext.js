@@ -46,7 +46,6 @@ const ServicesProvider = ({ children }) => {
   const getCategoryServicesFn = async (token, setLoading) => {
     const {data} = await get("/list_categories_services", token);
     setLoading(false);
-    console.log(data.data.rows);
     setCategoriesServices(data.data.rows)
   };
 
@@ -58,7 +57,6 @@ const ServicesProvider = ({ children }) => {
     }
     if (category) prepareBody.id_category = category
 
-    console.log('prepare service ->',prepareBody);
     const { data } = await post("/list_service_commerce", prepareBody, token);
     setCatalog(data.data.rows);
     setLoading(false);

@@ -368,7 +368,7 @@ const AutoServices = () => {
               paddingVertical: 21,
             }}
             data={[1, 2, 3, 4]}
-            keyExtractor={(item) => item}
+            keyExtractor={(item) => item.id}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={() => <LoadingListOne />}

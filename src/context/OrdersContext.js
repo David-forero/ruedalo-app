@@ -42,7 +42,6 @@ const OrdersProvider = ({ children }) => {
       },
       token
     );
-    console.log(data);
     setDetailsOrder(data.data)
     setLoading(false);
     setOrders(data.data);
