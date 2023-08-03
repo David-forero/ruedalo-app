@@ -288,7 +288,7 @@ export default function Order() {
                   type="star"
                   count={5}
                   startingValue={order?.rate_to_c}
-                  imageSize={15}
+                  imageSize={20}
                   showRating={false}
                   readonly
                 />

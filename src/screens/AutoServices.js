@@ -173,9 +173,6 @@ const AutoServices = () => {
               style={{
                 width: 48,
                 height: 48,
-                // selectCategory == item.id
-                //     ? COLORS.black2
-                //     : COLORS.lightOrange,
                 borderRadius: 35,
                 justifyContent: "center",
                 alignItems: "center",
@@ -358,8 +355,7 @@ const AutoServices = () => {
           <Text
             style={{
               ...FONTS.Roboto_700Bold,
-              fontSize: 20,
-              textTransform: "capitalize",
+              fontSize: 20
             }}
           >
             Servicios más populares
@@ -399,6 +395,7 @@ const AutoServices = () => {
       <View style={{ paddingHorizontal: 30 }}>
         <Heading
           title="Cerca de ti"
+          fontStyle={{textTransform: "none"}}
           containerStyle={{ paddingHorizontal: 0, marginBottom: 21 }}
         />
 

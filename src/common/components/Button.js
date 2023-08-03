@@ -34,7 +34,6 @@ export default function Button({
                         textAlign: "center",
                         color: textColor || COLORS.white,
                         fontSize: 16,
-                        textTransform: "capitalize",
                         ...FONTS.Roboto_500Medium,
                         ...textStyle,
                     }}

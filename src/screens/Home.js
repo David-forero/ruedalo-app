@@ -225,7 +225,7 @@ export default function Home() {
   function renderPopularRestaurants() {
     return (
       <View>
-        <Heading title="Para tu vehículo" />
+        <Heading title="Para tu vehículo" fontStyle={{textTransform: "none"}} />
 
         {loading || !forMyCar ? (
           <FlatList
@@ -271,6 +271,7 @@ export default function Home() {
         <Heading
           title="Lo mas vendido"
           containerStyle={{ paddingHorizontal: 0, marginBottom: 21 }}
+          fontStyle={{textTransform: "none"}}
         />
 
         {loading || !forMyCar ? (

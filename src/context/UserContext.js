@@ -10,7 +10,7 @@ import { useAuthContext } from "./AuthContext";
 const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
-  const { user, auth } = useAuthContext();
+  const { user } = useAuthContext();
   const [coordenates, setCoordenates] = useState(null);
   const [documentsVehicles, setDocumentsVehicles] = useState(false);
   const [notifications, setNotifications] = useState(null);
@@ -41,7 +41,10 @@ const UserProvider = ({ children }) => {
         return;
       }
 
-      setUser(data.data);
+       setUser(data.data);
+       let dataString = JSON.stringify(data.data);
+
+       await AsyncStorage.setItem("user", dataString);
       if (data.status === 200 || data.status === true) {
         navigation.navigate("MainLayout");
       }
