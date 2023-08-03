@@ -146,7 +146,7 @@ export default function SignUp() {
                             loading={loading}
                             title="Crear Cuenta"
                             containerStyle={{
-                                backgroundColor: COLORS.black2,
+                                backgroundColor: COLORS.black,
                                 marginBottom: 28,
                             }}
                             onPress={handleSubmit}

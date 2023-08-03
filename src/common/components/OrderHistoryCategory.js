@@ -121,7 +121,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                 style={{
                                     width: 8,
                                     height: 8,
-                                    backgroundColor: COLORS.black2,
+                                    backgroundColor: COLORS.black,
                                     borderRadius: 4,
                                     marginRight: 5,
                                 }}
@@ -131,7 +131,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                     style={{
                                         ...FONTS.Roboto_400Regular,
                                         fontSize: 13,
-                                        color: COLORS.black2,
+                                        color: COLORS.black,
                                     }}
                                 >
                                       {statusOrder(item?.status)}
@@ -141,7 +141,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                     style={{
                                         ...FONTS.Roboto_400Regular,
                                         fontSize: 13,
-                                        color: COLORS.black2,
+                                        color: COLORS.black,
                                     }}
                                 >
                                     Completado
@@ -153,7 +153,7 @@ export default function OrderHistoryCategory({ item, type }) {
                     {/* {type == "completed" && (
                         <TouchableOpacity
                             style={{
-                                backgroundColor: COLORS.black2,
+                                backgroundColor: COLORS.black,
                                 borderRadius: 12,
                             }}
                         >

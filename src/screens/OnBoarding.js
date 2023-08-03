@@ -95,7 +95,7 @@ export default function OnBoarding() {
             borderTopRightRadius: 30,
             borderTopLeftRadius: 30,
             overflow: "hidden",
-            backgroundColor: COLORS.black2,
+            backgroundColor: COLORS.black,
             paddingTop: SIZES.height / 20,
             paddingBottom: SIZES.height / 30,
             paddingHorizontal: 40,

@@ -93,7 +93,7 @@ export default function Profile() {
               textAlign: "center",
               ...FONTS.Roboto_700Bold,
               fontSize: 16,
-              color: COLORS.black2,
+              color: COLORS.black,
               marginBottom: 3,
             }}
           >
@@ -253,7 +253,7 @@ export default function Profile() {
               style={{
                 width: 130,
                 height: 40,
-                backgroundColor: COLORS.black2,
+                backgroundColor: COLORS.black,
                 borderRadius: 10,
                 justifyContent: "center",
                 alignItems: "center",

@@ -26,7 +26,7 @@ export default function CreateCardSuccess() {
                         ...FONTS.Roboto_700Bold,
                         fontSize: 22,
                         textTransform: "capitalize",
-                        color: COLORS.black2,
+                        color: COLORS.black,
                         marginBottom: 10,
                     }}
                 >

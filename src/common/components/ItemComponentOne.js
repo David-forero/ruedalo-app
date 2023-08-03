@@ -117,7 +117,7 @@ export default function ItemComponentOne({ item, onPress }) {
                 >
                     <Text
                         style={{
-                            color: COLORS.black2,
+                            color: COLORS.black,
                             ...FONTS.Roboto_500Medium,
                             fontSize: 12,
                         }}

@@ -242,7 +242,7 @@ export default function OtpCode() {
                     valid={otp[5]}
                     loading={loading}
                     title="Verificar Ahora"
-                    containerStyle={{ backgroundColor: COLORS.black2 }}
+                    containerStyle={{ backgroundColor: COLORS.black }}
                     onPress={() => {
                         setLoading(true)
                         confirmVerifyEmailFn(otp, navigation, setLoading, user?.token)

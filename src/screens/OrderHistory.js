@@ -14,7 +14,6 @@ import {
   COLORS,
   FONTS,
   SAFEAREAVIEW,
-  history,
   SIZES,
 } from "../common/constants";
 import { useEffect } from "react";
@@ -54,7 +53,7 @@ export default function OrderHistory() {
             height: 30,
             width: "30%",
             backgroundColor:
-              category == "upcoming" ? COLORS.black2 : COLORS.lightOrange,
+              category == "upcoming" ? COLORS.black : COLORS.lightOrange,
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 10,
@@ -65,7 +64,7 @@ export default function OrderHistory() {
             style={{
               ...FONTS.Roboto_700Bold,
               fontSize: 12,
-              color: category == "upcoming" ? COLORS.white : COLORS.black2,
+              color: category == "upcoming" ? COLORS.white : COLORS.black,
             }}
           >
             En proceso
@@ -77,7 +76,7 @@ export default function OrderHistory() {
             height: 30,
             width: "30%",
             backgroundColor:
-              category == "pays" ? COLORS.black2 : COLORS.lightOrange,
+              category == "pays" ? COLORS.black : COLORS.lightOrange,
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 10,
@@ -88,7 +87,7 @@ export default function OrderHistory() {
             style={{
               ...FONTS.Roboto_700Bold,
               fontSize: 12,
-              color: category == "pays" ? COLORS.white : COLORS.black2,
+              color: category == "pays" ? COLORS.white : COLORS.black,
             }}
           >
             Pagos

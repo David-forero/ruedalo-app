@@ -25,7 +25,7 @@ export default function AccountCreated() {
                     style={{
                         ...FONTS.Roboto_700Bold,
                         fontSize: 22,
-                        color: COLORS.black2,
+                        color: COLORS.black,
                         textAlign: "center",
                         marginTop: 35,
                         marginBottom: 10,
@@ -48,7 +48,7 @@ export default function AccountCreated() {
                 </Text>
                 <Button
                     title="Ver tiendas"
-                    containerStyle={{ backgroundColor: COLORS.black2 }}
+                    containerStyle={{ backgroundColor: COLORS.black }}
                     onPress={() => navigation.navigate("MainLayout")}
                 />
             </ScrollView>

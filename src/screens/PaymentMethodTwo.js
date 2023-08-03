@@ -154,7 +154,7 @@ export default function PaymentMethodOne() {
               style={{
                 ...FONTS.Roboto_700Bold,
                 fontSize: 16,
-                color: COLORS.black2,
+                color: COLORS.black,
                 marginBottom: 9,
               }}
             >
@@ -187,7 +187,7 @@ export default function PaymentMethodOne() {
               style={{
                 ...FONTS.Roboto_700Bold,
                 fontSize: 16,
-                color: COLORS.black2,
+                color: COLORS.black,
                 marginBottom: 9,
               }}
             >
@@ -219,7 +219,7 @@ export default function PaymentMethodOne() {
               style={{
                 ...FONTS.Roboto_700Bold,
                 fontSize: 16,
-                color: COLORS.black2,
+                color: COLORS.black,
                 marginBottom: 9,
               }}
             >
@@ -252,7 +252,7 @@ export default function PaymentMethodOne() {
                 style={{
                   ...FONTS.Roboto_700Bold,
                   fontSize: 16,
-                  color: COLORS.black2,
+                  color: COLORS.black,
                   marginBottom: 9,
                 }}
               >

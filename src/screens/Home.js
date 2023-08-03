@@ -10,9 +10,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Rating } from "react-native-ratings";
-
-import { COLORS, FONTS, SAFEAREAVIEW, category } from "../common/constants";
+import { COLORS, FONTS, SAFEAREAVIEW} from "../common/constants";
 import {
   Clock,
   PinTwo,
@@ -170,7 +168,7 @@ export default function Home() {
                 width: 48,
                 height: 48,
                 // selectCategory == item.id
-                //     ? COLORS.black2
+                //     ? COLORS.black
                 //     : COLORS.lightOrange,
                 borderRadius: 35,
                 justifyContent: "center",
@@ -269,7 +267,7 @@ export default function Home() {
     return (
       <View style={{ paddingHorizontal: 30 }}>
         <Heading
-          title="Lo mas vendido"
+          title="Lo más vendido"
           containerStyle={{ paddingHorizontal: 0, marginBottom: 21 }}
           fontStyle={{textTransform: "none"}}
         />

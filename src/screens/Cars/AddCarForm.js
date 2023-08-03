@@ -176,7 +176,7 @@ export default function AddCarForm() {
               style={{
                 width: 130,
                 height: 40,
-                backgroundColor: COLORS.black2,
+                backgroundColor: COLORS.black,
                 borderRadius: 10,
                 justifyContent: "center",
                 alignItems: "center",

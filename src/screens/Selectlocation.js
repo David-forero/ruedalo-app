@@ -82,7 +82,7 @@ export default function Selectlocation() {
 
         <Button
           title="Quizás en otro momento"
-          containerStyle={{ backgroundColor: COLORS.black2 }}
+          containerStyle={{ backgroundColor: COLORS.black }}
           onPress={() => navigation.navigate("MainLayout")}
         />
       </ScrollView>

@@ -21,7 +21,7 @@ export default function Button({
                 borderRadius: 10,
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: COLORS.black2,
+                backgroundColor: COLORS.black,
                 ...containerStyle,
                 zIndex: 1,
             }}

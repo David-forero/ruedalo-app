@@ -116,7 +116,7 @@ export default function Filter() {
                                             justifyContent: "center",
                                             alignItems: "center",
                                             borderWidth: 1,
-                                            borderColor: COLORS.black2,
+                                            borderColor: COLORS.black,
                                             borderRadius: 5,
                                             marginRight: 8,
                                         }}

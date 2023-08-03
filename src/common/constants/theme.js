@@ -20,7 +20,7 @@ export const COLORS = {
     yellow: "#FFC700",
     red: "#FE2121",
     lightPink: "#FFEDF2",
-
+    orange: '#EA580C',
     shadowStartColor: "rgb(196,196,196, 0.07)",
     shadowFinalColor: "rgb(255, 255, 255, 0.08)",
     shadowDistance: 12,

@@ -72,7 +72,7 @@ export default function ForgotPassword() {
                 >
                     <View
                         style={{
-                            backgroundColor: COLORS.black2,
+                            backgroundColor: COLORS.black,
                             height: 50,
                             justifyContent: "center",
                             alignItems: "center",
@@ -108,7 +108,7 @@ export default function ForgotPassword() {
                             style={{
                                 width: 190,
                                 height: 41,
-                                backgroundColor: COLORS.black2,
+                                backgroundColor: COLORS.black,
                                 borderRadius: 25,
                                 justifyContent: "center",
                                 alignItems: "center",

@@ -181,7 +181,7 @@ export default function EditProfile() {
                 loading={loading}
                 title="Actualizar datos"
                 containerStyle={{
-                  backgroundColor: COLORS.black2,
+                  backgroundColor: COLORS.black,
                   marginBottom: 20,
                 }}
                 onPress={handleSubmit}
@@ -201,7 +201,7 @@ export default function EditProfile() {
                     ...FONTS.Roboto_400Regular,
                     fontSize: 16,
                     textAlign: "center",
-                    color: COLORS.black2,
+                    color: COLORS.black,
                   }}
                 >
                   Cambiar contraseña
