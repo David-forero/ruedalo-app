@@ -42,17 +42,17 @@ export default function FoodDetails() {
     return (
       <>
         {loading ? (
-          <View style={{marginHorizontal: 30}}>
+          <View style={{ marginHorizontal: 30 }}>
             <View
-            style={{
-              height: 206,
-              width: "100%",
-              borderRadius: 14,
-              marginBottom: 21,
-            }}
-            className="shadow-lg bg-gray-300"
-            resizeMode="stretch"
-          ></View>
+              style={{
+                height: 206,
+                width: "100%",
+                borderRadius: 14,
+                marginBottom: 21,
+              }}
+              className="shadow-lg bg-gray-300"
+              resizeMode="stretch"
+            ></View>
           </View>
         ) : (
           <CustomImageCarousal data={product?.images} />
@@ -119,9 +119,32 @@ export default function FoodDetails() {
                   color: COLORS.carrot,
                 }}
               >
-                ${product?.price}
+                {product?.price && `$${product?.price}`}
               </Text>
             </View>
+
+            {loading ? null : (
+              <>
+                <Text className="font-bold text-md mb-2 text-left text-gray-700 mt-5">
+                  Detalles generales
+                </Text>
+
+                <View className="rounded-lg overflow-hidden">
+                  <View className="py-2 px-4 bg-gray-300 text-center flex-row justify-between item-center">
+                    <Text className="text-black font-bold">Marca del producto</Text>
+                    <Text className="text-black">{product?.brand}</Text>
+                  </View>
+                  <View className="py-2 px-4 bg-gray-100 text-center flex-row justify-between item-center">
+                    <Text className="text-black font-bold">Marca del vehículo</Text>
+                    <Text className="text-black">{product?.brand_car}</Text>
+                  </View>
+                  <View className="py-2 px-4 bg-gray-300 text-center flex-row justify-between item-center">
+                    <Text className="text-black font-bold">Modelo</Text>
+                    <Text className="text-black">{product?.model_car}</Text>
+                  </View>
+                </View>
+              </>
+            )}
 
             {loading ? (
               <Placeholder Animation={Fade} style={{ marginTop: 10 }}>
