@@ -3,9 +3,7 @@ import * as React from "react";
 import {
   View,
   Dimensions,
-  Text,
   Image,
-  ImageBackground,
   TouchableOpacity,
 } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
@@ -16,7 +14,6 @@ const window = Dimensions.get("window");
 const PAGE_WIDTH = window.width;
 
 const SliderBanner = ({ data, autoPlay = true, isVertical = false }) => {
-  const [snapEnabled, setSnapEnabled] = React.useState(true);
   const progressValue = useSharedValue(0);
   const navigation = useNavigation();
   const baseOptions = isVertical
@@ -38,7 +35,7 @@ const SliderBanner = ({ data, autoPlay = true, isVertical = false }) => {
         className="h-[155px]"
         loop
         // pagingEnabled={true}
-        snapEnabled={snapEnabled}
+        snapEnabled={true}
         autoPlay={autoPlay}
         autoPlayInterval={2000}
         onProgressChange={(_, absoluteProgress) =>
@@ -50,8 +47,9 @@ const SliderBanner = ({ data, autoPlay = true, isVertical = false }) => {
           parallaxScrollingOffset: 50,
         }}
         data={data}
+      
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigation.navigate("DetailsBanner", {item})}>
+          <TouchableOpacity key={item.id} onPress={() => navigation.navigate("DetailsBanner", {item})}>
             <Image
               source={{
                 uri: "https://backend.dev.ruedalo.app/api/banner/" + item.banner[0],

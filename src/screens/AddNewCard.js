@@ -18,10 +18,10 @@ export default function AddNewCard() {
                 }}
                 showsVerticalScrollIndicator={false}
             >
-                <Image
+                {/* <Image
                     source={require("../assets/images/payment-method/01.png")}
                     style={{ width: "100%", height: 375, marginVertical: 16 }}
-                />
+                /> */}
                 <InputField
                     placeholder="Account Holder Name"
                     contaynerStyle={{ marginBottom: 10 }}
