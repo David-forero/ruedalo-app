@@ -303,6 +303,27 @@ export default function PaymentMethodOne() {
             </Text>
           </View>
         </View>
+
+        <Text
+          className={`${
+            selectedMethod ? "text-black" : "text-orange-600"
+          } text-center font-bold ${isAmount ? 'mb-2' : 'mb-5'}`}
+        >
+          {" "}
+          {selectedMethod ? "✅" : "❌"} Seleccione el método de pago
+        </Text>
+
+        {isAmount ? (
+          <Text
+            className={`${
+              enableButton ? "text-black" : "text-orange-600"
+            } text-center font-bold mb-5`}
+          >
+            {" "}
+            {enableButton ? "✅" : "❌"} Coloque cuanto va a pagar
+          </Text>
+        ) : null}
+
         <Button
           title="Proceder al pago"
           valid={selectedMethod && enableButton}

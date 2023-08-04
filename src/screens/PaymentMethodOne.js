@@ -84,7 +84,7 @@ export default function PaymentMethodOne() {
         }}
         showsVerticalScrollIndicator={false}
       >
-        <Text clasName="mb-3 font-bold text-lg">Método de pago</Text>
+        <Text className="mb-3 font-bold text-lg text-orange-600">Método de pago</Text>
         <View style={{ marginBottom: 9, marginTop: 5 }}>
           {product?.commerce.paycommerces?.map((item, index) => {
             return (
@@ -155,7 +155,7 @@ export default function PaymentMethodOne() {
         </View>
 
         {/* SECTION DELIVERY */}
-        <Text clasName="mb-5 font-bold text-lg">Método de entrega</Text>
+        <Text className="mb-5 font-bold text-lg text-orange-600">Método de entrega</Text>
         <View style={{ marginBottom: 9, marginTop: 5 }}>
           {product?.commerce.shippings?.map((item, index) => {
             return (
@@ -376,7 +376,7 @@ export default function PaymentMethodOne() {
             dashThickness={1}
             dashGap={5}
             dashColor="#C8C8D3"
-            style={{ marginTop: 23 }}
+            style={{ marginTop: 8 }}
           />
           <View
             style={{
@@ -408,6 +408,14 @@ export default function PaymentMethodOne() {
             </Text>
           </View>
         </View>
+
+              <Text className={`${selectedMethod ? 'text-black' : 'text-orange-600'} text-center font-bold mb-2`}> {selectedMethod ? '✅' : '❌'} Seleccione el método de pago</Text>
+
+              <Text className={`${selectedMethod2 ? 'text-black' : 'text-orange-600'} text-center font-bold ${isAmount ? 'mb-2' : 'mb-5'}`}> {selectedMethod2 ? '✅' : '❌'} Seleccione el método de entrega</Text>
+
+              {
+                isAmount ? <Text className={`${enableButton ? 'text-black' : 'text-orange-600'} text-center font-bold mb-5`}> {enableButton ? '✅' : '❌'} Coloque cuanto va a pagar</Text> : null
+              }
         <Button
           title="Proceder al pago"
           valid={selectedMethod && selectedMethod2 && enableButton}
