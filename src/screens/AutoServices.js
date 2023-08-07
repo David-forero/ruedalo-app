@@ -272,77 +272,75 @@ const AutoServices = () => {
               imageStyle={{
                 borderRadius: 15,
               }}
-            >
-              <View
-                style={{
-                  backgroundColor: COLORS.white,
-                  paddingHorizontal: 8,
-                  alignSelf: "flex-start",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  borderRadius: 15,
-                  top: 10,
-                  left: 10,
-                  height: 24,
-                }}
-              >
+            ></ImageBackground>
+            <View style={{ padding: 12, flex: 1 }}>
+              <View className="flex-row items-center justify-between mb-2">
                 <Text
+                  numberOfLines={2}
                   style={{
-                    marginRight: 4,
                     ...FONTS.Roboto_400Regular,
-                    fontSize: 12,
+                    fontSize: 16,
+                    textTransform: "capitalize",
                     color: COLORS.black,
+                    marginBottom: 2,
+                    lineHeight: 16 * 1,
                   }}
                 >
-                  {item.rating}
+                  {item.description}
                 </Text>
 
-                <View>
-                  <Star />
-                </View>
+                <Text
+                  numberOfLines={1}
+                  className="font-bold text-orange-600"
+                >
+                  ${item.price}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 7,
+                }}
+              >
+                <PinTwo />
                 <Text
                   style={{
-                    marginLeft: 4,
+                    marginLeft: 5,
                     ...FONTS.Roboto_400Regular,
                     fontSize: 12,
                     color: COLORS.gray2,
+                    lineHeight: 12 * 1.2,
+                    width: "85%",
                   }}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
                 >
-                  ({Number(item.rating)})
+                  {item.registered_name}
                 </Text>
               </View>
-            </ImageBackground>
-            <View style={{ padding: 12, flex: 1 }}>
-              <Text
-                numberOfLines={2}
-                style={{
-                  ...FONTS.Roboto_400Regular,
-                  fontSize: 16,
-                  textTransform: "capitalize",
-                  color: COLORS.black,
-                  marginBottom: 2,
-                  lineHeight: 16 * 1,
-                }}
-              >
-                {item.description}
-              </Text>
-
-              <Text
-                style={{
-                  ...FONTS.Roboto_500Medium,
-                  fontSize: 12,
-                  //   marginBottom: 8,
-                }}
-                numberOfLines={1}
-              >
-                {item.registered_name}
-              </Text>
               <View
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
+                  marginBottom: 8,
                 }}
-              ></View>
+              >
+                <Clock />
+
+                <Text
+                  style={{
+                    ...FONTS.Roboto_400Regular,
+                    fontSize: 12,
+                    color: COLORS.gray2,
+                    lineHeight: 12 * 1.2,
+                    marginLeft: 4,
+                  }}
+                >
+                  Unos {Math.round(item?.distance)}km de distancia
+                </Text>
+              </View>
             </View>
           </TouchableOpacity>
         </Shadow>
@@ -443,31 +441,32 @@ const AutoServices = () => {
               resizeMode="stretch"
             />
             <View style={{ flex: 1 }}>
-              <Text
-                style={{
-                  ...FONTS.Roboto_500Medium,
-                  fontSize: 16,
-                  marginBottom: 2,
-                  lineHeight: 16 * 1,
-                  textTransform: "capitalize",
-                }}
-                numberOfLines={1}
-              >
-                {item.description}
-              </Text>
-
-              <Text
-                style={{
-                  ...FONTS.Roboto_500Medium,
-                  fontSize: 14,
-                  marginBottom: 12,
-                  color: COLORS.orange,
-                }}
-                numberOfLines={1}
-              >
-                {`$${item.price}`}
-              </Text>
-
+              <View className="flex-row justify-between items-center">
+                <Text
+                  style={{
+                    ...FONTS.Roboto_500Medium,
+                    fontSize: 16,
+                    marginBottom: 2,
+                    lineHeight: 16 * 1,
+                    textTransform: "capitalize",
+                  }}
+                  numberOfLines={1}
+                  className="w-2/3"
+                >
+                  {item.description}
+                </Text>
+                <Text
+                  style={{
+                    ...FONTS.Roboto_500Medium,
+                    fontSize: 14,
+                    marginBottom: 12,
+                    color: COLORS.orange,
+                  }}
+                  numberOfLines={1}
+                >
+                  {`$${item.price}`}
+                </Text>
+              </View>
               <View
                 style={{
                   flexDirection: "row",
@@ -488,7 +487,7 @@ const AutoServices = () => {
                   numberOfLines={1}
                   ellipsizeMode="tail"
                 >
-                  {item.address}
+                  {item.registered_name}
                 </Text>
               </View>
               <View

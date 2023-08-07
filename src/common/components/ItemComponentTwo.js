@@ -2,6 +2,8 @@ import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
 import React from "react";
 import { Shadow } from "react-native-shadow-2";
 import { FONTS, COLORS } from "../constants";
+import { AntDesign } from '@expo/vector-icons';
+import Clock from "./svg/Clock";
 
 export default function ItemComponentTwo({ item, onPress }) {
     return (
@@ -85,6 +87,51 @@ export default function ItemComponentTwo({ item, onPress }) {
                     >
                         {item.description}
                     </Text>
+
+                    <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 7,
+                    }}
+                  >
+                    <AntDesign name="profile" size={14} color={'#1DBF73'} />
+                    <Text
+                      style={{
+                        marginLeft: 5,
+                        ...FONTS.Roboto_400Regular,
+                        fontSize: 12,
+                        color: COLORS.gray2,
+                        lineHeight: 12 * 1.2,
+                        width: "85%",
+                      }}
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                    >
+                      {item.brand}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 8,
+                    }}
+                  >
+                    <Clock />
+
+                    <Text
+                      style={{
+                        ...FONTS.Roboto_400Regular,
+                        fontSize: 12,
+                        color: COLORS.gray2,
+                        lineHeight: 12 * 1.2,
+                        marginLeft: 4,
+                      }}
+                    >
+                      Unos {Math.round(item?.distance)}km de distancia
+                    </Text>
+                  </View>
                   
                 </View>
             </TouchableOpacity>

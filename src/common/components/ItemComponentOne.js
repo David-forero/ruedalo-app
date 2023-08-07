@@ -95,7 +95,7 @@ export default function ItemComponentOne({ item, onPress }) {
                         color: COLORS.carrot,
                     }}
                 >
-                    ${item.price}
+                    ${item.price} 
                 </Text>
                 <TouchableOpacity
                     style={{

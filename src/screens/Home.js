@@ -10,10 +10,9 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { COLORS, FONTS, SAFEAREAVIEW} from "../common/constants";
+import { COLORS, FONTS, SAFEAREAVIEW } from "../common/constants";
 import {
   Clock,
-  PinTwo,
   Heading,
   SliderBanner,
   ItemComponentTwo,
@@ -26,13 +25,19 @@ import { useStoreContext } from "../context/StoreContext";
 import { RefreshControl } from "react-native-gesture-handler";
 import { useUserContext } from "../context/UserContext";
 import Logo from "../assets/icons/ruedalo3.png";
-import categoriesIcons from '../assets/icons/categories';
+import categoriesIcons from "../assets/icons/categories";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function Home() {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
   const [bannerStore, setBannerStore] = useState(null);
-  const { user, notificationCounts, setNotificationCounts, getNotificationsCountsFn } = useAuthContext();
+  const {
+    user,
+    notificationCounts,
+    setNotificationCounts,
+    getNotificationsCountsFn,
+  } = useAuthContext();
   const [searchText, setSearchText] = useState("");
   const {
     getListProductsFn,
@@ -42,7 +47,7 @@ export default function Home() {
     setMostSells,
     location,
     getCategoryProductsFn,
-    categoriesProducts
+    categoriesProducts,
   } = useStoreContext();
   const { getBannersFn } = useUserContext();
   //My hooks
@@ -51,7 +56,7 @@ export default function Home() {
     async function init() {
       setLoading(true);
       // getNotificationsCountsFn(user?.email);
-      getCategoryProductsFn(user?.token, setLoading)
+      getCategoryProductsFn(user?.token, setLoading);
 
       let banners = await getBannersFn("product", user?.token);
       setBannerStore(banners);
@@ -79,13 +84,17 @@ export default function Home() {
         }}
       >
         <View className="flex-row items-center justify-between mb-5 pr-5">
-          <Image source={Logo} resizeMode="contain" className="w-36 h-10 ml-2" />
+          <Image
+            source={Logo}
+            resizeMode="contain"
+            className="w-36 h-10 ml-2"
+          />
 
           <View className="ml-3 flex-row">
             <TouchableOpacity
               onPress={() => {
-                setNotificationCounts(0)
-                navigation.navigate("Notifications")
+                setNotificationCounts(0);
+                navigation.navigate("Notifications");
               }}
               style={{
                 elevation: 7,
@@ -94,11 +103,9 @@ export default function Home() {
                 alignItems: "center",
               }}
             >
-              {
-                notificationCounts > 0 ? (
-                  <Text className="absolute text-[12px] -top-1 -right-1 h-3 w-3 bg-blue-500 text-center rounded-full text-white flex justify-center items-center font-bold"></Text>
-                ) : null
-              }
+              {notificationCounts > 0 ? (
+                <Text className="absolute text-[12px] -top-1 -right-1 h-3 w-3 bg-blue-500 text-center rounded-full text-white flex justify-center items-center font-bold"></Text>
+              ) : null}
               <Ionicons
                 name="ios-notifications-outline"
                 size={22}
@@ -160,7 +167,15 @@ export default function Home() {
   function renderCategories() {
     function categories(item, index) {
       return (
-        <TouchableOpacity onPress={() => navigation.navigate('SubCategory', {id: item.id, name: item.name, type: 'product'})}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("SubCategory", {
+              id: item.id,
+              name: item.name,
+              type: "product",
+            })
+          }
+        >
           <View style={{ marginLeft: index === 0 ? 0 : 36 }}>
             <View
               className="bg-gray-100"
@@ -193,7 +208,7 @@ export default function Home() {
                 fontSize: 14,
                 textTransform: "capitalize",
                 color: COLORS.gray2,
-                width: 65
+                width: 65,
               }}
               numberOfLines={1}
             >
@@ -223,7 +238,10 @@ export default function Home() {
   function renderPopularRestaurants() {
     return (
       <View>
-        <Heading title="Para tu vehículo" fontStyle={{textTransform: "none"}} />
+        <Heading
+          title="Para tu vehículo"
+          fontStyle={{ textTransform: "none" }}
+        />
 
         {loading || !forMyCar ? (
           <FlatList
@@ -269,7 +287,7 @@ export default function Home() {
         <Heading
           title="Lo más vendido"
           containerStyle={{ paddingHorizontal: 0, marginBottom: 21 }}
-          fontStyle={{textTransform: "none"}}
+          fontStyle={{ textTransform: "none" }}
         />
 
         {loading || !forMyCar ? (
@@ -311,29 +329,32 @@ export default function Home() {
                   resizeMode="contain"
                 />
                 <View style={{ flex: 1 }}>
-                  <Text
-                    style={{
-                      ...FONTS.Roboto_500Medium,
-                      fontSize: 16,
-                      marginBottom: 2,
-                      lineHeight: 16 * 1,
-                      textTransform: "capitalize",
-                    }}
-                    numberOfLines={1}
-                  >
-                    {item.title}
-                  </Text>
-                  <Text
-                    style={{
-                      ...FONTS.Roboto_500Medium,
-                      fontSize: 14,
-                      marginBottom: 12,
-                      color: COLORS.orange
-                    }}
-                    numberOfLines={1}
-                  >
-                    {`$${item.price}`}
-                  </Text>
+                  <View className="flex-row justify-between items-center">
+                    <Text
+                      style={{
+                        ...FONTS.Roboto_500Medium,
+                        fontSize: 16,
+                        marginBottom: 2,
+                        lineHeight: 16 * 1,
+                        textTransform: "capitalize",
+                      }}
+                      numberOfLines={1}
+                      className="w-2/3"
+                    >
+                      {item.title}
+                    </Text>
+                    <Text
+                      style={{
+                        ...FONTS.Roboto_500Medium,
+                        fontSize: 14,
+                        marginBottom: 12,
+                        color: COLORS.orange,
+                      }}
+                      numberOfLines={1}
+                    >
+                      {`$${item.price}`}
+                    </Text>
+                  </View>
                   <View
                     style={{
                       flexDirection: "row",
@@ -341,7 +362,7 @@ export default function Home() {
                       marginBottom: 7,
                     }}
                   >
-                    <PinTwo />
+                    <AntDesign name="profile" size={14} color={"#1DBF73"} />
                     <Text
                       style={{
                         marginLeft: 5,
@@ -354,7 +375,7 @@ export default function Home() {
                       numberOfLines={1}
                       ellipsizeMode="tail"
                     >
-                      {item.address}
+                      {item.brand}
                     </Text>
                   </View>
                   <View
