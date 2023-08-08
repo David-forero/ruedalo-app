@@ -1,379 +1,359 @@
 import {
-    View,
-    Text,
-    SafeAreaView,
-    ScrollView,
-    Image,
-    TouchableOpacity,
-    TextInput,
-    KeyboardAvoidingView,
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  Image,
+  TouchableOpacity,
 } from "react-native";
-import React from "react";
-import { SwipeListView } from "react-native-swipe-list-view";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import { useRoute, useNavigation } from "@react-navigation/native";
+import { FontAwesome } from "@expo/vector-icons";
+import { Header, Button } from "../common/components";
+import { COLORS, FONTS, SAFEAREAVIEW, dummyData } from "../common/constants";
 import { Rating, AirbnbRating } from "react-native-ratings";
-import DashedLine from "react-native-dashed-line";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Shadow } from "react-native-shadow-2";
-
-import {
-    Header,
-    Empty,
-    Button,
-    Minus,
-    Plus,
-    InputField,
-    BasketTwo,
-} from "../common/components";
-import { COLORS, SAFEAREAVIEW, FONTS, SIZES } from "../common/constants";
-
-const dishes = [
-    {
-        id: "1",
-        name: "SAAAAS",
-        compound: "Sells food, either fresh, specie, chili",
-        presentationImage: require("../assets/images/dishes/dish-01-01.png"),
-        popularDeal: true,
-        bestMeal: true,
-        recommended: true,
-        price: 15.45,
-        rating: 4.5,
-        image: require("../assets/images/dishes/dish-01-02.png"),
-        description:
-            "Add the remaining ingredients and toss to coat. Serve. Notes. Note: Kani Salad is best served fresh. Due to the water content from cucumbers",
-        weight: "350",
-        qty: 1,
-    },
-    {
-        id: "2",
-        name: "Cheesecake with chocolate",
-        compound: "Sells food, either fresh, specie, chili",
-        presentationImage: require("../assets/images/dishes/dish-02-01.png"),
-        bestMeal: true,
-        popularDeal: true,
-        recommended: true,
-        price: 40.45,
-        rating: 3.3,
-        image: require("../assets/images/dishes/dish-02-02.png"),
-        description:
-            "Qui ex aute ipsum duis. Incididunt adipisicing voluptate laborum",
-        weight: 350,
-        qty: 2,
-    },
-    {
-        id: "3",
-        name: "Chocolate cake with cherries",
-        compound: "Sells food, either fresh, specie, chili",
-        presentationImage: require("../assets/images/dishes/dish-03-01.png"),
-        bestMeal: true,
-        popularDeal: false,
-        recommended: true,
-        price: 33.3,
-        rating: 5.0,
-        image: require("../assets/images/dishes/dish-03-02.png"),
-        description:
-            "Qui ex aute ipsum duis. Incididunt adipisicing voluptate laborum",
-        weight: "350",
-        qty: 1,
-    },
-];
+import { useEffect } from "react";
+import { useOrdersContext } from "../context/OrdersContext";
+import { useAuthContext } from "../context/AuthContext";
+import { Fade, Placeholder, PlaceholderLine } from "rn-placeholder";
+import * as Linking from "expo-linking";
+import statusOrder from "../common/functions/statusOrder";
 
 export default function Order() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+  const { order, getOneOrder, sendStarFn } = useOrdersContext();
+  const { user } = useAuthContext();
+  const [loading, setLoading] = useState(true);
+  const route = useRoute();
+  const { id, goHome } = route.params;
+  const [rating, setRating] = useState(3);
+  const [loadingRating, setLoadingRating] = useState(false);
 
-    function renderItem(data) {
-        return (
-            <View style={{ paddingBottom: 15 }}>
-                <Shadow
-                    startColor={COLORS.shadowStartColor}
-                    finalColor={COLORS.shadowFinalColor}
-                    distance={10}
-                >
-                    <View
-                        style={{
-                            width: "100%",
-                            height: 110,
-                            backgroundColor: COLORS.white,
-                            // marginBottom: 15,
-                            flexDirection: "row",
-                            alignItems: "center",
-                            borderRadius: 5,
-                        }}
-                    >
-                        <Image
-                            source={data.item.presentationImage}
-                            style={{
-                                width: 100,
-                                height: "100%",
-                                borderTopLeftRadius: 5,
-                                borderBottomLeftRadius: 5,
-                            }}
-                        />
-                        <View
-                            style={{
-                                marginVertical: 6,
-                                marginHorizontal: 16,
-                                flex: 1,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    ...FONTS.Roboto_500Medium,
-                                    fontSize: 16,
-                                    textTransform: "capitalize",
-                                    lineHeight: 16 * 1.2,
-                                    marginBottom: 2,
-                                }}
-                                numberOfLines={1}
-                            >
-                                {data.item.name}
-                            </Text>
-                            
-                            <Text
-                                style={{
-                                    ...FONTS.Roboto_400Regular,
-                                    fontSize: 12,
-                                    color: COLORS.gray2,
-                                    marginBottom: 8,
-                                }}
-                                numberOfLines={1}
-                            >
-                                {data.item.compound}
-                            </Text>
+  useEffect(() => {
+    setLoading(true);
+    getOneOrder(id, user?.token, setLoading);
+  }, []);
 
-                            <View />
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    justifyContent: "space-between",
-                                }}
-                            >
-                                <View
-                                    style={{
-                                        flexDirection: "row",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <TouchableOpacity
-                                        style={{
-                                            width: 24,
-                                            height: 24,
-                                            backgroundColor:
-                                                COLORS.lightGreen_02,
-                                            borderRadius: 15,
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                        }}
-                                        onPress={() => console.log("minus")}
-                                    >
-                                        <Minus />
-                                    </TouchableOpacity>
-                                    <Text
-                                        style={{
-                                            marginHorizontal: 6,
-                                            ...FONTS.Roboto_500Medium,
-                                            fontSize: 12,
-                                            lineHeight: 12 * 1.2,
-                                            color: COLORS.gray2,
-                                        }}
-                                    >
-                                        1
-                                    </Text>
-                                    <TouchableOpacity
-                                        style={{
-                                            width: 24,
-                                            height: 24,
-                                            backgroundColor: COLORS.black2,
-                                            borderRadius: 15,
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                        }}
-                                        onPress={() => console.log("plus")}
-                                    >
-                                        <Plus />
-                                    </TouchableOpacity>
-                                </View>
-                                <Text
-                                    style={{
-                                        ...FONTS.Roboto_700Bold,
-                                        fontSize: 14,
-                                        color: COLORS.carrot,
-                                    }}
-                                >
-                                    Precio: ${data.item.price}
-                                </Text>
-                            </View>
-                        </View>
-                    </View>
-                </Shadow>
-            </View>
-        );
-    }
+  const openWhatsAppChat = (phoneNumber) => {
+    const url = `whatsapp://send?phone=${phoneNumber}`;
+    Linking.openURL(url).catch(() => {
+      console.log("No se pudo abrir WhatsApp");
+    });
+  };
 
-    function renderFooterComponent() {
-        return (
-            <View>
-                {/* <View style={{ marginTop: 15 }}>
-                    <DashedLine
-                        dashLength={10}
-                        dashThickness={1}
-                        dashGap={5}
-                        dashColor={COLORS.gray2}
-                        dashStyle={{ borderRadius: 5 }}
-                    />
-                </View>
-
-                <View
-                    style={{
-                        height: 50,
-                        width: "100%",
-                        borderWidth: 1,
-                        borderRadius: 10,
-                        marginVertical: 18,
-                        borderColor: "#D7D7D7",
-                        justifyContent: "center",
-                        paddingHorizontal: 15,
-                    }}
-                >
-                    <TextInput
-                        placeholder="Enter your promo code"
-                        placeholderTextColor={COLORS.black}
-                        style={{ flex: 1 }}
-                    />
-                </View>
-                <View style={{ marginBottom: 27 }}>
-                    <DashedLine
-                        dashLength={10}
-                        dashThickness={1}
-                        dashGap={5}
-                        dashColor={COLORS.gray2}
-                        dashStyle={{ borderRadius: 5 }}
-                    />
-                </View> */}
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "flex-end",
-                        marginBottom: 5,
-                        marginTop: 30,
-                    }}
-                >
-                    <Text style={{ ...FONTS.Roboto_700Bold, fontSize: 14 }}>
-                        SubTotal:
-                    </Text>
-                    <Text
-                        style={{
-                            ...FONTS.Roboto_700Bold,
-                            fontSize: 14,
-                            color: COLORS.carrot,
-                        }}
-                    >
-                        {" "}
-                        $87.90
-                    </Text>
-                </View>
-
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "flex-end",
-                        marginBottom: 5,
-                    }}
-                >
-                    <Text style={{ ...FONTS.Roboto_700Bold, fontSize: 14 }}>
-                        Delivery:
-                    </Text>
-                    <Text
-                        style={{
-                            ...FONTS.Roboto_700Bold,
-                            fontSize: 14,
-                            color: COLORS.carrot,
-                        }}
-                    >
-                        {" "}
-                        $10.00
-                    </Text>
-                </View>
-
-
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "flex-end",
-                        marginBottom: 25,
-                    }}
-                >
-                    <Text style={{ ...FONTS.Roboto_700Bold, fontSize: 14 }}>
-                        Total a pagar:
-                    </Text>
-                    <Text
-                        style={{
-                            ...FONTS.Roboto_700Bold,
-                            fontSize: 14,
-                            color: COLORS.carrot,
-                        }}
-                    >
-                        {" "}
-                        $97.90
-                    </Text>
-                </View>
-
-                <Button
-                    title="Proceder al pago"
-                    onPress={() => navigation.navigate("PaymentMethodOne")}
-                    containerStyle={{ marginBottom: 20 }}
-                />
-            </View>
-        );
-    }
-
-    function renderHiddenItem({ data }) {
-        return (
-            <TouchableOpacity
-                style={{
-                    alignSelf: "flex-end",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flex: 1,
-                }}
-                onPress={() => console.log("Remove Item")}
-            >
-                <BasketTwo />
-            </TouchableOpacity>
-        );
-    }
-
-    function renderSwipeListView() {
-        return (
-            <SwipeListView
-                data={dishes}
-                renderItem={(data, rowMap) => renderItem(data)}
-                renderHiddenItem={(data, rowMap) => renderHiddenItem(data)}
-                showsVerticalScrollIndicator={false}
-                rightOpenValue={-85}
-                contentContainerStyle={{
-                    paddingHorizontal: 30,
-                    paddingVertical: SIZES.paddingTop_01,
-                }}
-                ListFooterComponent={() => renderFooterComponent()}
-                closeOnRowPress={true}
-                closeOnRowOpen={true}
-                closeOnRowBeginSwipe={true}
-                disableRightSwipe={true}
-            />
-        );
-    }
-
+  function renderDetails() {
     return (
-        <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
-            <Header title="Cesta" onPress={() => navigation.goBack()} />
-            <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-                {renderSwipeListView()}
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+      <View
+        style={{
+          marginHorizontal: 30,
+          // marginBottom: 20,
+        }}
+      >
+        <View>
+          {loading && order?.type ? (
+            <View
+              style={{
+                height: 206,
+                width: "100%",
+                borderRadius: 14,
+                marginBottom: 21,
+              }}
+              className="shadow-lg bg-gray-300"
+              resizeMode="stretch"
+            ></View>
+          ) : (
+            <Image
+              source={{
+                uri:
+                  `https://backend.dev.ruedalo.app/api/${order?.type === 'product' ? 'product' : 'service'}/${order?.type === 'product' ? order?.product?.image[0] : order?.service?.image[0]}`
+              }}
+              style={{
+                height: 206,
+                borderRadius: 14,
+                marginBottom: 21,
+              }}
+              resizeMode="stretch"
+            />
+          )}
+          {loading ? (
+            <Placeholder Animation={Fade}>
+              <PlaceholderLine width={80} />
+            </Placeholder>
+          ) : (
+            <Text
+              style={{
+                marginBottom: 8,
+                ...FONTS.Roboto_500Medium,
+                fontSize: 18,
+                textTransform: "capitalize",
+                color: COLORS.black,
+              }}
+            >
+              {order?.product?.title || order?.service?.description}
+            </Text>
+          )}
+
+          {loading ? (
+            <Placeholder Animation={Fade} style={{ marginTop: 30 }}>
+              <PlaceholderLine width={50} />
+              <PlaceholderLine width={76} />
+              <PlaceholderLine width={43} />
+              <PlaceholderLine width={78} />
+              <PlaceholderLine width={50} />
+            </Placeholder>
+          ) : (
+            <Text
+              style={{
+                marginBottom: 12,
+                ...FONTS.Roboto_400Regular,
+                fontSize: 14,
+                color: COLORS.gray2,
+                lineHeight: 14 * 1.4,
+                marginBottom: order?.product?.description ? 10 : 0,
+              }}
+            >
+              {/* {description} */}
+              {order?.product?.description}
+            </Text>
+          )}
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text
+              style={{
+                ...FONTS.Roboto_700Bold,
+                fontSize: 20,
+                color: COLORS.carrot,
+              }}
+            >
+              ${order?.product?.price || order?.amount}
+            </Text>
+          </View>
+
+          {loading ? (
+            <Placeholder Animation={Fade} style={{ marginTop: 10 }}>
+              <PlaceholderLine width={30} />
+            </Placeholder>
+          ) : (
+            <Text className="font-bold text-md mb-1 text-left text-gray-700 mt-5">
+              Vendido por
+            </Text>
+          )}
+
+          {loading ? (
+            <View className=" flex-row space-x-3 mt-2">
+              <View
+                className="h-10 w-10 rounded-full bg-gray-300"
+                resizeMode="stretch"
+              ></View>
+
+              <View>
+                <Placeholder Animation={Fade}>
+                  <PlaceholderLine width={50} />
+                </Placeholder>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Placeholder Animation={Fade}>
+                    <PlaceholderLine width={40} />
+                  </Placeholder>
+                  <Placeholder Animation={Fade}>
+                    <PlaceholderLine width={10} />
+                  </Placeholder>
+                </View>
+              </View>
+            </View>
+          ) : (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("RestaurantMenu", {
+                  id: order?.commerce?.id,
+                  typeCommerce: order?.type
+                })
+              }
+              className=" flex-row space-x-3 mt-2"
+            >
+              <Image
+                source={{
+                  uri:
+                    "https://backend.dev.ruedalo.app/api/avatar/" +
+                    order?.commerce?.avatar[0],
+                }}
+                className="h-10 w-10 rounded-full"
+                resizeMode="stretch"
+              />
+
+              <View>
+                <Text>{order?.commerce?.registered_name}</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Rating
+                    type="star"
+                    count={5}
+                    defaultRating={14}
+                    imageSize={12}
+                    showRating={false}
+                    isDisabled={false}
+                    readonly={true}
+                  />
+                  <Text
+                    style={{
+                      ...FONTS.Roboto_400Regular,
+                      fontSize: 12,
+                      color: COLORS.gray2,
+                      marginLeft: 10,
+                      lineHeight: 12 * 1.2,
+                    }}
+                  >
+                    ({Number(order?.commerce?.rating)})
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {loading ? (
+          <Placeholder Animation={Fade} style={{ marginTop: 10 }}>
+            <PlaceholderLine width={30} />
+          </Placeholder>
+        ) : (
+          <Text className="font-bold text-md mb-3 text-left text-gray-700 mt-5">
+            Detalles del pedido
+          </Text>
+        )}
+
+        <View className="bg-gray-200 p-4 w-100 rounded-lg">
+          {order?.unit ? (
+            <View className="mb-3 flex flex-row space-x-2">
+              <Text className="text-orange-600 font-bold">Cantidad:</Text>
+
+              <Text>{order?.unit}</Text>
+            </View>
+          ) : null}
+
+          <View className="mb-3 flex flex-row space-x-2">
+            <Text className="text-orange-600 font-bold">Método de pago:</Text>
+
+            <Text>{order?.paycommerce?.paymethod.name}</Text>
+          </View>
+
+          {order?.shiping_amount && (
+            <View className="mb-3 flex flex-row space-x-2">
+              <Text className="text-orange-600 font-bold">
+                Costo del Delivery:
+              </Text>
+
+              <Text>${order?.shiping_amount}</Text>
+            </View>
+          )}
+
+          <View className="mb-3 flex flex-row space-x-2">
+            <Text className="text-orange-600 font-bold">Monto Total:</Text>
+
+            <Text>${order?.total}</Text>
+          </View>
+
+          <View className="mb-3 flex flex-row space-x-2">
+            <Text className="text-orange-600 font-bold">
+              Estado de la compra:
+            </Text>
+
+            <Text>{statusOrder(order?.status)}</Text>
+          </View>
+        </View>
+
+        {/* Calificar vendedor */}
+
+        {order?.status === "completed" ? (
+          <>
+            {order?.rate_to_c > 0 ? (
+              <View className="mt-5 mb-12" >
+                <Text className="text-orange-500 text-center font-bold text-lg mb-3">
+                  Tu Calificación
+                </Text>
+
+                <Rating
+                  type="star"
+                  count={5}
+                  startingValue={order?.rate_to_c}
+                  imageSize={20}
+                  showRating={false}
+                  readonly
+                />
+
+                <Text className="text-center">{order?.rate_to_c}</Text>
+              </View>
+            ) : (
+              <View className="my-12">
+                <Text className="text-orange-500 text-center font-bold text-lg">
+                  Califica la compra
+                </Text>
+                <View>
+                  <AirbnbRating
+                    count={5}
+                    reviews={[
+                      "Terrible",
+                      "Malo",
+                      "Normal",
+                      "Bueno",
+                      "Excelente",
+                    ]}
+                    defaultRating={rating}
+                    size={20}
+                    onFinishRating={setRating}
+                  />
+                </View>
+                <Button
+                  title={"Enviar mi calificación"}
+                  loading={loadingRating}
+                  containerStyle={{ marginBottom: 20, marginTop: 60 }}
+                  onPress={() =>
+                    sendStarFn(
+                      { id: order?.id, rate: rating },
+                      user?.token,
+                      setLoadingRating
+                    )
+                  }
+                />
+              </View>
+            )}
+          </>
+        ) : (
+          <Button
+            title={`Chatear con el vendedor`}
+            containerStyle={{ marginBottom: 20, marginTop: 60 }}
+            onPress={() => openWhatsAppChat(order?.commerce?.phone)}
+            icon={<FontAwesome name="whatsapp" size={20} color="white" />}
+          />
+        )}
+      </View>
     );
+  }
+
+  return (
+    <SafeAreaView style={{ ...SAFEAREAVIEW.AndroidSafeArea }}>
+      <Header
+        title="Detalles del producto"
+        onPress={() => {
+          if (goHome) return navigation.navigate("MainLayout");
+          navigation.goBack();
+        }}
+      />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {renderDetails()}
+      </ScrollView>
+    </SafeAreaView>
+  );
 }

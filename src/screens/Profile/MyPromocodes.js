@@ -98,7 +98,7 @@ export default function MyPromocodes() {
                                                 item.time ==
                                                 "Valid until June 30, 2019"
                                                     ? COLORS.red
-                                                    : COLORS.black2,
+                                                    : COLORS.black,
                                             borderRadius: 4,
                                             marginRight: 5,
                                         }}
@@ -142,7 +142,7 @@ export default function MyPromocodes() {
                         textAlign: "center",
                         ...FONTS.Roboto_700Bold,
                         fontSize: 22,
-                        color: COLORS.black2,
+                        color: COLORS.black,
                         textTransform: "capitalize",
                         marginBottom: 10,
                     }}

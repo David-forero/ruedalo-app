@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "93752777808",
+    "project_id": "ruedalo-3909f",
+    "storage_bucket": "ruedalo-3909f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:93752777808:android:281ba80721fbef44d5c555",
+        "android_client_info": {
+          "package_name": "com.daele.ruedalo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "93752777808-clnepbbcbjhvk0lg6orvdno96f58o54t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpmHXaAhxxKAXKcFJHIpmd-x_ShA_uMHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "93752777808-clnepbbcbjhvk0lg6orvdno96f58o54t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

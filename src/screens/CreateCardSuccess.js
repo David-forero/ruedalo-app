@@ -26,7 +26,7 @@ export default function CreateCardSuccess() {
                         ...FONTS.Roboto_700Bold,
                         fontSize: 22,
                         textTransform: "capitalize",
-                        color: COLORS.black2,
+                        color: COLORS.black,
                         marginBottom: 10,
                     }}
                 >
@@ -45,7 +45,7 @@ export default function CreateCardSuccess() {
                 </Text>
                
                 <Button
-                    title="Ver lista de vehículos"
+                    title="Volver a mis vehículos"
                     onPress={() => navigation.navigate('MainLayout')}
                     containerStyle={{ backgroundColor: COLORS.orange }}
                     textStyle={{ color: COLORS.white }}

@@ -29,19 +29,18 @@ export default function PasswordHasBeenReset() {
                         marginBottom: 10,
                     }}
                 >
-                    Password Has Been Reset
+                    Su contraseña ha sido reseteada
                 </Text>
                 <Text
                     style={{
                         ...FONTS.H4,
                     }}
                 >
-                    Qui ex aute ipsum duis. Incididunt adipisicing voluptate
-                    laborum
+                  Ahora puedes iniciar sesión con la nueva contraseña
                 </Text>
                 <View style={{ height: SIZES.height / 5 }} />
                 <Button
-                    title="Done"
+                    title="Listo"
                     onPress={() => navigation.navigate("SignIn")}
                 />
             </ScrollView>

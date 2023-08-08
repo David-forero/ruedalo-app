@@ -9,7 +9,8 @@ export default function Button({
     onPress,
     textStyle,
     loading = false,
-    valid = true
+    valid = true,
+    icon
 }) {
     return (
         <TouchableOpacity
@@ -20,7 +21,7 @@ export default function Button({
                 borderRadius: 10,
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: COLORS.black2,
+                backgroundColor: COLORS.black,
                 ...containerStyle,
                 zIndex: 1,
             }}
@@ -31,15 +32,13 @@ export default function Button({
                 loading ? (<ActivityIndicator size="small" color="#fff" />) : (<Text
                     style={{
                         textAlign: "center",
-                        color: textColor,
+                        color: textColor || COLORS.white,
                         fontSize: 16,
-                        color: COLORS.white,
-                        textTransform: "capitalize",
                         ...FONTS.Roboto_500Medium,
                         ...textStyle,
                     }}
                 >
-                    {title}
+                    {icon ? <Text className="mr-3">{icon}</Text> : null}  {title}
                 </Text>)
             }
         </TouchableOpacity>

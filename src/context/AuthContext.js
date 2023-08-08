@@ -1,102 +1,239 @@
-import { useContext, createContext, useState, useCallback, useEffect } from "react";
-import { post } from "../common/functions/http";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  useContext,
+  createContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
+import { get, post } from "../common/functions/http";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "react-native-flash-message";
-
-//Web==
-//Secret: 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
-//ID:469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com
-//Android==
-//ID: 469688688692-jbm36cdotrfies2i9fp9p8d7i3ua2ne9.apps.googleusercontent.com
-//Ios==
-//Client ID: 469688688692-ulr8dlggrkuqhjshnj6f76slm0vv8q66.apps.googleusercontent.com
+import * as Sentry from "sentry-expo";
+import {
+  registerIndieID,
+  getUnreadIndieNotificationInboxCount,
+  getUnreadNotificationInboxCount,
+  getPushDataObject,
+} from "native-notify";
+import { useNavigationCustom } from "../common/hooks";
 
 const AuthContext = createContext({});
-
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [auth, setAuth] = useState(false);
   const [enableBoarding, setEnableBoarding] = useState(true);
+  const [notificationCounts, setNotificationCounts] = useState(null);
 
-  const loadingApp = useCallback(async (setLoading) => {
-    let userValue = await AsyncStorage.getItem('user');
-    let onboarding = await AsyncStorage.getItem('onboarding');
-    userValue = JSON.parse(userValue);
-    onboarding = JSON.parse(onboarding);
-    setEnableBoarding(onboarding)
-    if (userValue) {
-      setUser(userValue);
+  const [coordenatesPermitions, setCoordenatesPermitions] = useState(false);
+  let pushDataObject = getPushDataObject();
+
+  const navigate = (name, params) => { 
+    useNavigationCustom.current?.navigate(name, params)
+   }
+
+  useEffect(() => {
+    if (pushDataObject.objective === "order") {
+      navigate("Order", { id: pushDataObject.id_objective });
     }
-    setLoading(false)
-  }, [])
+  }, [pushDataObject]);
 
+  const getNotificationsCountsFn = async (email) => {
+    const [unreadCountIndie, unreadCountGeneral] = await Promise.all([
+      getUnreadIndieNotificationInboxCount(
+        `${email}`,
+        9483,
+        "bqoXH6eT0xaUSZiecB9LHV"
+      ),
+      getUnreadNotificationInboxCount(9483, "bqoXH6eT0xaUSZiecB9LHV"),
+    ]);
 
+    let totalCount = unreadCountIndie + unreadCountGeneral;
+    return setNotificationCounts(totalCount);
+   }
 
-  const signInFn = useCallback(async (formData, navigation, setLoading) => {
-    const { data } = await post("/login", formData);
+  const loadingApp = async (setLoading, SplashScreen) => {
+    console.log("🔥 cargando app...");
+    try {
+      // Obteniendo datos almacenados
+      const [userValue, onboarding, coordenateEnable] = await Promise.all([
+        AsyncStorage.getItem("user"),
+        AsyncStorage.getItem("onboarding"),
+        AsyncStorage.getItem("coordenatesPermitions"),
+      ]);
+
+      // Parse JSON values
+      const parsedUserValue = await JSON.parse(userValue);
+      const parsedOnboarding = JSON.parse(onboarding);
+      const parsedCoordenateEnable = JSON.parse(coordenateEnable);
+
+      // Prueba de token
+      const { data } = await get("/list_cars", parsedUserValue?.token);
+      if (data.message === "Token Invalido" && data.status === 302) {
+        await AsyncStorage.removeItem("user");
+        return;
+      }
+
+      // Set state
+      setEnableBoarding(parsedOnboarding);
+      setUser(parsedUserValue);
+      setCoordenatesPermitions(parsedCoordenateEnable);
+
+      //Habilitar auth
+      if (userValue) {
+        //Activar cantidad de notificaciones del usuario
+        await getNotificationsCountsFn(userValue.email);
+
+        setAuth(true);
+        registerIndieID(`${userValue.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
+      }
+    } catch (error) {
+      console.error("⭕️ error --->", error);
+      Sentry.Native.captureException(error);
+    }
     setLoading(false);
+    SplashScreen.hideAsync();
+  };
 
-    if (data.status === true) {
+  const sendVerifyEmailFn = useCallback(async (myToken) => {
+    await post("/verify-email", {}, myToken);
+  }, []);
+
+  const confirmVerifyEmailFn = useCallback(
+    async (otp, navigation, setLoading, myToken) => {
+      //Transformacion del otp
+      let keys = Object.keys(otp).sort();
+      let otpString = "";
+      for (const key of keys) {
+        otpString += otp[key];
+      }
+      otp = otpString;
+      //Se verifica el token ✅
+      const { data } = await post("/verify-email", { otp }, myToken);
+      setLoading(false);
+      if (!data.status) {
+        return showMessage({
+          message: "Error al confirmar correo",
+          description: data.message,
+          type: "danger",
+        });
+      }
+      navigation.navigate("AccountCreated");
+
+      //En caso de que funcione, obtengo los datos del usuario y actualizo el status ✍️
+      let userValue = await AsyncStorage.getItem("user");
+      userValue = JSON.parse(userValue);
+      userValue.status = "confirmed";
+      setUser(userValue);
+      await AsyncStorage.setItem("user", JSON.stringify(userValue));
+    },
+    []
+  );
+
+  const signInFn = async (formData, navigation, setLoading) => {
+    formData.token_notif = formData.email;
+    try {
+      const { data } = await post("/login", formData);
+      setLoading(false);
+      if (data.status == 400 || data.status === false) {
+        return showMessage({
+          message: "Error al iniciar sessión",
+          description: data.message,
+          type: "danger",
+        });
+      }
+
       setUser(data.data);
-      setAuth(true)
+      registerIndieID(`${formData.email}`, 9483, "bqoXH6eT0xaUSZiecB9LHV");
+      await getNotificationsCountsFn(formData.email);
+
       let dataString = JSON.stringify(data.data);
-      await AsyncStorage.setItem('user', dataString)
-      return navigation.navigate('MainLayout')
-    } else {
+      await AsyncStorage.setItem("user", dataString);
+      setAuth(true);
+    } catch (error) {
+      console.error(error);
       showMessage({
         message: "Error al iniciar sessión",
-        description: data.message,
+        description: "Error desconocido...",
         type: "danger",
       });
     }
-
-  }, []);
+    setLoading(false);
+  };
 
   const signUpFn = useCallback(async (formData, navigation, setLoading) => {
-    const { data } = await post("/register_user", formData);
-    setLoading(false);
-    console.log('🔥 status', data.status);
+    try {
+      delete formData.confirmPassword;
+      const { data } = await post("/register_user", formData);
+      setLoading(false);
 
-    if (data.status === true) {
-      setAuth(true)
-      setUser(data.data);
-      let dataString = JSON.stringify(data.data);
-      await AsyncStorage.setItem('user', dataString)
-      return navigation.navigate('MainLayout')
-    } else {
+      if (data.status === true) {
+        data.data.status = "pending";
+        setAuth(true);
+        await setUser(data.data);
+        let dataString = JSON.stringify(data.data);
+        await AsyncStorage.setItem("user", dataString);
+        return navigation.navigate("OtpCodeEmail");
+      } else {
+        showMessage({
+          message: "Error al registrar",
+          description: data.message,
+          type: "danger",
+        });
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("🔴 Erroooooor --->", error);
+      Sentry.Native.captureException(error);
       showMessage({
         message: "Error al registrar",
-        description: data.message,
+        description: "Algo salió mal, intenta mas tarde",
         type: "danger",
       });
     }
   }, []);
 
   const logOutFn = useCallback(async (navigation) => {
-    console.log('cerrando...')
-    await post("/login", '');
-    await AsyncStorage.removeItem('user');
+    // await post("/login", {}, token);
+    setAuth(false);
     setUser(null);
+    await AsyncStorage.removeItem("user");
     navigation.navigate("SignIn");
-  },[]);
+  }, []);
 
-  const signWithGoogleFn = async (data) => {
-    setUser(data)
-    let dataString = JSON.stringify(data);
-    await AsyncStorage.setItem('user', dataString)
-  }
+  const signWithGoogleFn = async (googleData, setLoading) => {
+    const { data } = await post("/login-google", {
+      email: googleData.email,
+      token_notif: googleData.email,
+    });
+    await getNotificationsCountsFn(googleData.email);
+    setLoading(false);
+    setUser(data.data);
+
+    setAuth(true);
+    let dataString = JSON.stringify(data?.data);
+    await AsyncStorage.setItem("user", dataString);
+  };
 
   return (
     <AuthContext.Provider
       value={{
         user,
+        setUser,
         auth,
         enableBoarding,
+        coordenatesPermitions,
+        setCoordenatesPermitions,
+        notificationCounts,
+        setNotificationCounts,
+        //Functions
+        getNotificationsCountsFn,
         signInFn,
         signUpFn,
         signWithGoogleFn,
         loadingApp,
-        logOutFn
+        logOutFn,
+        sendVerifyEmailFn,
+        confirmVerifyEmailFn,
       }}
     >
       {children}

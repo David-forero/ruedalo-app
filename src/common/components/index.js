@@ -52,6 +52,7 @@ import HeartTwo from "./svg/HeartTwo";
 import QuestionOpen from "./svg/QuestionOpen";
 import QuestionClose from "./svg/QuestionClose";
 import Remove from "./svg/Remove";
+import VenezuelaFlag from './svg/VenezuelaFlag';
 
 /* COMPONENTS */
 import Button from "./Button";
@@ -67,6 +68,14 @@ import ItemComponentTwo from "./ItemComponentTwo";
 import SliderBanner from './SliderBanner';
 import CategoryFilter from './CategoryFilter';
 import CardCatalog from './CardCatalog';
+import InputPassword from './InputPassword';
+import LoadingListOne from './loadings/LoadingListOne';
+import LoadingListTwo from './loadings/LoadingListTwo';
+import LoadingFullScreen from './loadings/LoadingFullScreen';
+import InputPhone from './InputPhone';
+import ModalPermitions from './ModalPermitions';
+import Pagination from './Pagination';
+import CustomImageCarousal from './CustomImageCarousal';
 
 export {
     Button,
@@ -108,6 +117,7 @@ export {
     Star,
     DeliveryMan,
     Clock,
+    VenezuelaFlag,
     PinTwo,
     Filter,
     CheckTwo,
@@ -134,5 +144,14 @@ export {
     Google,
     CategoryFilter,
     CardCatalog,
-    Remove
+    Remove,
+    InputPassword,
+    InputPhone,
+    Pagination,
+    CustomImageCarousal,
+    //LOADINGS ⏳️
+    LoadingListOne,
+    LoadingListTwo,
+    LoadingFullScreen,
+    ModalPermitions
 };

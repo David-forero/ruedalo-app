@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "repuestos-ya",
-    "slug": "repuestos-ya",
+    "name": "Ruédalo",
+    "slug": "ruedalo",
     "scheme": "myapp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -12,30 +12,35 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "assets/*"
+    ],
+    "notification": {
+      "icon": "./assets/adaptive-icon.png"
+    },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.daele.repuestosya"
+      "bundleIdentifier": "com.daele.ruedalo"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundImage": "./assets/adaptive-icon.png"
       },
-      "package": "com.daele.repuestosya"
+      "package": "com.daele.ruedalo",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "config": {
-        "googleSignIn": {
-          "reservedClientId": "469688688692-0i7mt0uqbc96hbp0u6jttvrg8lm3c7d8.apps.googleusercontent.com"
-        }
-      }
+      "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "fbfd8a2c-b684-4ff8-9bc5-8dfdd84a5250"
+        "projectId": "6b098aeb-e8fb-42e4-82f7-32f0f807ffb9"
       }
-    }
+    },
+    "owner": "misrepuestos",
+    "plugins": [
+      "sentry-expo"
+    ]
   }
 }

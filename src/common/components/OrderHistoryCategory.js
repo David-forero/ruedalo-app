@@ -1,6 +1,8 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { COLORS, FONTS } from "../constants";
+import Dayjs from "dayjs";
+import statusOrder from "../functions/statusOrder";
 
 export default function OrderHistoryCategory({ item, type }) {
     return (
@@ -18,7 +20,7 @@ export default function OrderHistoryCategory({ item, type }) {
             }}
         >
             <Image
-                source={item.image}
+                source={{ uri: `https://backend.dev.ruedalo.app/api/${item.type === 'product' ? 'product' : 'service'}/${item.type === 'product' ? item?.product?.image[0] : item?.service?.image[0]}`}}
                 style={{
                     width: 65,
                     height: 65,
@@ -42,24 +44,17 @@ export default function OrderHistoryCategory({ item, type }) {
                             flex: 1,
                         }}
                     >
-                        {item.date}
+                        {Dayjs(item?.createdAt).format('DD/MM/YYYY')}
                     </Text>
                     <View
                         style={{
                             width: 8,
                             height: 8,
-                            backgroundColor: COLORS.orange,
                             borderRadius: 5,
                         }}
+                        className="bg-orange-500 mr-2"
                     />
-                    <Text
-                        style={{
-                            marginHorizontal: 5,
-                            ...FONTS.Roboto_400Regular,
-                            fontSize: 13,
-                            color: COLORS.gray2,
-                        }}
-                    >{`${item.quantity} Items  x`}</Text>
+                    
                     <Text
                         style={{
                             ...FONTS.Roboto_700Bold,
@@ -67,7 +62,7 @@ export default function OrderHistoryCategory({ item, type }) {
                             color: COLORS.carrot,
                         }}
                     >
-                        ${item.price}
+                        Total: ${item?.total} 
                     </Text>
                 </View>
 
@@ -79,7 +74,7 @@ export default function OrderHistoryCategory({ item, type }) {
                         color: COLORS.black,
                     }}
                 >
-                    {item.name}
+                    {item.type == 'product' ? item?.product?.title : item?.service?.description}
                 </Text>
                 <View
                     style={{
@@ -112,7 +107,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                     color: COLORS.carrot,
                                 }}
                             >
-                                Cancelled
+                                {statusOrder(item?.status)}
                             </Text>
                         </View>
                     ) : (
@@ -126,7 +121,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                 style={{
                                     width: 8,
                                     height: 8,
-                                    backgroundColor: COLORS.black2,
+                                    backgroundColor: COLORS.black,
                                     borderRadius: 4,
                                     marginRight: 5,
                                 }}
@@ -136,29 +131,29 @@ export default function OrderHistoryCategory({ item, type }) {
                                     style={{
                                         ...FONTS.Roboto_400Regular,
                                         fontSize: 13,
-                                        color: COLORS.black2,
+                                        color: COLORS.black,
                                     }}
                                 >
-                                    Upcoming
+                                      {statusOrder(item?.status)}
                                 </Text>
                             ) : (
                                 <Text
                                     style={{
                                         ...FONTS.Roboto_400Regular,
                                         fontSize: 13,
-                                        color: COLORS.black2,
+                                        color: COLORS.black,
                                     }}
                                 >
-                                    Completed
+                                    Completado
                                 </Text>
                             )}
                         </View>
                     )}
 
-                    {type == "completed" && (
+                    {/* {type == "completed" && (
                         <TouchableOpacity
                             style={{
-                                backgroundColor: COLORS.black2,
+                                backgroundColor: COLORS.black,
                                 borderRadius: 12,
                             }}
                         >
@@ -172,26 +167,7 @@ export default function OrderHistoryCategory({ item, type }) {
                                 Re-Order
                             </Text>
                         </TouchableOpacity>
-                    )}
-
-                    {type == "upcoming" && (
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: COLORS.red,
-                                borderRadius: 12,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    paddingHorizontal: 16,
-                                    paddingVertical: 4,
-                                    color: COLORS.white,
-                                }}
-                            >
-                                Cancel
-                            </Text>
-                        </TouchableOpacity>
-                    )}
+                    )} */}
                 </View>
             </View>
         </View>

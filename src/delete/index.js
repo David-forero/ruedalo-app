@@ -110,7 +110,7 @@
             >
                 <Text
                     style={{
-                        color: COLORS.black2,
+                        color: COLORS.black,
                         ...FONTS.Roboto_500Medium,
                         fontSize: 12,
                     }}
@@ -203,7 +203,7 @@
                         textAlign: "center",
                         ...FONTS.Roboto_500Medium,
                         fontSize: 12,
-                        color: COLORS.black2,
+                        color: COLORS.black,
                         textTransform: "capitalize",
                     }}
                 >

@@ -10,12 +10,13 @@ export default function InputField({
     rightIcon,
     secureTextEntry,
     keyboardType = 'default',
-    value = '',
+    value = null,
     onBlur,
     onChangeText,
     textContentType = 'none',
     error = false,
-    touched
+    touched,
+    editable = true
 }) {
     return (
         <View className="mb-3">
@@ -43,6 +44,7 @@ export default function InputField({
                     textContentType={textContentType}
                     keyboardType={keyboardType}
                     touched={touched}
+                    editable={editable}
                 />
             </View>
             {error && <Text className="px-3 text-red-700 my-1">*{error}</Text>}

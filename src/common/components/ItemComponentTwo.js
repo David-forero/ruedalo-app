@@ -1,11 +1,9 @@
 import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
 import React from "react";
 import { Shadow } from "react-native-shadow-2";
-import { showMessage } from "react-native-flash-message";
-
 import { FONTS, COLORS } from "../constants";
-
-import Heart from "./svg/Heart";
+import { AntDesign } from '@expo/vector-icons';
+import Clock from "./svg/Clock";
 
 export default function ItemComponentTwo({ item, onPress }) {
     return (
@@ -22,14 +20,15 @@ export default function ItemComponentTwo({ item, onPress }) {
                 onPress={onPress}
             >
                 <ImageBackground
-                    source={item.presentationImage}
+                    source={{uri: 'https://backend.dev.ruedalo.app/api/product/' + item?.image[0]}}
                     style={{
                         height: 144,
                         width: "100%",
                     }}
                     imageStyle={{ borderRadius: 10 }}
+                    resizeMode="contain"
                 >
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={{
                             padding: 16,
                             alignSelf: "flex-start",
@@ -39,7 +38,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                             fillColor={COLORS.red}
                             strokeColor={COLORS.red}
                         />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </ImageBackground>
                 <View
                     style={{
@@ -66,7 +65,7 @@ export default function ItemComponentTwo({ item, onPress }) {
                             }}
                             numberOfLines={1}
                         >
-                            {item.name}
+                            {item.title}
                         </Text>
 
                         <Text
@@ -84,40 +83,56 @@ export default function ItemComponentTwo({ item, onPress }) {
                             marginBottom: 15,
                             color: COLORS.gray2,
                         }}
-                        numberOfLines={1}
+                        numberOfLines={2}
                     >
-                        {item.compound}
+                        {item.description}
                     </Text>
-                    <TouchableOpacity
-                        style={{
-                            height: 32,
-                            width: "100%",
-                            backgroundColor: COLORS.lightOrange,
-                            justifyContent: "center",
-                            alignItems: "center",
-                            textTransform: "capitalize",
-                            borderRadius: 5,
-                        }}
-                        onPress={() => {
-                            showMessage({
-                                message: "Success",
-                                description: `${item.name} was added.`,
-                                type: "success",
-                            });
-                        }}
+
+                    <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 7,
+                    }}
+                  >
+                    <AntDesign name="profile" size={14} color={'#1DBF73'} />
+                    <Text
+                      style={{
+                        marginLeft: 5,
+                        ...FONTS.Roboto_400Regular,
+                        fontSize: 12,
+                        color: COLORS.gray2,
+                        lineHeight: 12 * 1.2,
+                        width: "85%",
+                      }}
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
                     >
-                        <Text
-                            style={{
-                                textAlign: "center",
-                                ...FONTS.Roboto_500Medium,
-                                fontSize: 12,
-                                color: COLORS.black2,
-                                textTransform: "capitalize",
-                            }}
-                        >
-                            Add to Cart
-                        </Text>
-                    </TouchableOpacity>
+                      {item.brand}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 8,
+                    }}
+                  >
+                    <Clock />
+
+                    <Text
+                      style={{
+                        ...FONTS.Roboto_400Regular,
+                        fontSize: 12,
+                        color: COLORS.gray2,
+                        lineHeight: 12 * 1.2,
+                        marginLeft: 4,
+                      }}
+                    >
+                      Unos {Math.round(item?.distance)}km de distancia
+                    </Text>
+                  </View>
+                  
                 </View>
             </TouchableOpacity>
         </Shadow>

@@ -25,14 +25,13 @@ export default function AccountCreated() {
                     style={{
                         ...FONTS.Roboto_700Bold,
                         fontSize: 22,
-                        color: COLORS.black2,
-                        textTransform: "capitalize",
+                        color: COLORS.black,
                         textAlign: "center",
                         marginTop: 35,
                         marginBottom: 10,
                     }}
                 >
-                    ¡Cuenta creada!
+                    ¡Cuenta creada sastifactoriamente!
                 </Text>
                 <Text
                     style={{
@@ -45,12 +44,12 @@ export default function AccountCreated() {
                         lineHeight: 16 * 1.5,
                     }}
                 >
-                    Tu cuenta ha sido creada sastifactoriamente. Por favor inicia sesión y disfruta.
+                    Se ha verificado tu cuenta, ya puedes ver nuestros servicios
                 </Text>
                 <Button
-                    title="Iniciar sesión"
-                    containerStyle={{ backgroundColor: COLORS.black2 }}
-                    onPress={() => navigation.navigate("SignIn")}
+                    title="Ver tiendas"
+                    containerStyle={{ backgroundColor: COLORS.black }}
+                    onPress={() => navigation.navigate("MainLayout")}
                 />
             </ScrollView>
         );
