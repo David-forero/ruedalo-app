@@ -214,7 +214,7 @@ const MemberShip = () => {
             <>
               {user?.plan === 2 ? (
                 <Button
-                  title="volver a suscripción gratuita"
+                  title="Volver a suscripción gratuita"
                   loading={loading}
                   onPress={() => {
                     setShowModal(true);
@@ -227,7 +227,7 @@ const MemberShip = () => {
                   onPress={() => {
                     setLoading(true);
                     paySubscriptionFn(
-                      "price_1NN0i3LMRr0T3EiEspJH8v1P",
+                      "price_1NLqqLGFUPnOrSP5iiNHqQnP",
                       navigation,
                       setLoading,
                       user?.token,
