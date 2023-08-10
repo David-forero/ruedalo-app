@@ -4,7 +4,7 @@ import Motor from "./motor.png";
 import Frenos from "./frenos.png";
 import AireAcondicionado from "./aire-acondicionado.png";
 import AceiteDeMotor from "./aceite-de-motor.png";
-import Bateria from "./batería.png";
+import Bateria from "./bateria.png";
 import Carroceria from "./carroceria.png";
 import Llanta from "./llanta.png";
 import Kit from './kit.png'
@@ -18,7 +18,7 @@ const category = {
   "frenos.png": Frenos,
   "aire-acondicionado.png": AireAcondicionado,
   "aceite-de-motor.png": AceiteDeMotor,
-  "batería.png": Bateria,
+  "bateria.png": Bateria,
   "carroceria.png": Carroceria,
   "llanta.png": Llanta,
   'kit.png': Kit,
