@@ -109,6 +109,7 @@ const StoreProvider = ({ children }) => {
   const getCategoryProductsFn = async (token, setLoading) => {
     const {data} = await get("/list_categories", token);
     setLoading(false);
+    console.log(data);
     setCategoriesProducts(data.data.rows)
   };
 

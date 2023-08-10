@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
 
       // Prueba de token
       const { data } = await get("/list_cars", parsedUserValue?.token);
-      if (data.message === "Token Invalido" && data.status === 302) {
+      if (data.message === "Token Invalido" || data.message === "Ha expirado su sesión." && data.status === 302) {
         await AsyncStorage.removeItem("user");
         return;
       }
